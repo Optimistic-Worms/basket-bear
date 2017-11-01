@@ -1,12 +1,13 @@
-# Project Name
+# Budget Basket
 
-> Pithy project description
+> A documented API that provides data endpoints of “requested price” information to retailers and businesses. The data will be collected from a UI that allows online shoppers to receive notifications when their requested product falls below their desired price across three major online retailers.
 
 ## Team
 
-  - __Product Owner__: teamMember
-  - __Scrum Master__: teamMember
-  - __Development Team Members__: teamMember, teamMember
+  - __Product Owner__: Jason
+  - __Scrum Master__: Diana
+  - __Git Workflow__: Nick
+  - __Software Engineer__: Candice
 
 ## Table of Contents
 
