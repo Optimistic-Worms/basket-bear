@@ -4,12 +4,17 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 
-const config = require('../webpack.dev.js');
 
-const compiler = webpack(config);
+
+
 
 const path = require('path');
 const port = process.env.PORT || 3000;
+
+let config;
+(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
+const compiler = webpack(config);
+
 
 console.log('server is running');
 
