@@ -1,28 +1,4 @@
-sudo: required
-services:
-- docker
-install:
-- docker build -t basket .
-script:
-- docker run -it -p 8000:8000 basket npm test
-deploy:
-  - provider: elasticbeanstalk
-    access_key_id: ${AWS_ACCESS_KEY_ID}
-    secret_access_key:
-      secure: ${AWS_SECRET_ACCESS_KEY}
-    region: us-east-1
-    app: basket
-    env: staging
-    bucket_name: elasticbeanstalk-us-east-1-767596259046
-    on:
-      condition: "$TRAVIS_PULL_REQUEST == 'false'"
-  - provider: elasticbeanstalk
-    access_key_id: ${AWS_ACCESS_KEY_ID}
-    secret_access_key:
-      secure: ${AWS_SECRET_ACCESS_KEY}
-    region: us-east-1
-    app: basket
-    env: basket-prod
-    bucket_name: elasticbeanstalk-us-east-1-767596259046
-    on:
-      condition: "$TRAVIS_EVENT_TYPE == 'cron'"
+language: node_js
+node_js:
+  - '0.8'
+  - '0.10'
