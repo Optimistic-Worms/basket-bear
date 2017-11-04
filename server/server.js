@@ -13,17 +13,14 @@ let config;
 const compiler = webpack(config);
 
 
-console.log('server is running');
-
 app.use(express.static(__dirname));
 
 app.use(webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
 }));
 
-
-
-app.listen(port || 3000)
+const server = app.listen(port || 3000);
+console.log('server is running');
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
@@ -47,4 +44,7 @@ app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, './index.html'))
 });
 
-module.exports = app;
+
+
+module.exports.server = server;
+module.exports.app = app;
