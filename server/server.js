@@ -5,9 +5,6 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 
 
-
-
-
 const path = require('path');
 const port = process.env.PORT || 3000;
 
@@ -49,3 +46,5 @@ app.get('*.js', function (req, res, next) {
 app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, './index.html'))
 });
+
+module.exports = app;
