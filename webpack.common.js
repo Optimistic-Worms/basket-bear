@@ -6,7 +6,7 @@ const webpack = require('webpack');
 module.exports = {
   entry: {
     app: './client/src/index.jsx',
-  }, 
+  },
   module: {
     rules: [
       {
@@ -46,11 +46,11 @@ module.exports = {
     path: path.resolve(__dirname + '/dist'),
     publicPath: '/'
   },
-  plugins: [ 
+  plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Shopping',
-      template: './index.html'
+      template: 'index.html'
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
