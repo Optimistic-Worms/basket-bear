@@ -9,3 +9,7 @@ before_install:
   - docker build . -t thesis
   - docker run -it -p 8000:8000 thesis
   - docker ps -a
+
+node_js:
+  - '8.2.1'
+ 
