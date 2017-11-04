@@ -4,19 +4,20 @@ node_js:
 sudo: required
 services:
 - docker
-before_install:
-
+before_script:
 - docker build . -t thesis
-- docker run -it -p 8000:8000 thesis
 - docker ps -a
 
-deploy:
-  provider: elasticbeanstalk
-  access_key_id: AKIAJAUQER3J3AKWB3CQ
-  region: us-east-1
-  app: thesis2
-  env: example-app-environment
+script:
+  - docker run -it -p 8000:8000 thesis
 
-env:
-  global:
-    secure: YBZUjIGKvRsmWC+uXB1Ae4KpwzgOdDJnOjMkw/xIZgsV/VLKi+ihXZQDvX+G5tUkGcEUGB/NGn9o+Remuvv/QQYyp+A1mMra70mmvK3J8z2UKNWVlKHoMPMuaY9PgRkWtcmqraSb7yY/7qLDrUvjy4ePzr10pFxerxaEptZmumCfqPKEYxNObLC3Zi2P5bi2ie0dYm6s6dIzYQN1gy1Af1iy3Qx+0uuPW0wl/bRAUWlmR+0KQnMQ1DOHNX3wJ9TFe8wjQP3o/R7xZGT+dV0u9JIouWHi3amRtBK4SxTsuh1NbuLSpATdiPUC1fSW0OdhN835iaQJ242czW2aNUiMv69b57Jld0qLDvG7DvMFM9QXn12m7l1gSDr755FwDuVvJQ7jDf7PqnF6KleFLPEgpxip+XHSgNDrOzEBXMISyRM3Bg0tP+Kc5iDe0KhrlkIy4NMcFQY8/2ya+jcwPHpe5+7JuW8NCdpWLHtKfJVorz/iiPPjup0N8T1r3jVBk4wwCmp/79QGp/HTRBmQ81xdwsXE/h8SWcRw0I1Io4bJxeuxDvfmsePLOZK0ck90Z0duA8L7SRxUDifVeOQKcdj4GO364LO6H9F3Zn9nnNb8kI9etBorhjA5Lb+pvb70LQmdmEmZ2R2avQzqiVvTgQu8WLY17TVzpuzP79OiG3pIbKU=
+# deploy:
+#   provider: elasticbeanstalk
+#   access_key_id: AKIAJAUQER3J3AKWB3CQ
+#   region: us-east-1
+#   app: thesis2
+#   env: example-app-environment
+
+# env:
+#   global:
+#     secure: YBZUjIGKvRsmWC+uXB1Ae4KpwzgOdDJnOjMkw/xIZgsV/VLKi+ihXZQDvX+G5tUkGcEUGB/NGn9o+Remuvv/QQYyp+A1mMra70mmvK3J8z2UKNWVlKHoMPMuaY9PgRkWtcmqraSb7yY/7qLDrUvjy4ePzr10pFxerxaEptZmumCfqPKEYxNObLC3Zi2P5bi2ie0dYm6s6dIzYQN1gy1Af1iy3Qx+0uuPW0wl/bRAUWlmR+0KQnMQ1DOHNX3wJ9TFe8wjQP3o/R7xZGT+dV0u9JIouWHi3amRtBK4SxTsuh1NbuLSpATdiPUC1fSW0OdhN835iaQJ242czW2aNUiMv69b57Jld0qLDvG7DvMFM9QXn12m7l1gSDr755FwDuVvJQ7jDf7PqnF6KleFLPEgpxip+XHSgNDrOzEBXMISyRM3Bg0tP+Kc5iDe0KhrlkIy4NMcFQY8/2ya+jcwPHpe5+7JuW8NCdpWLHtKfJVorz/iiPPjup0N8T1r3jVBk4wwCmp/79QGp/HTRBmQ81xdwsXE/h8SWcRw0I1Io4bJxeuxDvfmsePLOZK0ck90Z0duA8L7SRxUDifVeOQKcdj4GO364LO6H9F3Zn9nnNb8kI9etBorhjA5Lb+pvb70LQmdmEmZ2R2avQzqiVvTgQu8WLY17TVzpuzP79OiG3pIbKU=
