@@ -6,8 +6,7 @@ install:
 - docker ps -a
 
 script:
- # - docker run -it -p 8000:8000 thesis
- - docker --version
+ - docker run -it -p 8000:8000 thesis
 
 # deploy:
 #   provider: elasticbeanstalk
