@@ -17,6 +17,6 @@ deploy:
   secret_access_key:
     secure: ${AWS_SECRET_ACCESS_KEY}
   region: us-east-1
-  app: thesis2
-  env: test
+  app: basket
+  env: staging
   bucket_name: elasticbeanstalk-us-east-1-767596259046
