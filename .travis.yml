@@ -5,8 +5,7 @@ install:
 - docker build -t thesis .
 
 script:
- - docker run -d -p 8000:8000 thesis
- - docker exec bash echo HELLO
+ - docker run -d -p 8000:8000 thesis npm test
 
 # deploy:
 #   provider: elasticbeanstalk

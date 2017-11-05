@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
+    "pretest": "NODE_ENV=test",
     "test": "jest",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },

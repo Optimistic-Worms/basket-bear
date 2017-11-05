@@ -11,8 +11,6 @@ COPY . /app
 
 ENV PORT=8000
 
-CMD npm postinstall
-
 CMD npm start
 
 EXPOSE 8000
