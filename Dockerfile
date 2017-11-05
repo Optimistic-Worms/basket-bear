@@ -1,5 +1,5 @@
 #use a base node image
-FROM node:7
+FROM travisci/ci-garnet:packer-1503972846
 
 WORKDIR /app
 
