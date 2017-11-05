@@ -11,6 +11,8 @@ COPY . /app
 
 ENV PORT=8000
 
+CMD test test
+
 CMD npm start
 
 EXPOSE 8000
