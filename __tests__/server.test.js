@@ -1,21 +1,24 @@
 const request = require('supertest');
 const appServer = require('../server/server');
 
-beforeEach(function() {
-  originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
-});
+console.log(process.env.PORT)
+process.env.PORT = 8001;
 
-afterEach(function() {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-});
+// beforeEach(function() {
+//   originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
+//   jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
+// });
 
-afterAll(() => {
-  appServer.server.close();
-});
+// afterEach(function() {
+//   jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
+// });
 
-test('should get index page', () => {
-  //return request(appServer.app).get('/').expect(200);
-  expect(4).toBe(4);
-});
+// afterAll(() => {
+//   appServer.server.close();
+// });
+
+// test('should get index page', () => {
+//   //return request(appServer.app).get('/').expect(200);
+//   expect(4).toBe(4);
+// });
 
