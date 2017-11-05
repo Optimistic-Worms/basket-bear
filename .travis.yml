@@ -15,9 +15,9 @@ install:
 
 script:
   - docker run -it -p 8000:8000 basket npm test
-after_install:
+after_success:
   - pip install awsebcli --upgrade --user
-  - eval $(aws ecr get-login --no-include-email --region us-east-2)
+  - eval $(aws ecr get-login --no-include-email --region us-east-1)
   - eb deploy
 # deploy:
 #   provider: elasticbeanstalk
