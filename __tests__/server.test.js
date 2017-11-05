@@ -10,12 +10,19 @@ afterEach(function() {
   jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
 });
 
-afterAll(() => {
-  appServer.server.close();
-});
+// afterAll(() => {
+//   console.log('closing server');
+//   appServer.server.close();
+// });
 
 test('should get index page', () => {
-  //return request(appServer.app).get('/').expect(200);
-  expect(4).toBe(4);
+
+  return request(appServer).get('/').expect(200);
+  // console.log(response.statusCode);
+  //    expect(response.statusCode).toBe(400);
+  //    done();
+  // });
+
+  //expect(4).toBe(4);
 });
 
