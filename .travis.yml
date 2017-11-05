@@ -8,7 +8,7 @@ before_install:
   - pip install --user awscli # install aws cli w/o sudo
   - export PATH=$PATH:$HOME/.local/bin # put aws in the path
   - eval $(aws ecr get-login --no-include-email --region us-east-2) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
-  # - docker push [your_ecr_account].dkr.ecr.us-east-1.amazonaws.com/my_example_app:latest
+  - docker pull 767596259046.dkr.ecr.us-east-2.amazonaws.com/basket-starter:latest
 install:
 - docker build -t basket .
 
