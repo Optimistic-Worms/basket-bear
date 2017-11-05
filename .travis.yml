@@ -14,7 +14,7 @@ install:
 
 script:
  - docker run -it -p 8000:8000 basket npm test
-
+#encrypted locally
 deploy:
   provider: elasticbeanstalk
   access_key_id: AKIAJAUQER3J3AKWB3CQ
