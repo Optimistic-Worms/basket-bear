@@ -17,7 +17,7 @@ script:
 
 deploy:
   provider: elasticbeanstalk
-  access_key_id: AWS_ACCESS_KEY_ID
+  access_key_id: AKIAJAUQER3J3AKWB3CQ
   secret_access_key:
     secure: AWS_SECRET_ACCESS_KEY
   region: us-east-1
