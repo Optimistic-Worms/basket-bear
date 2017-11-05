@@ -4,12 +4,13 @@ node_js:
 sudo: required
 services:
 - docker
-install:
-- docker build -t thesis .
-- docker ps -a
+# install:
+# - docker build -t thesis .
+# - docker ps -a
 
 script:
-  - docker run -it -p 8000:8000 thesis
+ # - docker run -it -p 8000:8000 thesis
+ - docker --version
 
 # deploy:
 #   provider: elasticbeanstalk
