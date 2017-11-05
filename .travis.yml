@@ -23,3 +23,4 @@ deploy:
   region: us-east-1
   app: thesis2
   env: thesistest
+  bucket_name: elasticbeanstalk-us-east-1-767596259046
