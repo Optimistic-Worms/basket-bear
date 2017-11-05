@@ -1,15 +1,15 @@
 language: node_js
 node_js:
   - '8.2.1'
-sudo: required
-services:
-- docker
-before_script:
-- docker build . -t thesis
-- docker ps -a
+# sudo: required
+# services:
+# - docker
+# before_script:
+# - docker build . -t thesis
+# - docker ps -a
 
-script:
-  - docker run -it -p 8000:8000 thesis
+# script:
+#   - docker run -it -p 8000:8000 thesis
 
 # deploy:
 #   provider: elasticbeanstalk
