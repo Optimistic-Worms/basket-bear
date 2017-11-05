@@ -1,12 +1,9 @@
-language: node_js
-node_js:
-  - '8.2.1'
-sudo: false
+sudo: required
 services:
 - docker
-# install:
-# - docker build -t thesis .
-# - docker ps -a
+install:
+- docker build -t thesis .
+- docker ps -a
 
 script:
  # - docker run -it -p 8000:8000 thesis
