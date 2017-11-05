@@ -19,7 +19,7 @@ deploy:
   provider: elasticbeanstalk
   access_key_id: AKIAJAUQER3J3AKWB3CQ
   secret_access_key:
-    secure: AWS_SECRET_ACCESS_KEY
+    secure: "qTptL3AdFm8NkPs0d1BGcB+RfKoM3r7PYy\/BGcdAzyevUe32EQX6b4PjmrgJT4D\/wyXMaKAXhSIgx9mswXpDAV7VOrSh\/CAP0snmEKNCOuoD9hUAbGV52G8xWMjczWnFMzpZJmXVXcTb3zhSXZSALIYU8EBLOYc3FYHouok9lv2Pwe\+0H3JxA8vhdxh27giIZvzpKsOgkG2ZPjv5ux4aIEq3T708kIbFAcIoVOBepd3O3iys\+bCY4HzdQciaWsp8oGfTnAx8pu2QdodJYJnvuqw2EgCAL0lGAwN02vZvZsjFIYAJJN4wqKO1WDYs7KyEchAAKc6d9zaZBwMPVJWzzXG\/SWPCJpZJ3jmSpDqqBzRrWLi77lv\+tOwnz\/uGDxfjhD3hFGh4O3wZoZT8GhTtZc0ST0RLUZBq9jeR8K0ciBM3ZUKa6vNXK74xUMZoFY\+c38MP\/lyydP922F4lNcoRLjwHAaraLIt5yYZAzPTqQXeJtESQ1m2hbYOCWIjRO7kyeZua4e7GQdn4obzv5bN5LbiIn0js4Rzd/RzFZeiXty\/FEz6kxy4lTAo0TWTMBEMkFIh\+CSzMWcLtpFMfLraLg8BAoj1OG906ksIO8CL1xaP/h6snJGngOuaeqjfLLuhIKhvEw5kToWVQGHABqJ9v7UYeQaDOyE2jf\/YUHw7x9B8\="
   region: us-east-1
   app: thesis2
   env: thesistest
