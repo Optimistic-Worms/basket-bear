@@ -8,6 +8,7 @@ install:
 script:
  - docker run -p 8000:8000 thesis
  - docker exec bash echo Hello
+ - docker stop $(docker ps -a)
 # deploy:
 #   provider: elasticbeanstalk
 #   access_key_id: AKIAJAUQER3J3AKWB3CQ
