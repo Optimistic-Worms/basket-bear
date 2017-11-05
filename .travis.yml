@@ -9,6 +9,8 @@ before_install:
   - export PATH=$PATH:$HOME/.local/bin # put aws in the path
   - eval $(aws ecr get-login --no-include-email --region us-east-2) #needs AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY envvars
   #- docker pull 767596259046.dkr.ecr.us-east-2.amazonaws.com/basket-starter:latest
+  - pip install awsebcli --upgrade --user
+  - eb deploy
 install:
 - docker build -t basket .
 
