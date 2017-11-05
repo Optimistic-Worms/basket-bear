@@ -1,9 +1,6 @@
 const request = require('supertest');
 const appServer = require('../server/server');
 
-//console.log(process.env.PORT)
-//process.env.PORT = 8001;
-
 beforeEach(function() {
   originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
   jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;

@@ -2,10 +2,10 @@ sudo: required
 services:
 - docker
 install:
-- docker build -t thesis .
+- docker build -t basket .
 
 script:
- - docker run -it -p 8000:8000 thesis npm test
+ - docker run -it -p 8000:8000 basket npm test
 
 # deploy:
 #   provider: elasticbeanstalk
