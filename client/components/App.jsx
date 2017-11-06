@@ -9,7 +9,7 @@ class App extends React.Component {
     };
   }
   render() {
-    return ( <h1>Hello World Deploy Test 6</h1>)
+    return ( <h1>Hello World Deploy!</h1>)
   }
 }
 export default App
