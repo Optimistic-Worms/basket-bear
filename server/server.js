@@ -3,10 +3,12 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-
-
 const path = require('path');
 const port = process.env.PORT || 3000;
+const signup = require('./authroutes.js').signup;
+const manualSignIn = require('./authroutes.js').manualSignIn;
+const manualLogout = require('./authroutes.js').manualLogout;
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -21,7 +23,8 @@ app.use(webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
 }));
 
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 app.listen(port || 3000)
 
@@ -32,6 +35,10 @@ app.listen(port || 3000)
 app.get('/', (req,res)=>{
   res.sendStatus(200);
 })
+
+app.get('/signup',signup)
+app.get('/login',manualSignIn)
+app.get('/logout',manualLogout)
 
 
 /************** fallback route **************************/
