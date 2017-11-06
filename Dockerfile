@@ -11,6 +11,7 @@ COPY . /app
 
 ENV PORT=8000
 
+#default command, only run if not in test env
 CMD npm start
 
 EXPOSE 8000
