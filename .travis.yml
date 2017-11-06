@@ -18,5 +18,5 @@ deploy:
     secure: ${AWS_SECRET_ACCESS_KEY}
   region: us-east-1
   app: basket
-  env: e-y9wmfjp2tx
+  env: basket-prod
   bucket_name: elasticbeanstalk-us-east-1-767596259046
