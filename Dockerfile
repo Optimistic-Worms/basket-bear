@@ -1,5 +1,5 @@
 #use a base node image
-FROM node:7
+FROM 767596259046.dkr.ecr.us-east-1.amazonaws.com/basket-starter:latest
 
 WORKDIR /app
 
