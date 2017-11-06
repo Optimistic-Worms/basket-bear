@@ -21,4 +21,4 @@ deploy:
   env: staging
   bucket_name: elasticbeanstalk-us-east-1-767596259046
   on:
-    condition: "$TRAVIS_PULL_REQUEST == 'false'"
+    condition: "$TRAVIS_PULL_REQUEST == 'true'"
