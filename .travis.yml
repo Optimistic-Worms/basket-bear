@@ -4,7 +4,7 @@ services:
 install:
 - docker build -t basket .
 script:
-- docker run -it -p 8000:8000 basket npm run jest
+- docker run -it -p 8000:8000 basket npm test
 deploy:
   provider: elasticbeanstalk
   access_key_id: ${AWS_ACCESS_KEY_ID}
