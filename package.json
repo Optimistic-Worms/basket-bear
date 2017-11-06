@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
-    "buildContainer": "docker build -t basket-dev .",
     "test": "jest",
     "prodTest": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
