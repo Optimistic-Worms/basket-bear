@@ -3,10 +3,17 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
+
 const requestHandlers = require('./request-handlers');
+
+
 
 const path = require('path');
 const port = process.env.PORT || 3000;
+const signup = require('./authroutes.js').signup;
+const manualSignIn = require('./authroutes.js').manualSignIn;
+const manualLogout = require('./authroutes.js').manualLogout;
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -22,8 +29,13 @@ const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
 app.use(webpackDevMiddlewareInstance);
 
 
+
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 
 
@@ -56,9 +68,15 @@ app.delete('/shoppingList', (req, res) => {
   requestHandlers.removeItemFromShoppingList(req, res);
 })
 
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/signup',signup)
+app.get('/login',manualSignIn)
+app.get('/logout',manualLogout)
+
 
 
 
