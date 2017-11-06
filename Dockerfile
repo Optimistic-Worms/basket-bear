@@ -1,11 +1,11 @@
 #use a base node image
-FROM 767596259046.dkr.ecr.us-east-2.amazonaws.com/basket-starter:latest
+FROM node:7
 
 WORKDIR /app
 
 COPY package.json /app
 
-RUN npm install
+RUN npm install --silent
 
 COPY . /app
 
