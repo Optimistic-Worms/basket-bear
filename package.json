@@ -7,8 +7,8 @@
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
     "buildContainer": "docker build -t basket-dev .",
-    "test": "npm run buildContainer && docker run -it -p 8000:8000 basket npm test",
-    "travisTest": "docker run -it -p 8000:8000 basket npm test",
+    "test": "npm run buildContainer && docker run -it -p 8000:8000 basket-dev jest",
+    "travisTest": "docker run -it -p 8000:8000 basket-dev jest",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
   "repository": {
