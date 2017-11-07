@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-
+const requestHandlers = require('./request-handlers');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -15,23 +15,57 @@ const compiler = webpack(config);
 
 app.use(express.static(__dirname));
 
-app.use(webpackDevMiddleware( compiler, {
+const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
-}));
+});
+
+app.use(webpackDevMiddlewareInstance);
+
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
+
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
 app.get('/', (req,res)=>{
   res.sendStatus(200);
+});
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Shopping List Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.post('/shoppingList', (req, res) => {
+  requestHandlers.createShoppingList(req, res);
+});
+
+app.get('/shoppingList', (req, res) => {
+  requestHandlers.getShoppingList(req, res);
+});
+
+app.put('/shoppingList', (req, res) => {
+  requestHandlers.addItemToShoppingList(req, res);
+});
+
+app.delete('/shoppingList', (req, res) => {
+  requestHandlers.removeItemFromShoppingList(req, res);
 })
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Product Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/************** fallback route **************************/
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Fallback Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 /* Compression to g-zip*/
 app.get('*.js', function (req, res, next) {
@@ -48,3 +82,4 @@ app.get('*', (req,res) =>{
 
 module.exports.server = server;
 module.exports.app = app;
+module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
