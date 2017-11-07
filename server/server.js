@@ -20,7 +20,7 @@ app.use(webpackDevMiddleware( compiler, {
 }));
 
 const server = app.listen(port || 3000);
-console.log('server is running');
+console.log('server is listening on port ' + port);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
