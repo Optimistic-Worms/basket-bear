@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const requestHandlers = require('./request-handlers');
 
 
 const path = require('path');
@@ -16,13 +15,15 @@ const compiler = webpack(config);
 
 app.use(express.static(__dirname));
 
-app.use(webpackDevMiddleware( compiler, {
+const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
-}));
+});
+
+app.use(webpackDevMiddlewareInstance);
+
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
-
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -78,5 +79,6 @@ app.get('*', (req,res) =>{
 
 
 
-//module.exports.server = server;
-module.exports = app;
+module.exports.server = server;
+module.exports.app = app;
+module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
