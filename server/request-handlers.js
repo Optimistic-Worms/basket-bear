@@ -36,3 +36,4 @@ var Product = {
   requestedPrice: Number
 }
 */
+
