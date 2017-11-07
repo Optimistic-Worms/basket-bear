@@ -1,36 +1,38 @@
-//Request Handlers
+// Shopping List Handlers
 
-
-// Create a new shopping list when a new user is created
-/*
-var ShoppingList = {
-  username : string
-  items : array
-}
-
-var Product = {
-  name
-  image
-  description
-  merchant
-  link
-  listedPrice
-  requestedPrice
-}
-*/
 exports.createShoppingList = (req, res) => {
-  res.send('you made a new shopping list');
+  res.status(200).send('you made a new shopping list');
 }
 
 exports.getShoppingList = (req, res) => {
-  res.send('here is the shopping list');
+  res.status(200).send('here is the shopping list');
 }
 
 exports.addItemToShoppingList = (req, res) => {
-  res.send('adding item to shopping list');
+  res.status(200).send('adding item to shopping list');
 }
 
 exports.removeItemFromShoppingList = (req, res) => {
-  res.send('removed item from shopping list');
+  res.status(200).send('removed item from shopping list');
 }
 
+
+
+
+/*  Planning what the shopping list and product objects should look like
+
+var ShoppingList = {
+  username: String,
+  items: Array
+}
+
+var Product = {
+  name: String,
+  imageUrl: String,
+  description: String,
+  merchant: String,
+  link: String,
+  listedPrice: Number,
+  requestedPrice: Number
+}
+*/

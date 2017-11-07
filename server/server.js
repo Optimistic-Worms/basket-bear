@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-
+const requestHandlers = require('./request-handlers');
 
 const path = require('path');
 const port = process.env.PORT || 3000;

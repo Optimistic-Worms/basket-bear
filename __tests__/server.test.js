@@ -18,13 +18,32 @@ afterAll(() => {
 });
 
 
-test('should get index page', () => {
-  return request(appServer.app).get('/').expect(200);
+describe('Test Generic Routes', () => {
+  test('should get index page', () => {
+    return request(appServer.app).get('/').expect(200);
+  });
 });
 
-test('should test that it fails too', () => {
-  return request(appServer.app).get('/').expect(400);
+
+describe('Test Shopping List Routes', () => {
+  test('should get request to /shoppingList', () => {
+    return request(appServer.app).get('/shoppingList').expect(200);
+  });
+
+  test('should post to /shoppingList', () => {
+    return request(appServer.app).post('/shoppingList').expect(200);
+  });
+
+  test('should put to /shoppingList', () => {
+    return request(appServer.app).put('/shoppingList').expect(200);
+  });
+
+  test('should delete to /shoppingList', () => {
+    return request(appServer.app).delete('/shoppingList').expect(200);
+  });
+
 });
+
 
 
 
