@@ -1,4 +1,4 @@
-const signup = require('../server/authroutes.js').signup
+/*const signup = require('../server/authroutes.js').signup
 const firebasemock = require('firebase-mock');
 const mockdatabase = new firebasemock.MockFirebase();
 const mockauth = new firebasemock.MockFirebase();
@@ -19,6 +19,6 @@ describe('(Container) App', () => {
     expect(actual.addTodo).not.toBeUndefined();
     // ...
   })
-})
+})*/
 
 

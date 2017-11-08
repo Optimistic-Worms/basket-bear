@@ -4,9 +4,6 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 const requestHandlers = require('./request-handlers');
-
-
-
 const path = require('path');
 const port = process.env.PORT || 3000;
 const signup = require('./authroutes.js').signup;
@@ -22,20 +19,11 @@ const compiler = webpack(config);
 
 app.use(express.static(__dirname));
 
-console.log('server is running');
-
-
-
-
-
-
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
 });
 
 app.use(webpackDevMiddlewareInstance);
-
-
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
@@ -43,12 +31,8 @@ console.log('server is listening on port ' + port);
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/*+json' }));
-
-
-
-
 app.use(express.static(__dirname));
-app.listen(port || 3000)
+
 
 
 
@@ -57,16 +41,18 @@ app.listen(port || 3000)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-
-app.get('/', (req,res)=>{
+app.get('/', (req,res)=> {
+  res.send(200)
+});
 
 app.get('/thing', isAuthenticated, (req,res) =>{
 	console.log('hit the 200')
-
   res.sendStatus(200);
 });
+
+app.get('/signup',signup)
+app.get('/login',manualSignIn)
+app.get('/logout',manualLogout)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
@@ -93,9 +79,7 @@ app.delete('/shoppingList', (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.get('/signup',signup)
-app.get('/login',manualSignIn)
-app.get('/logout',manualLogout)
+
 
 
 
@@ -116,17 +100,15 @@ app.get('*.js', function (req, res, next) {
   next();
 });
 
-/*app.get('*', (req,res) =>{
+app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, './index.html'))
 });
-<<<<<<< HEAD
+
 
 
 
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
-=======
-*/
-module.exports = app;
+
 
