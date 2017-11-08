@@ -89,9 +89,6 @@ app.delete('/shoppingList', (req, res) => {
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/************** fallback route **************************/
-
-
 /* Compression to g-zip*/
 app.get('*.js', function (req, res, next) {
   req.url = req.url + '.gz';
