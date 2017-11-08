@@ -9,7 +9,9 @@ const port = process.env.PORT || 3000;
 const signup = require('./authroutes.js').signup;
 const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
+
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -35,7 +37,8 @@ app.use(express.static(__dirname));
 
 
 
-
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json({ type: 'application/*+json' }));
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -73,6 +76,10 @@ app.put('/shoppingList', (req, res) => {
 app.delete('/shoppingList', (req, res) => {
   requestHandlers.removeItemFromShoppingList(req, res);
 })
+
+app.get('/signup',signup)
+app.get('/login',manualSignIn)
+app.get('/logout',manualLogout)
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

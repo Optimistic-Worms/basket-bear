@@ -14,10 +14,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// idToken comes from the client app (shown above)
-
-
-
 const createUser = (email, password, callback) => {
 
   firebase.auth().createUserWithEmailAndPassword(email, password).then((value) => {
