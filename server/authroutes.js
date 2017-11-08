@@ -14,6 +14,8 @@ var config = {
 };
 firebase.initializeApp(config);
 
+// idToken comes from the client app (shown above)
+
 
 
 const createUser = (email, password, callback) => {
@@ -50,6 +52,16 @@ module.exports.manualLogout = (req, res) =>{
 	});
 }
 
-
+module.exports.isAuthenticated = (req, res, next) => {
+  let user = firebase.auth().currentUser;
+  console.log(user)
+      if (user !== null) {
+      req.user = user;
+      next();
+      } else {
+      res.send('not logged in');
+      }
+    }
+  
 
 
