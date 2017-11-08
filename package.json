@@ -25,10 +25,7 @@
   "dependencies": {
     "express": "^4.15.4",
     "firebase": "^4.6.1",
-<<<<<<< HEAD
     "jwt-async": "^1.1.2",
-=======
->>>>>>> e00d51c812ed5d0de9e2269282c3df6bcef1d8ac
     "nodemon": "^1.12.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
