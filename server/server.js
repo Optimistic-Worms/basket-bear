@@ -12,6 +12,7 @@ const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 
 
+
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
