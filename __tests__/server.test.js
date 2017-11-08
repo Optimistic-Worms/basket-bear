@@ -27,19 +27,19 @@ describe('Test Generic Routes', () => {
 
 
 describe('Test Shopping List Routes', () => {
-  test('should get request to /shoppingList', () => {
+  test('should accept GET requests to /shoppingList', () => {
     return request(appServer.app).get('/shoppingList').expect(200);
   });
 
-  test('should post to /shoppingList', () => {
+  test('should accept POST requests to /shoppingList', () => {
     return request(appServer.app).post('/shoppingList').expect(200);
   });
 
-  test('should put to /shoppingList', () => {
+  test('should accept PUT requests to /shoppingList', () => {
     return request(appServer.app).put('/shoppingList').expect(200);
   });
 
-  test('should delete to /shoppingList', () => {
+  test('should accept DELETE requests to /shoppingList', () => {
     return request(appServer.app).delete('/shoppingList').expect(200);
   });
 });
