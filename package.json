@@ -7,6 +7,7 @@
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
     "test": "jest",
+    "local-test": "jest --watch",
     "prodTest": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
@@ -23,6 +24,8 @@
   "homepage": "https://github.com/Optimistic-Worms/thesis-project#readme",
   "dependencies": {
     "express": "^4.15.4",
+    "firebase": "^4.6.1",
+    "jwt-async": "^1.1.2",
     "nodemon": "^1.12.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1"
@@ -37,8 +40,10 @@
     "compression-webpack-plugin": "^1.0.1",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.5",
+    "firebase-mock": "^1.1.5",
     "html-webpack-plugin": "^2.30.1",
     "jest": "^21.2.1",
+    "jest-alias-module-loader": "^1.0.1",
     "react-test-renderer": "^16.0.0",
     "style-loader": "^0.19.0",
     "superagent": "^3.8.0",
