@@ -79,12 +79,32 @@ app.delete('/shoppingList', (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Busisness API Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+const apiRoutes = express.Router();
 
+apiRoutes.get('/', (req, res) => {
+  res.send('Welcome to the Budget Basket API!')
+});
 
+apiRoutes.get('/login', (req, res) => {
+  //todo
+});
 
+apiRoutes.get('/logout', (req, res) => {
+  //todo
+});
 
+apiRoutes.get('/product', (req, res) => {
+  //todo
+});
 
+apiRoutes.get('/merchant', (req, res) => {
+  //todo
+});
 
+app.use('/api', apiRoutes)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
