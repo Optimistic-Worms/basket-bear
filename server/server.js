@@ -10,6 +10,7 @@ const signup = require('./authroutes.js').signup;
 const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
+const axios = require('axios');
 
 
 
@@ -90,9 +91,30 @@ app.delete('/shoppingList', (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Ebay API calls
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-
+axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
+    params: {
+      "OPERATION-NAME": "findItemsByKeywords",
+      "SERVICE-VERSION": "1.0.0",
+      "RESPONSE-DATA-FORMAT": "JSON",
+      "callback": "_cb_findItemsByKeywords",
+      "keywords": "macbook",
+      "paginationInput.entriesPerPage":"20",
+      "GLOBAL-ID": "EBAY-US",
+      "siteid": "0",
+      "SECURITY-APPNAME": "DianaSen-budgetba-PRD-c5d8a3c47-97c79d27"
+    }
+  })
+  .then(function (response) {
+    var results = response.data.slice(28, -1);
+    console.log("successful GET request from Ebay: ", results);
+  })
+  .catch(function (error) {
+    console.log("ERROR: GET request from Ebay Failing " + error);
+  });
 
 
 
