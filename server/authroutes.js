@@ -1,18 +1,11 @@
 const firebase = require('firebase');
 const bodyParser = require('body-parser');
-//import * as firebase from "firebase";
+const firebaseConfig = require('./firebaseConfig').firebaseConfig
 
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
-var config = {
-  apiKey: "AIzaSyBdYk7C2_wXicy4w42ek-zR8f2KWLK2is4",
-  authDomain: "budget-basket-58dd4.firebaseapp.com",
-  databaseURL: "https://budget-basket-58dd4.firebaseio.com",
-  projectId: "budget-basket-58dd4",
-  storageBucket: "budget-basket-58dd4.appspot.com",
-  messagingSenderId: "238930888910"
-};
-firebase.initializeApp(config);
+
+firebase.initializeApp(firebaseConfig);
 
 const createUser = (email, password, callback) => {
 
