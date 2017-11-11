@@ -34,7 +34,7 @@ console.log('server is listening on port ' + port);
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
 
@@ -62,28 +62,28 @@ app.get('/logout',manualLogout)
   //send the response after request handler returns a value
 
 app.post('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // requestHandlers.createShoppingList(username);
+  var username = req.body.username;
+  requestHandlers.createShoppingList(username);
   res.status(200).send('you made a new shopping list');
 });
 
 app.get('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // requestHandlers.getShoppingList(username);
+  var username = req.body.username;
+  requestHandlers.getShoppingList(username);
   res.status(200).send('here is the shopping list');
 });
 
 app.put('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // var product = req.data.product;
-  // requestHandlers.addItemToShoppingList(username, product);
+  var username = req.body.username;
+  var product = req.body.product;
+  requestHandlers.addItemToShoppingList(username, product);
   res.status(200).send('adding item to shopping list');
 });
 
 app.delete('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // var productId = req.data.productId;
-  // requestHandlers.removeItemFromShoppingList(username, productId);
+  var username = req.body.username;
+  var productId = req.body.productId;
+  requestHandlers.removeItemFromShoppingList(username, productId);
   res.status(200).send('removed item from shopping list');
 })
 

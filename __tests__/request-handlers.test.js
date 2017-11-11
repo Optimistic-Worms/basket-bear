@@ -3,7 +3,7 @@ const requestHandlers = require('../server/request-handlers');
 
 describe('Create Shopping List Function', () => {
 
-  test('Should Receive Username in Request Data', () => {
+  test('Should Receive Username', () => {
 
   });
   test('Should Create a Shopping List Document', () => {
