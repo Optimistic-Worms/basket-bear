@@ -28,20 +28,51 @@ describe('Test Generic Routes', () => {
 
 describe('Test Shopping List Routes', () => {
   test('should accept GET requests to /shoppingList', () => {
-    return request(appServer.app).get('/shoppingList').expect(200);
+    var username = 'Candice';
+
+    return request(appServer.app)
+    .get('/shoppingList')
+    .send(username)
+    .expect(200);
   });
 
   test('should accept POST requests to /shoppingList', () => {
-    return request(appServer.app).post('/shoppingList').expect(200);
+    var username = 'Candice';
+
+    return request(appServer.app)
+    .post('/shoppingList')
+    .send(username)
+    .expect(200);
   });
 
   test('should accept PUT requests to /shoppingList', () => {
-    return request(appServer.app).put('/shoppingList').expect(200);
+    var username = 'Candice';
+    var product = { id: 1,
+      name: 'Table',
+      imageUrl: 'table.jpg',
+      description: 'Brown, rectanglar coffee table',
+      merchant: 'Amazon',
+      link: 'table.com',
+      listedPrice: 56.99,
+      requestedPrice: 40.00
+    };
+
+    return request(appServer.app)
+    .put('/shoppingList')
+    .send(username, product)
+    .expect(200);
   });
 
   test('should accept DELETE requests to /shoppingList', () => {
-    return request(appServer.app).delete('/shoppingList').expect(200);
+    var username = 'Candice';
+    var productId = 1;
+
+    return request(appServer.app)
+    .delete('/shoppingList')
+    .send(username, productId)
+    .expect(200);
   });
+
 });
 
 

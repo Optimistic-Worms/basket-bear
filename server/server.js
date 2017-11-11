@@ -55,23 +55,34 @@ app.get('/logout',manualLogout)
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+  //call the request handler
+  //send the response after request handler returns a value
+
 app.post('/shoppingList', (req, res) => {
-  requestHandlers.createShoppingList(req, res);
+  // var username = req.data.username;
+  // requestHandlers.createShoppingList(username);
+  res.status(200).send('you made a new shopping list');
 });
 
 app.get('/shoppingList', (req, res) => {
-  requestHandlers.getShoppingList(req, res);
+  // var username = req.data.username;
+  // requestHandlers.getShoppingList(username);
+  res.status(200).send('here is the shopping list');
 });
 
 app.put('/shoppingList', (req, res) => {
-  requestHandlers.addItemToShoppingList(req, res);
+  // var username = req.data.username;
+  // var product = req.data.product;
+  // requestHandlers.addItemToShoppingList(username, product);
+  res.status(200).send('adding item to shopping list');
 });
 
 app.delete('/shoppingList', (req, res) => {
-  requestHandlers.removeItemFromShoppingList(req, res);
+  // var username = req.data.username;
+  // var productId = req.data.productId;
+  // requestHandlers.removeItemFromShoppingList(username, productId);
+  res.status(200).send('removed item from shopping list');
 })
-
-
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

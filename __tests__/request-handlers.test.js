@@ -1,42 +1,6 @@
 const requestHandlers = require('../server/request-handlers');
 
 
-
-var request = (url, method, postdata) => {
-  this.url = url;
-  this.method = method;
-  this.postData = postdata;
-  this.addListener = this.on = function(type, callback) {
-    if (type === 'data') {
-      callback(JSON.stringify(this._postData));
-    }
-
-    if (type === 'end') {
-      callback();
-    }
-
-  }.bind(this);
-}
-
-var response = () => {
-  this._ended = false;
-  this._responseCode = null;
-  this._headers = null;
-  this._data = null;
-
-  this.status = (responseCode) => {
-    this._responseCode = responseCode;
-  }
-
-  this.send = (data) => {
-    this._data = data;
-    this._ended = true;
-  }
-
-}
-
-
-
 describe('Create Shopping List Function', () => {
 
   test('Should Receive Username in Request Data', () => {
