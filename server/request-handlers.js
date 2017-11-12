@@ -1,3 +1,5 @@
+const db = require('../db/db-config');
+
 // Shopping List Handlers
 
 exports.createShoppingList = (username) => {
