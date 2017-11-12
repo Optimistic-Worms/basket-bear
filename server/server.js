@@ -34,7 +34,7 @@ console.log('server is listening on port ' + port);
 
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
 
@@ -46,7 +46,7 @@ app.get('/', (req,res)=> {
 });
 
 app.get('/thing', isAuthenticated, (req,res) =>{
-	console.log('hit the 200')
+  console.log('hit the 200')
   res.sendStatus(200);
 });
 
@@ -62,28 +62,28 @@ app.get('/logout',manualLogout)
   //send the response after request handler returns a value
 
 app.post('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // requestHandlers.createShoppingList(username);
+  var username = req.body.username;
+  requestHandlers.createShoppingList(username);
   res.status(200).send('you made a new shopping list');
 });
 
 app.get('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // requestHandlers.getShoppingList(username);
+  var username = req.body.username;
+  requestHandlers.getShoppingList(username);
   res.status(200).send('here is the shopping list');
 });
 
 app.put('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // var product = req.data.product;
-  // requestHandlers.addItemToShoppingList(username, product);
+  var username = req.body.username;
+  var product = req.body.product;
+  requestHandlers.addItemToShoppingList(username, product);
   res.status(200).send('adding item to shopping list');
 });
 
 app.delete('/shoppingList', (req, res) => {
-  // var username = req.data.username;
-  // var productId = req.data.productId;
-  // requestHandlers.removeItemFromShoppingList(username, productId);
+  var username = req.body.username;
+  var productId = req.body.productId;
+  requestHandlers.removeItemFromShoppingList(username, productId);
   res.status(200).send('removed item from shopping list');
 })
 
@@ -92,12 +92,17 @@ app.delete('/shoppingList', (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Ebay API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-var keyword = "macbook"
 
-axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
+app.get('/searchEbay', (req, res)=> {
+  var keyword = req.query.keyword;
+  console.log('searching for ', keyword);
+
+  axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
     params: {
       "OPERATION-NAME": "findItemsByKeywords",
       "SERVICE-VERSION": "1.0.0",
@@ -112,11 +117,14 @@ axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
   })
   .then(function (response) {
     var results = response.data.slice(28, -1);
-    console.log("successful GET request from Ebay: ", results);
+    res.send(results);
   })
   .catch(function (error) {
     console.log("ERROR: GET request from Ebay Failing " + error);
   });
+
+});
+
 
 
 
