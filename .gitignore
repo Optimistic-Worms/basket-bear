@@ -42,3 +42,6 @@ ebaykey.js
 
 # mac goodies
 .DS_Store
+
+# environment
+.env
