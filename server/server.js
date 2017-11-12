@@ -46,7 +46,7 @@ app.get('/', (req,res)=> {
 });
 
 app.get('/thing', isAuthenticated, (req,res) =>{
-	console.log('hit the 200')
+  console.log('hit the 200')
   res.sendStatus(200);
 });
 
@@ -92,12 +92,17 @@ app.delete('/shoppingList', (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Ebay API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-var keyword = "macbook"
 
-axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
+app.get('/searchEbay', (req, res)=> {
+  var keyword = req.query.keyword;
+  console.log('searching for ', keyword);
+
+  axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
     params: {
       "OPERATION-NAME": "findItemsByKeywords",
       "SERVICE-VERSION": "1.0.0",
@@ -112,11 +117,14 @@ axios.get('https://svcs.ebay.com/services/search/FindingService/v1?', {
   })
   .then(function (response) {
     var results = response.data.slice(28, -1);
-    console.log("successful GET request from Ebay: ", results);
+    res.send(results);
   })
   .catch(function (error) {
     console.log("ERROR: GET request from Ebay Failing " + error);
   });
+
+});
+
 
 
 
