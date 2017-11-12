@@ -22,9 +22,6 @@ coverage
 build/
 dist/
 
-#firebase creds
-firebaseConfig.js
-
 # Dependency directorys
 # Deployed apps should consider commenting these lines out:
 # see https://npmjs.org/doc/faq.html#Should-I-check-my-node_modules-folder-into-git
@@ -38,7 +35,6 @@ bower_components/
 
 # credentials
 bbasket-key.json
-ebaykey.js
 
 # mac goodies
 .DS_Store

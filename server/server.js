@@ -1,4 +1,6 @@
 require('dotenv').config()
+const fs = require('fs');
+fs.writeFileSync('./db/bbasket-key.json', process.env.FIREBASE_DB);
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
@@ -12,7 +14,7 @@ const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
-const EBAYKEY = require('./ebaykey').EBAYKEY
+const EBAYKEY = process.env.EBAY_KEY;
 
 
 
