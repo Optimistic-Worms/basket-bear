@@ -46,7 +46,7 @@ exports.removeItemFromShoppingList = (username, productId) => {
 
 var ShoppingList = {
   username: String,
-  items: Array
+  items: Array of Tuplse [Product Id, Requested Price]
 }
 
 var Product = {
@@ -56,8 +56,8 @@ var Product = {
   description: String,
   merchant: String,
   link: String,
-  listedPrice: Number,
-  requestedPrice: Number
+  priceHistory: Array,
+  userPricing: Array of tuples [user, price]
 }
 
 var productCollection = {
