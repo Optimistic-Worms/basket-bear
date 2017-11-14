@@ -25,6 +25,7 @@ const AMZPRKEY = require("./amazonConfig").PrivateKey
 const ASSCTAG = require("./amazonConfig").AssociateTag
 const AMZPUKEY = require("./amazonConfig").PublicKey
 const parseString = require('xml2js').parseString;
+const getToken = require('./authroutes.js').getToken;
 
 
 let config;
@@ -65,6 +66,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 app.get('/signup',signup)
 app.get('/login',manualSignIn)
 app.get('/logout',manualLogout)
+app.get('/token', getToken)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
