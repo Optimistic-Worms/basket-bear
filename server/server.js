@@ -24,6 +24,7 @@ const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
+const getToken = require('./authroutes.js').getToken;
 
 
 let config;
@@ -64,6 +65,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 app.get('/signup',signup)
 app.get('/login',manualSignIn)
 app.get('/logout',manualLogout)
+app.get('/token', getToken)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
