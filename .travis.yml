@@ -11,8 +11,8 @@ deploy:
     secret_access_key:
       secure: ${AWS_SECRET_ACCESS_KEY}
     region: us-east-1
-    app: basket-stage
-    env: staging
+    app: basket
+    env: basket-stage
     bucket_name: elasticbeanstalk-us-east-1-767596259046
     on:
       condition: "$TRAVIS_PULL_REQUEST == 'false'"
