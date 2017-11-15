@@ -55,6 +55,7 @@ module.exports.manualLogout = (req, res) =>{
 
 module.exports.isAuthenticated = (req, res, next) => {
   let user = firebase.auth().currentUser;
+  console.log(user)
       if (user !== null) {
         req.user = user;
         next();
@@ -66,6 +67,7 @@ module.exports.isAuthenticated = (req, res, next) => {
 
 
 module.exports.getToken = (req, res) => {
+  
   firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
   // Send token to your backend via HTTPS
   console.log(idToken);
