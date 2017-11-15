@@ -1,6 +1,8 @@
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
+
+//console.log(process.env.FIREBASE_PRIVATE_KEY)
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
@@ -129,18 +131,6 @@ app.get('/searchEbay', (req, res)=> {
 
 });
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Busisness API Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-const apiRoutes = express.Router();
-
-apiRoutes.get('/', (req, res) => {
-  res.send('Welcome to the Budget Basket API!')
-});
-
-apiRoutes.get('/login', (req, res) => {
-  //todo
-});
 
 var parseEbayResults = function(searchResults) {
   var items = [];
@@ -158,6 +148,20 @@ var parseEbayResults = function(searchResults) {
   }
   return items;
 }
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Busisness API Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+const apiRoutes = express.Router();
+
+apiRoutes.get('/', (req, res) => {
+  res.send('Welcome to the Budget Basket API!')
+});
+
+apiRoutes.get('/login', (req, res) => {
+  //todo
+});
 
 apiRoutes.get('/logout', (req, res) => {
   //todo

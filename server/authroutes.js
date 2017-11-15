@@ -1,10 +1,12 @@
 const firebase = require('firebase');
 const bodyParser = require('body-parser');
-const firebaseConfig = JSON.parse(process.env.FIREBASE_AUTH);
 
 // Initialize Firebase
+if (process.env.NODE_ENV !== 'test') {
+  const firebaseConfig = JSON.parse(process.env.FIREBASE_AUTH);
+  firebase.initializeApp(firebaseConfig);
+};
 
-firebase.initializeApp(firebaseConfig);
 
 const createUser = (email, password, callback) => {
 

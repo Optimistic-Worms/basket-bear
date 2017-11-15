@@ -1,13 +1,16 @@
-var admin = require("firebase-admin");
+if (process.env.NODE_ENV !== 'test') {
+  const admin = require("firebase-admin");
 
-var serviceAccount = require('./bbasket-key.json');
+  let serviceAccount = JSON.parse(process.env.FIREBASE_DB);
+  serviceAccount.private_key = `-----BEGIN PRIVATE KEY-----${process.env.FIREBASE_PRIVATE_KEY}-----END PRIVATE KEY-----`
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://bbasket-9e24a.firebaseio.com"
-});
-
-var db = admin.firestore();
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://bbasket-9e24a.firebaseio.com"
+  });
 
 
-module.exports = db;
+  const db = admin.firestore();
+
+  module.exports = db;
+};
