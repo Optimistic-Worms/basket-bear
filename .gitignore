@@ -35,6 +35,8 @@ bower_components/
 
 # credentials
 bbasket-key.json
+firebaseConfig.js
+ebaykey.js
 
 # mac goodies
 .DS_Store
