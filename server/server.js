@@ -2,7 +2,6 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
 
-//console.log(process.env.FIREBASE_PRIVATE_KEY)
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
