@@ -9,6 +9,16 @@ module.exports = {
   },
   module: {
     rules: [
+  /*     {
+        enforce: "pre",
+        test: /\.jsx$/,
+        exclude: /node_modules/,
+        loader: "eslint-loader",
+        options: {
+          emitError: false,
+          failOnWarning: false
+        }
+      },*/
       {
         test: /\.jsx$/,
         exclude: /(node_modules|bower_components)/,
