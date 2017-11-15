@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const firebaseConfig = JSON.parse(process.env.FIREBASE_AUTH);
 
 // Initialize Firebase
-// TODO: Replace with your project's customized code snippet
 
 firebase.initializeApp(firebaseConfig);
 

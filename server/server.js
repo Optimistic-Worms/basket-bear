@@ -1,6 +1,6 @@
-require('dotenv').config()
-const fs = require('fs');
-fs.writeFileSync('./db/bbasket-key.json', process.env.FIREBASE_DB);
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+  require('dotenv').config();
+}
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
