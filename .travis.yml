@@ -26,3 +26,5 @@ deploy:
     bucket_name: elasticbeanstalk-us-east-1-767596259046
     on:
       condition: "$TRAVIS_EVENT_TYPE == 'cron'"
+notifications:
+  slack: rpt-students:VNPivwk0lXHNWgImdYw6EzWW
