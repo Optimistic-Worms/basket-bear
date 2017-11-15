@@ -116,8 +116,9 @@ app.get('/searchEbay', (req, res)=> {
     }
   })
   .then(function (response) {
-    var results = response.data.slice(28, -1);
-    res.send(results);
+    var results = JSON.parse(response.data.slice(28, -1));
+    var items = results.findItemsByKeywordsResponse[0].searchResult[0].item;
+    res.send(JSON.stringify(parseEbayResults(items)));
   })
   .catch(function (error) {
     console.log("ERROR: GET request from Ebay Failing " + error);
@@ -125,6 +126,23 @@ app.get('/searchEbay', (req, res)=> {
 
 });
 
+
+var parseEbayResults = function(searchResults) {
+  var items = [];
+
+  for (var i = 0 ; i < searchResults.length ; i++) {
+    var product = {
+      id: searchResults[i].itemId,
+      name: searchResults[i].title,
+      imageUrl: searchResults[i].galleryURL,
+      merchant: 'eBay',
+      price: searchResults[i].sellingStatus[0].currentPrice[0].__value__,
+      link: searchResults[i].viewItemURL
+    }
+    items.push(product);
+  }
+  return items;
+}
 
 
 
