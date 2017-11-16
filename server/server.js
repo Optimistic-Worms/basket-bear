@@ -219,6 +219,10 @@ apiRoutes.get('/login', (req, res) => {
   //todo
 });
 
+apiRoutes.get('/signup', (req, res) => {
+  //todo
+});
+
 apiRoutes.get('/logout', (req, res) => {
   //todo
 });
