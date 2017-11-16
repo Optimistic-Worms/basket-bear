@@ -1,3 +1,198 @@
-h1 {
-	color:red;
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+body {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  font-family: 'Roboto', sans-serif;
+  margin: 0
+}
+
+h2 {
+	align-self: center;
+}
+
+/**  Navigation Bar  **/
+
+nav {
+  color: #fff;
+  background-color: #2196f3;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  box-shadow: #323232 0 0.01em 0.03em, #323232 0 0.05em 0.1em;
+  border-radius: 0px;
+  position: relative;
+  z-index: 1100;
+  width: 100%;
+  display: flex;
+  padding-left: .1em;
+  padding-right: .1em;
+  align-items: center;
+  height: 5em;
+}
+
+nav .brand {
+  display: block;
+  font-size: 2em;
+  ;
+  font-weight: bold;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: .6em;
+}
+
+nav .brand a {
+  text-decoration: none !important;
+  color: #fff;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  font-size: .8em;
+}
+
+nav .brand a:hover {
+  color: #244589;
+}
+
+nav .menu {
+  float: right;
+  position: Relative;
+}
+
+nav .menu li {
+  display: inline-block;
+  padding: 0 1.2em;
+  cursor: pointer;
+  line-height: 4.3em;
+  font-size: 1.3em;
+  position: Relative;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
+
+nav .menu li a {
+  color: #fff;
+  text-decoration: none !important;
+}
+
+nav .menu li:hover {
+  background: #244589;
+}
+
+/** Search **/
+
+.ebaySearch {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.search {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: row wrap;
+	margin: 1em 0;
+}
+
+.search-form {
+  width: 80%;
+  border: 1px solid #dadada;
+  height: 3em;
+}
+
+.button {
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  border: 1px solid transparent;
+  padding: .375em .75em;
+  font-size: 1em;
+  line-height: 1.5;
+  border-radius: .25em;
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.list {
+	display: flex;
+  flex-flow: row wrap;
+	align-items: flex-start;
+
+}
+
+/** Product **/
+
+.card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	background-color: #fff;
+	border: 1px solid #dadada;
+	border-radius: .25rem;
+	margin: .3em auto;
+}
+
+.product-image {
+    border-top-right-radius: calc(.25rem - 1px);
+    border-top-left-radius: calc(.25rem - 1px);
+		width: 35%;
+		height: auto;
+		margin: auto;
+}
+
+.price {
+  color: red;
+	font-size: 2em;
+}
+
+.item-info {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+}
+
+.button--product {
+	width: auto;
+	background-color: #5cb85c;
+	border-color: #5cb85c;
+	margin: auto 0;
+	height: 50%
+}
+
+/** Media Queries **/
+
+@media (max-width:768px) {
+  nav .menu {
+    display: none;
+  }
+  nav .fa-chevron-circle-down {
+    font-size: 2em;
+    margin-right: .7em;
+    cursor: pointer;
+  }
+  nav .fa-chevron-circle-down:hover {
+    color: #244589;
+  }
+}
+
+@media (min-width:769px) {
+  nav .fa-chevron-circle-down {
+    display: none;
+  }
+  nav .fa-chevron-circle-down:hover {
+    background: #244589;
+  }
 }

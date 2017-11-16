@@ -41,11 +41,15 @@ class Search extends React.Component {
 
   render() {
     return (
-      <div>
-      <h1>Search Things</h1>
-      <input placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
-      <button onClick={()=>{this.searchEbay(this.state.queryString)}}>Search</button>
+      <div className="ebaySearch">
+      <h3>Search Ebay</h3>
+      <div className="search">
+      <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
+      <button className="button" onClick={()=>{this.searchEbay(this.state.queryString)}}>Search</button>
+    </div>
+    <div className="list">
         <SearchList items={this.state.ebaySearchItems}/>
+      </div>
       </div>
     )
   }
