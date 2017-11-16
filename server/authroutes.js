@@ -19,6 +19,7 @@ module.exports = {
       }).catch(function(error) {
        return error
       });
+<<<<<<< HEAD
 const createUser = (email, password, callback) => {
 
   firebase.auth().createUserWithEmailAndPassword(email, password).then((value) => {
@@ -56,6 +57,8 @@ module.exports.manualLogout = (req, res) =>{
 module.exports.isAuthenticated = (req, res, next) => {
   let user = firebase.auth().currentUser;
   console.log(user)
+=======
+>>>>>>> ee65690... add google auth and manual auth to UI
       if (user !== null) {
         req.user = user;
         next();
@@ -66,16 +69,4 @@ module.exports.isAuthenticated = (req, res, next) => {
 }
 
 
-module.exports.getToken = (req, res) => {
-  
-  firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
-  // Send token to your backend via HTTPS
-  console.log(idToken);
-  res.sendStatus(200)
-}).catch(function(error) {
-  // Handle error
-  console.log(i)
-  re.send(error)
-});
-}
 

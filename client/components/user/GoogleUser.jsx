@@ -1,6 +1,6 @@
-import React from 'react';
-import firebase from 'firebase';
-
+import React from 'react'
+import ReactDOM from 'react-dom'
+import firebase from 'firebase'
 
 
 
@@ -10,30 +10,29 @@ class GoogleUser extends React.Component {
     this.state = {
 
     };
-  this.authenticate = this.authenticate.bind(this);  
-  this.logout = this.logout.bind(this);  
+  this.authenticate = this.authenticate.bind(this)  
+  this.logout = this.logout.bind(this)  
   }
 
   authenticate(provider) {
-    console.log(provider);
+    console.log(provider)
     provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithPopup(provider).then(function(result){
     // var token = result.credential.accessToken;
     var user = result.user.uid;
-    console.log(user);
+    console.log(user)
     }).catch(function(error){
     var errorMessage = error.message;
     // var credential = error.credential;
-    console.log(errorMessage);
-    });
+    console.log(errorMessage)
+    })
   }
 
   logout(){
     firebase.auth().signOut().then(function() {
     console.log('just logged out');
-    return 'logged user out';
    }, function(error) {
     console.log('couldn\'log out:' + error);
   });
@@ -43,11 +42,11 @@ class GoogleUser extends React.Component {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
     // User is signed in.
-    console.log(user.uid);
-    console.log(user.displayName);
+    console.log(user.uid)
+    console.log(user.displayName)
     } else {
     // No user is signed in.
-    console.log('Nobody is home: Need to login or sign up!');
+    console.log('Nobody is home: Need to login or sign up!')
     }
     });
   }
@@ -58,7 +57,7 @@ class GoogleUser extends React.Component {
         <button onClick={this.authenticate.bind(this, 'google')}> Google Login</button>       
         <button onClick={this.logout.bind()}> Logout</button>       
       </div>
-    );
+    )
   }
 }
-export default GoogleUser;
+export default GoogleUser
