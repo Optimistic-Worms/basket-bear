@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css?family=Roboto');
 body {
   width: 100%;
@@ -196,3 +197,14 @@ nav .menu li:hover {
     background: #244589;
   }
 }
+
+h1 {
+	color:red;
+}
+
+.loginCard {
+	background-color: blue;
+	max-width: 200px;
+	padding:10px;
+}
+

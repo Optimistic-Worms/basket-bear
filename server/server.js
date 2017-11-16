@@ -10,9 +10,6 @@ const app = express();
 const requestHandlers = require('./request-handlers');
 const path = require('path');
 const port = process.env.PORT || 3000;
-const signup = require('./authroutes.js').signup;
-const manualSignIn = require('./authroutes.js').manualSignIn;
-const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
@@ -26,6 +23,7 @@ const ASSCTAG = require("./amazonConfig").AssociateTag
 const AMZPUKEY = require("./amazonConfig").PublicKey
 const parseString = require('xml2js').parseString;
 const getToken = require('./authroutes.js').getToken;
+
 
 
 let config;
@@ -58,15 +56,11 @@ app.get('/', (req,res)=> {
   res.send(200)
 });
 
-app.get('/thing', isAuthenticated, (req,res) =>{
-  console.log('hit the 200')
+app.get('/thing', isAuthenticated, (req, res) =>{
+ // console.log(res)
   res.sendStatus(200);
 });
 
-app.get('/signup',signup)
-app.get('/login',manualSignIn)
-app.get('/logout',manualLogout)
-app.get('/token', getToken)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
