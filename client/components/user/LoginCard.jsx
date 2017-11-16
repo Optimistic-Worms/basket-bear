@@ -12,13 +12,12 @@ import firebaseConfig from '../../../server/firebaseConfig.js';
 firebase.initializeApp(firebaseConfig.firebaseConfig);
 
 class LoginCard extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {
     };
     this.getToken = this.getToken.bind(this);
   }
-
   getToken() {
     console.log('working')
     firebase.auth().onAuthStateChanged((user) => {
@@ -32,6 +31,21 @@ class LoginCard extends React.Component {
       } else {
         console.log('Nobody is home: Need to login or sign up!');
       }     
+  getToken(){
+  	firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+     firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then(function(idToken) {
+    // Send token to your backend via HTTPS
+    console.log(idToken);
+    axios.get('/thing?access_token='+ idToken).then((result)=>{
+    	console.log(result)
+    }).catch((error)=>{
+    	console.log(error)
+    })
+    }).catch(function(error) {console.log(error)});
+    } else {
+    console.log('Nobody is home: Need to login or sign up!')
+    }
     });
   }
 
@@ -48,3 +62,4 @@ class LoginCard extends React.Component {
   }
 }
 export default LoginCard;
+
