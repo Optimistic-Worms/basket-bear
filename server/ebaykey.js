@@ -1,1 +1,0 @@
-module.exports.EBAYKEY = "DianaSen-budgetba-PRD-c5d8a3c47-97c79d27";

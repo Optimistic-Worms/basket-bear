@@ -6,9 +6,9 @@
   "scripts": {
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
-    "test": "jest",
-    "local-test": "jest --watch",
-    "prodTest": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
+    "test": "NODE_ENV=test jest",
+    "local-test": "NODE_ENV=test jest --watch",
+    "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
   "repository": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "axios": "^0.17.1",
     "crypto-js": "^3.1.9-1",
+    "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "firebase": "^4.6.1",
     "firebase-admin": "^5.5.0",

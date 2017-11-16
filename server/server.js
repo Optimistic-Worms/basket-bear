@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+  require('dotenv').config();
+}
+
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
@@ -11,7 +15,7 @@ const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
-const EBAYKEY = require('./ebaykey').EBAYKEY
+const EBAYKEY = process.env.EBAY_KEY;
 
 
 
@@ -145,9 +149,32 @@ var parseEbayResults = function(searchResults) {
 }
 
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Busisness API Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+const apiRoutes = express.Router();
 
+apiRoutes.get('/', (req, res) => {
+  res.send('Welcome to the Budget Basket API!')
+});
 
+apiRoutes.get('/login', (req, res) => {
+  //todo
+});
 
+apiRoutes.get('/logout', (req, res) => {
+  //todo
+});
+
+apiRoutes.get('/product', (req, res) => {
+  //todo
+});
+
+apiRoutes.get('/merchant', (req, res) => {
+  //todo
+});
+
+app.use('/api', apiRoutes)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

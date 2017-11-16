@@ -1,11 +1,12 @@
 const firebase = require('firebase');
 const bodyParser = require('body-parser');
-const firebaseConfig = require('./firebaseConfig').firebaseConfig
 
 // Initialize Firebase
-// TODO: Replace with your project's customized code snippet
+if (process.env.NODE_ENV !== 'test') {
+  const firebaseConfig = JSON.parse(process.env.FIREBASE_AUTH);
+  firebase.initializeApp(firebaseConfig);
+};
 
-firebase.initializeApp(firebaseConfig);
 
 const createUser = (email, password, callback) => {
 
@@ -18,10 +19,10 @@ module.exports.signup = (req, res, next) => {
  	createUser(req.headers.username, req.headers.password, (result) =>{
    	res.send(result);
  	});
-} 
+}
 
 const signinManualUser = (email, password, callback)=>{
-  
+
   firebase.auth().signInWithEmailAndPassword(email, password).then((value) => {
   	return callback(value)
   }).catch( error => callback('Opps. We are sorry to say: ' + error.message));
@@ -31,7 +32,7 @@ module.exports.manualSignIn = (req, res, next) => {
  	signinManualUser(req.headers.username, req.headers.password, (result) =>{
    	res.send(result);
  	});
-} 
+}
 
 module.exports.manualLogout = (req, res) =>{
 	firebase.auth().signOut().then(function() {
@@ -51,6 +52,6 @@ module.exports.isAuthenticated = (req, res, next) => {
       res.send('not logged in');
       }
     }
-  
+
 
 
