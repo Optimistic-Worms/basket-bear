@@ -16,7 +16,15 @@ const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
-
+const moment = require('moment')
+const tz = require('moment-timezone-all');
+const AES = require("crypto-js/aes");
+const SHA256 = require("crypto-js/sha256");
+const CryptoJS = require("crypto-js");
+const AMZPRKEY = require("./amazonConfig").PrivateKey
+const ASSCTAG = require("./amazonConfig").AssociateTag
+const AMZPUKEY = require("./amazonConfig").PublicKey
+const parseString = require('xml2js').parseString;
 
 
 let config;
@@ -148,6 +156,59 @@ var parseEbayResults = function(searchResults) {
   return items;
 }
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Amazon API Calls
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/searchAmazon', (req, res) => {
+  let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
+  console.log(date);
+
+  /** Wrapper to sign and stamp Amazon GET Request **/
+  const getAmazonItemInfo = (keywords) => {
+
+    let PrivateKey = AMZPRKEY;
+    let PublicKey = AMZPUKEY;
+    let AssociateTag = ASSCTAG;
+    let parameters = [];
+    let url = 'webservices.amazon.com' // US account
+
+    parameters.push("AWSAccessKeyId=" + PublicKey);
+    parameters.push("Keywords=" + keywords);
+    parameters.push("Operation=ItemSearch");
+    parameters.push("SearchIndex=All");
+    parameters.push("ResponseGroup=" + encodeURIComponent('Images,ItemAttributes,Offers'));
+    parameters.push("Service=AWSECommerceService");
+    parameters.push("Timestamp=" + encodeURIComponent(date));
+    parameters.push("AssociateTag=" + AssociateTag);
+    parameters.sort();
+
+    let paramString = parameters.join('&');
+    let string_to_sign = "GET\n" + url + "\n" + "/onca/xml\n" + paramString
+
+    let signature = CryptoJS.HmacSHA256(string_to_sign, PrivateKey);
+    signature = CryptoJS.enc.Base64.stringify(signature);
+
+    let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
+    console.log(amazonUrl);
+    return amazonUrl;
+  }
+
+  let keywords = 'iphone'
+  /** Callback to Get Response **/
+  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
+    console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
+
+    var amazonData = parseString(response.data, function (err, result) {
+        console.dir(result);
+        return result;
+    });
+    res.send(amazonData);
+  }).catch(function(error) {
+    console.log("ERROR: GET request from Amazon Failing " + error);
+  });
+
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Busisness API Routes
@@ -196,5 +257,3 @@ app.get('*', (req,res) =>{
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
-
-

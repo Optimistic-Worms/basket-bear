@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import '../css/styles.css'
 import axios from 'axios';
 import Search from './Search.jsx'
+import Navbar from './Navbar.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -20,8 +21,8 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>Hello World Deploy!</h1>
-        <Search/>
+      <Navbar/>
+      <Search/>
       </div>
     )
   }

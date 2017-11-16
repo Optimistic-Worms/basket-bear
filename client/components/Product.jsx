@@ -4,12 +4,14 @@ import React from 'react';
 const Product = (props) => {
 
   return (
-    <div>
-      <img src={props.item && props.item.imageUrl} />
-      <p>{ props.item && props.item.name }</p>
+    <div className="card">
+      <img className="product-image" src={props.item && props.item.imageUrl} />
+      <h2>{ props.item && props.item.name }</h2>
+      <div className="item-info">
       <p>{ props.item && props.item.merchant }</p>
-       <p>{ props.item && props.item.price }</p>
-      <button onClick= { ()=> {window.open(props.item.link)}} >Buy Product</button>
+       <p className="price">${ props.item && props.item.price }</p>
+      <button className="button button--product" onClick= { ()=> {window.open(props.item.link)}} >Buy Product</button>
+    </div>
 
     </div>
   );
