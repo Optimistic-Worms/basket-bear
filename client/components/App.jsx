@@ -4,8 +4,8 @@ import '../css/styles.css'
 import axios from 'axios';
 import Search from './Search.jsx'
 import Navbar from './Navbar.jsx'
-
 import LoginCard from './user/LoginCard.jsx'
+
 
 class App extends React.Component {
   constructor() {
@@ -20,7 +20,6 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
       <Navbar/>
       <Search/>
         <LoginCard/>
