@@ -10,12 +10,12 @@ const Product = (props) => {
       <div className="item-info">
       <p>{ props.item && props.item.merchant }</p>
        <p className="price">${ props.item && props.item.price }</p>
-      <button className="button button--product" onClick= { ()=> {window.open(props.item.link)}} >Buy Product</button>
+      <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
     </div>
 
     </div>
   );
-}
+};
 
 
 export default Product;

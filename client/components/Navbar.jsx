@@ -38,4 +38,4 @@ const NavBar = (props) => (<div>
   </nav>
 </div>);
 
-export default NavBar
+export default NavBar;
