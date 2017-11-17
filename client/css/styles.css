@@ -8,7 +8,7 @@ body {
 }
 
 h2 {
-	align-self: center;
+  align-self: center;
 }
 
 /**  Navigation Bar  **/
@@ -32,13 +32,10 @@ nav {
 }
 
 nav .brand {
-  display: block;
   font-size: 2em;
-  ;
-  font-weight: bold;
   justify-content: center;
   margin-right: auto;
-  margin-left: .6em;
+  margin-left: 0.6em;
 }
 
 nav .brand a {
@@ -56,23 +53,13 @@ nav .brand a:hover {
   color: #244589;
 }
 
-nav .menu {
-  float: right;
-  position: Relative;
-}
-
 nav .menu li {
   display: inline-block;
-  padding: 0 1.2em;
+  padding: 0 1em;
   cursor: pointer;
-  line-height: 4.3em;
+  line-height: 3.3em;
   font-size: 1.3em;
   position: Relative;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -ms-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
 }
 
 nav .menu li a {
@@ -95,104 +82,118 @@ nav .menu li:hover {
 }
 
 .search {
-  width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: row wrap;
-	margin: 1em 0;
+  width: 75%;
+  flex-direction: row;
+  margin: 0.8em auto 0;
 }
 
 .search-form {
-  width: 80%;
-  border: 1px solid #dadada;
+  width: 100%;
   height: 3em;
+  border: 1px solid #dadada;
 }
 
 .button {
   display: inline-block;
+  line-height: 1.25;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
-  user-select: none;
   border: 1px solid transparent;
-  padding: .375em .75em;
+  padding: 0.4em 1em;
   font-size: 1em;
-  line-height: 1.5;
-  border-radius: .25em;
+  border-radius: 0.3em;
+  background: dodgerblue;
   color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
+  transition: all 0.3s ease-out;
 }
 
 .list {
-	display: flex;
-  flex-flow: row wrap;
-	align-items: flex-start;
-
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
 }
+
+/*.list:before {
+  display: table;
+  content: " ";
+}*/
 
 /** Product **/
 
 .card {
-	position: relative;
-	display: flex;
-	flex-direction: column;
-	background-color: #fff;
-	border: 1px solid #dadada;
-	border-radius: .25rem;
-	margin: .3em auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #dadada;
+  border-radius: .25rem;
+  margin: 1em;
+  width: 33%;
 }
 
 .product-image {
-    border-top-right-radius: calc(.25rem - 1px);
-    border-top-left-radius: calc(.25rem - 1px);
-		width: 35%;
-		height: auto;
-		margin: auto;
+  border-top-right-radius: calc(.25rem - 1px);
+  border-top-left-radius: calc(.25rem - 1px);
+  width: 60%;
+  height: auto;
+  margin: auto;
 }
 
 .price {
   color: red;
-	font-size: 2em;
+  font-size: 2em;
 }
 
 .item-info {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-around;
-	align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .button--product {
-	width: auto;
-	background-color: #5cb85c;
-	border-color: #5cb85c;
-	margin: auto 0;
-	height: 50%
+  width: auto;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  margin: auto 0;
+  height: 50%
 }
 
 /** Media Queries **/
 
 @media (max-width:768px) {
-  nav .menu {
+  nav {
+    justify-content: space-around;
+  }
+  .search {
+    width: 90%;
+  }
+  li .fa {
+    font-size: 3.2em;
+    justify-content: center;
+    margin: 1em auto -.6em auto;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    font-size: .5em;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    font-family: "Noto", sans-serif;
+  }
+  .brand {
     display: none;
   }
-  nav .fa-chevron-circle-down {
-    font-size: 2em;
-    margin-right: .7em;
-    cursor: pointer;
-  }
-  nav .fa-chevron-circle-down:hover {
-    color: #244589;
+  .desktop-show {
+    display: none;
   }
 }
 
 @media (min-width:769px) {
-  nav .fa-chevron-circle-down {
+  .mobile-show {
     display: none;
-  }
-  nav .fa-chevron-circle-down:hover {
-    background: #244589;
   }
 }

@@ -1,23 +1,41 @@
 import React from 'react';
 
-const NavBar = (props) => (
-<div>
+const NavBar = (props) => (<div>
   <nav>
- <span className="brand">
-   <a href="">Budget Basket</a>
- </span>
- <ul className="menu">
+    <div className="brand desktop-show">
+      <a href="">Budget Basket</a>
+    </div>
+    <div className="menu">
+      <li>
+        <a href="">
+          <span className="mobile-show col">
+            <i className="fa fa-home" aria-hidden="true"></i>Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <span className="desktop-show">About</span>
+          <span className="mobile-show col">
+            <i className="fa fa-bookmark" aria-hidden="true"></i>About</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <span className="desktop-show">Profile</span>
+          <span className="mobile-show col">
+            <i className="fa fa-user-circle" aria-hidden="true"></i>Profile</span>
+        </a>
+      </li>
+      <li>
+        <a href="">
+          <span className="desktop-show">Logout</span>
+          <span className="mobile-show col">
+            <i className="fa fa-sign-out" aria-hidden="true"></i>Logout</span>
+        </a>
+      </li>
+    </div>
 
-   <li><a href="">About</a></li>
-
-   <li><a href="">Saved</a></li>
-
-   <li><a href="">Logout</a></li>
- </ul>
- <i className="fa fa-chevron-circle-down" aria-hidden="true"></i>
-
-</nav>
-</div>
-);
+  </nav>
+</div>);
 
 export default NavBar
