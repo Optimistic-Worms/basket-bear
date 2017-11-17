@@ -9,8 +9,7 @@
     "test": "NODE_ENV=test jest",
     "local-test": "NODE_ENV=test jest --watch",
     "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
-    "postinstall": "webpack -p --config webpack.prod.js --progress",
-    "build": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev"
+    "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
   "repository": {
     "type": "git",
