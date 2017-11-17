@@ -2,8 +2,6 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
 
-console.log('AMAZON_PUBLIC_KEY', process.env.AMAZON_PUBLIC_KEY)
-
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
@@ -16,7 +14,7 @@ const signup = require('./authroutes.js').signup;
 const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
-const axios = require('axios')
+const axios = require('axios');
 const EBAYKEY = process.env.EBAY_KEY;
 const moment = require('moment')
 const tz = require('moment-timezone-all');
@@ -24,7 +22,7 @@ const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
-
+const apiUserController = require('./controllers/apiUser.js');
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -192,13 +190,16 @@ app.get('/searchAmazon', (req, res) => {
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
     parseString(response.data, function (err, result) {
-        console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
+<<<<<<< HEAD
     res.sendStatus(404);
+=======
+    res.send("ERROR: GET request from Amazon Failing " + error);
+>>>>>>> add apiUser on request
   });
 
 });
@@ -217,7 +218,13 @@ apiRoutes.get('/login', (req, res) => {
 });
 
 apiRoutes.get('/signup', (req, res) => {
-  //todo
+  const username = req.headers.username;
+  const password = req.headers.password;
+  apiUserController.addApiUser(username, password)
+  .then((data) => {
+    console.log('added user with id: ', data.id);
+    res.send('added user with id: '+ data.id);
+  });
 });
 
 apiRoutes.get('/logout', (req, res) => {
