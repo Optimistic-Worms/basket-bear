@@ -5,7 +5,7 @@ import Product from './Product.jsx'
 const SearchList = (props) => {
 
   return (
-    <div>
+    <div className="list">
       { props.items.map((item, key)=> {
         return (<Product key={key} item={item}/> )
         })

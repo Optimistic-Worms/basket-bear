@@ -7,8 +7,9 @@ body {
   margin: 0
 }
 
-h2 {
-  align-self: center;
+h3 {
+  text-align: center;
+  padding: 0 .1em;
 }
 
 /**  Navigation Bar  **/
@@ -101,41 +102,34 @@ nav .menu li:hover {
   white-space: nowrap;
   vertical-align: middle;
   border: 1px solid transparent;
-  padding: 0.4em 1em;
+  padding: 0.3em 1em;
   font-size: 1em;
   border-radius: 0.3em;
   background: dodgerblue;
   color: #fff;
-  transition: all 0.3s ease-out;
 }
 
 .list {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-gap: 1em;
+  background-color: #fff;
+  color: #444;
+  justify-content: center;
+  margin: 2em 3em;
 }
-
-/*.list:before {
-  display: table;
-  content: " ";
-}*/
 
 /** Product **/
 
 .card {
-  position: relative;
   display: flex;
   flex-direction: column;
-  background-color: #fff;
   border: 1px solid #dadada;
-  border-radius: .25rem;
-  margin: 1em;
-  width: 33%;
+  border-radius: 0.25em;
+  justify-content: center;
 }
 
 .product-image {
-  border-top-right-radius: calc(.25rem - 1px);
-  border-top-left-radius: calc(.25rem - 1px);
   width: 60%;
   height: auto;
   margin: auto;
@@ -167,6 +161,14 @@ nav .menu li:hover {
   nav {
     justify-content: space-around;
   }
+  .list {
+    grid-template-columns: 100%;
+    margin: 0 .5em;
+    grid-gap: .2em;
+  }
+  h3 {
+    font-size: 1em;
+  }
   .search {
     width: 90%;
   }
@@ -174,6 +176,16 @@ nav .menu li:hover {
     font-size: 3.2em;
     justify-content: center;
     margin: 1em auto -.6em auto;
+  }
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: .25rem;
+    margin: .7em auto;
+    width: 95%;
   }
   .col {
     display: flex;
