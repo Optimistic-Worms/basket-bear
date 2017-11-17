@@ -2,6 +2,8 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
 
+console.log('AMAZON_PUBLIC_KEY', process.env.AMAZON_PUBLIC_KEY)
+
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
@@ -193,15 +195,14 @@ app.get('/searchAmazon', (req, res) => {
   /** Callback to Get Response **/
   axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
     console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
-
-    var amazonData = parseString(response.data, function (err, result) {
+    parseString(response.data, function (err, result) {
         console.dir(result);
-        return result;
+        res.send(result);
     });
-    res.send(amazonData);
+
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
-    res.end();
+    res.send(404);
   });
 
 });
