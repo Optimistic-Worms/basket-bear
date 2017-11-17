@@ -1,14 +1,6 @@
 import React from 'react';
-import React from 'react'
-import ReactDOM from 'react-dom'
 import firebase from 'firebase';
 
-
-module.exports.getToken = (req, res) => {
-  
-};
-
-}
 
 class ManualUser extends React.Component {
   constructor(props) {
@@ -44,7 +36,7 @@ class ManualUser extends React.Component {
   handleSignup(event) {
     event.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password).then((value) => {
-       this.setState({messages: 'A verification email has been sent to: ' + email})
+       this.setState({messages: 'A verification email has been sent to: ' + email});
       })
       .catch((error) => { 
         this.setState({messages:'Opps. We are sorry to say: ' + error.message});
@@ -67,8 +59,7 @@ class ManualUser extends React.Component {
         </form>
         <div>{this.state.messages}</div>
       </div>
-
     );
   }
 }
-
+export default ManualUser;

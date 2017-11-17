@@ -20,6 +20,12 @@ const tz = require('moment-timezone-all');
 const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
+<<<<<<< HEAD
+=======
+/*const AMZPRKEY = require("./amazonConfig").PrivateKey
+const ASSCTAG = require("./amazonConfig").AssociateTag
+const AMZPUKEY = require("./amazonConfig").PublicKey*/
+>>>>>>> linted
 const parseString = require('xml2js').parseString;
 const getToken = require('./authroutes.js').getToken;
 
@@ -155,12 +161,12 @@ var parseEbayResults = function(searchResults) {
   Amazon API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.get('/searchAmazon', (req, res) => {
+/*app.get('/searchAmazon', (req, res) => {
   let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
-  console.log(date);
+  console.log(date);*/
 
   /** Wrapper to sign and stamp Amazon GET Request **/
-  const getAmazonItemInfo = (keywords) => {
+/*  const getAmazonItemInfo = (keywords) => {
 
     const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
     let parameters = [];
@@ -187,9 +193,9 @@ app.get('/searchAmazon', (req, res) => {
     return amazonUrl;
   }
 
-  let keywords = 'iphone'
+  let keywords = 'iphone'*/
   /** Callback to Get Response **/
-  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
+/*  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
     console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
     parseString(response.data, function (err, result) {
         console.dir(result);
@@ -201,7 +207,7 @@ app.get('/searchAmazon', (req, res) => {
     res.send(404);
   });
 
-});
+});*/
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Busisness API Routes
