@@ -21,9 +21,6 @@ const tz = require('moment-timezone-all');
 const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
-const AMZPRKEY = require("./amazonConfig").PrivateKey
-const ASSCTAG = require("./amazonConfig").AssociateTag
-const AMZPUKEY = require("./amazonConfig").PublicKey
 const parseString = require('xml2js').parseString;
 
 
@@ -167,26 +164,24 @@ app.get('/searchAmazon', (req, res) => {
   /** Wrapper to sign and stamp Amazon GET Request **/
   const getAmazonItemInfo = (keywords) => {
 
-    let PrivateKey = AMZPRKEY;
-    let PublicKey = AMZPUKEY;
-    let AssociateTag = ASSCTAG;
+    const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
     let parameters = [];
     let url = 'webservices.amazon.com' // US account
 
-    parameters.push("AWSAccessKeyId=" + PublicKey);
+    parameters.push("AWSAccessKeyId=" + AMAZON_PUBLIC_KEY);
     parameters.push("Keywords=" + keywords);
     parameters.push("Operation=ItemSearch");
     parameters.push("SearchIndex=All");
     parameters.push("ResponseGroup=" + encodeURIComponent('Images,ItemAttributes,Offers'));
     parameters.push("Service=AWSECommerceService");
     parameters.push("Timestamp=" + encodeURIComponent(date));
-    parameters.push("AssociateTag=" + AssociateTag);
+    parameters.push("AssociateTag=" + AMAZON_ASSOCIATE_TAG);
     parameters.sort();
 
     let paramString = parameters.join('&');
     let string_to_sign = "GET\n" + url + "\n" + "/onca/xml\n" + paramString
 
-    let signature = CryptoJS.HmacSHA256(string_to_sign, PrivateKey);
+    let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
     signature = CryptoJS.enc.Base64.stringify(signature);
 
     let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
@@ -206,6 +201,7 @@ app.get('/searchAmazon', (req, res) => {
     res.send(amazonData);
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
+    res.end();
   });
 
 });
@@ -220,6 +216,10 @@ apiRoutes.get('/', (req, res) => {
 });
 
 apiRoutes.get('/login', (req, res) => {
+  //todo
+});
+
+apiRoutes.get('/signup', (req, res) => {
   //todo
 });
 
