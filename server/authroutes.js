@@ -3,11 +3,16 @@ const admin = require("firebase-admin");
 
 
 // Initialize Firebase
-if (process.env.NODE_ENV !== 'test') {
-  const firebaseConfig = JSON.parse(process.env.FIREBASE_AUTH);
-  firebase.initializeApp(firebaseConfig);
+var firebaseConfig = {
+  apiKey: "AIzaSyAR2V9PUTzmZxj0u-0FvnQqlg06VRlnHSc",
+  authDomain: "bbasket-9e24a.firebaseapp.com",
+  databaseURL: "https:\//bbasket-9e24a.firebaseio.com",
+  projectId: "bbasket-9e24a",
+  storageBucket: "bbasket-9e24a.appspot.com",
+  messagingSenderId: "872393919907"
 };
 
+firebase.initializeApp(firebaseConfig);
 
 module.exports = {
     isAuthenticated: function (req, res, next) {
