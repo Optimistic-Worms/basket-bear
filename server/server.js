@@ -20,12 +20,9 @@ const tz = require('moment-timezone-all');
 const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
-<<<<<<< HEAD
-=======
 /*const AMZPRKEY = require("./amazonConfig").PrivateKey
 const ASSCTAG = require("./amazonConfig").AssociateTag
 const AMZPUKEY = require("./amazonConfig").PublicKey*/
->>>>>>> linted
 const parseString = require('xml2js').parseString;
 const getToken = require('./authroutes.js').getToken;
 
