@@ -37,7 +37,7 @@ describe('Test Shopping List Routes', () => {
   });
 
   test('should accept POST requests to /shoppingList', () => {
-    var data = {username : 'Candice'};
+    var data = { username : 'Candice'};
 
     return request(appServer.app)
     .post('/shoppingList')

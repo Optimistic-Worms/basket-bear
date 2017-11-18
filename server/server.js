@@ -61,10 +61,6 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   res.sendStatus(200);
 });
 
-app.get('/signup',signup)
-app.get('/login',manualSignIn)
-app.get('/logout',manualLogout)
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

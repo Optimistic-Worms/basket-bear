@@ -1,0 +1,22 @@
+{
+    "env": {
+      "browser": true,
+      "node": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+       "jsx": true
+      }
+    },
+    "plugins": ["react"],
+    "rules": {
+    "semi": 2,
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-console": 0
+  },
+  "extends": "airbnb"
+}

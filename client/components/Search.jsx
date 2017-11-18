@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import '../css/styles.css'
+import React from 'react';
 import axios from 'axios';
-import SearchList from './SearchList.jsx'
+import '../css/styles.css';
+
+import SearchList from './SearchList.jsx';
 
 class Search extends React.Component {
   constructor() {
@@ -31,7 +31,7 @@ class Search extends React.Component {
       var items = response.data;
       console.log(items);
       this.setState({ebaySearchItems: items});
-    })
+    });
   }
 
 
@@ -56,4 +56,4 @@ class Search extends React.Component {
     )
   }
 }
-export default Search
+export default Search;
