@@ -21,7 +21,7 @@ class ManualUser extends React.Component {
   }
 
   handlePassword(event) {
-    this.setState({ password: event.target.value });
+    this.setState({password: event.target.value});
   }
 
   handleLogin(event) {
@@ -32,6 +32,7 @@ class ManualUser extends React.Component {
       })
       .catch(error => console.log(`Opps. We are sorry to say: ${error.message}`));
   }
+
   handleSignup(event) {
     event.preventDefault();
     firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password)
@@ -43,7 +44,6 @@ class ManualUser extends React.Component {
         this.setState({ messages: `Opps. We are sorry to say: ${error.message}` });
       });
   }
-
   render() {
     return (
       <div>
@@ -65,12 +65,6 @@ class ManualUser extends React.Component {
               onChange={this.handlePassword}
               required
             />
-            <button value="login" onClick={this.handleLogin}>Login</button>
-            <button value="sign-up" onClick={this.handleSignup}>Sign-up</button>
-          </div>
-        </form>
-        <div>{this.state.messages}</div>
-      </div>
     );
   }
 }

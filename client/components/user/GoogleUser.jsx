@@ -1,9 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
 
-
-
-
 class GoogleUser extends React.Component {
   constructor() {
     super();
@@ -15,7 +12,7 @@ class GoogleUser extends React.Component {
   }
 
   authenticate(provider) {
-    console.log(provider);
+    console.log(provider)
     provider = new firebase.auth.GoogleAuthProvider();
     provider.addScope('profile');
     provider.addScope('email');
@@ -33,7 +30,6 @@ class GoogleUser extends React.Component {
   logout(){
     firebase.auth().signOut().then(function() {
     console.log('just logged out');
-    return 'logged user out';
    }, function(error) {
     console.log('couldn\'log out:' + error);
   });
@@ -42,7 +38,6 @@ class GoogleUser extends React.Component {
   componentWillMount() {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-    // User is signed in.
     console.log(user.uid);
     console.log(user.displayName);
     } else {
@@ -58,6 +53,7 @@ class GoogleUser extends React.Component {
         <button onClick={this.authenticate.bind(this, 'google')}> Google Login</button>       
         <button onClick={this.logout.bind()}> Logout</button>       
       </div>
+
     );
   }
 }

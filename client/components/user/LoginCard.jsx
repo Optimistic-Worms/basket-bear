@@ -5,7 +5,6 @@ import ManualUser from './ManualUser.jsx';
 import GoogleUser from './GoogleUser.jsx';
 import firebaseConfig from '../../../server/firebaseConfig.js';
 
-
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
 
@@ -49,4 +48,3 @@ class LoginCard extends React.Component {
 }
 
 export default LoginCard;
-
