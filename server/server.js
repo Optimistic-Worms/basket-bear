@@ -218,11 +218,16 @@ app.get('/searchAmazon', (req, res) => {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   let keywords = 'iphone'*/
   /** Callback to Get Response **/
 /*  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
 =======
   let keywords = 'iphone'
+=======
+  //let keywords = 'iphone'
+  var keywords = req.query.keyword;
+>>>>>>> cf05bd1... client searches amazon using search query instead of default.  client clears search results when switching search merchants
   /** Callback to Get Response **/
   axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
 >>>>>>> d9d6e9d... merging
