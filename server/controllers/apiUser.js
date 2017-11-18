@@ -1,4 +1,5 @@
 const db = require('../../db/db-config.js');
+const auth = require('./auth.js')
 const Promise = require('bluebird');
 
 exports.addApiUser = (username, password) => {

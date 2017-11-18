@@ -195,11 +195,7 @@ app.get('/searchAmazon', (req, res) => {
 
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
-<<<<<<< HEAD
-    res.sendStatus(404);
-=======
     res.send("ERROR: GET request from Amazon Failing " + error);
->>>>>>> add apiUser on request
   });
 
 });
@@ -218,8 +214,7 @@ apiRoutes.get('/login', (req, res) => {
 });
 
 apiRoutes.get('/signup', (req, res) => {
-  const username = req.headers.username;
-  const password = req.headers.password;
+  const {username, password} = req.headers;
   apiUserController.addApiUser(username, password)
   .then((data) => {
     console.log('added user with id: ', data.id);
