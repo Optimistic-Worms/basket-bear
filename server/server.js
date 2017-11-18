@@ -191,7 +191,8 @@ app.get('/searchAmazon', (req, res) => {
     return amazonUrl;
   }
 
-  let keywords = 'iphone'
+  //let keywords = 'iphone'
+  var keywords = req.query.keyword;
   /** Callback to Get Response **/
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
