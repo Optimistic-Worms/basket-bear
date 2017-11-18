@@ -12,6 +12,9 @@ const app = express();
 const requestHandlers = require('./request-handlers');
 const path = require('path');
 const port = process.env.PORT || 3000;
+const signup = require('./authroutes.js').signup;
+const manualSignIn = require('./authroutes.js').manualSignIn;
+const manualLogout = require('./authroutes.js').manualLogout;
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
@@ -20,12 +23,7 @@ const tz = require('moment-timezone-all');
 const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
-const AMZPRKEY = require("./amazonConfig").PrivateKey
-const ASSCTAG = require("./amazonConfig").AssociateTag
-const AMZPUKEY = require("./amazonConfig").PublicKey
 const parseString = require('xml2js').parseString;
-const getToken = require('./authroutes.js').getToken;
-
 
 
 let config;
@@ -58,11 +56,14 @@ app.get('/', (req,res)=> {
   res.send(200)
 });
 
-app.get('/thing', isAuthenticated, (req, res) =>{
- // console.log(res)
+app.get('/thing', isAuthenticated, (req,res) =>{
+  console.log('hit the 200')
   res.sendStatus(200);
 });
 
+app.get('/signup',signup)
+app.get('/login',manualSignIn)
+app.get('/logout',manualLogout)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
@@ -257,6 +258,3 @@ app.get('*', (req,res) =>{
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  require('dotenv').config();
-}
