@@ -190,16 +190,19 @@ app.get('/searchAmazon', (req, res) => {
   //let keywords = 'iphone'
   var keywords = req.query.keyword;
   /** Callback to Get Response **/
-  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
-    console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
+  var sendToUrl = getAmazonItemInfo(keywords);
+  axios.get(sendToUrl, {params: {}}).then(function(response) {
+    console.log('SENDING TO URL', sendToUrl);
+    //console.log('response:', response.data);
     parseString(response.data, function (err, result) {
         console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
+    console.log('ERROr on amazonURL:', sendToUrl);
     console.log("ERROR: GET request from Amazon Failing " + error);
-    res.send(404);
+    res.sendStatus(404);
   });
 
 });
