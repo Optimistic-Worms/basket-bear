@@ -129,6 +129,8 @@ class ManualUser extends React.Component {
               onChange={this.handlePassword} 
               required 
              />
+             <button onClick={ this.handleLogin }  >Login</button>
+             <button onClick={ this.handleSignup } >Sign Up</button>
             </div>
           </form> 
         </div>
