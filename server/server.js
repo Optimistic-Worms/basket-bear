@@ -12,6 +12,12 @@ const app = express();
 const requestHandlers = require('./request-handlers');
 const path = require('path');
 const port = process.env.PORT || 3000;
+<<<<<<< HEAD
+=======
+const signup = require('./authroutes.js').signup;
+const manualSignIn = require('./authroutes.js').manualSignIn;
+const manualLogout = require('./authroutes.js').manualLogout;
+>>>>>>> d9d6e9d... merging
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
@@ -20,12 +26,16 @@ const tz = require('moment-timezone-all');
 const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
+<<<<<<< HEAD
 /*const AMZPRKEY = require("./amazonConfig").PrivateKey
 const ASSCTAG = require("./amazonConfig").AssociateTag
 const AMZPUKEY = require("./amazonConfig").PublicKey*/
 const parseString = require('xml2js').parseString;
 const getToken = require('./authroutes.js').getToken;
 
+=======
+const parseString = require('xml2js').parseString;
+>>>>>>> d9d6e9d... merging
 
 
 let config;
@@ -58,12 +68,20 @@ app.get('/', (req,res)=> {
   res.send(200)
 });
 
+<<<<<<< HEAD
 app.get('/thing', isAuthenticated, (req, res) =>{
  // console.log(res)
   res.sendStatus(200);
 });
 
 
+=======
+app.get('/thing', isAuthenticated, (req,res) =>{
+  console.log('hit the 200')
+  res.sendStatus(200);
+});
+
+>>>>>>> d9d6e9d... merging
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -158,12 +176,21 @@ var parseEbayResults = function(searchResults) {
   Amazon API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+<<<<<<< HEAD
 /*app.get('/searchAmazon', (req, res) => {
   let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
   console.log(date);*/
 
   /** Wrapper to sign and stamp Amazon GET Request **/
 /*  const getAmazonItemInfo = (keywords) => {
+=======
+app.get('/searchAmazon', (req, res) => {
+  let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
+  console.log(date);
+
+  /** Wrapper to sign and stamp Amazon GET Request **/
+  const getAmazonItemInfo = (keywords) => {
+>>>>>>> d9d6e9d... merging
 
     const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
     let parameters = [];
@@ -190,9 +217,15 @@ var parseEbayResults = function(searchResults) {
     return amazonUrl;
   }
 
+<<<<<<< HEAD
   let keywords = 'iphone'*/
   /** Callback to Get Response **/
 /*  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
+=======
+  let keywords = 'iphone'
+  /** Callback to Get Response **/
+  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
+>>>>>>> d9d6e9d... merging
     console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
     parseString(response.data, function (err, result) {
         console.dir(result);
@@ -204,7 +237,11 @@ var parseEbayResults = function(searchResults) {
     res.send(404);
   });
 
+<<<<<<< HEAD
 });*/
+=======
+});
+>>>>>>> d9d6e9d... merging
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Busisness API Routes
@@ -257,6 +294,7 @@ app.get('*', (req,res) =>{
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
+<<<<<<< HEAD
 =======
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
@@ -513,3 +551,5 @@ app.get('*', (req,res) =>{
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
+=======
+>>>>>>> d9d6e9d... merging
