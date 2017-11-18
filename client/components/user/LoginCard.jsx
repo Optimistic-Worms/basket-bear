@@ -18,7 +18,7 @@ let firebaseConfig = {
 
 
 
-firebase.initializeApp(firebaseConfig.firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 class LoginCard extends React.Component {
   constructor() {

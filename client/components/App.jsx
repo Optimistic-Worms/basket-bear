@@ -19,9 +19,7 @@ class App extends React.Component {
       <div>
       <Navbar/>
       <Search/>
-        <LoginCard/>
-        <h1>Hello World Deploy!</h1>
-        <Search/>
+      <LoginCard/>
       </div>
     );
   }
