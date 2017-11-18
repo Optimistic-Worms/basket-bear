@@ -7,7 +7,7 @@ passport.use(new BasicStrategy(
     db.collection('apiUsers').where('username', '==', username).get()
     .then(snapshot => {
       console.log(snapshot)
-    });
+    })
     .catch(err => console.log('cannot find user: ', username));
   })
 );
