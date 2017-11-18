@@ -49,7 +49,7 @@ class Search extends React.Component {
           <button className="button" onClick={()=>{this.searchEbay(this.state.queryString)}}><i className="fa fa-search" aria-hidden="true"></i></button>
          </div>
         </div>
-      <div className="list">
+      <div>
         <SearchList items={this.state.ebaySearchItems}/>
       </div>
     </div>
