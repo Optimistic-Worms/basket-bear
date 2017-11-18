@@ -20,6 +20,7 @@ class Search extends React.Component {
     this.searchAmazon = this.searchAmazon.bind(this);
     this.query = this.query.bind(this);
     this.sortItems = this.sortItems.bind(this);
+    this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
   componentDidMount() {
@@ -50,7 +51,7 @@ class Search extends React.Component {
     })
     .then((response) => {
       var items = response.data;
-      console.log(items);
+     // console.log(items);
       this.setState({ebaySearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);
       this.sortItems(combinedItems);
@@ -59,7 +60,7 @@ class Search extends React.Component {
   }
 
   sortItems(array){
-    console.log('sorting array: ', array);
+    //console.log('sorting array: ', array);
     array.sort(function(a,b) {
       if (Number(a.price) < Number(b.price)) {
         return -1;
@@ -79,7 +80,7 @@ class Search extends React.Component {
     })
     .then((response) => {
       var searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      console.log(searchResults);
+      //console.log(searchResults);
       var items = [];
       for (var i = 0 ; i < searchResults.length ; i++) {
         var product = {
@@ -99,6 +100,10 @@ class Search extends React.Component {
     })
   }
 
+  addToShoppingList(item) {
+    console.log('Adding item to shopping list:', item);
+  }
+
 
   query(input) {
     this.setState({queryString : input.target.value});
@@ -109,7 +114,7 @@ class Search extends React.Component {
     return (
       <div>
         <div className="ebaySearch">
-         <h3>Search Ebay</h3>
+         <h3>Product Search</h3>
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
@@ -123,7 +128,7 @@ class Search extends React.Component {
          </div>
         </div>
       <div>
-        <SearchList items={this.state.searchItems}/>
+        <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
       </div>
     </div>
     )
