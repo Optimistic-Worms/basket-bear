@@ -160,12 +160,12 @@ var parseEbayResults = function(searchResults) {
 
   for (var i = 0 ; i < searchResults.length ; i++) {
     var product = {
-      id: searchResults[i].itemId,
-      name: searchResults[i].title,
-      imageUrl: searchResults[i].galleryURL,
+      id: searchResults[i].itemId[0],
+      name: searchResults[i].title[0],
+      imageUrl: searchResults[i].galleryURL[0],
       merchant: 'eBay',
       price: searchResults[i].sellingStatus[0].currentPrice[0].__value__,
-      link: searchResults[i].viewItemURL
+      link: searchResults[i].viewItemURL[0]
     }
     items.push(product);
   }
@@ -220,6 +220,7 @@ app.get('/searchAmazon', (req, res) => {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   let keywords = 'iphone'*/
   /** Callback to Get Response **/
 /*  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
@@ -231,6 +232,8 @@ app.get('/searchAmazon', (req, res) => {
 >>>>>>> cf05bd1... client searches amazon using search query instead of default.  client clears search results when switching search merchants
 =======
   //let keywords = 'iphone'
+=======
+>>>>>>> 922c07c... add button to add item to shopping list
   var keywords = req.query.keyword;
 >>>>>>> 01b3bbb... client searches amazon using search query instead of default.  client clears search results when switching search merchants
   /** Callback to Get Response **/
@@ -241,16 +244,18 @@ app.get('/searchAmazon', (req, res) => {
 =======
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
+<<<<<<< HEAD
     //console.log('SENDING TO URL', sendToUrl);
     //console.log('response:', response.data);
 >>>>>>> ebbff0b... add amazon search to client
+=======
+>>>>>>> 922c07c... add button to add item to shopping list
     parseString(response.data, function (err, result) {
         console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
-   // console.log('ERROr on amazonURL:', sendToUrl);
     console.log("ERROR: GET request from Amazon Failing " + error);
     res.sendStatus(404);
   });
