@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
@@ -514,4 +515,3 @@ app.get('*', (req,res) =>{
 module.exports.server = server;
 module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
->>>>>>> 8ca2d44... server change

@@ -93,19 +93,19 @@ class ManualUser extends React.Component {
       <div>
         <form >
           <div className="container">
-            <label htmlFor="email"><b>Email</b></label>
+            <label><b>Email</b></label>
             <input
               name="email"
               type="email"
               value={this.state.username}
               onChange={this.handleUsername}
-              required
-            />
+              required />
             <label htmlFor="password"><b>Password</b></label>
             <input
               type="password"
               autoComplete="new-password"
               value={this.state.password}
+<<<<<<< HEAD
               onChange={this.handlePassword}
               required
             />
@@ -125,6 +125,14 @@ class ManualUser extends React.Component {
         <div>{this.state.messages}</div>
       </div>
 <<<<<<< HEAD
+=======
+              onChange={this.handlePassword} 
+              required 
+             />
+            </div>
+          </form> 
+        </div>
+>>>>>>> 4908070... add branch fixes
     );
   }
 }
