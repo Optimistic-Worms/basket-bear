@@ -19,22 +19,28 @@ class Search extends React.Component {
     this.searchEbay = this.searchEbay.bind(this);
     this.searchAmazon = this.searchAmazon.bind(this);
     this.query = this.query.bind(this);
+    this.sortItems = this.sortItems.bind(this);
+    this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
   componentDidMount() {
 
   }
 
-  search(keyword) {
+  search() {
+    this.setState({searchItems: []});
+    this.setState({ebaySearchItems: []});
+    this.setState({amazonSearchItems: []});
+
     console.log("search merchant" , this.state.searchMerchant);
     console.log('query:', this.state.queryString);
-    if (this.state.searchMerchant === 'ebay') {
+    if (this.state.searchMerchant === 'ebay' || this.state.searchMerchant === 'all') {
       this.searchEbay(this.state.queryString);
-    } else if (this.state.searchMerchant === 'amazon') {
-      this.searchAmazon(this.state.queryString);
-    } else if (this.state.searchMerchant === 'all') {
-
     }
+    if (this.state.searchMerchant === 'amazon' || this.state.searchMerchant === 'all') {
+      this.searchAmazon(this.state.queryString);
+    }
+
   }
 
   searchEbay(keyword) {
@@ -45,8 +51,24 @@ class Search extends React.Component {
     })
     .then((response) => {
       var items = response.data;
-      console.log(items);
-      this.setState({searchItems: items});
+     // console.log(items);
+      this.setState({ebaySearchItems: items});
+      var combinedItems = items.concat(this.state.searchItems);
+      this.sortItems(combinedItems);
+      this.setState({searchItems: combinedItems});
+    })
+  }
+
+  sortItems(array){
+    //console.log('sorting array: ', array);
+    array.sort(function(a,b) {
+      if (Number(a.price) < Number(b.price)) {
+        return -1;
+      }
+      if (Number(a.price) > Number(b.price)) {
+        return 1;
+      }
+      return 0;
     })
   }
 
@@ -58,7 +80,7 @@ class Search extends React.Component {
     })
     .then((response) => {
       var searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      console.log(searchResults);
+      //console.log(searchResults);
       var items = [];
       for (var i = 0 ; i < searchResults.length ; i++) {
         var product = {
@@ -66,13 +88,20 @@ class Search extends React.Component {
           name: searchResults[i].ItemAttributes[0].Title[0],
           imageUrl: searchResults[i].MediumImage[0].URL[0],
           merchant: 'amazon',
-          price: searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0],
+          price: searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1),
           link: searchResults[i].DetailPageURL[0]
         }
         items.push(product);
      }
-      this.setState({searchItems: items});
+      this.setState({amazonSearchItems: items});
+      var combinedItems = items.concat(this.state.searchItems);
+      this.sortItems(combinedItems);
+      this.setState({searchItems: combinedItems});
     })
+  }
+
+  addToShoppingList(item) {
+    console.log('Adding item to shopping list:', item);
   }
 
 
@@ -80,14 +109,15 @@ class Search extends React.Component {
     this.setState({queryString : input.target.value});
   }
 
+
   render() {
     return (
       <div>
         <div className="ebaySearch">
-         <h3>Search Ebay</h3>
+         <h3>Product Search</h3>
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
-          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
+          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
             <option value="ebay">Ebay</option>
             <option value="amazon">Amazon</option>
             <option value="all">All</option>
@@ -98,7 +128,7 @@ class Search extends React.Component {
          </div>
         </div>
       <div>
-        <SearchList items={this.state.searchItems}/>
+        <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
       </div>
     </div>
     )
