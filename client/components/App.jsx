@@ -45,6 +45,7 @@ class App extends React.Component {
       <Navbar/>
       <Search/>
 <<<<<<< HEAD
+<<<<<<< HEAD
         <LoginCard/>
         <h1>Hello World Deploy!</h1>
         <Search/>
@@ -58,6 +59,9 @@ class App extends React.Component {
         <Search/>
 >>>>>>> add google signin
 >>>>>>> 80098e1... add google signin
+=======
+      <LoginCard/>
+>>>>>>> 0c1383e... add server corrections
       </div>
     );
   }

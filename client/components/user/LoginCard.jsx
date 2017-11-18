@@ -19,7 +19,7 @@ import axios from 'axios';
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
 
-firebase.initializeApp(firebaseConfig.firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
 class LoginCard extends React.Component {
   constructor() {
