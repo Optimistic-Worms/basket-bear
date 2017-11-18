@@ -213,7 +213,7 @@ app.get('/searchAmazon', (req, res) => {
     signature = CryptoJS.enc.Base64.stringify(signature);
 
     let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-    console.log(amazonUrl);
+    console.log('SEND TO URL:', amazonUrl);
     return amazonUrl;
   }
 
@@ -241,7 +241,7 @@ app.get('/searchAmazon', (req, res) => {
 =======
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
-    console.log('SENDING TO URL', sendToUrl);
+    //console.log('SENDING TO URL', sendToUrl);
     //console.log('response:', response.data);
 >>>>>>> ebbff0b... add amazon search to client
     parseString(response.data, function (err, result) {
@@ -250,7 +250,7 @@ app.get('/searchAmazon', (req, res) => {
     });
 
   }).catch(function(error) {
-    console.log('ERROr on amazonURL:', sendToUrl);
+   // console.log('ERROr on amazonURL:', sendToUrl);
     console.log("ERROR: GET request from Amazon Failing " + error);
     res.sendStatus(404);
   });
