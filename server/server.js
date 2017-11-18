@@ -229,17 +229,25 @@ app.get('/searchAmazon', (req, res) => {
   var keywords = req.query.keyword;
 >>>>>>> cf05bd1... client searches amazon using search query instead of default.  client clears search results when switching search merchants
   /** Callback to Get Response **/
+<<<<<<< HEAD
   axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
 >>>>>>> d9d6e9d... merging
     console.log("😵😵😵😵😵😵: ", response.data, " 😵😵😵😵😵😵")
+=======
+  var sendToUrl = getAmazonItemInfo(keywords);
+  axios.get(sendToUrl, {params: {}}).then(function(response) {
+    console.log('SENDING TO URL', sendToUrl);
+    //console.log('response:', response.data);
+>>>>>>> ebbff0b... add amazon search to client
     parseString(response.data, function (err, result) {
         console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
+    console.log('ERROr on amazonURL:', sendToUrl);
     console.log("ERROR: GET request from Amazon Failing " + error);
-    res.send(404);
+    res.sendStatus(404);
   });
 
 <<<<<<< HEAD

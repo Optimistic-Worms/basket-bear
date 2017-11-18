@@ -87,7 +87,11 @@ class Search extends React.Component {
          <h3>Search Ebay</h3>
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
+<<<<<<< HEAD
           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
+=======
+          <select onChange={(e)=> { this.setState({searchMerchant: e.target.value})}}>
+>>>>>>> ebbff0b... add amazon search to client
             <option value="ebay">Ebay</option>
             <option value="amazon">Amazon</option>
             <option value="all">All</option>
