@@ -183,7 +183,7 @@ app.get('/searchAmazon', (req, res) => {
     signature = CryptoJS.enc.Base64.stringify(signature);
 
     let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-    console.log(amazonUrl);
+    console.log('SEND TO URL:', amazonUrl);
     return amazonUrl;
   }
 
@@ -192,7 +192,7 @@ app.get('/searchAmazon', (req, res) => {
   /** Callback to Get Response **/
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
-    console.log('SENDING TO URL', sendToUrl);
+    //console.log('SENDING TO URL', sendToUrl);
     //console.log('response:', response.data);
     parseString(response.data, function (err, result) {
         console.dir(result);
@@ -200,7 +200,7 @@ app.get('/searchAmazon', (req, res) => {
     });
 
   }).catch(function(error) {
-    console.log('ERROr on amazonURL:', sendToUrl);
+   // console.log('ERROr on amazonURL:', sendToUrl);
     console.log("ERROR: GET request from Amazon Failing " + error);
     res.sendStatus(404);
   });
