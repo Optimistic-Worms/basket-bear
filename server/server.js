@@ -219,6 +219,7 @@ app.get('/searchAmazon', (req, res) => {
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   let keywords = 'iphone'*/
   /** Callback to Get Response **/
 /*  axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {
@@ -228,6 +229,10 @@ app.get('/searchAmazon', (req, res) => {
   //let keywords = 'iphone'
   var keywords = req.query.keyword;
 >>>>>>> cf05bd1... client searches amazon using search query instead of default.  client clears search results when switching search merchants
+=======
+  //let keywords = 'iphone'
+  var keywords = req.query.keyword;
+>>>>>>> 01b3bbb... client searches amazon using search query instead of default.  client clears search results when switching search merchants
   /** Callback to Get Response **/
 <<<<<<< HEAD
   axios.get(getAmazonItemInfo(keywords), {params: {}}).then(function(response) {

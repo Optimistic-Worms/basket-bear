@@ -88,10 +88,14 @@ class Search extends React.Component {
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
 =======
           <select onChange={(e)=> { this.setState({searchMerchant: e.target.value})}}>
 >>>>>>> ebbff0b... add amazon search to client
+=======
+          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
+>>>>>>> 01b3bbb... client searches amazon using search query instead of default.  client clears search results when switching search merchants
             <option value="ebay">Ebay</option>
             <option value="amazon">Amazon</option>
             <option value="all">All</option>
