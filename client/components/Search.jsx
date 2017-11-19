@@ -51,7 +51,6 @@ class Search extends React.Component {
     })
     .then((response) => {
       var items = response.data;
-     // console.log(items);
       this.setState({ebaySearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);
       this.sortItems(combinedItems);
@@ -86,10 +85,14 @@ class Search extends React.Component {
         var product = {
           id: searchResults[i].ASIN[0],
           name: searchResults[i].ItemAttributes[0].Title[0],
-          imageUrl: searchResults[i].MediumImage[0].URL[0],
           merchant: 'amazon',
-          price: searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1),
           link: searchResults[i].DetailPageURL[0]
+        }
+        if (searchResults[i].MediumImage) {
+          product.imageUrl = searchResults[i].MediumImage[0].URL[0];
+        }
+        if (searchResults[i].ItemAttributes[0].ListPrice) {
+          product.price = searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1);
         }
         items.push(product);
      }
