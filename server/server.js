@@ -167,7 +167,7 @@ app.get('/searchAmazon', (req, res) => {
     let url = 'webservices.amazon.com' // US account
 
     parameters.push("AWSAccessKeyId=" + AMAZON_PUBLIC_KEY);
-    parameters.push("Keywords=" + keywords);
+    parameters.push("Keywords=" + encodeURIComponent(keywords));
     parameters.push("Operation=ItemSearch");
     parameters.push("SearchIndex=All");
     parameters.push("ResponseGroup=" + encodeURIComponent('Images,ItemAttributes,Offers'));
