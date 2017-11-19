@@ -210,7 +210,15 @@ app.get('/searchAmazon', (req, res) => {
     let string_to_sign = "GET\n" + url + "\n" + "/onca/xml\n" + paramString
 
     let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
+<<<<<<< HEAD
     signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
+=======
+    console.log('SIGNATURE HMAC', signature);
+    signature = CryptoJS.enc.Base64.stringify(signature);
+    console.log('SIGNATURE BASE64', signature);
+    signature = signature.replace(/\+/gi, '%2B').replace(/\=/gi, '%3D');
+    console.log('final signature', signature);
+>>>>>>> 3dbd30a... figure out encoding issue
 
     let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
     console.log('SEND TO URL:', amazonUrl);
