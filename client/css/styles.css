@@ -12,6 +12,13 @@ h3 {
   text-align: center;
   padding: 0 .1em;
 }
+/** Login **/
+
+.loginCard {
+	background-color: blue;
+	max-width: 200px;
+	padding:10px;
+}
 
 /**  Navigation Bar  **/
 
@@ -30,7 +37,7 @@ nav {
   padding-left: .1em;
   padding-right: .1em;
   align-items: center;
-  height: 5em;
+  height: 3.5em;
 }
 
 nav .brand {
@@ -112,7 +119,7 @@ nav .menu li:hover {
 
 .list {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: auto auto auto;
   grid-gap: 1em;
   background-color: #fff;
   color: #444;
@@ -158,12 +165,20 @@ nav .menu li:hover {
 
 /** Media Queries **/
 
+@media (max-width:420px) {
+  li .fa {
+    font-size: 2.5em;
+    justify-content: center;
+    margin: 1em auto -.8em auto;
+  }
+}
+
 @media (max-width:768px) {
   nav {
     justify-content: space-around;
   }
   .list {
-    grid-template-columns: 100%;
+    grid-template-columns: auto;
     margin: 0 .5em;
     grid-gap: .2em;
   }
@@ -205,19 +220,20 @@ nav .menu li:hover {
   }
 }
 
+@media (min-width:769px) and (max-width:1000px) {
+  .list {
+    grid-template-columns: auto auto;
+  }
+}
+
 @media (min-width:769px) {
   .mobile-show {
     display: none;
   }
 }
 
-h1 {
-	color:red;
+@media (min-width:1500px) {
+  .list {
+    grid-template-columns: auto auto auto auto;
+  }
 }
-
-.loginCard {
-	background-color: blue;
-	max-width: 200px;
-	padding:10px;
-}
-
