@@ -3,7 +3,7 @@ import '../css/styles.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
-import ApiUserLogin from './ApiUser/ApiUserLogin.jsx';
+import ApiUserLogin from './apiUser/ApiUserLogin.jsx';
 
 class App extends React.Component {
   constructor() {
