@@ -13,6 +13,22 @@ exports.addApiUser = (username, password) => {
   });
 }
 
+exports.checkApiUser = (username, password) => {
+  const user = db.collection('apiUsers').where('username', '==', username).get().then(user => console.log(user))
+
+}
+
+exports.createClientSecret = (clientId) => {
+  const randomValueHex = (len) => {
+    return crypto.randomBytes(Math.ceil(len/2))
+        .toString('hex') // convert to hexadecimal format
+        .slice(0, len);   // return required number of characters
+  };
+
+}
+
+
+
 exports.loginApiUser = (username, password) => {
 
 }
@@ -26,6 +42,6 @@ exports.getProductData = (productObj) => {
 }
 
 exports.getMerchantData = () => {
-
+cd
 }
 
