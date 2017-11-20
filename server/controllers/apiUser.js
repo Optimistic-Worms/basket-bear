@@ -1,31 +1,56 @@
-// const db = require('../../db/db-config.js');
-// //const auth = require('./auth.js')
-// const Promise = require('bluebird');
+const db = require('../../db/db-config.js');
+const crypto = require('crypto');
 
-// exports.addApiUser = (username, password) => {
-//   return new Promise((resolve, reject) => {
-//     db.collection('apiUsers').add({
-//       username: username,
-//       password: password
-//     })
-//     .then(ref => resolve(ref))
-//     .catch(err => reject(err));
-//   });
-// }
+//const auth = require('./auth.js')
+const Promise = require('bluebird');
 
-// exports.loginApiUser = (username, password) => {
+exports.addApiUser = (userId) => {
+  return new Promise((resolve, reject) => {
+    db.collection('apiUsers').add({
+      user_id: userId
+    })
+    .then(ref => {
+      exports.createClientSecret(ref.id)
+      .then((secret) => resolve(secret));
+    })
+    .catch(err => reject(err));
+  });
+}
 
-// }
+exports.createClientSecret = (clientId) => {
+  const randomValueHex = (len) => {
+    return crypto.randomBytes(Math.ceil(len/2))
+        .toString('hex') // convert to hexadecimal format
+        .slice(0, len);   // return required number of characters
+  };
 
-// exports.logoutApiUser = (username) => {
+  return new Promise((resolve, reject) => {
+    var apiUser = db.collection('apiUsers').doc(clientId)
+    var secret = randomValueHex(24);
+    apiUser.update({
+      client_secret: secret
+    })
+    .then(doc => {
+      resolve(secret);
+  })
+  .catch(err => reject(err));
+  });
 
-// }
+}
 
-// exports.getProductData = (productObj) => {
+exports.loginApiUser = (username, password) => {
 
-// }
+}
 
-// exports.getMerchantData = () => {
+exports.logoutApiUser = (username) => {
 
-// }
+}
+
+exports.getProductData = (productObj) => {
+
+}
+
+exports.getMerchantData = () => {
+
+}
 

@@ -23,12 +23,9 @@ const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
 const apiUserController = require('./controllers/apiUser.js');
-
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-
 
 app.use(express.static(__dirname));
 
@@ -214,12 +211,17 @@ apiRoutes.get('/login', (req, res) => {
 });
 
 apiRoutes.get('/signup', (req, res) => {
-  const {username, password} = req.headers;
-  apiUserController.addApiUser(username, password)
-  .then((data) => {
-    console.log('added user with id: ', data.id);
-    res.send('added user with id: '+ data.id);
+  //const {username, password} = req.headers;
+  apiUserController.addApiUser(req.headers.userid)
+  .then((secret) => {
+    console.log('added user with id: ', req.headers.userid, 'and secret: ', secret);
+    res.send('added user with id: '+ req.headers.userid + ' and secret: ' + secret);
   });
+});
+
+apiRoutes.get('/clientcred', (req, res) => {
+  apiUserController.createClientSecret(req.headers.userid)
+  .then((secret) => console.log('Here us your new secret: ', secret))
 });
 
 apiRoutes.get('/logout', (req, res) => {
