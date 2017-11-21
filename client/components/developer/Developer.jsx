@@ -1,7 +1,7 @@
 import React from 'react';
 import {Router, Routes} from "react-router";
 import '../../css/styles.css';
-import ApiUserSignup from './apiUser/apiUserSignup.jsx';
+import ApiUserSignup from './apiUser/ApiUserSignup.jsx';
 import ApiUserLogin from './apiUser/ApiUserLogin.jsx';
 
 class Developer extends React.Component {
