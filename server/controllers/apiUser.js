@@ -45,8 +45,8 @@ exports.createClientSecret = (clientId) => {
 
 
 
-exports.loginApiUser = (username, password) => {
-
+exports.login = (req, res) => {
+  res.send(req.user);
 }
 
 exports.logoutApiUser = (username) => {
