@@ -130,7 +130,6 @@ app.get('/searchEbay', (req, res)=> {
 
 });
 
-
 var parseEbayResults = function(searchResults) {
   var items = [];
 
