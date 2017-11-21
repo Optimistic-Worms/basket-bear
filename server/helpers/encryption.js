@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt-nodejs');
 const Promise = require('bluebird');
+const crypto = require('crypto');
 
 exports.verifyPassword = (string, hash) => {
   return new Promise((resolve, reject) => {
@@ -23,4 +24,8 @@ exports.createHash = (string) => {
       });
     });
   });
+};
+
+exports.generateSecret = (len) => {
+  return crypto.randomBytes(Math.ceil(len / 2)).toString('hex').slice(0, len);
 };

@@ -10,7 +10,7 @@ passport.use(new BasicStrategy(function(username, password, cb) {
       const userObj = user.data();
       if (userObj.email === username) {
         encrypt.verifyPassword(password, userObj.password)
-        .then(() => cb(null, userObj))
+        .then(() => cb(null, user))
         .catch(err => cb(err, null))
       }
     });
