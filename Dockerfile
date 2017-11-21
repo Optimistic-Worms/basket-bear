@@ -1,5 +1,5 @@
 #use a base node image
-FROM nphavens/basket-starter
+FROM nphavens/basket-v2
 
 WORKDIR /app
 
