@@ -23,6 +23,11 @@ const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
 const apiUserController = require('./controllers/apiUser.js');
+var passport = require('passport');
+const BasicStrategy = require('passport-http').BasicStrategy;
+const db = require('../db/db-config.js');
+
+
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
@@ -202,26 +207,36 @@ app.get('/searchAmazon', (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
 
+passport.use(new BasicStrategy(function(username, password, cb) {
+  console.log('username is ', username)
+  db.collection('apiUsers').get()
+  .then(snapshot => {
+    snapshot.forEach(user => {
+      if (user.data().username === username) {
+        return cb(null, user.data());
+      }
+    });
+  });
+}));
+
 apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.get('/login', (req, res) => {
-  //todo
-});
-
-apiRoutes.get('/signup', (req, res) => {
-  //const {username, password} = req.headers;
-  apiUserController.addApiUser(req.headers.userid)
-  .then((secret) => {
-    console.log('added user with id: ', req.headers.userid, 'and secret: ', secret);
-    res.send('added user with id: '+ req.headers.userid + ' and secret: ' + secret);
+apiRoutes.get('/login', passport.authenticate('basic', { session: false }),
+  function(req, res) {
+    //console.log(req.user.username)
+    //res.json({ username: req.user.username, password: req.user.password });
+    res.send(req.user)
   });
-});
 
-apiRoutes.get('/clientcred', (req, res) => {
-  apiUserController.createClientSecret(req.headers.userid)
-  .then((secret) => console.log('Here us your new secret: ', secret))
+apiRoutes.post('/signup', (req, res) => {
+  apiUserController.addApiUser(req.body.username, req.body.password)
+  .then((data) => {
+    console.log('added user with id: ', data.id);
+    res.send('added user with id: '+ data.id);
+  });
+
 });
 
 apiRoutes.get('/logout', (req, res) => {

@@ -17,6 +17,12 @@ exports.addApiUser = (userId) => {
   });
 }
 
+
+exports.checkApiUser = (username, password) => {
+  const user = db.collection('apiUsers').where('username', '==', username).get().then(user => console.log(user))
+
+}
+
 exports.createClientSecret = (clientId) => {
   const randomValueHex = (len) => {
     return crypto.randomBytes(Math.ceil(len/2))
@@ -32,11 +38,12 @@ exports.createClientSecret = (clientId) => {
     })
     .then(doc => {
       resolve(secret);
-  })
-  .catch(err => reject(err));
+    })
+    .catch(err => reject(err));
   });
-
 }
+
+
 
 exports.loginApiUser = (username, password) => {
 
