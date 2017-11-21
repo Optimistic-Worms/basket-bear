@@ -22,7 +22,7 @@ const parseString = require('xml2js').parseString;
 const apiUser = require('./controllers/apiUser.js');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const db = require('../db/db-config.js');
-const apiAuth = require('./controllers/auth.js')
+const apiAuth = require('./controllers/auth.js');
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');

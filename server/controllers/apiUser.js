@@ -1,24 +1,26 @@
 const db = require('../../db/db-config.js');
 const crypto = require('crypto');
+const encrypt = require('../helpers/encryption.js');
 
-//const auth = require('./auth.js')
-const Promise = require('bluebird');
 
 exports.addUser = (req, res) => {
-  db.collection('apiUsers').add({
-    email: req.body.email,
-    password: req.body.passsword
-  })
-  .then(ref => {
-    res.send('added user with id: ', ref.id)
-  })
-  .catch(err => reject(err));
+  encrypt.createHash(req.body.password)
+  .then((hashed) => {
+    db.collection('apiUsers').add({
+      email: req.body.email,
+      password: hashed
+    })
+    .then(ref => {
+      res.send('added user with id: ' + ref.id)
+    })
+    .catch(err => console.log(err));
+  });
 }
 
 
 exports.createClientSecret = (clientId) => {
   const randomValueHex = (len) => {
-    return crypto.randomBytes(Math.ceil(len/2))
+    return crypto.randomBytes(Math.ceil(len / 2))
         .toString('hex') // convert to hexadecimal format
         .slice(0, len);   // return required number of characters
   };
@@ -35,8 +37,6 @@ exports.createClientSecret = (clientId) => {
     .catch(err => reject(err));
   });
 }
-
-
 
 exports.login = (req, res) => {
   res.send(req.user);

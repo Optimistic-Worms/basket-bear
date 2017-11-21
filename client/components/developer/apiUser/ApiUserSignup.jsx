@@ -11,13 +11,12 @@ class ApiUserSignup extends React.Component {
   handleSignup(event) {
     event.preventDefault();
     console.log('clicked')
-    axios.get('/api/login', {withCredentials: true,
-    auth: {
-      email: 'test2@test.com',
-      password: 'secret2'
-    }})
+    axios.post('/api/signup', {
+      email: 'test3@test.com',
+      password: 'secret3'
+    })
     .then((res) => {
-      console.log(res)
+      console.log(res.data)
     })
   }
 

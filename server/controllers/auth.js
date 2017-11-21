@@ -1,17 +1,23 @@
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const db = require('../../db/db-config.js');
+const encrypt = require('../helpers/encryption.js');
 
 passport.use(new BasicStrategy(function(username, password, cb) {
-  console.log('username is ', username)
   db.collection('apiUsers').get()
   .then(snapshot => {
     snapshot.forEach(user => {
-      if (user.data().username === username) {
-        return cb(null, user.data());
+      const userObj = user.data();
+      if (userObj.email === username) {
+        encrypt.verifyPassword(password, userObj.password)
+        .then(() => cb(null, userObj))
+        .catch(err => cb(err, null))
       }
     });
   });
 }));
 
 exports.userIsAuthenticated = passport.authenticate('basic', { session: false });
+
+
+
