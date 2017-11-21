@@ -4,7 +4,8 @@ import '../css/styles.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
-import ApiUserLogin from './apiUser/ApiUserLogin.jsx'
+import Developer from './developer/Developer.jsx'
+
 
 class App extends React.Component {
   constructor() {
@@ -21,7 +22,7 @@ class App extends React.Component {
       <Navbar/>
       <Search/>
       <LoginCard/>
-      <ApiUserLogin/>
+      <Developer/>
       </div>
     );
   }

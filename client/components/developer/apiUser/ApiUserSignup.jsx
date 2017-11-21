@@ -1,20 +1,20 @@
 import React from 'react';
 import axios from 'axios';
 
-class ApiUserLogin extends React.Component {
+class ApiUserSignup extends React.Component {
   constructor() {
     super();
     this.state = {
     };
   }
 
-  handleLogin(event) {
+  handleSignup(event) {
     event.preventDefault();
     console.log('clicked')
     axios.get('/api/login', {withCredentials: true,
     auth: {
-      username: 'jack',
-      password: 'secret'
+      email: 'test2@test.com',
+      password: 'secret2'
     }})
     .then((res) => {
       console.log(res)
@@ -25,13 +25,13 @@ class ApiUserLogin extends React.Component {
     return (
       <div >
         <form>
-          <input type="username"/>
+          <input type="email"/>
           <input type="password"/>
-          <button onClick={this.handleLogin}>Login</button>
+          <button onClick={this.handleSignup}>Signup</button>
         </form>
       </div>
     );
   }
 }
 
-export default ApiUserLogin;
+export default ApiUserSignup;

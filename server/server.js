@@ -202,36 +202,17 @@ app.get('/searchAmazon', (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
 
-// passport.use(new BasicStrategy(function(username, password, cb) {
-//   console.log('username is ', username)
-//   db.collection('apiUsers').get()
-//   .then(snapshot => {
-//     snapshot.forEach(user => {
-//       if (user.data().username === username) {
-//         return cb(null, user.data());
-//       }
-//     });
-//   });
-// }));
-
 apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
 apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
 
-apiRoutes.post('/signup', (req, res) => {
-  apiUser.addApiUser(req.body.username, req.body.password)
-  .then((data) => {
-    console.log('added user with id: ', data.id);
-    res.send('added user with id: '+ data.id);
-  });
-
-});
+apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/logout', (req, res) => {
   //todo
-});
+})
 
 apiRoutes.get('/product', (req, res) => {
   //todo

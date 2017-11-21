@@ -4,24 +4,17 @@ const crypto = require('crypto');
 //const auth = require('./auth.js')
 const Promise = require('bluebird');
 
-exports.addApiUser = (userId) => {
-  return new Promise((resolve, reject) => {
-    db.collection('apiUsers').add({
-      user_id: userId
-    })
-    .then(ref => {
-      exports.createClientSecret(ref.id)
-      .then((secret) => resolve(secret));
-    })
-    .catch(err => reject(err));
-  });
+exports.addUser = (req, res) => {
+  db.collection('apiUsers').add({
+    email: req.body.email,
+    password: req.body.passsword
+  })
+  .then(ref => {
+    res.send('added user with id: ', ref.id)
+  })
+  .catch(err => reject(err));
 }
 
-
-exports.checkApiUser = (username, password) => {
-  const user = db.collection('apiUsers').where('username', '==', username).get().then(user => console.log(user))
-
-}
 
 exports.createClientSecret = (clientId) => {
   const randomValueHex = (len) => {
