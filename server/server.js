@@ -66,28 +66,36 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 
 app.post('/shoppingList', (req, res) => {
   var username = req.body.username;
-  shoppingList.createShoppingList(username);
-  res.status(200).send('you made a new shopping list');
+  shoppingList.createShoppingList(username)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.get('/shoppingList', (req, res) => {
   var username = req.body.username;
-  shoppingList.getShoppingList(username);
-  res.status(200).send('here is the shopping list');
+  shoppingList.getShoppingList(username)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.put('/shoppingList', (req, res) => {
   var username = req.body.username;
   var product = req.body.product;
-  shoppingList.addItemToShoppingList(username, product);
-  res.status(200).send('adding item to shopping list');
+  shoppingList.addItemToShoppingList(username, product)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.delete('/shoppingList', (req, res) => {
   var username = req.body.username;
   var productId = req.body.productId;
-  shoppingList.removeItemFromShoppingList(username, productId);
-  res.status(200).send('removed item from shopping list');
+  shoppingList.removeItemFromShoppingList(username, productId)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 })
 
 

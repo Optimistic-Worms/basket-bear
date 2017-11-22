@@ -105,6 +105,13 @@ class Search extends React.Component {
 
   addToShoppingList(item) {
     console.log('Adding item to shopping list:', item);
+    axios.put('/shoppingList', {
+      username: 'Candice',
+      product: item
+    })
+    .then((response) => {
+      console.log(response);
+    })
   }
 
 
