@@ -1,65 +1,71 @@
 const db = require('../../db/db-config');
+const Promise = require('bluebird');
 
 // Shopping List Handlers
 
 exports.createShoppingList = (username) => {
-  var shoppingList = {};
-  // create shopping list object
-  // add to shopping list collection in database
-  // returns success confirmation
-  return 'Created Shopping List';
+  return new Promise((resolve, reject) => {
+    db.collection('shoppingLists').doc(username).set({
+      items: {}
+    })
+    .then(() => {
+      resolve('Created shopping list for user ', username);
+    })
+    .catch(() => {
+      reject('Did not create shopping list for user ', username);
+    });
+  });
 }
 
 exports.getShoppingList = (username) => {
-  var items = [];
-  // query the shopping list collection in the database
-  // returns the array of items in the shopping list
-  return items;
+  return new Promise((resolve, reject) => {
+    db.collection('shoppingLists').doc(username).get()
+    .then((doc) => {
+      resolve(doc.data().items);
+    })
+    .catch(() => {
+      reject('no shopping list')
+    });
+  })
 }
 
 exports.addItemToShoppingList = (username, product) => {
-  var items = [];
-  // query the shopping list collection in the database
-  // get the shopping list's items array
-  // push the new item to the array
-  // return the array of items in the shopping list
-  return items;
+  var items;
+  return new Promise((resolve, reject) => {
+    module.exports.getShoppingList(username)
+    .then((shoppingListItems) => {
+      items = shoppingListItems;
+      items[product.id] = product;
+      db.collection('shoppingLists').doc(username).set({
+        items: items
+      })
+      .then(()=> {
+        resolve(items);
+      })
+      .catch(() => {
+        reject('Couldnt add item to shopping list');
+      })
+    })
+    .catch(() => {
+      module.exports.createShoppingList(username);
+      resolve('No existing shopping list. Create shopping list. Try adding item again');
+    })
+  })
 }
 
 exports.removeItemFromShoppingList = (username, productId) => {
-  var items = [];
-  // querty the shopping list collection in the database
-  // get the shopping list's item array
-  // remove the item from the array
-  // return the array of items in the shopping list
-  return items;
+  var items;
+  return new Promise((resolve, reject) => {
+    module.exports.getShoppingList(username)
+    .then((shoppingListItems) => {
+      items = shoppingListItems;
+      delete items.productId;
+      resolve(items);
+    })
+    .catch(() => {
+      reject('no shopping list');
+    })
+  });
 }
 
-
-
-
-/*  Planning what the shopping list and product objects should look like
-
-var ShoppingList = {
-  username: String,
-  items: Array of Tuplse [Product Id, Requested Price]
-}
-
-var Product = {
-  id: Number,
-  name: String,
-  imageUrl: String,
-  description: String,
-  merchant: String,
-  link: String,
-  priceHistory: Array,
-  userPricing: Array of tuples [user, price]
-}
-
-var productCollection = {
-
-
-  }
-}
-*/
 
