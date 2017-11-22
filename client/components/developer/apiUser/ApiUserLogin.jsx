@@ -11,15 +11,30 @@ class ApiUserLogin extends React.Component {
   handleLogin(event) {
     event.preventDefault();
     console.log('clicked')
-    axios.get('/api/login', {withCredentials: true,
-    auth: {
-      username: 'test3@test.com',
-      password: 'secret3'
-    }})
+    // axios.get('/api/login', {withCredentials: true,
+    // auth: {
+    //   username: 'test3@test.com',
+    //   password: 'secret3'
+    // }})
+    // .then((res) => {
+    //   console.log(res.data)
+    // })
+    axios.post('/api/token', {
+      clientId: 'test3@test.com',
+      clientSecret: 'secret3'
+    })
     .then((res) => {
       console.log(res.data)
     })
   }
+  //axios.get('/api/login', {withCredentials: true,
+    // auth: {
+    //   username: 'test3@test.com',
+    //   password: 'secret3'
+    // }})
+    // .then((res) => {
+    //   console.log(res.data)
+    // })
 
   render() {
     return (

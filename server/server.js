@@ -21,14 +21,27 @@ const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
 const apiUser = require('./controllers/developer/apiUser.js');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const db = require('../db/db-config.js');
 const apiAuth = require('./controllers/developer/auth/apiAuth.js');
+const session = require('express-session');
+const oauth = require('./controllers/developer/auth/oauth2.js');
+const passport = require('passport');
+expressValidator = require('express-validator');
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
 
+
+app.use(expressValidator())
 app.use(express.static(__dirname));
+app.use(session({
+  secret: 'Super Secret Session Key',
+  saveUninitialized: true,
+  resave: true
+}));
+
+app.use(passport.initialize());
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
@@ -216,6 +229,12 @@ apiRoutes.get('/', (req, res) => {
 });
 
 apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
+
+apiRoutes.post('/token', passport.authenticate('clientPassword', { session: false }));
+
+app.get('/restricted', passport.authenticate('accessToken', { session: false }), function (req, res) {
+    res.send("Yay, you successfully accessed the restricted resource!")
+})
 
 apiRoutes.post('/signup', apiUser.addUser);
 
