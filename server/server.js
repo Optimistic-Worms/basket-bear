@@ -2,14 +2,12 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
 
-console.log('AMAZON_PUBLIC_KEY', process.env.AMAZON_PUBLIC_KEY)
-
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const requestHandlers = require('./controllers/request-handlers');
+const shoppingList = require('./controllers/shoppingList');
 const path = require('path');
 const port = process.env.PORT || 3000;
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
@@ -21,13 +19,14 @@ const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
-
+const apiUser = require('./controllers/apiUser.js');
+const BasicStrategy = require('passport-http').BasicStrategy;
+const db = require('../db/db-config.js');
+const apiAuth = require('./controllers/auth.js');
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-
 
 app.use(express.static(__dirname));
 
@@ -67,27 +66,27 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 
 app.post('/shoppingList', (req, res) => {
   var username = req.body.username;
-  requestHandlers.createShoppingList(username);
+  shoppingList.createShoppingList(username);
   res.status(200).send('you made a new shopping list');
 });
 
 app.get('/shoppingList', (req, res) => {
   var username = req.body.username;
-  requestHandlers.getShoppingList(username);
+  shoppingList.getShoppingList(username);
   res.status(200).send('here is the shopping list');
 });
 
 app.put('/shoppingList', (req, res) => {
   var username = req.body.username;
   var product = req.body.product;
-  requestHandlers.addItemToShoppingList(username, product);
+  shoppingList.addItemToShoppingList(username, product);
   res.status(200).send('adding item to shopping list');
 });
 
 app.delete('/shoppingList', (req, res) => {
   var username = req.body.username;
   var productId = req.body.productId;
-  requestHandlers.removeItemFromShoppingList(username, productId);
+  shoppingList.removeItemFromShoppingList(username, productId);
   res.status(200).send('removed item from shopping list');
 })
 
@@ -129,7 +128,6 @@ app.get('/searchEbay', (req, res)=> {
   });
 
 });
-
 
 var parseEbayResults = function(searchResults) {
   var items = [];
@@ -189,13 +187,12 @@ app.get('/searchAmazon', (req, res) => {
   var sendToUrl = getAmazonItemInfo(keywords);
   axios.get(sendToUrl, {params: {}}).then(function(response) {
     parseString(response.data, function (err, result) {
-        console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
-    res.sendStatus(404);
+    res.send("ERROR: GET request from Amazon Failing " + error);
   });
 
 });
@@ -209,17 +206,13 @@ apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.get('/login', (req, res) => {
-  //todo
-});
+apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
 
-apiRoutes.get('/signup', (req, res) => {
-  //todo
-});
+apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/logout', (req, res) => {
   //todo
-});
+})
 
 apiRoutes.get('/product', (req, res) => {
   //todo
