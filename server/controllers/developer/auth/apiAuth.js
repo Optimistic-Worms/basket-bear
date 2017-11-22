@@ -1,7 +1,7 @@
 const passport = require('passport');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const db = require('../../db/db-config.js');
-const encrypt = require('../helpers/encryption.js');
+const db = require('../../../../db/db-config.js');
+const encrypt = require('../../../helpers/encryption.js');
 
 passport.use(new BasicStrategy(function(username, password, cb) {
   db.collection('apiUsers').get()

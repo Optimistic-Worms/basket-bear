@@ -19,10 +19,10 @@ const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
-const apiUser = require('./controllers/apiUser.js');
+const apiUser = require('./controllers/developer/apiUser.js');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const db = require('../db/db-config.js');
-const apiAuth = require('./controllers/apiAuth.js');
+const apiAuth = require('./controllers/developer/auth/apiAuth.js');
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');

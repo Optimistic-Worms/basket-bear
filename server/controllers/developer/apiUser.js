@@ -1,5 +1,5 @@
-const db = require('../../db/db-config.js');
-const encrypt = require('../helpers/encryption.js');
+const db = require('../../../db/db-config.js');
+const encrypt = require('../../helpers/encryption.js');
 const Promise = require('bluebird');
 
 exports.addUser = (req, res) => {
