@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../css/styles.css';
-
+import firebase from './user/firebase-auth';
 import SearchList from './SearchList.jsx';
 
 class Search extends React.Component {
@@ -104,14 +104,19 @@ class Search extends React.Component {
   }
 
   addToShoppingList(item) {
-    console.log('Adding item to shopping list:', item);
-    axios.put('/shoppingList', {
-      username: 'Candice',
-      product: item
-    })
-    .then((response) => {
-      console.log(response);
-    })
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        axios.put('/shoppingList', {
+          username: user.uid,
+          product: item
+        })
+        .then((response) => {
+          console.log(response.data);
+        })
+      } else {
+        console.log('Cannot add to shopping list. You must log in first!');
+      }
+    });
   }
 
 

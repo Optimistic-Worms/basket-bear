@@ -1,24 +1,25 @@
 import React from 'react';
 import axios from 'axios';
-import firebase from 'firebase';
+import firebase from './firebase-auth'
+//import firebase from 'firebase';
 import ManualUser from './ManualUser.jsx';
 import GoogleUser from './GoogleUser.jsx';
 
 // Initialize Firebase
 // TODO: Replace with your project's customized code snippet
-let firebaseConfig = {
-  apiKey: "AIzaSyAR2V9PUTzmZxj0u-0FvnQqlg06VRlnHSc",
-  authDomain: "bbasket-9e24a.firebaseapp.com",
-  databaseURL: "https:\//bbasket-9e24a.firebaseio.com",
-  projectId: "bbasket-9e24a",
-  storageBucket: "bbasket-9e24a.appspot.com",
-  messagingSenderId: "872393919907"
-};
+// let firebaseConfig = {
+//   apiKey: "AIzaSyAR2V9PUTzmZxj0u-0FvnQqlg06VRlnHSc",
+//   authDomain: "bbasket-9e24a.firebaseapp.com",
+//   databaseURL: "https:\//bbasket-9e24a.firebaseio.com",
+//   projectId: "bbasket-9e24a",
+//   storageBucket: "bbasket-9e24a.appspot.com",
+//   messagingSenderId: "872393919907"
+// };
 
 
 
 
-firebase.initializeApp(firebaseConfig);
+// firebase.initializeApp(firebaseConfig);
 
 class LoginCard extends React.Component {
   constructor() {

@@ -48,6 +48,7 @@ exports.addItemToShoppingList = (username, product) => {
     })
     .catch(() => {
       module.exports.createShoppingList(username);
+      resolve('No existing shopping list. Create shopping list. Try adding item again');
     })
   })
 }
