@@ -45,22 +45,28 @@ passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
     })
 }));
 
-
 passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
+  console.log(accessToken)
   db.collection('apiAuthTokens').get()
   .then(tokens => {
     tokens.forEach(token => {
       const tokenObj = token.data();
       if (tokenObj.value === accessToken) {
-        db.collection('apiUsers').doc(tokenObj.clientId)
-        .then(user => {
-          return cb(null, user, {scope: '*'});
+        db.collection('apiUsers').get()
+        .then(users => {
+          users.forEach(user => {
+            //const userObj = user.data();
+            console.log(user.id, tokenObj.clientId)
+            if (user.id === tokenObj.clientId) {
+              console.log('granting access')
+              cb(null, user, {scope: '*'});
+            }
+          });
         })
         .catch(err => cb(err, null));
       }
     });
   })
-  .catch(err => cb(err, null));
 }));
 
 exports.userIsAuthenticated = passport.authenticate('clientBasic', { session: false });

@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 class ApiUserLogin extends React.Component {
   constructor() {
@@ -11,14 +10,16 @@ class ApiUserLogin extends React.Component {
   handleLogin(event) {
     event.preventDefault();
     console.log('clicked')
-    axios.post('http://localhost:3000/oauth/toekn', {withCredentials: true,
+    axios.post('/api/token', {
+    withCredentials: true,
     auth: {
       username: 'test3@test.com',
-      password: 'secret3'
+      password: 'secret3',
     }})
     .then((res) => {
       console.log(res.data)
     })
+    .catch(err => console.log(err))
   //   axios.post('/api/token', {
   //     clientId: 'K7RJlOMT8XCnyoPJJyWp',
   //     clientSecret: 'secret3',
