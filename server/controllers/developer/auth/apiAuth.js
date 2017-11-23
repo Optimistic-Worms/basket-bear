@@ -5,41 +5,20 @@ var ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy
 const db = require('../../../../db/db-config.js');
 const encrypt = require('../../../helpers/encryption.js');
 
-passport.use('userBasic', new BasicStrategy((username, password, cb) => {
-  console.log(username, password)
-  db.collection('apiUsers').get()
-  .then(users => {
-    users.forEach((user) => {
-      const userObj = user.data();
-      if (userObj.email === username) {
-        if (encrypt.verifyPasswordSync(password, userObj.password)) {
-          console.log('passwords match')
-          return cb(null, user);
-        } else {
-           console.log('passwords do not match')
-          return cb('Password does not match', null)
-        }
-      }
-    });
-  })
-  .catch(err => cb(err, null));
-}));
-
 passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
   console.log('authenticating by clientId', clientId)
   db.collection('apiUsers').get()
     .then(users => {
       users.forEach((user) => {
-        //const userObj = user.data();
+        const userObj = user.data();
         if (user.id === clientId) {
-           cb(null, user)
-          // if (encrypt.verifyPasswordSync(password, userObj.password)) {
-          //   console.log('passwords match')
-          //   return cb(null, user);
-          // } else {
-          //    //console.log('passwords do not match')
-          //   return cb('Password does not match', null)
-          // }
+          if (encrypt.verifyPasswordSync(clientSecret, userObj.password)) {
+            console.log('passwords match')
+            return cb(null, user);
+          } else {
+             console.log('passwords do not match')
+            return cb('Password does not match', null)
+          }
         }
       });
     })
@@ -56,7 +35,6 @@ passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
         .then(users => {
           users.forEach(user => {
             //const userObj = user.data();
-            console.log(user.id, tokenObj.clientId)
             if (user.id === tokenObj.clientId) {
               console.log('granting access')
               cb(null, user, {scope: '*'});
@@ -70,3 +48,4 @@ passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
 }));
 
 exports.userIsAuthenticated = passport.authenticate('clientBasic', { session: false });
+exports.clientIsAuthenticated = passport.authenticate('accessToken', { session: false });

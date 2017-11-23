@@ -228,12 +228,12 @@ apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
+apiRoutes.post('/login', apiAuth.userIsAuthenticated, oauth.provideToken);
 
-apiRoutes.post('/token', oauth.token);
+apiRoutes.post('/token', oauth.provideToken);
 //passport.authenticate('clientPassword', { session: false })
 
-app.get('/restricted', passport.authenticate('accessToken', { session: false }),
+app.get('/restricted', apiAuth.clientIsAuthenticated,
   function (req, res) {
     console.log('accessed rectricted resource')
     res.send("Yay, you successfully accessed the restricted resource!")
