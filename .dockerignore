@@ -2,4 +2,4 @@
 .elasticbeanstalk/*
 .git
 .gitignore
-.env
+node_modules

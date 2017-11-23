@@ -20,14 +20,17 @@ class App extends React.Component {
   }
   render() {
     return (
-      <BrowserRouter>
-        <div>
-          <Navbar/>
-            <Route exact path="/" component={Search}/>
-            <Route path="/about" component={About}/>
-            <Route path="/profile" component={Profile}/>
-        </div>
-      </BrowserRouter>
+      <div>
+        <BrowserRouter>
+          <div>
+            <Navbar/>
+              <Route exact path="/" component={Search}/>
+              <Route path="/about" component={About}/>
+              <Route path="/profile" component={Profile}/>
+          </div>
+        </BrowserRouter>
+        <Developer/>
+      </div>
     );
   }
 }

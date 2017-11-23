@@ -25,7 +25,7 @@ passport.use('clientBasic', new BasicStrategy((username, password, cb) => {
 
 passport.use('clientPassword', new ClientPasswordStrategy(function(clientId, clientSecret, done) {
   console.log('authenticating')
-  done('test', 'authenticating')
+  //done(null, 'authenticating')
   // db.collection('apiUsers').doc(clientId)
   // .then(user => {
   //   return cb(null, user);

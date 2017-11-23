@@ -11,22 +11,23 @@ class ApiUserLogin extends React.Component {
   handleLogin(event) {
     event.preventDefault();
     console.log('clicked')
-    // axios.get('/api/login', {withCredentials: true,
-    // auth: {
-    //   username: 'test3@test.com',
-    //   password: 'secret3'
-    // }})
-    // .then((res) => {
-    //   console.log(res.data)
-    // })
-    axios.post('/api/token', {
-      clientId: 'test3@test.com',
-      clientSecret: 'secret3'
-    })
+    axios.post('http://localhost:3000/oauth/token', {withCredentials: true,
+    auth: {
+      username: 'test3@test.com',
+      password: 'secret3'
+    }})
     .then((res) => {
       console.log(res.data)
     })
-  }
+  //   axios.post('/api/token', {
+  //     clientId: 'K7RJlOMT8XCnyoPJJyWp',
+  //     clientSecret: 'secret3',
+  //     grant_type: "client_credentials"
+  //   })
+  //   .then((res) => {
+  //     console.log(res.data)
+  //   })
+  // }
   //axios.get('/api/login', {withCredentials: true,
     // auth: {
     //   username: 'test3@test.com',
@@ -35,7 +36,7 @@ class ApiUserLogin extends React.Component {
     // .then((res) => {
     //   console.log(res.data)
     // })
-
+}
   render() {
     return (
       <div >

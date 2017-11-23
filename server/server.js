@@ -230,7 +230,8 @@ apiRoutes.get('/', (req, res) => {
 
 apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
 
-apiRoutes.post('/token', passport.authenticate('clientPassword', { session: false }));
+apiRoutes.post('/token', oauth.token);
+//passport.authenticate('clientPassword', { session: false })
 
 app.get('/restricted', passport.authenticate('accessToken', { session: false }), function (req, res) {
     res.send("Yay, you successfully accessed the restricted resource!")
