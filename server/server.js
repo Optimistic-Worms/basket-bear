@@ -263,7 +263,7 @@ app.get('*.js', function (req, res, next) {
 });
 
 app.get('*', (req,res) =>{
-  res.sendFile(path.resolve(__dirname, './index.html'))
+  res.sendFile(path.resolve(__dirname, '../index.html'))
 });
 
 
