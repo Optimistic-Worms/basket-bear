@@ -5,7 +5,7 @@ var ClientPasswordStrategy = require('passport-oauth2-client-password').Strategy
 const db = require('../../../../db/db-config.js');
 const encrypt = require('../../../helpers/encryption.js');
 
-passport.use('clientBasic', new BasicStrategy((username, password, cb) => {
+passport.use('userBasic', new BasicStrategy((username, password, cb) => {
   console.log(username, password)
   db.collection('apiUsers').get()
   .then(users => {
@@ -13,8 +13,10 @@ passport.use('clientBasic', new BasicStrategy((username, password, cb) => {
       const userObj = user.data();
       if (userObj.email === username) {
         if (encrypt.verifyPasswordSync(password, userObj.password)) {
+          console.log('passwords match')
           return cb(null, user);
         } else {
+           console.log('passwords do not match')
           return cb('Password does not match', null)
         }
       }
@@ -23,14 +25,24 @@ passport.use('clientBasic', new BasicStrategy((username, password, cb) => {
   .catch(err => cb(err, null));
 }));
 
-passport.use('clientPassword', new ClientPasswordStrategy(function(clientId, clientSecret, done) {
-  console.log('authenticating')
-  //done(null, 'authenticating')
-  // db.collection('apiUsers').doc(clientId)
-  // .then(user => {
-  //   return cb(null, user);
-  // })
-  // .catch(err => cb(err, null));
+passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
+  console.log('authenticating by clientId', clientId)
+  db.collection('apiUsers').get()
+    .then(users => {
+      users.forEach((user) => {
+        //const userObj = user.data();
+        if (user.id === clientId) {
+           cb(null, user)
+          // if (encrypt.verifyPasswordSync(password, userObj.password)) {
+          //   console.log('passwords match')
+          //   return cb(null, user);
+          // } else {
+          //    //console.log('passwords do not match')
+          //   return cb('Password does not match', null)
+          // }
+        }
+      });
+    })
 }));
 
 

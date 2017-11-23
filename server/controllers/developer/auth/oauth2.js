@@ -7,15 +7,16 @@ const authServer = oauth2orize.createServer();
 
 authServer.exchange(oauth2orize.exchange.clientCredentials((client, scope, cb) => {
   console.log('exchanging')
-  const token = encrypt.generateClientSecret(256);
-  cb(null, token, {expires_in: 1800})
-  // db.collection('apiAuthTokens').add({
-  //   value: token,
-  //   clientId: client.clientId
-  // }).then(ref => {
-  //   cb(null, token, {expires_in: 1800})
-  //   console.log('Token added');
-  // });
+  const token = encrypt.generateSecret(256);
+  //cb(null, token, {expires_in: 1800})
+  console.log(client.id)
+  db.collection('apiAuthTokens').add({
+    value: token,
+    clientId: client.id
+  }).then(ref => {
+    cb(null, token, {expires_in: 1800})
+    console.log('Token added');
+  });
 }));
 
 exports.token = [

@@ -11,7 +11,7 @@ class ApiUserLogin extends React.Component {
   handleLogin(event) {
     event.preventDefault();
     console.log('clicked')
-    axios.post('http://localhost:3000/oauth/token', {withCredentials: true,
+    axios.post('http://localhost:3000/oauth/toekn', {withCredentials: true,
     auth: {
       username: 'test3@test.com',
       password: 'secret3'
