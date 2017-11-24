@@ -223,11 +223,11 @@ apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.post('/login',apiAuth.authenticateUser, oauth.server.token());
+apiRoutes.post('/login', apiAuth.authenticateUser, oauth.server.token());
 
-apiRoutes.post('/token', oauth.provideClientToken);
+apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
-app.get('/restricted', apiAuth.clientIsAuthenticated, function (req, res) {
+app.get('/restricted', apiAuth.authenticateToken, function (req, res) {
     console.log('accessed rectricted resource')
     res.send("Yay, you successfully accessed the restricted resource!")
 })
@@ -247,7 +247,7 @@ apiRoutes.get('/merchant', (req, res) => {
   //todo
 });
 
-app.use('/api', apiRoutes)
+app.use('/api', apiRoutes);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

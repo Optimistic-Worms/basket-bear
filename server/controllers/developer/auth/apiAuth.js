@@ -5,7 +5,6 @@ const db = require('../../../../db/db-config.js');
 const encrypt = require('../../../helpers/encryption.js');
 
 passport.use('userBasic', new BasicStrategy((email, password, cb) => {
-  console.log('authenticating by email', email)
   db.collection('apiUsers').get()
     .then(users => {
       for (let i = 0; i < users.docs.length; i++) {
@@ -13,15 +12,12 @@ passport.use('userBasic', new BasicStrategy((email, password, cb) => {
         const userData = userRef.data();
         if (userData.email === email) {
           if (encrypt.verifyPasswordSync(password, userData.password)) {
-            console.log('passwords match')
             return cb(null, users.docs[i]);
           } else {
-            console.log('passwords do not match')
             return cb('passwords do not match')
           }
         }
       }
-      console.log('No matching user found')
       return cb('No matching user found for: ' + email);
   })
 }));
@@ -80,4 +76,14 @@ exports.authenticateUser = (req, res, next) => {
   })(req, res, next);
 };
 
-exports.clientIsAuthenticated = passport.authenticate('accessToken', { session: false });
+exports.authenticateClient = (req, res, next) => {
+  passport.authenticate('clientBasic', {session: false}, (err, user, info) => {
+    if (err) {
+      res.send(err);
+    }
+    req.user = user;
+    next();
+  })(req, res, next);
+};
+
+exports.authenticateToken = passport.authenticate('accessToken', { session: false });
