@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'Axios';
 
 class ApiUserLogin extends React.Component {
   constructor() {
@@ -10,34 +11,20 @@ class ApiUserLogin extends React.Component {
   handleLogin(event) {
     event.preventDefault();
     console.log('clicked')
-    axios.post('/api/token', {
-    withCredentials: true,
-    auth: {
-      username: 'test3@test.com',
-      password: 'secret3',
-    }})
+    axios.post('/api/login', {'grant_type': 'client_credentials'},
+      {
+        withCredentials: true,
+        auth: {
+          username: 'test3@test.com',
+          password: 'secret3',
+      }
+    })
     .then((res) => {
       console.log(res.data)
     })
     .catch(err => console.log(err))
-  //   axios.post('/api/token', {
-  //     clientId: 'K7RJlOMT8XCnyoPJJyWp',
-  //     clientSecret: 'secret3',
-  //     grant_type: "client_credentials"
-  //   })
-  //   .then((res) => {
-  //     console.log(res.data)
-  //   })
-  // }
-  //axios.get('/api/login', {withCredentials: true,
-    // auth: {
-    //   username: 'test3@test.com',
-    //   password: 'secret3'
-    // }})
-    // .then((res) => {
-    //   console.log(res.data)
-    // })
-}
+  }
+
   render() {
     return (
       <div >

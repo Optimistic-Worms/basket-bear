@@ -19,8 +19,11 @@ authServer.exchange(oauth2orize.exchange.clientCredentials((client, scope, cb) =
   });
 }));
 
-exports.provideToken = [
+exports.provideClientToken = [
   passport.authenticate('clientBasic', {session: false}),
   authServer.token(),
   authServer.errorHandler()
 ];
+
+exports.server = authServer;
+  //authServer.errorHandler(;

@@ -22,10 +22,9 @@ const parseString = require('xml2js').parseString;
 const apiUser = require('./controllers/developer/apiUser.js');
 const BasicStrategy = require('passport-http').BasicStrategy;
 const apiAuth = require('./controllers/developer/auth/apiAuth.js');
-const session = require('express-session');
 const oauth = require('./controllers/developer/auth/oauth2.js');
 const passport = require('passport');
-expressValidator = require('express-validator');
+const expressValidator = require('express-validator');
 
 
 let config;
@@ -33,15 +32,11 @@ let config;
 const compiler = webpack(config);
 
 
-app.use(expressValidator())
+
 app.use(express.static(__dirname));
-app.use(session({
-  secret: 'Super Secret Session Key',
-  saveUninitialized: true,
-  resave: true
-}));
 
 app.use(passport.initialize());
+app.use(expressValidator())
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
@@ -228,13 +223,11 @@ apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.post('/login', apiAuth.userIsAuthenticated, oauth.provideToken);
+apiRoutes.post('/login',apiAuth.authenticateUser, oauth.server.token());
 
-apiRoutes.post('/token', oauth.provideToken);
-//passport.authenticate('clientPassword', { session: false })
+apiRoutes.post('/token', oauth.provideClientToken);
 
-app.get('/restricted', apiAuth.clientIsAuthenticated,
-  function (req, res) {
+app.get('/restricted', apiAuth.clientIsAuthenticated, function (req, res) {
     console.log('accessed rectricted resource')
     res.send("Yay, you successfully accessed the restricted resource!")
 })
@@ -247,6 +240,7 @@ apiRoutes.get('/logout', (req, res) => {
 
 apiRoutes.get('/product', (req, res) => {
   //todo
+
 });
 
 apiRoutes.get('/merchant', (req, res) => {
