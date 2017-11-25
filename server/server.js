@@ -218,8 +218,8 @@ app.get('/searchAmazon', (req, res) => {
   Busisness API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
-
 apiRoutes.get('/', (req, res) => {
+
   res.send('Welcome to the Budget Basket API!')
 });
 

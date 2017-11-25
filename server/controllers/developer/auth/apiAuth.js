@@ -26,20 +26,21 @@ passport.use('userBasic', new BasicStrategy((email, password, cb) => {
 passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
   console.log('authenticating by clientId', clientId)
   db.collection('apiUsers').get()
-    .then(users => {
-      users.forEach((user) => {
-        const userObj = user.data();
-         console.log(user.id, clientId)
-        if (user.id === clientId) {
-          if (encrypt.verifyPasswordSync(clientSecret, userObj.password)) {
+    .then(clients => {
+      for (let i = 0; i < clients.docs.length; i++) {
+        const clientRef = clients.docs[i];
+        const clientData = clientRef.data();
+        if (clientRef.id === clientId) {
+          if (encrypt.verifyPasswordSync(clientSecret, clientData.password)) {
             console.log('passwords match')
-            return cb(null, user);
+            return cb(null, clientRef);
           } else {
              console.log('passwords do not match')
-            return cb('Password does not match', null)
+            return cb('Password does not match')
           }
         }
-      });
+      }
+      return cb('No matching client found for ID: ' + clientId);
     })
 }));
 
@@ -69,6 +70,7 @@ passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
 exports.authenticateUser = (req, res, next) => {
   passport.authenticate('userBasic', {session: false}, (err, user, info) => {
     if (err) {
+      console.log('error: ', err)
       res.send(err);
     }
     req.user = user;
@@ -79,10 +81,12 @@ exports.authenticateUser = (req, res, next) => {
 exports.authenticateClient = (req, res, next) => {
   passport.authenticate('clientBasic', {session: false}, (err, user, info) => {
     if (err) {
+      console.log('error: ', err)
       res.send(err);
+    } else {
+      req.user = user;
+      next();
     }
-    req.user = user;
-    next();
   })(req, res, next);
 };
 
