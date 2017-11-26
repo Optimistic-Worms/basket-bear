@@ -19,7 +19,7 @@ const NavBar = (props) => (
 	    		<Link to="/about">
 		        <span className="desktop-show">About</span>
 		        <span className="mobile-show col">
-		     			<i className="fa fa-bookmark" aria-hidden="true"></i>About
+		     	<i className="fa fa-bookmark" aria-hidden="true"></i>About
 		     		</span>
 	        </Link>
 	    </li>
@@ -32,11 +32,11 @@ const NavBar = (props) => (
 	        </Link>
 	    </li>
 	    <li>
-	      <a href="">
-	        <span className="desktop-show">Logout</span>
+	      <Link to="/login" onClick={props.logging}>
+	        <span className="desktop-show">{props.logged}</span>
 	        <span className="mobile-show col">
-	          <i className="fa fa-sign-out" aria-hidden="true"></i>Logout</span>
-	      </a>
+	        <i className="fa fa-sign-out" aria-hidden="true"></i>{props.logged}</span>
+	      </Link>
 	    </li>
 	  </div>
 	</nav>

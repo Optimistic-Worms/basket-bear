@@ -2,30 +2,42 @@ import React from 'react';
 import axios from 'axios';
 
 class ApiUserSignup extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
+      email: '',
+      password: ''
     };
   }
 
   handleSignup(event) {
-    event.preventDefault();
-    console.log('clicked')
-    axios.post('/api/signup', {
-      email: 'test3@test.com',
-      password: 'secret3'
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-  }secret
+    console.log(this.state, 'state')
+     event.preventDefault();
+    // axios.post('/api/signup', {
+    //   email: this.state.email,
+    //   password: this.state.password
+    // })
+    // .then((res) => {
+    //   console.log(res.data)
+    // })
+  }
+
+  handleEmailInput(event) {
+    //console.log(event.target.value)
+    this.setState({email: event.target.value});
+  }
+
+  handlePasswordInput(event) {
+    //console.log(event.target.value)
+    this.setState({password: event.target.value});
+  }
 
   render() {
     return (
       <div >
         <form>
-          <input type="email"/>
-          <input type="password"/>
+          <input placeholder="email" onChange={this.handleEmailInput.bind(this)}/>
+          <input type="password" placeholder="password"/>
           <button onClick={this.handleSignup}>Signup</button>
         </form>
       </div>
