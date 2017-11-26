@@ -20,8 +20,8 @@ module.exports = {
         }
       },*/
       {
-        test: /\.jsx$/,
-        exclude: /(node_modules|bower_components)/,
+        test: /\.jsx$|\.js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
@@ -29,6 +29,16 @@ module.exports = {
           }
         }
       },
+      // {
+      //   test: /\.js$/,
+      //   exclude: /(bower_components)/,
+      //   use: {
+      //     loader: 'babel-loader',
+      //     options: {
+      //       presets: ['env','react']
+      //     }
+      //   }
+      // },
       {
         test: /\.css$/,
         use: [

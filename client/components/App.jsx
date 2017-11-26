@@ -52,12 +52,12 @@ class App extends React.Component {
     if(this.state.logged === 'Logout') {
       this.logout();
       this.setStage({logging: 'Login'})
-      
+
     }
   }
 
 
-  
+
   render() {
     return (
       <BrowserRouter>
@@ -66,6 +66,7 @@ class App extends React.Component {
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/profile" component={Profile}/>
+            <Route path="/developer" component={Developer}/>
         </div>
       </BrowserRouter>
     );

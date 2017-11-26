@@ -19,16 +19,24 @@ const AES = require("crypto-js/aes");
 const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
-const apiUser = require('./controllers/apiUser.js');
+const apiUser = require('./controllers/developer/apiUser.js');
 const BasicStrategy = require('passport-http').BasicStrategy;
-const db = require('../db/db-config.js');
-const apiAuth = require('./controllers/auth.js');
+const apiAuth = require('./controllers/developer/auth/apiAuth.js');
+const oauth = require('./controllers/developer/auth/oauth2.js');
+const passport = require('passport');
+const expressValidator = require('express-validator');
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
 
+
+
 app.use(express.static(__dirname));
+
+app.use(passport.initialize());
+app.use(expressValidator())
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
@@ -97,6 +105,7 @@ app.delete('/shoppingList', (req, res) => {
     res.status(200).send(data);
   });
 })
+
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
@@ -209,12 +218,15 @@ app.get('/searchAmazon', (req, res) => {
   Busisness API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
+app.use('/api', apiRoutes);
 
-apiRoutes.get('/', (req, res) => {
+apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
+apiRoutes.post('/login', apiAuth.authenticateUser, oauth.server.token());
+
+apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
 apiRoutes.post('/signup', apiUser.addUser);
 
@@ -222,15 +234,14 @@ apiRoutes.get('/logout', (req, res) => {
   //todo
 })
 
-apiRoutes.get('/product', (req, res) => {
-  //todo
+apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
+  res.send("Yay, you successfully accessed the restricted resource!")
 });
 
-apiRoutes.get('/merchant', (req, res) => {
-  //todo
+apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
+  res.send("Yay, you successfully accessed the restricted resource!")
 });
 
-app.use('/api', apiRoutes)
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

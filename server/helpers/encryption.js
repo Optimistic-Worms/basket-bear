@@ -2,15 +2,8 @@ const bcrypt = require('bcrypt-nodejs');
 const Promise = require('bluebird');
 const crypto = require('crypto');
 
-exports.verifyPassword = (string, hash) => {
-  return new Promise((resolve, reject) => {
-    bcrypt.compare(string, hash, (err, isMatch) => {
-      if (err) {
-        reject('Password does not match');
-      }
-      resolve();
-    });
-  });
+exports.verifyPasswordSync = (string, hash) => {
+  return bcrypt.compareSync(string, hash);
 };
 
 exports.createHash = (string) => {

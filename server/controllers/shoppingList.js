@@ -68,4 +68,3 @@ exports.removeItemFromShoppingList = (username, productId) => {
   });
 }
 
-

@@ -1,5 +1,5 @@
-const db = require('../../db/db-config.js');
-const encrypt = require('../helpers/encryption.js');
+const db = require('../../../db/db-config.js');
+const encrypt = require('../../helpers/encryption.js');
 const Promise = require('bluebird');
 
 exports.addUser = (req, res) => {
@@ -17,7 +17,33 @@ exports.addUser = (req, res) => {
     })
     .catch(err => console.log(err));
   });
-}
+};
+
+exports.findByEmail = (email, callback) => {
+  db.collection('apiUsers').where('email', '==', email).get()
+  .then(users => {
+    if (users.docs.length) {
+      for (let i = 0; i < users.docs.length; i++) {
+        const userRef = users.docs[i];
+        const userData = userRef.data();
+        return callback(null, userRef, userData);
+      }
+    }
+    return callback('no user found')
+  })
+  .catch(err => callback(err));
+};
+
+exports.findByClientId = (clientId, callback) => {
+  db.collection('apiUsers').doc(clientId).get()
+  .then(clientRef => {
+    const clientData = clientRef.data();
+    callback(null, clientRef, clientData);
+  })
+  .catch(err => {
+    callback('No clients found for ID: ' + clientId);
+  });
+};
 
 exports.generateNewClientSecret = (clientId) => {
   const secret = encrypt.generateSecret(24);
@@ -39,10 +65,9 @@ exports.generateNewClientSecret = (clientId) => {
 exports.getNewClientSecret = (req, res) => {
   exports.generateNewClientSecret(req.user.id)
   .then(secret => res.json({clientSecret: secret}))
-}
+};
 
 exports.login = (req, res) => {
-  res.send(req.user.id);
 }
 
 exports.logoutApiUser = (username) => {
