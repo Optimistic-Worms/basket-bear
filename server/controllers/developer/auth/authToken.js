@@ -1,4 +1,4 @@
-const Promise = require('Bluebird');
+const Promise = require('bluebird');
 const db = require('../../../../db/db-config.js');
 const encrypt = require('../../../helpers/encryption.js');
 
