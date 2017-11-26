@@ -14,8 +14,8 @@ class ApiUserLogin extends React.Component {
       {
         withCredentials: true,
         auth: {
-          username: 'test3@test.com',
-          password: 'secret3',
+          username: 'test5@test.com',
+          password: 'secret5',
       }
     })
     .then((res) => {

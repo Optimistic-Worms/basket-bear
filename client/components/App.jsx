@@ -66,6 +66,7 @@ class App extends React.Component {
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/profile" component={Profile}/>
+            <Route path="/developer" component={Developer}/>
         </div>
       </BrowserRouter>
     );

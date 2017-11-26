@@ -8,10 +8,10 @@ const NavBar = (props) => (
 	  	</Link>
 	  <div className="menu">
 	    <li>
-	    		<Link to="/">	       
+	    		<Link to="/">
 	        <span className="mobile-show col">
 		        <i className="fa fa-home" aria-hidden="true"></i>
-		        Home		        
+		        Home
 	        </span>
 	        </Link>
 	    </li>
@@ -27,7 +27,7 @@ const NavBar = (props) => (
 	        <Link to="/profile">
 		        <span className="desktop-show">Profile</span>
 		        <span className="mobile-show col">
-				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Profile		          
+				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Profile
 		        </span>
 	        </Link>
 	    </li>
@@ -37,6 +37,14 @@ const NavBar = (props) => (
 	        <span className="mobile-show col">
 	        <i className="fa fa-sign-out" aria-hidden="true"></i>{props.logged}</span>
 	      </Link>
+	    </li>
+	    <li>
+	        <Link to="/developer">
+		        <span className="desktop-show">Developer</span>
+		        <span className="mobile-show col">
+				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Developer
+		        </span>
+	        </Link>
 	    </li>
 	  </div>
 	</nav>

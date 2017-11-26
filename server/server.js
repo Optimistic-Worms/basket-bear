@@ -218,8 +218,9 @@ app.get('/searchAmazon', (req, res) => {
   Busisness API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
-apiRoutes.get('/', (req, res) => {
+app.use('/api', apiRoutes);
 
+apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
@@ -227,27 +228,20 @@ apiRoutes.post('/login', apiAuth.authenticateUser, oauth.server.token());
 
 apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
-app.get('/restricted', apiAuth.authenticateToken, function (req, res) {
-    console.log('accessed rectricted resource')
-    res.send("Yay, you successfully accessed the restricted resource!")
-})
-
 apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/logout', (req, res) => {
   //todo
 })
 
-apiRoutes.get('/product', (req, res) => {
-  //todo
-
+apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
+  res.send("Yay, you successfully accessed the restricted resource!")
 });
 
-apiRoutes.get('/merchant', (req, res) => {
-  //todo
+apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
+  res.send("Yay, you successfully accessed the restricted resource!")
 });
 
-app.use('/api', apiRoutes);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

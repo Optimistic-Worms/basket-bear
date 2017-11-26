@@ -11,15 +11,15 @@ class ApiUserSignup extends React.Component {
   }
 
   handleSignup(event) {
-    console.log(this.state, 'state')
+    //console.log(this.state, 'state')
      event.preventDefault();
-    // axios.post('/api/signup', {
-    //   email: this.state.email,
-    //   password: this.state.password
-    // })
-    // .then((res) => {
-    //   console.log(res.data)
-    // })
+    axios.post('/api/signup', {
+      email: 'test5@test.com',
+      password: 'secret5'
+    })
+    .then((res) => {
+      console.log(res.data)
+    })
   }
 
   handleEmailInput(event) {
@@ -36,7 +36,7 @@ class ApiUserSignup extends React.Component {
     return (
       <div >
         <form>
-          <input placeholder="email" onChange={this.handleEmailInput.bind(this)}/>
+          <input type="text" placeholder="email" onChange={this.handleEmailInput.bind(this)}/>
           <input type="password" placeholder="password"/>
           <button onClick={this.handleSignup}>Signup</button>
         </form>
