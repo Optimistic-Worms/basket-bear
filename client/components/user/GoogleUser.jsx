@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import {logout, authenticate} from './authHelpers.js'
 
 class GoogleUser extends React.Component {
   constructor() {
@@ -7,34 +8,10 @@ class GoogleUser extends React.Component {
     this.state = {
 
     };
-  this.authenticate = this.authenticate.bind(this);  
-  this.logout = this.logout.bind(this);  
+  this.authenticate = authenticate.bind(this);  
+  this.logout = logout.bind(this);  
   }
-
-  authenticate(provider) {
-    console.log(provider)
-    provider = new firebase.auth.GoogleAuthProvider();
-    provider.addScope('profile');
-    provider.addScope('email');
-    firebase.auth().signInWithPopup(provider).then(function(result){
-    // var token = result.credential.accessToken;
-    var user = result.user.uid;
-    console.log(user);
-    }).catch(function(error){
-    var errorMessage = error.message;
-    // var credential = error.credential;
-    console.log(errorMessage);
-    });
-  }
-
-  logout(){
-    firebase.auth().signOut().then(function() {
-    console.log('just logged out');
-   }, function(error) {
-    console.log('couldn\'log out:' + error);
-  });
-  }
-
+  
   componentWillMount() {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
