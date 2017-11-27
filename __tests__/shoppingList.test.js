@@ -1,4 +1,4 @@
-const requestHandlers = require('../server/request-handlers');
+const requestHandlers = require('../server/controllers/shoppingList.js');
 
 
 describe('Create Shopping List Function', () => {

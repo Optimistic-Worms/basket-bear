@@ -60,7 +60,11 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Shopping',
+<<<<<<< HEAD
       template: 'index.html'
+=======
+      template: './index.html'
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

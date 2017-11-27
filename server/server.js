@@ -2,16 +2,15 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
 }
 
-console.log('AMAZON_PUBLIC_KEY', process.env.AMAZON_PUBLIC_KEY)
-
 const express = require('express')
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const requestHandlers = require('./request-handlers');
+const shoppingList = require('./controllers/shoppingList');
 const path = require('path');
 const port = process.env.PORT || 3000;
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 const signup = require('./authroutes.js').signup;
@@ -19,6 +18,9 @@ const manualSignIn = require('./authroutes.js').manualSignIn;
 const manualLogout = require('./authroutes.js').manualLogout;
 >>>>>>> d9d6e9d... merging
 const isAuthenticated = require('./authroutes.js').isAuthenticated;
+=======
+const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
 const moment = require('moment')
@@ -31,18 +33,23 @@ const CryptoJS = require("crypto-js");
 const ASSCTAG = require("./amazonConfig").AssociateTag
 const AMZPUKEY = require("./amazonConfig").PublicKey*/
 const parseString = require('xml2js').parseString;
+<<<<<<< HEAD
 const getToken = require('./authroutes.js').getToken;
 
 =======
 const parseString = require('xml2js').parseString;
 >>>>>>> d9d6e9d... merging
 
+=======
+const apiUser = require('./controllers/apiUser.js');
+const BasicStrategy = require('passport-http').BasicStrategy;
+const db = require('../db/db-config.js');
+const apiAuth = require('./controllers/auth.js');
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-
 
 app.use(express.static(__dirname));
 
@@ -81,7 +88,10 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   res.sendStatus(200);
 });
 
+<<<<<<< HEAD
 >>>>>>> d9d6e9d... merging
+=======
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -91,28 +101,36 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 
 app.post('/shoppingList', (req, res) => {
   var username = req.body.username;
-  requestHandlers.createShoppingList(username);
-  res.status(200).send('you made a new shopping list');
+  shoppingList.createShoppingList(username)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.get('/shoppingList', (req, res) => {
   var username = req.body.username;
-  requestHandlers.getShoppingList(username);
-  res.status(200).send('here is the shopping list');
+  shoppingList.getShoppingList(username)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.put('/shoppingList', (req, res) => {
   var username = req.body.username;
   var product = req.body.product;
-  requestHandlers.addItemToShoppingList(username, product);
-  res.status(200).send('adding item to shopping list');
+  shoppingList.addItemToShoppingList(username, product)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 });
 
 app.delete('/shoppingList', (req, res) => {
   var username = req.body.username;
   var productId = req.body.productId;
-  requestHandlers.removeItemFromShoppingList(username, productId);
-  res.status(200).send('removed item from shopping list');
+  shoppingList.removeItemFromShoppingList(username, productId)
+  .then((data) => {
+    res.status(200).send(data);
+  });
 })
 
 
@@ -153,7 +171,6 @@ app.get('/searchEbay', (req, res)=> {
   });
 
 });
-
 
 var parseEbayResults = function(searchResults) {
   var items = [];
@@ -212,6 +229,7 @@ app.get('/searchAmazon', (req, res) => {
     let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 =======
     console.log('SIGNATURE HMAC', signature);
@@ -223,12 +241,16 @@ app.get('/searchAmazon', (req, res) => {
 =======
     signature = CryptoJS.enc.Base64.stringify(signature);
 >>>>>>> ef81560... reverting
+=======
+    signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
 
     let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
     console.log('SEND TO URL:', amazonUrl);
     return amazonUrl;
   }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -262,14 +284,23 @@ app.get('/searchAmazon', (req, res) => {
 >>>>>>> ebbff0b... add amazon search to client
 =======
 >>>>>>> 922c07c... add button to add item to shopping list
+=======
+  var keywords = req.query.keyword;
+  /** Callback to Get Response **/
+  var sendToUrl = getAmazonItemInfo(keywords);
+  axios.get(sendToUrl, {params: {}}).then(function(response) {
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
     parseString(response.data, function (err, result) {
-        console.dir(result);
         res.send(result);
     });
 
   }).catch(function(error) {
     console.log("ERROR: GET request from Amazon Failing " + error);
+<<<<<<< HEAD
     res.sendStatus(404);
+=======
+    res.send("ERROR: GET request from Amazon Failing " + error);
+>>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
   });
 
 <<<<<<< HEAD
@@ -287,17 +318,13 @@ apiRoutes.get('/', (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.get('/login', (req, res) => {
-  //todo
-});
+apiRoutes.get('/login', apiAuth.userIsAuthenticated, apiUser.login);
 
-apiRoutes.get('/signup', (req, res) => {
-  //todo
-});
+apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/logout', (req, res) => {
   //todo
-});
+})
 
 apiRoutes.get('/product', (req, res) => {
   //todo
@@ -320,7 +347,7 @@ app.get('*.js', function (req, res, next) {
 });
 
 app.get('*', (req,res) =>{
-  res.sendFile(path.resolve(__dirname, './index.html'))
+  res.sendFile(path.resolve(__dirname, '../index.html'))
 });
 
 
