@@ -81,4 +81,3 @@ exports.getProductData = (productObj) => {
 exports.getMerchantData = () => {
 
 }
-
