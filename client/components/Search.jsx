@@ -1,11 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import '../css/styles.css';
-<<<<<<< HEAD
-
-=======
 import firebase from './user/firebase-auth';
->>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
 import SearchList from './SearchList.jsx';
 
 class Search extends React.Component {
@@ -80,33 +76,6 @@ class Search extends React.Component {
       params: {
         keyword: keyword
       }
-<<<<<<< HEAD
-=======
-    })
-    .then((response) => {
-      var searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      //console.log(searchResults);
-      var items = [];
-      for (var i = 0 ; i < searchResults.length ; i++) {
-        var product = {
-          id: searchResults[i].ASIN[0],
-          name: searchResults[i].ItemAttributes[0].Title[0],
-          merchant: 'amazon',
-          link: searchResults[i].DetailPageURL[0]
-        }
-        if (searchResults[i].MediumImage) {
-          product.imageUrl = searchResults[i].MediumImage[0].URL[0];
-        }
-        if (searchResults[i].ItemAttributes[0].ListPrice) {
-          product.price = searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1);
-        }
-        items.push(product);
-     }
-      this.setState({amazonSearchItems: items});
-      var combinedItems = items.concat(this.state.searchItems);
-      this.sortItems(combinedItems);
-      this.setState({searchItems: combinedItems});
->>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
     })
     .then((response) => {
       var searchResults = response.data.ItemSearchResponse.Items[0].Item;
@@ -132,10 +101,6 @@ class Search extends React.Component {
       this.sortItems(combinedItems);
       this.setState({searchItems: combinedItems});
     })
-  }
-
-  addToShoppingList(item) {
-    console.log('Adding item to shopping list:', item);
   }
 
   addToShoppingList(item) {
@@ -167,23 +132,7 @@ class Search extends React.Component {
          <h3>Product Search</h3>
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
-=======
-          <select onChange={(e)=> { this.setState({searchMerchant: e.target.value})}}>
->>>>>>> ebbff0b... add amazon search to client
-=======
-          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({searchMerchant: e.target.value})}}>
->>>>>>> 01b3bbb... client searches amazon using search query instead of default.  client clears search results when switching search merchants
-=======
           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
->>>>>>> 48e13b2... allows user to search All merchants. Combines results and sorts them price Low to High
-=======
-          <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
->>>>>>> e3b682dfee9d0ff3affe399675c532bed39949c7
             <option value="ebay">Ebay</option>
             <option value="amazon">Amazon</option>
             <option value="all">All</option>
