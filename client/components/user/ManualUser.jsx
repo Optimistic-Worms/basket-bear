@@ -61,13 +61,13 @@ class ManualUser extends React.Component {
               type="password"
               autoComplete="new-password"
               value={this.state.password}
-              onChange={this.handlePassword} 
-              required 
+              onChange={this.handlePassword}
+              required
              />
              <button onClick={ this.handleLogin }  >Login</button>
              <button onClick={ this.handleSignup } >Sign Up</button>
             </div>
-          </form> 
+          </form>
         </div>
     );
   }

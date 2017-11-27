@@ -8,10 +8,10 @@ class GoogleUser extends React.Component {
     this.state = {
 
     };
-  this.authenticate = authenticate.bind(this);  
-  this.logout = logout.bind(this);  
+  this.authenticate = authenticate.bind(this);
+  this.logout = logout.bind(this);
   }
-  
+
   componentWillMount() {
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -23,12 +23,12 @@ class GoogleUser extends React.Component {
     }
     });
   }
-  
+
   render() {
     return (
       <div>
-        <button onClick={this.authenticate.bind(this, 'google')}> Google Login</button>       
-        <button onClick={this.logout.bind()}> Logout</button>       
+        <button onClick={this.authenticate.bind(this, 'google')}> Google Login</button>
+        <button onClick={this.logout.bind()}> Logout</button>
       </div>
 
     );
