@@ -8,6 +8,7 @@ class Developer extends React.Component {
   constructor() {
     super();
     this.state = {
+      loggedIn: false
     };
   }
 
