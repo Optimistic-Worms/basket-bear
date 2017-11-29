@@ -1,5 +1,6 @@
-
 @import url('https://fonts.googleapis.com/css?family=Roboto');
+/** General CSS **/
+
 body {
   width: 100%;
   height: 100%;
@@ -12,12 +13,90 @@ h3 {
   text-align: center;
   padding: 0 .1em;
 }
+
+.button {
+  display: inline-block;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.3em 1em;
+  font-size: 1em;
+  border-radius: 0.3em;
+  background: dodgerblue;
+  color: #fff;
+}
+
+.button:hover {
+  background: #3F51B5;
+}
+
 /** Login **/
 
 .loginCard {
-	background-color: blue;
-	max-width: 200px;
-	padding:10px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  border-radius: 0.25em;
+  justify-content: center;
+  width: 50%;
+  margin: 1em auto;
+  text-align: center!important;
+}
+
+.login-header {
+  padding: .75rem 1.25rem;
+  margin-top: 0;
+  background-color: #f7f7f9;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+}
+
+.manual-login {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.email-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.password-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.login-input {
+  width: 90%;
+  margin: 0 auto;
+  border: 1px solid #dadada;
+  height: 3em;
+}
+
+.button-wrapper {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+}
+
+.button-login {
+  margin: auto .2em;
+}
+
+.google-button {
+  border-color: none;
+  border-radius: 0;
+  border-style: solid;
+  border-width: 0;
+  padding: 0;
+}
+
+.google-login {
+  margin-top: .2em;
 }
 
 /**  Navigation Bar  **/
@@ -40,11 +119,12 @@ nav {
   height: 3.5em;
 }
 
-nav .brand {
+.brand {
   font-size: 2em;
   justify-content: center;
   margin-right: auto;
   margin-left: 0.6em;
+  text-decoration: none !important;
 }
 
 nav .brand a {
@@ -103,20 +183,6 @@ nav .menu li:hover {
   border: 1px solid #dadada;
 }
 
-.button {
-  display: inline-block;
-  line-height: 1.25;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: middle;
-  border: 1px solid transparent;
-  padding: 0.3em 1em;
-  font-size: 1em;
-  border-radius: 0.3em;
-  background: dodgerblue;
-  color: #fff;
-}
-
 .list {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -138,14 +204,14 @@ nav .menu li:hover {
 }
 
 .product-image {
-  width: 60%;
+  max-width: 100s%;
   height: auto;
   margin: auto;
 }
 
 .price {
   color: red;
-  font-size: 2em;
+  font-size: 1.1em;
 }
 
 .item-info {
@@ -153,13 +219,16 @@ nav .menu li:hover {
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  padding: .75rem 1.25rem;
+  background-color: #f7f7f9;
+  border-top: 1px solid rgba(0, 0, 0, .125);
 }
 
 .button--product {
   width: auto;
   background-color: #5cb85c;
   border-color: #5cb85c;
-  margin: auto 0;
+  margin: .1em;
   height: 50%
 }
 
@@ -217,6 +286,10 @@ nav .menu li:hover {
   }
   .desktop-show {
     display: none;
+  }
+
+  .loginCard {
+    width: 95%;
   }
 }
 

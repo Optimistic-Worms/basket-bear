@@ -132,13 +132,14 @@ class Search extends React.Component {
          <h3>Product Search</h3>
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
+
+          <button className="button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
+
           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
             <option value="ebay">Ebay</option>
             <option value="amazon">Amazon</option>
             <option value="all">All</option>
           </select>
-
-          <button className="button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
 
          </div>
         </div>

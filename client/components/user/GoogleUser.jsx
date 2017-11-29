@@ -26,9 +26,9 @@ class GoogleUser extends React.Component {
 
   render() {
     return (
-      <div>
-        <button onClick={this.authenticate.bind(this, 'google')}> Google Login</button>
-        <button onClick={this.logout.bind()}> Logout</button>
+      <div className="google-login button-wrapper">
+        <button className = "google-button" onClick={this.authenticate.bind(this, 'google')}><img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png"/> </button>
+        {/* <button className="button" onClick={this.logout.bind()}> Logout</button> */}
       </div>
 
     );

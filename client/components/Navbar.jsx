@@ -41,9 +41,9 @@ const NavBar = (props) => (
 	    <li>
 	        <Link to="/developer">
 		        <span className="desktop-show">Developer</span>
-		        <span className="mobile-show col">
+		        {/* <span className="mobile-show col">
 				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Developer
-		        </span>
+		        </span> */}
 	        </Link>
 	    </li>
 	  </div>
