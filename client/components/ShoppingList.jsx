@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import Product from './Product.jsx';
+import ShoppingListItem from './ShoppingListItem.jsx';
 import firebase from './user/firebase-auth';
 
 class ShoppingList extends React.Component {
@@ -33,10 +33,10 @@ class ShoppingList extends React.Component {
             itemsArr.push(itemsObj[i]);
           }
           this.setState({items: itemsArr});
-          console.log('ITEMS;',  this.state.items);
         })
       } else {
         console.log('Cant get shopping list. Must Log in');
+        window.alert('Please sign in to view your shopping list!');
       }
     });
   }
@@ -51,7 +51,7 @@ class ShoppingList extends React.Component {
     return (
     <div className="list">
       { this.state.items.map((item, key)=> {
-        return (<Product key={key} item={item} added={true} removeItem = {this.removeItem}/> );
+        return (<ShoppingListItem key={key} index={key} item={item} removeItem = {this.removeItem}/> );
         })
       }
     </div>

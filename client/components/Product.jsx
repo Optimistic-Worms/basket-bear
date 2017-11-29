@@ -11,12 +11,8 @@ const Product = (props) => {
         <p>{ props.item && props.item.merchant }</p>
         <p className="price">${ props.item && props.item.price }</p>
         <p><button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
-        { !props.added && <button className="button button--product" onClick= {()=>{ props.addItem(props.item) } } >Add to Shopping List</button>
+        { !props.item.added && <button className="button button--product" onClick= {()=>{ props.addItem(props.item, props.index) } } >Add to Shopping List</button>
         }
-        {
-          props.added && <button className="button button--product" onClick= {()=>{} } > Remove From Shopping List</button>
-        }
-
         </p>
 
       </div>

@@ -6,8 +6,10 @@ const SearchList = (props) => {
 
   return (
     <div className="list">
-      { props.items.map((item, key)=> {
-        return (<Product key={key} item={item} added={false} addItem={props.addItem} /> );
+      { props.items.map((item, key, array)=> {
+          return (
+            <Product key={key} index={key} item={item} addItem={props.addItem} />
+          );
         })
       }
     </div>
