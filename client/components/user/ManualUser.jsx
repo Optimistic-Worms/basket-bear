@@ -48,25 +48,32 @@ class ManualUser extends React.Component {
     return (
       <div>
         <form >
-          <div className="container">
+          <div className="manual-login">
+            <div className="email-form">
             <label><b>Email</b></label>
             <input
+              className="login-input"
               name="email"
               type="email"
               value={this.state.username}
               onChange={this.handleUsername}
               required />
+            </div>
+            <div className="password-form">
             <label htmlFor="password"><b>Password</b></label>
-            <input
+            <input className="login-input"
               type="password"
               autoComplete="new-password"
               value={this.state.password}
               onChange={this.handlePassword}
               required
              />
-             <button onClick={ this.handleLogin }  >Login</button>
-             <button onClick={ this.handleSignup } >Sign Up</button>
+           </div>
+           <div className="button-wrapper">
+             <button className="button button-login"onClick={ this.handleLogin }  >Login</button>
+             <button className="button button-signup"onClick={ this.handleSignup } >Sign Up</button>
             </div>
+          </div>
           </form>
         </div>
     );
