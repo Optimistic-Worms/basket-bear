@@ -81,7 +81,9 @@ app.post('/shoppingList', (req, res) => {
 });
 
 app.get('/shoppingList', (req, res) => {
-  var username = req.body.username;
+  //console.log('requste', req)
+  var username = req.query.username;
+  console.log('username:', username);
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);

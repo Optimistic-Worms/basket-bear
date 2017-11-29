@@ -24,10 +24,10 @@ const NavBar = (props) => (
 	        </Link>
 	    </li>
 	    <li>
-	        <Link to="/profile">
-		        <span className="desktop-show">Profile</span>
+	        <Link to="/shoppingList">
+		        <span className="desktop-show">Shopping List</span>
 		        <span className="mobile-show col">
-				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Profile
+				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Shopping List
 		        </span>
 	        </Link>
 	    </li>

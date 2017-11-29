@@ -7,9 +7,10 @@ import '../css/styles.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
-import Developer from './developer/Developer.jsx'
-import Home from './Home.jsx'
-import Profile from './Profile.jsx'
+import ShoppingList from './ShoppingList.jsx';
+import Developer from './developer/Developer.jsx';
+import Home from './Home.jsx';
+import Profile from './Profile.jsx';
 import {logout } from './user/authHelpers.js'
 
 class App extends React.Component {
@@ -65,7 +66,7 @@ class App extends React.Component {
           <Navbar logged={this.state.logged} logging={this.logging}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
-            <Route path="/profile" component={Profile}/>
+            <Route path="/shoppingList" component={ShoppingList}/>
             <Route path="/developer" component={Developer}/>
         </div>
       </BrowserRouter>
