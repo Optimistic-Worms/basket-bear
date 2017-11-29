@@ -17,6 +17,7 @@ class LoginCard extends React.Component {
   render() {
     return (
       <div className="loginCard">
+        <h2 className="login-header">Login</h2>
         <ManualUser />
         <GoogleUser />
         <button onClick={e => this.getToken(e)}>
