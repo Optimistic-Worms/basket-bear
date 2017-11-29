@@ -59,7 +59,10 @@ exports.removeItemFromShoppingList = (username, productId) => {
     module.exports.getShoppingList(username)
     .then((shoppingListItems) => {
       items = shoppingListItems;
-      delete items.productId;
+      delete items[productId];
+      db.collection('shoppingLists').doc(username).set({
+        items: items
+      })
       resolve(items);
     })
     .catch(() => {

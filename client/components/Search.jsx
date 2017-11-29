@@ -86,7 +86,8 @@ class Search extends React.Component {
           id: searchResults[i].ASIN[0],
           name: searchResults[i].ItemAttributes[0].Title[0],
           merchant: 'amazon',
-          link: searchResults[i].DetailPageURL[0]
+          link: searchResults[i].DetailPageURL[0],
+          added: false
         }
         if (searchResults[i].MediumImage) {
           product.imageUrl = searchResults[i].MediumImage[0].URL[0];
@@ -103,9 +104,14 @@ class Search extends React.Component {
     })
   }
 
-  addToShoppingList(item) {
+  addToShoppingList(item, index) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        var updateItems = this.state.searchItems;
+        updateItems[index].added = true;
+        this.setState({searchItems: updateItems});
+        item.added = true;
+
         axios.put('/shoppingList', {
           username: user.uid,
           product: item
@@ -114,6 +120,7 @@ class Search extends React.Component {
           console.log(response.data);
         })
       } else {
+        window.alert('Please log in to add an item to your shopping list!');
         console.log('Cannot add to shopping list. You must log in first!');
       }
     });
