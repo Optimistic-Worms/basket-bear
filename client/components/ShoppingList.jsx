@@ -42,7 +42,28 @@ class ShoppingList extends React.Component {
   }
 
   removeItem(item) {
-    console.log('remove item', item);
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        axios.delete('/shoppingList', {
+          params: {
+            username : user.uid,
+            productId : item.id
+          }
+        })
+        .then((response) => {
+          console.log(response.data);
+          var itemsObj = response.data;
+          var itemsArr = [];
+          for (var i in itemsObj) {
+            itemsArr.push(itemsObj[i]);
+          }
+          this.setState({items: itemsArr});
+        })
+      } else {
+        console.log('Cant get shopping list. Must Log in');
+        window.alert('Please sign in to view your shopping list!');
+      }
+    });
   }
 
 
