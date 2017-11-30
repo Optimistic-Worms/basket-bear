@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const ApiNav = (props) => (
   <div>
   <nav>
-      <Link to="/api">
+      <Link to="/">
       <div className="brand desktop-show">Budget Basket - Developer</div>
       </Link>
     <div className="menu">
@@ -23,7 +23,9 @@ const ApiNav = (props) => (
         </Link>
       </li>
     </div>
+    <a className="exit-dev-btn" href="/">Back to Budget Basket</a>
   </nav>
+
 </div>);
 
 export default ApiNav;

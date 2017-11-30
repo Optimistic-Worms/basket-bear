@@ -1,9 +1,9 @@
 import React from 'react';
 
 const Footer = (props) => (
-  <div className="footer">
+  <footer >
     <div className="footer-link" onClick={props.handleSwitch}>Developer Section</div>
-  </div>
+  </footer>
 )
 
 export default Footer;

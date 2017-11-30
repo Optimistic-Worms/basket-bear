@@ -13,7 +13,7 @@ import Developer from './developer/Developer.jsx';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
-import { logout } from './user/authHelpers.js'
+import { logout } from './user/authHelpers.js';
 
 class App extends React.Component {
   constructor() {

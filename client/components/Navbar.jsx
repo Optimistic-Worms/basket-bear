@@ -20,14 +20,6 @@ const NavBar = (props) => (
 	        </span>
 	        </Link>
 	    </li>
-			<li>
-					<Link to="/developer">
-						<span className="desktop-show">DEVELOPER</span>
-						<span className="mobile-show col">
-							<i className="fa fa-book" aria-hidden="true"></i>DEVELOPER
-						</span>
-					</Link>
-			</li>
 	    {/* <li>
 	    		<Link to="/about">
 		        <span className="desktop-show">About</span>
