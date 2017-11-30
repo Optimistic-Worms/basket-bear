@@ -20,9 +20,6 @@ class LoginCard extends React.Component {
         <h2 className="login-header">Login</h2>
         <ManualUser />
         <GoogleUser />
-        <button onClick={e => this.getToken(e)}>
-        Get and send to token to server
-        </button>
       </div>
     );
   }

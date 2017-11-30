@@ -5,6 +5,7 @@ import firebase from './user/firebase-auth'
 
 import '../css/styles.css';
 import Search from './Search.jsx';
+import Info from './Info.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
 import ShoppingList from './ShoppingList.jsx';
@@ -71,6 +72,7 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Navbar logged={this.state.logged} logging={this.logging}/>
+            <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/shoppingList" component={ShoppingList}/>

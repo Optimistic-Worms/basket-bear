@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 const NavBar = (props) => (
 	<div>
   <nav>
+		<div className="brand">
   		<Link to="/">
-	  	<div className="brand desktop-show">Budget Basket</div>
+	  	<span className="desktop-show">Budget Basket</span>
 	  	</Link>
+		</div>
 	  <div className="menu">
 	    <li>
 	    		<Link to="/">
@@ -15,19 +17,27 @@ const NavBar = (props) => (
 	        </span>
 	        </Link>
 	    </li>
-	    <li>
+			<li>
+					<Link to="/developer">
+						<span className="desktop-show">Developer</span>
+						<span className="mobile-show col">
+							<i className="fa fa-book" aria-hidden="true"></i>Developer
+						</span>
+					</Link>
+			</li>
+	    {/* <li>
 	    		<Link to="/about">
 		        <span className="desktop-show">About</span>
 		        <span className="mobile-show col">
 		     	<i className="fa fa-bookmark" aria-hidden="true"></i>About
 		     		</span>
 	        </Link>
-	    </li>
+	    </li> */}
 	    <li>
 	        <Link to="/shoppingList">
-		        <span className="desktop-show">Shopping List</span>
+		        <span className="desktop-show">Watch List</span>
 		        <span className="mobile-show col">
-				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Shopping List
+				    	<i className="fa fa-bookmark" aria-hidden="true"></i>Watch List
 		        </span>
 	        </Link>
 	    </li>
