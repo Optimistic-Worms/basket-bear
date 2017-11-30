@@ -61,7 +61,8 @@ exports.authenticateUser = (req, res, next) => {
       next();
     }
   })(req, res, next);
-  //using an IIFE to customize the response for passport auth error to send the meaningful error data passed from DB or auth controllers ex: 'passwords do not match'
+  //using an IIFE to modify the response for a passport auth error to send the error data passed from DB or auth controllers
+  //ex: 'passwords do not match'
 };
 
 exports.authenticateClient = (req, res, next) => {

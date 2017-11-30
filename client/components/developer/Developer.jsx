@@ -1,8 +1,8 @@
 import React from 'react';
-import {Router, Routes} from "react-router";
 import '../../css/styles.css';
 import ApiUserSignup from './apiUser/ApiUserSignup.jsx';
 import ApiUserLogin from './apiUser/ApiUserLogin.jsx';
+import ApiNav from './ApiNav.jsx';
 
 class Developer extends React.Component {
   constructor() {
@@ -14,9 +14,11 @@ class Developer extends React.Component {
 
   componentDidMount() {
   }
+
   render() {
     return (
-      <div>
+      <div className="developer">
+        <ApiNav/>
         <ApiUserSignup/>
         <ApiUserLogin/>
       </div>

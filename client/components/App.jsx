@@ -5,20 +5,23 @@ import firebase from './user/firebase-auth'
 
 import '../css/styles.css';
 import Search from './Search.jsx';
+import Info from './Info.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
 import ShoppingList from './ShoppingList.jsx';
 import Developer from './developer/Developer.jsx';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
-import {logout } from './user/authHelpers.js'
+import Footer from './Footer.jsx';
+import { logout } from './user/authHelpers.js'
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
       logged: 'Login',
-      logout: 'false'
+      logout: false,
+      devView: false,
     };
     this.logging = this.logging.bind(this)
     this.logout = logout.bind(this)
@@ -57,20 +60,27 @@ class App extends React.Component {
     }
   }
 
+  switchToDev() {
+    this.setState({devView: true});
+  }
+
 
 
   render() {
-    return (
+    return this.state.devView ? <Developer/> : (
+      <div>
       <BrowserRouter>
         <div>
           <Navbar logged={this.state.logged} logging={this.logging}/>
+            <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/shoppingList" component={ShoppingList}/>
-            <Route path="/developer" component={Developer}/>
         </div>
       </BrowserRouter>
-    );
+      <Footer handleSwitch={this.switchToDev.bind(this)}/>
+      </div>
+      );
   }
 }
 export default App;

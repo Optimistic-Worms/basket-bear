@@ -215,7 +215,7 @@ app.get('/searchAmazon', (req, res) => {
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Busisness API Routes
+  Business API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
 app.use('/api', apiRoutes);

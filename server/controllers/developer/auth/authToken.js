@@ -17,7 +17,6 @@ exports.addToDb = (clientId, token, email) => {
 };
 
 exports.findByValue = (tokenValue, callback) => {
-  console.log('getting token data')
   db.collection('apiAuthTokens').get()
   .then(tokens => {
     if (tokens.docs.length) {
