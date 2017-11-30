@@ -18,7 +18,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      logged: 'Login',
+      logged: 'LOGIN',
       logout: 'false'
     };
     this.logging = this.logging.bind(this)
@@ -33,10 +33,10 @@ class App extends React.Component {
           // Send token to your backend via HTTPS
             console.log(idToken);
             axios.get(`/thing?access_token= ${idToken}`).then((result) => {
-              this.setState({logged:'Logout'});
+              this.setState({logged:'LOGOUT'});
               console.log(result);
             }).catch((error) => {
-              this.setState({logged:'Login'});
+              this.setState({logged:'LOGIN'});
               console.log(error);
             });
           });

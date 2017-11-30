@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Search from './Search.jsx';
+
 const NavBar = (props) => (
 	<div>
   <nav>
 		<div className="brand">
   		<Link to="/">
-	  	<span className="desktop-show">Budget Basket</span>
+	  	{/*<span className="desktop-show">Budget Basket</span>*/}
+	  	<i className="fa fa-shopping-basket"></i>
 	  	</Link>
 		</div>
 	  <div className="menu">
@@ -19,9 +22,9 @@ const NavBar = (props) => (
 	    </li>
 			<li>
 					<Link to="/developer">
-						<span className="desktop-show">Developer</span>
+						<span className="desktop-show">DEVELOPER</span>
 						<span className="mobile-show col">
-							<i className="fa fa-book" aria-hidden="true"></i>Developer
+							<i className="fa fa-book" aria-hidden="true"></i>DEVELOPER
 						</span>
 					</Link>
 			</li>
@@ -35,9 +38,9 @@ const NavBar = (props) => (
 	    </li> */}
 	    <li>
 	        <Link to="/shoppingList">
-		        <span className="desktop-show">Watch List</span>
+		        <span className="desktop-show">WATCH LIST</span>
 		        <span className="mobile-show col">
-				    	<i className="fa fa-bookmark" aria-hidden="true"></i>Watch List
+				    	<i className="fa fa-bookmark" aria-hidden="true"></i>WATCH LIST
 		        </span>
 	        </Link>
 	    </li>

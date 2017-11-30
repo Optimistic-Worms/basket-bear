@@ -5,9 +5,8 @@ class Info extends React.Component {
   render(){
   return (
   <div className="intro-card">
-    <i className="fa fa-shopping-basket" aria-hidden="true"></i>
-    <p>
-Budget Basket quickly searches across Amazon and Ebay to find the lowest price for the item you want.</p>
+    <h1 className="intro-card">BUDGET BASKET</h1>
+    <h4 className="intro-card">FIND THE BEST PRICES FOR ITEMS YOU WANT</h4>
   </div>
   )
   }
@@ -15,3 +14,4 @@ Budget Basket quickly searches across Amazon and Ebay to find the lowest price f
 }
 
 export default Info
+    //<i className="fa fa-shopping-basket" aria-hidden="true"></i>
