@@ -80,7 +80,8 @@ app.post('/shoppingList', (req, res) => {
 });
 
 app.get('/shoppingList', (req, res) => {
-  var username = req.body.username;
+  var username = req.query.username;
+  console.log('username:', username);
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -97,8 +98,8 @@ app.put('/shoppingList', (req, res) => {
 });
 
 app.delete('/shoppingList', (req, res) => {
-  var username = req.body.username;
-  var productId = req.body.productId;
+  var username = req.query.username;
+  var productId = req.query.productId;
   shoppingList.removeItemFromShoppingList(username, productId)
   .then((data) => {
     res.status(200).send(data);
