@@ -1,10 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100');
 /** General CSS **/
 
 body {
   width: 100%;
   height: 100%;
   background: #fff;
+  background-image: url('./amazon-prime-boxes.jpg');
+  background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
   margin-top: 3.2em;
 }
@@ -43,8 +45,8 @@ h4 {
   display: flex;
   width: 100%;
   flex-direction: column;
-  padding: 1em 0;
-  background: #00BCD4;
+  padding: 3em 0;
+  /*background: #00BCD4;*/
   color: #fff;
   align-items: center;
   justify-content: center;
@@ -53,8 +55,26 @@ h4 {
 .intro-card .fa {
   margin: .1em auto;
   font-size: 10em;
+
 }
 
+.intro-card h1 {
+  display: flex;
+  font-size: 3em;
+  align-items: center;
+  width: 60%;
+  padding: 0;
+  margin-top: 1em;
+  margin-bottom: 0em;
+}
+.intro-card h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  width: 60%;
+  padding: 0;
+}
 
 .intro-card p {
   display: flex;
@@ -197,33 +217,79 @@ nav .brand a:hover {
 /** Search **/
 
 .search-container {
-  width: 100%;
   display: flex;
+  width: 100%;
+  flex-direction: column;
+  padding: 0;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
-  /*background: #EEEEEE;*/
-  padding: 2em 0;
 }
+
+
+/*.intro-card h1 {
+  display: flex;
+  font-size: 3em;
+  align-items: center;
+  width: 60%;
+  padding: 0;
+  margin-top: 1em;
+  margin-bottom: 0em;
+}*/
 
 .search {
   display: flex;
-  width: 75%;
+  width: 50%;
   flex-direction: row;
   margin: 0.8em auto 0;
 }
 
+input.search-form:focus {
+  outline: none;
+}
+
 .search-form {
-  width: 100%;
+  width: 80%;
   height: 3em;
   border: 1px solid #dadada;
+  border-left: 0;
+  border-right:0;
+  border-radius: 0;
 }
+select.search-selection:focus {
+  outline: none;
+}
+.search-selection {
+  width: 15%;
+  /*border: 1px solid #dadada;*/
+  border-radius: 0;
+  border-left: 0;
+}
+.search-button {
+  width: 5%;
+  border: 1px solid #dadada;
+  border-right:0;
+  border-radius: 0;
+  padding: 0;
+
+}
+button.search-button:focus {
+  outline: none;
+}
+
+.results {
+  display: flex;
+  width: 80%;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+}
+
 
 .list {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-gap: 1.2em;
-  background-color: #fff;
   color: #444;
   justify-content: center;
   margin: 1em 2em;
@@ -236,6 +302,7 @@ nav .brand a:hover {
   flex-direction: column;
   border: 1px solid #dadada;
   border-radius: 0.25em;
+  background-color: #fff;
   justify-content: center;
 }
 

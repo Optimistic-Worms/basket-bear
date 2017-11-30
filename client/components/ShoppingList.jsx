@@ -70,11 +70,16 @@ class ShoppingList extends React.Component {
 
   render () {
     return (
+      <div className="search-container">
+      <h1 className="intro-card">Your Watch List</h1>
+      <div className="results">
     <div className="list">
       { this.state.items.map((item, key)=> {
         return (<ShoppingListItem key={key} index={key} item={item} removeItem = {this.removeItem}/> );
         })
       }
+    </div>
+    </div>
     </div>
     );
   }
