@@ -135,8 +135,7 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <div className="ebaySearch">
-         <h3>Product Search</h3>
+        <div className="search-container">
          <div className="search">
           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
 
