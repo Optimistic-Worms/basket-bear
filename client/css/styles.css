@@ -310,3 +310,11 @@ nav .menu li:hover {
     grid-template-columns: auto auto auto auto;
   }
 }
+
+/** Developer **/
+.footer {
+  display: flex;
+  flex-direction: column;
+  /*justify-content: bottom;*/
+  align-items: flex-end;
+}

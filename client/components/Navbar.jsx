@@ -38,14 +38,6 @@ const NavBar = (props) => (
 	        <i className="fa fa-sign-out" aria-hidden="true"></i>{props.logged}</span>
 	      </Link>
 	    </li>
-	    <li>
-	        <Link to="/developer">
-		        <span className="desktop-show">Developer</span>
-		        {/* <span className="mobile-show col">
-				    	<i className="fa fa-user-circle" aria-hidden="true"></i>Developer
-		        </span> */}
-	        </Link>
-	    </li>
 	  </div>
 	</nav>
 </div>);
