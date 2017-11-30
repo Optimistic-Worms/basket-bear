@@ -28,17 +28,17 @@ class Search extends React.Component {
   }
 
   search() {
-    this.setState({searchItems: []});
-    this.setState({ebaySearchItems: []});
-    this.setState({amazonSearchItems: []});
-
-    console.log("search merchant" , this.state.searchMerchant);
-    console.log('query:', this.state.queryString);
-    if (this.state.searchMerchant === 'ebay' || this.state.searchMerchant === 'all') {
-      this.searchEbay(this.state.queryString);
-    }
-    if (this.state.searchMerchant === 'amazon' || this.state.searchMerchant === 'all') {
-      this.searchAmazon(this.state.queryString);
+    if (this.state.queryString !== '') {
+      console.log('searching '+ this.state.searchMerchant + ' for ' + this.state.queryString);
+      this.setState({searchItems: []});
+      this.setState({ebaySearchItems: []});
+      this.setState({amazonSearchItems: []});
+      if (this.state.searchMerchant === 'ebay' || this.state.searchMerchant === 'all') {
+        this.searchEbay(this.state.queryString);
+      }
+      if (this.state.searchMerchant === 'amazon' || this.state.searchMerchant === 'all') {
+        this.searchAmazon(this.state.queryString);
+      }
     }
 
   }
@@ -107,17 +107,20 @@ class Search extends React.Component {
   addToShoppingList(item, index) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        var updateItems = this.state.searchItems;
-        updateItems[index].added = true;
-        this.setState({searchItems: updateItems});
-        item.added = true;
-
         axios.put('/shoppingList', {
           username: user.uid,
           product: item
         })
         .then((response) => {
           console.log(response.data);
+          if (response.data !== 'No existing shopping list. Create shopping list. Try adding item again') {
+            var updateItems = this.state.searchItems;
+            updateItems[index].added = true;
+            this.setState({searchItems: updateItems});
+            item.added = true;
+          } else {
+            window.alert('Hello new user! You dont have a shopping list started yet. Setting one up for you right now. Please try adding the item again');
+          }
         })
       } else {
         window.alert('Please log in to add an item to your shopping list!');
@@ -137,14 +140,14 @@ class Search extends React.Component {
       <div className="search-container">
       <div className="search">
         <button className="search-button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
-        <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
+        <input onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
         <select className="search-selection" onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
           <option value="all">All</option>
           <option value="ebay">Ebay</option>
           <option value="amazon">Amazon</option>
         </select>
       </div>
-      <div>
+      <div className="results">
         <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
       </div>
       </div>
@@ -153,25 +156,3 @@ class Search extends React.Component {
 }
 export default Search;
 
-// return (
-//       <div>
-//         <div className="ebaySearch">
-//          <h3>Product Search</h3>
-//          <div className="search">
-//           <input className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
-
-//           <button className="button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
-
-//           <select onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
-//             <option value="all">All</option>
-//             <option value="ebay">Ebay</option>
-//             <option value="amazon">Amazon</option>
-//           </select>
-
-//          </div>
-//         </div>
-//       <div>
-//         <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
-//       </div>
-//     </div>
-//     )
