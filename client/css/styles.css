@@ -433,16 +433,15 @@ footer {
   display: flex;
   justify-content: flex-start;
   height: 40px;
-  background-color: #2196f3;
+  background-color: rgba(33,150,243, 0.2);
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  border-top: 1px solid black;
 }
 
 .footer-link {
-  margin: 10px;
+  margin: 10px 20px 10px 20px;
   cursor: pointer;
 }
 
@@ -452,5 +451,17 @@ footer {
   cursor: pointer;
 }
 
-.developer {
+.developer * {
+  text-decoration: none;
+  color: white;
+}
+
+.api-nav-title {
+  margin-left: 20px;
+  margin-right: 60px;
+  font-size: 24px;
+}
+
+.dev-login * {
+  color: grey;
 }

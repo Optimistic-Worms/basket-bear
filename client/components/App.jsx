@@ -66,7 +66,7 @@ class App extends React.Component {
   }
 
   render() {
-    return this.state.devView ? <Developer/> : (
+    return this.state.devView ? <Developer /> : (
       <div>
       <BrowserRouter>
         <div>
@@ -82,4 +82,5 @@ class App extends React.Component {
       );
   }
 }
+
 export default App;

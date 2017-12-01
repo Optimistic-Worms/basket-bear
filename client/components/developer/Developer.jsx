@@ -14,6 +14,7 @@ class Developer extends React.Component {
   }
 
   componentDidMount() {
+    document.body.style.backgroundImage = 'none';
   }
 
   render() {

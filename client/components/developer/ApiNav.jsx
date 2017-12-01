@@ -4,7 +4,7 @@ const ApiNav = (props) => (
   <div>
   <nav>
       <Link to="/">
-      <div className="brand desktop-show">Budget Basket - Developer</div>
+      <div className="api-nav-title">Budget Basket - Developer</div>
       </Link>
     <div className="menu">
       <li>
@@ -19,7 +19,7 @@ const ApiNav = (props) => (
       </li>
       <li>
         <Link to="/api/login" >
-          <span className="desktop-show">Login/Logout</span>
+          <span className="desktop-show">Login</span>
         </Link>
       </li>
     </div>
