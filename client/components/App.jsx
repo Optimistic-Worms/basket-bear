@@ -20,7 +20,7 @@ class App extends React.Component {
     super();
     this.state = {
       logged: 'LOGIN',
-      logout: false,
+      logout: 'login',
       devView: false,
     };
 

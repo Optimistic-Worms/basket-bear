@@ -38,7 +38,7 @@ const NavBar = (props) => (
 	    </li>
 	    <li>
 	      <Link
-	      	to={{pathname: props.logged.toLowerCase()}}
+	      	to={{pathname: props.logout}}
 	        onClick={props.logging}>
 	        <span className="desktop-show">{props.logged}</span>
 	        <span className="mobile-show col">
