@@ -2,13 +2,16 @@ import React from 'react';
 import axios from 'axios';
 
 class ApiUserLogin extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       email: '',
       password: '',
       errorMsg: ''
     };
+    this.handleLogin= this.handleLogin.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
   }
 
   handleEmail(event) {
@@ -54,7 +57,7 @@ class ApiUserLogin extends React.Component {
               className="login-input"
               required
               value={this.state.email}
-              onChange={this.handleEmail.bind(this)}
+              onChange={this.handleEmail}
             />
           </div>
           <div className="password-form">
@@ -64,17 +67,17 @@ class ApiUserLogin extends React.Component {
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword.bind(this)}
+              onChange={this.handlePassword}
              />
           </div>
           <div className="button-wrapper">
             <button
               className="button"
-              onClick={this.handleLogin.bind(this)}
+              onClick={this.handleLogin}
             >Login
             </button>
           </div>
-          <div className="toggle-login">
+          <div className="toggle-login" onClick={this.props.toggle}>
             <a>Or Sign up for a Developer Account</a>
           </div>
         </form>

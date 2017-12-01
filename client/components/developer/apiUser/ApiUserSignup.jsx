@@ -9,8 +9,8 @@ class ApiUserSignup extends React.Component {
       password:''
     };
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleEmailInput = this.handleEmailInput.bind(this);
-    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword = this.handlePassword.bind(this);
   }
 
   handleSignup(event) {
@@ -24,34 +24,60 @@ class ApiUserSignup extends React.Component {
     })
   }
 
-  handleEmailInput(event) {
+  handleEmail(event) {
     this.setState({email: event.target.value});
   }
 
-  handlePasswordInput(event) {
+  handlePassword(event) {
     this.setState({password: event.target.value});
   }
 
   render() {
     return (
-      <div >
+       <div>
+        {this.state.errorMsg && <div className="api-user-error">{this.state.errorMsg}</div>}
         <form>
-          <input
-            type="text"
-            placeholder="email"
-            onChange={this.handleEmailInput}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            onChange={this.handlePasswordInput}
-          />
-          <input
-            type="password"
-            placeholder=" confirm password"
-            onChange={this.handlePasswordInput}
-          />
-          <button onClick={this.handleSignup}>Signup</button>
+          <div className="email-form">
+            <label><b>Email</b></label>
+            <input
+              name="email"
+              type="email"
+              className="login-input"
+              required
+              value={this.state.email}
+              onChange={this.handleEmail}
+            />
+          </div>
+          <div className="password-form">
+            <label htmlFor="password"><b>Password</b></label>
+            <input className="login-input"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={this.state.password}
+              onChange={this.handlePassword}
+             />
+          </div>
+          <div className="password-form">
+            <label htmlFor="password"><b>Confirm Password</b></label>
+            <input className="login-input"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={this.state.password}
+              onChange={this.handlePassword}
+             />
+          </div>
+          <div className="button-wrapper">
+            <button
+              className="button"
+              onClick={this.handleSignup}
+            >Signup
+            </button>
+          </div>
+          <div className="toggle-login" onClick={this.props.toggle}>
+            <a>Already have a Developer Account? Login instead</a>
+          </div>
         </form>
       </div>
     );
