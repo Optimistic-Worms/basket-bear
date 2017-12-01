@@ -19,7 +19,7 @@ class App extends React.Component {
     super();
     this.state = {
       logged: 'LOGIN',
-      logout: 'false'
+      logout: 'login'
     };
     this.logging = this.logging.bind(this)
     this.logout = logout.bind(this)
@@ -51,10 +51,10 @@ class App extends React.Component {
   }
 
   logging(e){
-    if(this.state.logged === 'Logout') {
+    if(this.state.logged === 'LOGOUT') {
+      this.setState({logout : '/'})
       this.logout();
-      this.setStage({logging: 'Login'})
-
+      this.setStage({logged: 'LOGIN'})
     }
   }
 
@@ -64,7 +64,7 @@ class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <Navbar logged={this.state.logged} logging={this.logging}/>
+          <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
             <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
