@@ -45,9 +45,7 @@ const NavBar = (props) => (
 	        </Link>
 	    </li>
 	    <li>
-	      <Link  
-	      	to={{pathname: props.logout}}
-	        onClick={props.logging}>
+	      <Link to={{pathname: props.logout}} onClick={props.logging}>
 	        <span className="desktop-show">{props.logged}</span>
 	        <span className="mobile-show col">
 	        <i className="fa fa-sign-out" aria-hidden="true"></i>{props.logged}</span>

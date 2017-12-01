@@ -29,6 +29,7 @@ class ManualUser extends React.Component {
     firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
         console.log(value.uid);
+        this.props.history.push('/');
       })
       .catch(error => console.log(`Opps. We are sorry to say: ${error.message}`));
   }
@@ -47,8 +48,8 @@ class ManualUser extends React.Component {
   render() {
     return (
       <div>
-        <form >
-          <div className="manual-login">
+      <form >
+      <div className="manual-login">
             <div className="email-form">
             <label><b>Email</b></label>
             <input
@@ -75,7 +76,7 @@ class ManualUser extends React.Component {
             </div>
           </div>
           </form>
-        </div>
+          </div>
     );
   }
 }

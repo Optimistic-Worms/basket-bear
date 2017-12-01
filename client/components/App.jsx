@@ -65,11 +65,11 @@ class App extends React.Component {
       <BrowserRouter>
         <div>
           <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
-            <Route exact path="/" component={Info}/>
-            <Route exact path="/" component={Search}/>
-            <Route path="/login" component={LoginCard}/>
-            <Route path="/shoppingList" component={ShoppingList}/>
-            <Route path="/developer" component={Developer}/>
+          <Route exact path="/" component={Info}/>
+          <Route exact path="/" component={Search}/>
+          <Route path="/login" component={LoginCard}/>
+          <Route path="/shoppingList" component={ShoppingList}/>
+          <Route path="/developer" component={Developer}/>
         </div>
       </BrowserRouter>
     );
