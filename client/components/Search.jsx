@@ -105,28 +105,27 @@ class Search extends React.Component {
   }
 
   addToShoppingList(item, index) {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        axios.put('/shoppingList', {
-          username: user.uid,
-          product: item
-        })
-        .then((response) => {
-          console.log(response.data);
-          if (response.data !== 'No existing shopping list. Create shopping list. Try adding item again') {
-            var updateItems = this.state.searchItems;
-            updateItems[index].added = true;
-            this.setState({searchItems: updateItems});
-            item.added = true;
-          } else {
-            window.alert('Hello new user! You dont have a shopping list started yet. Setting one up for you right now. Please try adding the item again');
-          }
-        })
-      } else {
-        window.alert('Please log in to add an item to your shopping list!');
-        console.log('Cannot add to shopping list. You must log in first!');
-      }
-    });
+    var user = firebase.auth().currentUser;
+    if (user) {
+      axios.put('/shoppingList', {
+        username: user.uid,
+        product: item
+    })
+    .then((response) => {
+      console.log(response.data);
+      if (response.data !== 'No existing shopping list. Create shopping list. Try adding item again') {
+          var updateItems = this.state.searchItems;
+          updateItems[index].added = true;
+          this.setState({searchItems: updateItems});
+          item.added = true;
+        } else {
+          window.alert('Hello new user! You dont have a shopping list started yet. Setting one up for you right now. Please try adding the item again');
+        }
+      })
+    } else {
+      window.alert('Please log in to add an item to your shopping list!');
+      console.log('Cannot add to shopping list. You must log in first!');
+    }
   }
 
 
