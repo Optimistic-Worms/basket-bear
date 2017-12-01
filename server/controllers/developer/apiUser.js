@@ -29,7 +29,7 @@ exports.findByEmail = (email, callback) => {
         return callback(null, userRef, userData);
       }
     }
-    return callback('no user found')
+    return callback(`no account found for ${email}`)
   })
   .catch(err => callback(err));
 };

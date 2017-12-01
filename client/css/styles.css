@@ -27,6 +27,7 @@ h4 {
   border-radius: 0.3em;
   background: dodgerblue;
   color: #fff;
+  cursor: pointer;
 }
 
 .button:hover {
@@ -454,17 +455,31 @@ footer {
   cursor: pointer;
 }
 
-.developer * {
-  text-decoration: none;
-  color: white;
-}
-
 .api-nav-title {
   margin-left: 20px;
   margin-right: 60px;
   font-size: 24px;
 }
 
-.dev-login * {
-  color: grey;
+.api-nav * {
+  text-decoration: none;
+  color: white;
 }
+
+.developer button {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 15px;
+}
+
+.toggle-login {
+  margin-bottom: 10px;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.api-user-error {
+  color: red;
+  padding-bottom: 10px;
+}
+

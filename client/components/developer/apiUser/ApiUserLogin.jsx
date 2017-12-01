@@ -5,32 +5,78 @@ class ApiUserLogin extends React.Component {
   constructor() {
     super();
     this.state = {
+      email: '',
+      password: '',
+      errorMsg: ''
     };
   }
 
+  handleEmail(event) {
+    this.setState({email: event.target.value});
+  }
+
+  handlePassword(event) {
+    this.setState({password: event.target.value});
+  }
+
   handleLogin(event) {
-    event.preventDefault();
-    axios.post('/api/login', {'grant_type': 'client_credentials'},
-      {
-        withCredentials: true,
-        auth: {
-          username: 'test5@test.com',
-          password: 'secret5',
-      }
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
-    .catch(err => console.log(err))
+    this.setState({errorMsg: ''});
+    if (this.state.email.length  && this.state.password.length) {
+      event.preventDefault();
+      axios.post('/api/login', {'grant_type': 'client_credentials'},
+        {
+          withCredentials: true,
+          auth: {
+            username: this.state.email,
+            password: this.state.password,
+        }
+      })
+      .then((res) => {
+        if (res.data)
+        console.log(res.data)
+      })
+      .catch(err => {
+        this.setState({errorMsg: err.response.data})
+      });
+    }
   }
 
   render() {
     return (
-      <div className="dev-login">
+      <div>
+        {this.state.errorMsg && <div className="api-user-error">{this.state.errorMsg}</div>}
         <form>
-          <input type="email" placeholder="email"/>
-          <input type="password" placeholder="password"/>
-          <button onClick={this.handleLogin}>Login</button>
+          <div className="email-form">
+            <label><b>Email</b></label>
+            <input
+              name="email"
+              type="email"
+              className="login-input"
+              required
+              value={this.state.email}
+              onChange={this.handleEmail.bind(this)}
+            />
+          </div>
+          <div className="password-form">
+            <label htmlFor="password"><b>Password</b></label>
+            <input className="login-input"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={this.state.password}
+              onChange={this.handlePassword.bind(this)}
+             />
+          </div>
+          <div className="button-wrapper">
+            <button
+              className="button"
+              onClick={this.handleLogin.bind(this)}
+            >Login
+            </button>
+          </div>
+          <div className="toggle-login">
+            <a>Or Sign up for a Developer Account</a>
+          </div>
         </form>
       </div>
     );

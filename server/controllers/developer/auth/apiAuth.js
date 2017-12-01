@@ -55,7 +55,7 @@ exports.authenticateUser = (req, res, next) => {
   passport.authenticate('userBasic', {session: false}, (err, user, info) => {
     if (err) {
       console.log('error: ', err)
-     res.send(err);
+     res.status(401).send(err);
     } else {
       req.user = user;
       next();

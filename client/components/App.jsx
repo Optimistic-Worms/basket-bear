@@ -1,8 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-import firebase from './user/firebase-auth'
-
+import firebase from './user/firebase-auth';
 import '../css/styles.css';
 import Search from './Search.jsx';
 import Info from './Info.jsx';
