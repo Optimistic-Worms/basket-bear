@@ -7,7 +7,8 @@ class ShoppingList extends React.Component {
   constructor() {
     super();
     this.state = {
-      items : []
+      items : [],
+      alert : null
     };
     this.loadShoppingList = this.loadShoppingList.bind(this);
     this.removeItem = this.removeItem.bind(this);
@@ -32,11 +33,13 @@ class ShoppingList extends React.Component {
           for (var i in itemsObj) {
             itemsArr.push(itemsObj[i]);
           }
+          this.setState({alert: ''});
           this.setState({items: itemsArr});
         })
       } else {
         console.log('Cant get shopping list. Must Log in');
-        window.alert('Please sign in to view your shopping list!');
+        this.setState({ alert: 'Please sign in to view your shopping list!'})
+        //window.alert('Please sign in to view your shopping list!');
       }
     });
   }
@@ -61,7 +64,7 @@ class ShoppingList extends React.Component {
         })
       } else {
         console.log('Cant get shopping list. Must Log in');
-        window.alert('Please sign in to view your shopping list!');
+        //window.alert('Please sign in to view your shopping list!');
       }
     });
   }
@@ -72,6 +75,7 @@ class ShoppingList extends React.Component {
     return (
       <div className="search-container">
       <h1 className="intro-card">Your Watch List</h1>
+      {this.state.alert && <h4 className="intro-card">{this.state.alert}</h4>}
       <div className="results">
     <div className="list">
       { this.state.items.map((item, key)=> {
