@@ -15,10 +15,11 @@ class LoginCard extends React.Component {
   }
 
   render() {
+    const { userLoginRequest } = this.props;
     return (
       <div className="loginCard">
         <h2 className="login-header">Login</h2>
-        <ManualUser />
+        <ManualUser userLoginRequest={userLoginRequest} history={this.props.history}/>
         <GoogleUser />
       </div>
     );
