@@ -6,30 +6,48 @@ class ApiUserSignup extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password:''
+      password1:'',
+      password2:'',
+      errorMsg: ''
     };
     this.handleSignup = this.handleSignup.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+    this.handlePassword1 = this.handlePassword1.bind(this);
+    this.handlePassword2 = this.handlePassword2.bind(this);
   }
 
   handleSignup(event) {
-    event.preventDefault();
-    axios.post('/api/signup', {
-      email: this.state.email,
-      password: this.state.password
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
+    this.setState({errorMsg: ''})
+    const {email, password1, password2} = this.state;
+
+    if (email.length && password1.length && password2.length) {
+      if (password1 !== password2) {
+        event.preventDefault();
+        this.setState({errorMsg: 'Passwords do not match'});
+      } else {
+        event.preventDefault();
+        axios.post('/api/signup', {
+          email: this.state.email,
+          password: this.state.password1
+        })
+         .then((res) => {
+           console.log(res.data)
+        })
+         .catch(err => this.setState({errorMsg: err.response.data}));
+      }
+    }
   }
 
   handleEmail(event) {
     this.setState({email: event.target.value});
   }
 
-  handlePassword(event) {
-    this.setState({password: event.target.value});
+  handlePassword1(event) {
+    this.setState({password1: event.target.value});
+  }
+
+  handlePassword2(event) {
+    this.setState({password2: event.target.value});
   }
 
   render() {
@@ -55,7 +73,7 @@ class ApiUserSignup extends React.Component {
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword}
+              onChange={this.handlePassword1}
              />
           </div>
           <div className="password-form">
@@ -65,7 +83,7 @@ class ApiUserSignup extends React.Component {
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword}
+              onChange={this.handlePassword2}
              />
           </div>
           <div className="button-wrapper">

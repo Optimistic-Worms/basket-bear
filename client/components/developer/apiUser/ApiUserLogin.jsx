@@ -24,7 +24,7 @@ class ApiUserLogin extends React.Component {
 
   handleLogin(event) {
     this.setState({errorMsg: ''});
-    if (this.state.email.length  && this.state.password.length) {
+    if (this.state.email.length && this.state.password.length) {
       event.preventDefault();
       axios.post('/api/login', {'grant_type': 'client_credentials'},
         {
@@ -57,7 +57,7 @@ class ApiUserLogin extends React.Component {
               className="login-input"
               required
               value={this.state.email}
-              onChange={this.handleEmail}
+              onChange={this.handleEmail.bind(this)}
             />
           </div>
           <div className="password-form">
