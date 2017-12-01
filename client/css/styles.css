@@ -3,7 +3,6 @@
 
 body {
   width: 100%;
-  height: 100%;
   background: #fff;
   background-image: url('./amazon-prime-boxes.jpg');
   background-attachment: fixed;
@@ -427,4 +426,42 @@ button.search-button:focus {
   .list {
     grid-template-columns: auto auto auto auto;
   }
+}
+
+/** Developer **/
+footer {
+  display: flex;
+  justify-content: flex-start;
+  height: 40px;
+  background-color: rgba(33,150,243, 0.2);
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer-link {
+  margin: 10px 20px 10px 20px;
+  cursor: pointer;
+}
+
+.exit-dev-btn {
+  margin-left: auto;
+  margin-right: 0.6em;
+  cursor: pointer;
+}
+
+.developer * {
+  text-decoration: none;
+  color: white;
+}
+
+.api-nav-title {
+  margin-left: 20px;
+  margin-right: 60px;
+  font-size: 24px;
+}
+
+.dev-login * {
+  color: grey;
 }

@@ -26,10 +26,10 @@ class ApiUserLogin extends React.Component {
 
   render() {
     return (
-      <div >
+      <div className="dev-login">
         <form>
-          <input type="email"/>
-          <input type="password"/>
+          <input type="email" placeholder="email"/>
+          <input type="password" placeholder="password"/>
           <button onClick={this.handleLogin}>Login</button>
         </form>
       </div>

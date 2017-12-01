@@ -1,24 +1,31 @@
 import React from 'react';
-import {Router, Routes} from "react-router";
-import '../../css/styles.css';
 import ApiUserSignup from './apiUser/ApiUserSignup.jsx';
 import ApiUserLogin from './apiUser/ApiUserLogin.jsx';
+import ApiNav from './ApiNav.jsx';
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
 
 class Developer extends React.Component {
   constructor() {
     super();
     this.state = {
+      loggedIn: false
     };
   }
 
   componentDidMount() {
+    document.body.style.backgroundImage = 'none';
   }
+
   render() {
     return (
-      <div>
-        <ApiUserSignup/>
-        <ApiUserLogin/>
-      </div>
+      <BrowserRouter>
+        <div className="developer">
+          <ApiNav />
+            <Route path="/api/login" component={ApiUserLogin}/>
+            <Route path="/api/signup" component={ApiUserSignup}/>
+        </div>
+      </BrowserRouter>
     );
   }
 }

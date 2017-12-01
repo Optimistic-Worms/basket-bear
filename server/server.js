@@ -20,7 +20,6 @@ const SHA256 = require("crypto-js/sha256");
 const CryptoJS = require("crypto-js");
 const parseString = require('xml2js').parseString;
 const apiUser = require('./controllers/developer/apiUser.js');
-const BasicStrategy = require('passport-http').BasicStrategy;
 const apiAuth = require('./controllers/developer/auth/apiAuth.js');
 const oauth = require('./controllers/developer/auth/oauth2.js');
 const passport = require('passport');
@@ -216,7 +215,7 @@ app.get('/searchAmazon', (req, res) => {
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Busisness API Routes
+  Business API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 const apiRoutes = express.Router();
 app.use('/api', apiRoutes);
