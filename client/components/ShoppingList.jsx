@@ -74,8 +74,8 @@ class ShoppingList extends React.Component {
   render () {
     return (
       <div className="search-container">
-      <h1 className="intro-card">Your Watch List</h1>
-      {this.state.alert && <h4 className="intro-card">{this.state.alert}</h4>}
+      <h1>Your Watch List</h1>
+      {this.state.alert && <h4>{this.state.alert}</h4>}
       <div className="results">
     <div className="list">
       { this.state.items.map((item, key)=> {
