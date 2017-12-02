@@ -253,7 +253,7 @@ nav .brand a:hover {
 
 .search {
   display: flex;
-  width: 50%;
+  width: 75%;
   flex-direction: row;
   margin: 0.8em auto 0;
 }
@@ -264,7 +264,7 @@ input.search-form:focus {
 
 .search-form {
   width: 80%;
-  height: 3em;
+  height: 4em;
   border: 1px solid #dadada;
   margin-right: .1em;
   border-left: 0;
@@ -307,6 +307,7 @@ button.search-button:focus {
   color: #444;
   justify-content: center;
   margin: 1em 2em;
+  background: #fafafa;
 }
 
 /** Product **/
@@ -373,7 +374,6 @@ button.search-button:focus {
   width: 100%;
   margin: 3.5em auto 1em;
   text-align: center!important;
-  background-color: #fff;
 }
 
 /** Media Queries **/
@@ -517,4 +517,38 @@ footer {
 .api-user-error {
   color: red;
   padding-bottom: 10px;
+}
+
+.api-doc {
+  display: grid;
+  grid-template-columns: 20% 80%;
+  width: 100%;
+  flex-direction: column;
+  padding: 3em 0;
+  align-items: center;
+  justify-content: center;
+  color: #000;
+}
+
+.api-doc-nav {
+  display: flex;
+  width: 100%;
+  margin: -5em 0 0 1em;
+}
+
+.api-doc-intro {
+  display: flex;
+  width: 95%;
+  margin: 0 auto;
+  flex-direction: column;
+}
+
+.api-doc-intro--header {
+  margin: 1em 0;
+  border-bottom: 1px solid #efefef;
+}
+
+.api-doc-intro h1 {
+  margin-bottom: 0;
+  font-weight: 1100;
 }
