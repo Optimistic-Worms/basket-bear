@@ -12,8 +12,6 @@ class Developer extends React.Component {
   }
 
   componentDidMount() {
-    document.body.style.backgroundImage = 'none';
-    document.body.style.backgroundColor = '#C8C8C8';
   }
 
   render() {
