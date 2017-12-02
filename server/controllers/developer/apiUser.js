@@ -3,19 +3,25 @@ const encrypt = require('../../helpers/encryption.js');
 const Promise = require('bluebird');
 
 exports.addUser = (req, res) => {
-  encrypt.createHash(req.body.password)
-  .then((hashed) => {
-    db.collection('apiUsers').add({
-      email: req.body.email,
-      password: hashed,
-    })
-    .then(ref => {
-      exports.generateNewClientSecret(ref.id)
-      .then((secret) => {
-        res.send(`added user with id: ${ref.id} and secret: ${secret}`);
+  exports.findByEmail(req.body.email, (err, userRef, userData) => {
+    if (userRef) {
+      res.status(400).send(`An account with email: ${req.body.email} already exists`);
+    } else {
+      encrypt.createHash(req.body.password)
+      .then((hashed) => {
+        db.collection('apiUsers').add({
+          email: req.body.email,
+          password: hashed,
+        })
+        .then(ref => {
+          exports.generateNewClientSecret(ref.id)
+          .then((secret) => {
+            res.send(`added user with id: ${ref.id} and secret: ${secret}`);
+          });
+        })
+        .catch(err => console.log(err));
       });
-    })
-    .catch(err => console.log(err));
+    }
   });
 };
 
@@ -29,7 +35,7 @@ exports.findByEmail = (email, callback) => {
         return callback(null, userRef, userData);
       }
     }
-    return callback('no user found')
+    return callback(`no account found for ${email}`)
   })
   .catch(err => callback(err));
 };

@@ -1,9 +1,7 @@
 import React from 'react';
-import ApiUserSignup from './apiUser/ApiUserSignup.jsx';
-import ApiUserLogin from './apiUser/ApiUserLogin.jsx';
 import ApiNav from './ApiNav.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
-
+import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';
 
 class Developer extends React.Component {
   constructor() {
@@ -15,6 +13,7 @@ class Developer extends React.Component {
 
   componentDidMount() {
     document.body.style.backgroundImage = 'none';
+    document.body.style.backgroundColor = '#C8C8C8';
   }
 
   render() {
@@ -22,8 +21,7 @@ class Developer extends React.Component {
       <BrowserRouter>
         <div className="developer">
           <ApiNav />
-            <Route path="/api/login" component={ApiUserLogin}/>
-            <Route path="/api/signup" component={ApiUserSignup}/>
+            <Route path="/api/login" component={ApiUserAuthCard}/>
         </div>
       </BrowserRouter>
     );

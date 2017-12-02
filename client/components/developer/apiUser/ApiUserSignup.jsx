@@ -6,52 +6,96 @@ class ApiUserSignup extends React.Component {
     super(props);
     this.state = {
       email: '',
-      password:''
+      password1:'',
+      password2:'',
+      errorMsg: ''
     };
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleEmailInput = this.handleEmailInput.bind(this);
-    this.handlePasswordInput = this.handlePasswordInput.bind(this);
+    this.handleEmail = this.handleEmail.bind(this);
+    this.handlePassword1 = this.handlePassword1.bind(this);
+    this.handlePassword2 = this.handlePassword2.bind(this);
   }
 
   handleSignup(event) {
-    event.preventDefault();
-    axios.post('/api/signup', {
-      email: this.state.email,
-      password: this.state.password
-    })
-    .then((res) => {
-      console.log(res.data)
-    })
+    this.setState({errorMsg: ''})
+    const {email, password1, password2} = this.state;
+
+    if (email.length && password1.length && password2.length) {
+      if (password1 !== password2) {
+        event.preventDefault();
+        this.setState({errorMsg: 'Passwords do not match'});
+      } else {
+        event.preventDefault();
+        axios.post('/api/signup', {
+          email: this.state.email,
+          password: this.state.password1
+        })
+         .then((res) => {
+           console.log(res.data)
+        })
+         .catch(err => this.setState({errorMsg: err.response.data}));
+      }
+    }
   }
 
-  handleEmailInput(event) {
+  handleEmail(event) {
     this.setState({email: event.target.value});
   }
 
-  handlePasswordInput(event) {
-    this.setState({password: event.target.value});
+  handlePassword1(event) {
+    this.setState({password1: event.target.value});
+  }
+
+  handlePassword2(event) {
+    this.setState({password2: event.target.value});
   }
 
   render() {
     return (
-      <div >
+       <div>
+        {this.state.errorMsg && <div className="api-user-error">{this.state.errorMsg}</div>}
         <form>
-          <input
-            type="text"
-            placeholder="email"
-            onChange={this.handleEmailInput}
-          />
-          <input
-            type="password"
-            placeholder="password"
-            onChange={this.handlePasswordInput}
-          />
-          <input
-            type="password"
-            placeholder=" confirm password"
-            onChange={this.handlePasswordInput}
-          />
-          <button onClick={this.handleSignup}>Signup</button>
+          <div className="email-form">
+            <label><b>Email</b></label>
+            <input
+              name="email"
+              type="email"
+              className="login-input"
+              required
+              value={this.state.email}
+              onChange={this.handleEmail}
+            />
+          </div>
+          <div className="password-form">
+            <label htmlFor="password"><b>Password</b></label>
+            <input className="login-input"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={this.state.password}
+              onChange={this.handlePassword1}
+             />
+          </div>
+          <div className="password-form">
+            <label htmlFor="password"><b>Confirm Password</b></label>
+            <input className="login-input"
+              type="password"
+              autoComplete="new-password"
+              required
+              value={this.state.password}
+              onChange={this.handlePassword2}
+             />
+          </div>
+          <div className="button-wrapper">
+            <button
+              className="button"
+              onClick={this.handleSignup}
+            >Signup
+            </button>
+          </div>
+          <div className="toggle-login" onClick={this.props.toggle}>
+            <a>Already have a Developer Account? Login instead</a>
+          </div>
         </form>
       </div>
     );

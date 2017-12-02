@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 const ApiNav = (props) => (
-  <div>
+  <div className="api-nav">
   <nav>
       <Link to="/">
       <div className="api-nav-title">Budget Basket - Developer</div>
