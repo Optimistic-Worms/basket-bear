@@ -4,10 +4,16 @@
 body {
   width: 100%;
   background: #fff;
-  background-image: url('./amazon-prime-boxes.jpg');
-  background-attachment: fixed;
   font-family: 'Roboto', sans-serif;
   margin-top: 3.2em;
+}
+
+html,body {
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow-x: hidden;
 }
 
 h4 {
@@ -45,10 +51,12 @@ h4 {
   width: 100%;
   flex-direction: column;
   padding: 3em 0;
-  /*background: #00BCD4;*/
   color: #fff;
   align-items: center;
   justify-content: center;
+  background-image: url('./amazon-prime-boxes.jpg');
+  background-attachment: fixed;
+  height: 15em;
 }
 
 .intro-card .fa {
@@ -252,18 +260,17 @@ input.search-form:focus {
   width: 80%;
   height: 3em;
   border: 1px solid #dadada;
+  margin-right: .1em;
   border-left: 0;
-  border-right:0;
-  border-radius: 0;
 }
 select.search-selection:focus {
   outline: none;
 }
 .search-selection {
   width: 15%;
-  /*border: 1px solid #dadada;*/
-  border-radius: 0;
-  border-left: 0;
+  border: 1px solid #dadada;
+  /*border-radius: 0;
+  border-left: 0;*/
 }
 .search-button {
   width: 5%;
@@ -434,12 +441,15 @@ button.search-button:focus {
 footer {
   display: flex;
   justify-content: flex-start;
-  height: 40px;
-  background-color: rgba(33,150,243, 0.2);
+  height: 2em;
+  /*background-color: rgba(33,150,243, 0.2);*/
+  background-color: #dadada;
   position: fixed;
   bottom: 0;
   left: 0;
+  right: 0;
   width: 100%;
+  color: #fff;
 }
 
 .footer-link {
