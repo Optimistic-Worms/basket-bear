@@ -14,6 +14,13 @@ import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
 
+//import '../assets/favicons/manifest.json'
+//import '../assets/mstile150.png'
+import '../assets/favicons/safari-pinned-tab.svg'
+import '../assets/favicons/android-chrome-192x192.png'
+import '../assets/favicons/android-chrome-256x256.png'
+
+
 class App extends React.Component {
   constructor() {
     super();
