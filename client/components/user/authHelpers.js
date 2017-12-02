@@ -27,9 +27,17 @@ exports.logout = () => {
     })
 }
 
-exports.authenticate = (provider) => {
+exports.authenticate = (authProvider) => {
     console.log(provider)
-    provider = new firebase.auth.GoogleAuthProvider();
+    let provider;
+    if(authProvider ==='firebase'){
+      provider = new firebase.auth.GoogleAuthProvider();
+    } 
+    if(authProvider === 'facebook'){
+      provider = new firebase.auth.FacebookAuthProvider();
+    }
+    
+    provider = 
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithPopup(provider).then(function(result){

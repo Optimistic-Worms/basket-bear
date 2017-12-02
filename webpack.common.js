@@ -30,6 +30,14 @@ module.exports = {
         }
       },
       {
+      test: /\.html$/,
+      exclude: /node_modules/,
+      loader: 'html-loader',
+      query: {
+        interpolate: 'require'
+      }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -47,14 +55,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|json|xml|ico|svg)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'img/',
-         //     publicPath: 'img/'
+              outputPath: 'assets/',
+              publicPath: '/'
             }
           }
         ]
@@ -70,7 +78,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Shopping',
-      template: './index.html'
+      template: './index.html',
+      inject: 'head',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
