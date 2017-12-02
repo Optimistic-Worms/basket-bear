@@ -185,6 +185,7 @@ nav {
   right: 0;
   left: 0;
   z-index: 1030;
+  opacity: 0.85;
 }
 
 .brand {
@@ -207,7 +208,7 @@ nav {
 }
 
 nav .brand a:hover {
-  color: #244589;
+  color: #000;
 }
 
 .menu li {
@@ -225,7 +226,7 @@ nav .brand a:hover {
 }
 
 .menu li:hover {
-  background: #244589;
+  background: #616161;
 }
 
 /** Search **/
@@ -438,6 +439,10 @@ button.search-button:focus {
   }
   .loginCard {
     width: 95%;
+  }
+
+  .menu li:hover {
+    height: 4.2em;
   }
 }
 
