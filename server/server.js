@@ -85,7 +85,10 @@ app.get('/shoppingList', (req, res) => {
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
-  });
+  })
+  .catch((data) => {
+    res.status(200).send(data);
+  })
 });
 
 app.put('/shoppingList', (req, res) => {
@@ -139,6 +142,17 @@ app.get('/searchEbay', (req, res)=> {
 app.get('/searchAmazon', (req, res) => {
   var searchQuery = req.query.keyword;
   amazonApiCalls.searchAmazon(searchQuery)
+  .then((data) => {
+    res.status(200).send(data);
+  })
+  .catch((data) => {
+    res.status(400).send(data);
+  })
+});
+
+app.get('/lookupAmazon', (req, res) => {
+  var itemIds = req.query.itemIds;
+  amazonApiCalls.lookupAmazon(itemIds)
   .then((data) => {
     res.status(200).send(data);
   })

@@ -24,7 +24,14 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-
+    // firebase.auth().onAuthStateChanged(function(user) {
+    //   if (user) {
+    //     console.log(user.uid);
+    //     console.log(user.displayName);
+    //   } else {
+    //     console.log('Nobody is home: Need to login or sign up!');
+    //   }
+    // });
   }
 
   search() {
@@ -113,18 +120,13 @@ class Search extends React.Component {
     })
     .then((response) => {
       console.log(response.data);
-      if (response.data !== 'No existing shopping list. Create shopping list. Try adding item again') {
-          var updateItems = this.state.searchItems;
-          updateItems[index].added = true;
-          this.setState({searchItems: updateItems});
-          item.added = true;
-        } else {
-          window.alert('Hello new user! You dont have a shopping list started yet. Setting one up for you right now. Please try adding the item again');
-        }
+      var updateItems = this.state.searchItems;
+      updateItems[index].added = true;
+      this.setState({searchItems: updateItems});
+      item.added = true;
       })
     } else {
       window.alert('Please log in to add an item to your shopping list!');
-      console.log('Cannot add to shopping list. You must log in first!');
     }
   }
 

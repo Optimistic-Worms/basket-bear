@@ -25,20 +25,21 @@ class App extends React.Component {
       devView: false,
     };
 
-    this.logging = this.logging.bind(this)
-    this.logout = logout.bind(this)
-    this.checkLoginStatus = this.checkLoginStatus.bind(this)
+    this.logging = this.logging.bind(this);
+    this.logout = logout.bind(this);
+    this.checkLoginStatus = this.checkLoginStatus.bind(this);
+    this.loginSetup = this.loginSetup.bind(this);
   }
 
   checkLoginStatus(){
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-          // Send token to your backend via HTTPS
+          firebase.auth().currentUser.getIdToken(true).then((idToken) => {
             console.log(idToken);
             axios.get(`/thing?access_token= ${idToken}`).then((result) => {
               this.setState({logged:'LOGOUT'});
-              console.log(result);
+              console.log('Just logged in. Loading shopping list prices');
+              this.loginSetup(user);
             }).catch((error) => {
               this.setState({logged:'LOGIN'});
               console.log(error);
@@ -52,6 +53,21 @@ class App extends React.Component {
 
   componentDidMount() {
      this.checkLoginStatus();
+  }
+
+  //upon first logging in, check if user has a shopping list
+  //get all update prices on shopping list
+  loginSetup(user) {
+    //get shopping list of user
+    axios.get('/shoppingList', {
+      params: {
+          username: user.uid,
+      }
+    })
+    .then((response) => {
+      console.log('Current Shopping List:', response.data);
+      //update prices on all items in shopping list
+    })
   }
 
   logging(e){

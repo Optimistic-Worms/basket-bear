@@ -24,7 +24,9 @@ exports.getShoppingList = (username) => {
       resolve(doc.data().items);
     })
     .catch(() => {
-      reject('no shopping list')
+      module.exports.createShoppingList(username);
+      console.log('no shopping list, created shopping list for user')
+      reject({});
     });
   })
 }
