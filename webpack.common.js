@@ -30,6 +30,11 @@ module.exports = {
         }
       },
       {
+      test: /\.html$/,
+      exclude: /node_modules/,
+      loader: 'html-loader'
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         use: {
@@ -53,8 +58,8 @@ module.exports = {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
-              outputPath: 'img/',
-         //     publicPath: 'img/'
+              outputPath: 'assets/',
+           //    publicPath: 'assets/'
             }
           }
         ]
