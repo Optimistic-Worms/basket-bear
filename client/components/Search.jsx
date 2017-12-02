@@ -23,17 +23,6 @@ class Search extends React.Component {
     this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
-  componentDidMount() {
-    // firebase.auth().onAuthStateChanged(function(user) {
-    //   if (user) {
-    //     console.log(user.uid);
-    //     console.log(user.displayName);
-    //   } else {
-    //     console.log('Nobody is home: Need to login or sign up!');
-    //   }
-    // });
-  }
-
   search() {
     if (this.state.queryString !== '') {
       console.log('searching '+ this.state.searchMerchant + ' for ' + this.state.queryString);
