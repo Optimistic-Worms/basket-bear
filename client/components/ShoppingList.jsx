@@ -14,34 +14,35 @@ class ShoppingList extends React.Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.loadShoppingList();
   }
 
   loadShoppingList() {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        axios.get('/shoppingList', {
-          params: {
-            username: user.uid,
-          }
-        })
-        .then((response) => {
-          console.log(response.data);
-          var itemsObj = response.data;
-          var itemsArr = [];
-          for (var i in itemsObj) {
-            itemsArr.push(itemsObj[i]);
-          }
+    var user = firebase.auth().currentUser;
+    if (user) {
+      axios.get('/shoppingList', {
+        params: {
+          username: user.uid,
+        }
+      })
+      .then((response) => {
+        console.log(response.data);
+        var itemsObj = response.data;
+        var itemsArr = [];
+        for (var i in itemsObj) {
+          itemsArr.push(itemsObj[i]);
+        }
+        if (itemsArr.length < 1) {
+          this.setState({alert: 'You are not watching any items'})
+        } else {
           this.setState({alert: ''});
           this.setState({items: itemsArr});
-        })
-      } else {
-        console.log('Cant get shopping list. Must Log in');
-        this.setState({ alert: 'Please sign in to view your shopping list!'})
-        //window.alert('Please sign in to view your shopping list!');
-      }
-    });
+        }
+      })
+    } else {
+      this.setState({ alert: 'Please sign in to view your shopping list!'})
+    }
   }
 
   removeItem(item) {
@@ -60,11 +61,15 @@ class ShoppingList extends React.Component {
           for (var i in itemsObj) {
             itemsArr.push(itemsObj[i]);
           }
+          if (itemsArr.length < 1) {
+            this.setState({alert: 'You are not watching any items'})
+          } else {
+            this.setState({alert: ''});
+          }
           this.setState({items: itemsArr});
         })
       } else {
         console.log('Cant get shopping list. Must Log in');
-        //window.alert('Please sign in to view your shopping list!');
       }
     });
   }

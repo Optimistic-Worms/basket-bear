@@ -59,3 +59,14 @@ exports.searchAmazon = (query) => {
 
 }
 
+exports.lookupAmazon = (itemIds) => {
+  return new Promise ((resolve, reject) => {
+    for (var i = 0 ; i < itemIds.length ; i++) {
+      console.log('look up item', itemIds[i]);
+    }
+    resolve('resolve');
+    reject('reject');
+  });
+
+}
+
