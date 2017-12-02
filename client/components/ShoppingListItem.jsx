@@ -10,13 +10,11 @@ const ShoppingListItem = (props) => {
       <div className="item-info">
         <p>{ props.item && props.item.merchant }</p>
         <p className="price">${ props.item && props.item.price }</p>
-        <p><button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
-       <button className="button button--product" onClick= {()=>{ props.removeItem(props.item, props.index)} } > Remove From Shopping List</button>
-
-
-        </p>
-
       </div>
+      <div className="button-wrapper">
+        <p><button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
+       <button className="button button--product" onClick= {()=>{ props.removeItem(props.item, props.index)} } > Remove From Shopping List</button></p>
+     </div>
     </div>
   );
 };

@@ -73,7 +73,7 @@ class ShoppingList extends React.Component {
 
   render () {
     return (
-      <div className="search-container">
+      <div className="watch-container">
       <h1>Your Watch List</h1>
       {this.state.alert && <h4>{this.state.alert}</h4>}
       <div className="results">
