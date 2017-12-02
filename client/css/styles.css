@@ -284,6 +284,7 @@ select.search-selection:focus {
   border-right:0;
   border-radius: 0;
   padding: 0;
+  background: #fff;
 
 }
 button.search-button:focus {
@@ -480,7 +481,7 @@ footer {
 }
 
 .footer-link {
-  color: white;
+  color: #000;
   margin: 10px 20px 10px 20px;
   cursor: pointer;
 }
