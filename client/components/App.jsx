@@ -14,27 +14,11 @@ import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
 
-
-//import jsn from '../assets/jsn.ico'
-import manifest from '../assets/manifest.json'
-import mstile150 from '../assets/mstile150.png'
-//import safariPinnedTab from '../assets/safariPinnedTab.svg'
-import androidChrome192 from '../assets/androidChrome192.png'
-import androidChrome512 from '../assets/androidChrome512.png'
-import appleTouchIcon from '../assets/appleTouchIcon.png'
-//import browserconfig from '../assets/browserconfig.xml'
-import favicon16 from '../assets/favicon16.png'
-import favicon32 from '../assets/favicon32.png'
-
-
-
-
-
-
-
-
-
-
+//import '../assets/favicons/manifest.json'
+//import '../assets/mstile150.png'
+import '../assets/favicons/safari-pinned-tab.svg'
+import '../assets/favicons/android-chrome-192x192.png'
+import '../assets/favicons/android-chrome-256x256.png'
 
 
 class App extends React.Component {

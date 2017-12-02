@@ -32,7 +32,10 @@ module.exports = {
       {
       test: /\.html$/,
       exclude: /node_modules/,
-      loader: 'html-loader'
+      loader: 'html-loader',
+      query: {
+        interpolate: 'require'
+      }
       },
       {
         test: /\.js$/,
@@ -52,14 +55,14 @@ module.exports = {
         ]
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|json|xml|ico|svg)$/,
         use: [
           {
             loader: 'file-loader',
             options: {
               name: '[name].[ext]',
               outputPath: 'assets/',
-           //    publicPath: 'assets/'
+              publicPath: '/'
             }
           }
         ]
@@ -75,7 +78,8 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       title: 'Shopping',
-      template: './index.html'
+      template: './index.html',
+      inject: 'head',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],
