@@ -213,7 +213,6 @@ nav .brand a:hover {
 
 .menu li {
   display: inline-block;
-  padding: 0 1em;
   cursor: pointer;
   line-height: 3.3em;
   font-size: 1.1em;
@@ -221,6 +220,8 @@ nav .brand a:hover {
 }
 
 .menu li a {
+  display: block;
+   padding: 0 1em;
   color: #fff;
   text-decoration: none !important;
 }
@@ -553,3 +554,4 @@ footer {
   margin-bottom: 0;
   font-weight: 1100;
 }
+
