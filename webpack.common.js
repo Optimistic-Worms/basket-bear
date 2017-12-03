@@ -79,7 +79,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Shopping',
       template: './index.html',
-      inject: 'head',
     }),
     new webpack.HotModuleReplacementPlugin(),
   ],

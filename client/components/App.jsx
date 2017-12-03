@@ -14,11 +14,6 @@ import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
 
-//import '../assets/favicons/manifest.json'
-//import '../assets/mstile150.png'
-/*import '../assets/favicons/safari-pinned-tab.svg'
-import '../assets/favicons/android-chrome-192x192.png'
-import '../assets/favicons/android-chrome-256x256.png'*/
 
 
 class App extends React.Component {
@@ -63,7 +58,7 @@ class App extends React.Component {
     if(this.state.logged === 'LOGOUT') {
       this.setState({logout : '/'})
       this.logout();
-      this.setStage({logged: 'LOGIN'})
+      this.setState({logged: 'LOGIN'})
     }
   }
 
@@ -80,7 +75,7 @@ class App extends React.Component {
             <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
-            <Route path="/shoppingList" component={ShoppingList}/>
+            <Route path="/watchlist" component={ShoppingList}/>
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>
