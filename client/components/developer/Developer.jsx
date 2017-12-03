@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiNav from './ApiNav.jsx';
 import ApiDoc from './ApiDoc.jsx';
+import ApiIntro from './ApiIntro.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';
 
@@ -20,6 +21,7 @@ class Developer extends React.Component {
       <BrowserRouter>
         <div className="developer">
           <ApiNav />
+            <Route exact path="/" component={ApiIntro}/>
             <Route path="/api/login" component={ApiUserAuthCard}/>
             <Route path="/api/docs" component={ApiDoc}/>
         </div>
