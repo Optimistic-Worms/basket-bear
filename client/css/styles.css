@@ -488,12 +488,18 @@ footer {
   right: 0;
   width: 100%;
   color: #fff;
+  background-color: #424242;
 }
 
 .footer-link {
-  color: #000;
+  color: #fff;
   margin: 10px 20px 10px 20px;
   cursor: pointer;
+  text-decoration: none !important;
+}
+
+.footer-link:hover {
+  color: #2196F3;
 }
 
 .exit-dev-btn {
@@ -525,6 +531,10 @@ footer {
   cursor: pointer;
 }
 
+.toggle-login:hover {
+  color: #3F51B5;
+}
+
 .api-user-error {
   color: red;
   padding-bottom: 10px;
@@ -544,7 +554,7 @@ footer {
 .api-doc-nav {
   display: flex;
   width: 90%;
-  height: 100vh;
+  height: 200%;
   background: #dadada;
   flex-direction: column;
   padding-left: 1em;
@@ -591,4 +601,3 @@ ol {
 ol p {
   font-weight: 100;
 }
-
