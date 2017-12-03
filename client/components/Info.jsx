@@ -14,4 +14,3 @@ class Info extends React.Component {
 }
 
 export default Info
-    //<i className="fa fa-shopping-basket" aria-hidden="true"></i>
