@@ -7,7 +7,8 @@ class ApiUserLogin extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errorMsg: ''
+      errorMsg: '',
+      successMsg: this.props.msg
     };
     this.handleLogin= this.handleLogin.bind(this);
     this.handleEmail = this.handleEmail.bind(this);
@@ -48,6 +49,7 @@ class ApiUserLogin extends React.Component {
     return (
       <div>
         {this.state.errorMsg && <div className="api-user-error">{this.state.errorMsg}</div>}
+        {this.state.successMsg && <div className="api-user-success">{this.state.successMsg}</div>}
         <form>
           <div className="email-form">
             <label><b>Email</b></label>

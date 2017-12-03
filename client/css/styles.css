@@ -540,6 +540,10 @@ footer {
   padding-bottom: 10px;
 }
 
+.api-user-success {
+  padding-bottom: 10px;
+}
+
 .api-doc {
   display: grid;
   grid-template-columns: 20% 80%;
