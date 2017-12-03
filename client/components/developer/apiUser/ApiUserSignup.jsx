@@ -12,9 +12,6 @@ class ApiUserSignup extends React.Component {
       errorMsg: ''
     };
     this.handleSignup = this.handleSignup.bind(this);
-    // this.handleEmail = this.handleEmail.bind(this);
-    // this.handlePassword1 = this.handlePassword1.bind(this);
-    // this.handlePassword2 = this.handlePassword2.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -31,7 +28,7 @@ class ApiUserSignup extends React.Component {
         axios.post('/api/signup', {
           email: this.state.email,
           password: this.state.password1,
-          appName: 'Test App'
+          appName: this.state.appName
         })
         .then((res) => {
            console.log(res.data)
@@ -41,19 +38,6 @@ class ApiUserSignup extends React.Component {
       }
     }
   }
-
-  // handleEmail(event) {
-  //   this.setState({email: event.target.value});
-  //   console.log(event.target.name)
-  // }
-
-  // handlePassword1(event) {
-  //   this.setState({password1: event.target.value});
-  // }
-
-  // handlePassword2(event) {
-  //   this.setState({password2: event.target.value});
-  // }
 
   handleInput(event) {
     this.setState({[event.target.name]: event.target.value})
@@ -78,7 +62,7 @@ class ApiUserSignup extends React.Component {
           <div className="email-form">
             <label htmlFor="app-name"><b>App Name</b></label>
             <input
-              name="app-name"
+              name="appName"
               type="text"
               className="login-input"
               required
