@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100');
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
 /** General CSS **/
 
 body {
@@ -7,6 +7,7 @@ body {
   font-family: 'Roboto', sans-serif;
   margin-top: 3.2em;
   background: #fafafa;
+  font-weight: 100;
 }
 
 html,body {
@@ -64,12 +65,6 @@ h4 {
   height: 18em;
 }
 
-.intro-card .fa {
-  margin: .1em auto;
-  font-size: 10em;
-
-}
-
 .intro-card h1 {
   display: flex;
   font-size: 3em;
@@ -78,6 +73,7 @@ h4 {
   padding: 0;
   margin-top: 1em;
   margin-bottom: 0em;
+  font-weight: 300;
 }
 .intro-card h4 {
   display: flex;
@@ -86,6 +82,7 @@ h4 {
   font-size: 1.1em;
   width: 60%;
   padding: 0;
+  font-weight: 300;
 }
 
 .intro-card p {
@@ -106,6 +103,7 @@ h4 {
   margin: 5em auto;
   text-align: center!important;
   background-color: #fff;
+  font-weight: 300 !important;
 
 }
 
@@ -114,6 +112,7 @@ h4 {
   margin-top: 0;
   background-color: #f7f7f9;
   border-bottom: 1px solid rgba(0, 0, 0, .125);
+  font-weight: 300;
 }
 
 .manual-login {
@@ -186,6 +185,7 @@ nav {
   left: 0;
   z-index: 1030;
   opacity: 0.85;
+  font-weight: 100;
 }
 
 .brand {
@@ -322,6 +322,11 @@ button.search-button:focus {
   justify-content: center;
 }
 
+.card h4 {
+  font-weight: 100;
+  font-size: .8em;
+}
+
 .product-image {
   max-width: 100%;
   height: auto;
@@ -375,6 +380,10 @@ button.search-button:focus {
   width: 100%;
   margin: 3.5em auto 1em;
   text-align: center!important;
+}
+
+.watch-container h1 {
+  font-weight: 300;
 }
 
 /** Media Queries **/
@@ -526,16 +535,24 @@ footer {
   width: 100%;
   flex-direction: column;
   padding: 3em 0;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   color: #000;
 }
 
 .api-doc-nav {
   display: flex;
-  width: 100%;
-  margin: -5em 0 0 1em;
+  width: 90%;
+  height: 100vh;
+  background: #dadada;
+  flex-direction: column;
+  padding-left: 1em;
 }
+
+.api-doc-nav h5 {
+  margin-top: -1em;
+}
+
 
 .api-doc-intro {
   display: flex;
@@ -549,7 +566,27 @@ footer {
   border-bottom: 1px solid #efefef;
 }
 
-.api-doc-intro h1 {
+.intro-card--api h1 {
+  justify-content: center;
+  width: 75%;
+  color: #000;
+  font-weight: 500;
+}
+.intro-card--api {
+  background-image: url(https://static.pexels.com/photos/628281/pexels-photo-628281.jpeg);
+}
+
+.api-doc-intro h1, .api-doc-intro h2 {
   margin-bottom: 0;
-  font-weight: 1100;
+  font-weight: 700;
+}
+
+ol {
+    list-style: decimal outside;
+    font-weight: 300;
+    margin-top: -1em;
+}
+
+ol p {
+  font-weight: 100;
 }
