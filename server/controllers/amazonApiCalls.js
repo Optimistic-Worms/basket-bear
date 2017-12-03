@@ -67,7 +67,6 @@ exports.lookupAmazon = (itemIds) => {
     let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
 
     const getAmazonLookupUrl = () => {
-      console.log('LOOKING UP AMAZENO');
 
       const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
       let parameters = [];
@@ -89,7 +88,6 @@ exports.lookupAmazon = (itemIds) => {
       let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
       signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 
-      console.log('BUILDING URL');
       let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
       console.log('SEND TO URL for Lookup:', amazonUrl);
       return amazonUrl;

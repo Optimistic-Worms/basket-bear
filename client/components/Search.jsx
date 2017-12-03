@@ -83,16 +83,21 @@ class Search extends React.Component {
           name: searchResults[i].ItemAttributes[0].Title[0],
           merchant: 'amazon',
           link: searchResults[i].DetailPageURL[0],
-          added: false
+          //added: false
+
         }
         if (searchResults[i].MediumImage) {
           product.imageUrl = searchResults[i].MediumImage[0].URL[0];
         }
         if (searchResults[i].Offers && searchResults[i].Offers[0].Offer) {
           if (searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
-            product.price = searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+            product.addPrice = price;
+            product.currentPrice = price;
           } else if (searchResults[i].Offers[0].Offer[0].OfferListing[0].Price) {
-            product.price = searchResults[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+            product.price = price;
+            product.currentPrice = price;
           }
           items.push(product);
         } else {

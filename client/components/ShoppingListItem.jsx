@@ -10,9 +10,8 @@ const ShoppingListItem = (props) => {
       <div className="product-footer">
       <div className="item-info">
         <p>{ props.item && props.item.merchant }</p>
-        <p className="price">Current Price ${ props.item && props.item.price }</p>
+        <p className="price">Current Price ${ props.item && props.item.currentPrice }</p>
         <p className="price">Price when added ${ props.item && props.item.price }</p>
-        <p className="price">Desired Price ${ props.item && props.item.price }</p>
       </div>
       <div className="button-wrapper">
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>

@@ -73,4 +73,18 @@ exports.removeItemFromShoppingList = (username, productId) => {
   });
 }
 
+exports.updateShoppingList = (username, list) => {
+  return new Promise((resolve, reject) => {
+    db.collection('shoppingLists').doc(username).set({
+      items: list
+    })
+    .then(() => {
+      resolve('Shopping List Updated');
+    })
+    .catch(() => {
+      reject('Did not save updated shopping list');
+    })
+  });
+}
+
 

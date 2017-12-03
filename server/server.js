@@ -109,6 +109,15 @@ app.delete('/shoppingList', (req, res) => {
   });
 })
 
+app.put('/updateShoppingList', (req, res) => {
+  var username = req.body.username;
+  var list = req.body.list;
+  shoppingList.updateShoppingList(username, list)
+  .then((data) => {
+    res.status(200).send(data);
+  })
+});
+
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

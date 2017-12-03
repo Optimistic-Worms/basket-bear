@@ -59,13 +59,14 @@ class App extends React.Component {
   //get all update prices on shopping list
   loginSetup(user) {
     //get shopping list of user
+    var list;
     axios.get('/shoppingList', {
       params: {
           username: user.uid,
       }
     })
     .then((response) => {
-      var list = response.data;
+      list = response.data;
       console.log('Current Shopping List:', list);
       var amazonIds = [];
       var ebayIds = [];
@@ -76,18 +77,36 @@ class App extends React.Component {
           ebayIds.push(item);
         }
       }
-      console.log('Amazon item IDS:', amazonIds);
+      //console.log('Amazon item IDS:', amazonIds);
       axios.get('/lookupAmazon', {
         params: {
           itemIds : amazonIds
         }
       })
       .then((response) => {
-        console.log('look up amazon response', response.data);
-        //update prices on all items in shopping list
+        var lookupItems = response.data.ItemLookupResponse.Items[0].Item
+        // console.log('look up amazon response', lookupItems);
+        for (var i = 0; i < lookupItems.length; i++) {
+          var itemId= lookupItems[i].ASIN;
+          var price;
+          if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
+            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+            list[itemId].currentPrice = price;
+          } else if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price) {
+            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+            list[itemId].currentPrice = price;
+          }
+        }
+        axios.put('/updateShoppingList', {
+          username : user.uid,
+          list : list
+        })
+        .then((response) => {
+          console.log(response);
+        })
       })
 
-      console.log('Ebay item IDS:', ebayIds);
+      //console.log('Ebay item IDS:', ebayIds);
       // axios.get('/lookupEbay', {
       //   params: {
       //     itemIds : ebayIds
