@@ -29,7 +29,7 @@ const NavBar = (props) => (
 	        </Link>
 	    </li> */}
 	    <li>
-	        <Link to="/shoppingList">
+	        <Link to="/watchlist">
 		        <span className="desktop-show">WATCH LIST</span>
 		        <span className="mobile-show col">
 				    	<i className="fa fa-bookmark" aria-hidden="true"></i>WATCH LIST
