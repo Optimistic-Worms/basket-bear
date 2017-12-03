@@ -143,7 +143,7 @@ class App extends React.Component {
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>
-      </div>
+    </div>
       );
   }
 }

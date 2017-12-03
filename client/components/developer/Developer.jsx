@@ -2,6 +2,7 @@ import React from 'react';
 import ApiNav from './ApiNav.jsx';
 import ApiDoc from './ApiDoc.jsx';
 import ApiIntro from './ApiIntro.jsx';
+import DeveloperFooter from './DeveloperFooter.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';
 
@@ -18,6 +19,7 @@ class Developer extends React.Component {
 
   render() {
     return (
+      <div>
       <BrowserRouter>
         <div className="developer">
           <ApiNav />
@@ -26,6 +28,8 @@ class Developer extends React.Component {
             <Route path="/api/docs" component={ApiDoc}/>
         </div>
       </BrowserRouter>
+      <DeveloperFooter/>
+    </div>
     );
   }
 }
