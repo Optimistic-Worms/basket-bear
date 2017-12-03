@@ -7,31 +7,33 @@ class ApiUserAuthCard extends React.Component {
     super();
 
     this.state = {
-      login: true,
+      loginView: true,
       msg: ''
     };
 
-    this.toggleLogin = this.toggleLogin.bind(this);
+    this.toggleLoginView = this.toggleLoginView.bind(this);
   }
 
-  toggleLogin(msg = '') {
-    this.setState({login: !this.state.login, msg: msg})
+  toggleLoginView(event, msg = '') {
+    this.setState({loginView: !this.state.loginView, msg: msg})
   }
 
   render() {
+    //console.log(this.props.toggleLogin)
     const { userLoginRequest, history} = this.props;
     return (
         <div className="loginCard">
         <h2 className="login-header">
-          {this.state.login ? 'Login' : 'Signup'}
+          {this.state.loginView ? 'Login' : 'Signup'}
         </h2>
-        {this.state.login ?
+        {this.state.loginView ?
           <ApiUserLogin
-            toggle={this.toggleLogin}
+            toggleView={this.toggleLoginView}
+            toggleLogin={this.props.toggleLogin}
             msg={this.state.msg}
           />
           : <ApiUserSignup
-              toggle={this.toggleLogin}
+              toggleView={this.toggleLoginView}
             />}
       </div>
     );

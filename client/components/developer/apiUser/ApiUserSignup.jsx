@@ -32,7 +32,7 @@ class ApiUserSignup extends React.Component {
         })
         .then((res) => {
            console.log(res.data)
-           this.props.toggle('Thank you for signing up! Please log in to access your Developer Account');
+           this.props.toggleView('Thank you for signing up! Please log in to access your Developer Account');
         })
          .catch(err => this.setState({errorMsg: err.response.data}));
       }
@@ -99,7 +99,7 @@ class ApiUserSignup extends React.Component {
             >Signup
             </button>
           </div>
-          <div className="toggle-login" onClick={this.props.toggle}>
+          <div className="toggle-login" onClick={this.props.toggleView}>
             <a>Already have a Developer Account? Login instead</a>
           </div>
         </form>

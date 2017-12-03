@@ -18,6 +18,10 @@ class ApiUserLogin extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
+  validateForm() {
+
+  }
+
   handleLogin(event) {
     this.setState({errorMsg: ''});
     if (this.state.email.length && this.state.password.length) {
@@ -33,9 +37,9 @@ class ApiUserLogin extends React.Component {
       .then((res) => {
         if (res.data)
         console.log(res.data)
+        this.props.toggleLogin();
       })
       .catch(err => {
-        this.setState({errorMsg: err.response.data})
       });
     }
   }
@@ -75,7 +79,7 @@ class ApiUserLogin extends React.Component {
             >Login
             </button>
           </div>
-          <div className="toggle-login" onClick={this.props.toggle}>
+          <div className="toggle-login" onClick={this.props.toggleView}>
             <a>Or Sign up for a Developer Account</a>
           </div>
         </form>
