@@ -65,13 +65,39 @@ class App extends React.Component {
       }
     })
     .then((response) => {
-      console.log('Current Shopping List:', response.data);
-      //update prices on all items in shopping list
-      var ids = [];
-      for (var i in response.data) {
-        ids.push(i);
+      var list = response.data;
+      console.log('Current Shopping List:', list);
+      var amazonIds = [];
+      var ebayIds = [];
+      for (var item in list) {
+        if (list[item].merchant === "amazon") {
+          amazonIds.push(item);
+        } else if (list[item].merchant ==="eBay") {
+          ebayIds.push(item);
+        }
       }
-      console.log('item IDS:', ids);
+      console.log('Amazon item IDS:', amazonIds);
+      axios.get('/lookupAmazon', {
+        params: {
+          itemIds : amazonIds
+        }
+      })
+      .then((response) => {
+        console.log('look up amazon response', response.data);
+        //update prices on all items in shopping list
+      })
+
+      console.log('Ebay item IDS:', ebayIds);
+      // axios.get('/lookupEbay', {
+      //   params: {
+      //     itemIds : ebayIds
+      //   }
+      // })
+      // .then((response) => {
+      //   console.log('look up ebay respons', response.data);
+      //   //update prices in db
+      // })
+
     })
   }
 
