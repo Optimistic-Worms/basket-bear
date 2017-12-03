@@ -67,6 +67,11 @@ class App extends React.Component {
     .then((response) => {
       console.log('Current Shopping List:', response.data);
       //update prices on all items in shopping list
+      var ids = [];
+      for (var i in response.data) {
+        ids.push(i);
+      }
+      console.log('item IDS:', ids);
     })
   }
 
@@ -91,7 +96,7 @@ class App extends React.Component {
             <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
-            <Route path="/watchlist" component={ShoppingList}/>
+            <Route path="/watchList" component={ShoppingList}/>
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>

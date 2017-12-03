@@ -63,9 +63,45 @@ exports.searchAmazon = (query) => {
 
 exports.lookupAmazon = (itemIds) => {
   return new Promise ((resolve, reject) => {
-    for (var i = 0 ; i < itemIds.length ; i++) {
-      console.log('look up item', itemIds[i]);
+
+    const getAmazonLookupUrl = (keywords) => {
+
+      const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
+      let parameters = [];
+      let url = 'webservices.amazon.com' // US account
+
+      parameters.push("Service=AWSECommerceService");
+      parameters.push("AWSAccessKeyId=" + AMAZON_PUBLIC_KEY);
+      parameters.push("Operation=ItemLookup");
+      for (var i = 1 ; i <= itemIds.length ; i++) {
+        parameters.push("ItemLookup."+i+"ItemId="+itemIds[i-1]);
+      }
+      parameters.push("ItemLookup.Shared.IdType=ASIN")
+
+      parameters.sort();
+
+      let paramString = parameters.join('&');
+      let string_to_sign = "GET\n" + url + "\n" + "/onca/xml\n" + paramString
+
+      let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
+      signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
+
+      let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
+      console.log('SEND TO URL:', amazonUrl);
+      return amazonUrl;
     }
+
+    var sendToUrl = getAmazonSearchUrl(query);
+
+    axios.get(sendToUrl, {params: {}}).then(function(response) {
+      parseString(response.data, function (err, result) {
+          resolve(result);
+      });
+    }).catch(function(error) {
+      console.log("ERROR: GET request from Amazon Failing " + error);
+      reject("ERROR: GET request from Amazon Failing " + error);
+    });
+
     resolve('resolve');
     reject('reject');
   });
