@@ -26,7 +26,7 @@ class ApiUserLogin extends React.Component {
     this.setState({errorMsg: ''});
     if (this.state.email.length && this.state.password.length) {
       event.preventDefault();
-      axios.post('/api/login', {'grant_type': 'client_credentials'},
+      axios.post('/api/user', {'grant_type': 'client_credentials'},
         {
           withCredentials: true,
           auth: {
