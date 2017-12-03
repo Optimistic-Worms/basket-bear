@@ -18,11 +18,6 @@ class ApiUserAuthCard extends React.Component {
     this.setState({login: !this.state.login, msg: msg})
   }
 
-  // handleSignupSuccess(msg) {
-  //   this.setState({msg: 'Thanks for signing up!, Please log in to access your Developer account'});
-
-  // }
-
   render() {
     const { userLoginRequest, history} = this.props;
     return (
@@ -37,7 +32,6 @@ class ApiUserAuthCard extends React.Component {
           />
           : <ApiUserSignup
               toggle={this.toggleLogin}
-              // success={this.handleSignupSuccess}
             />}
       </div>
     );
