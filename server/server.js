@@ -224,7 +224,7 @@ apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.post('/login', apiAuth.authenticateUser, oauth.server.token());
+apiRoutes.post('/user', apiAuth.authenticateUser, oauth.server.token());
 
 apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
