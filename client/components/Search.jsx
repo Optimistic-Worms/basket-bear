@@ -75,7 +75,7 @@ class Search extends React.Component {
     })
     .then((response) => {
       var searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      //console.log(searchResults);
+      console.log('amazon search results',searchResults);
       var items = [];
       for (var i = 0 ; i < searchResults.length ; i++) {
         var product = {
@@ -88,10 +88,16 @@ class Search extends React.Component {
         if (searchResults[i].MediumImage) {
           product.imageUrl = searchResults[i].MediumImage[0].URL[0];
         }
-        if (searchResults[i].ItemAttributes[0].ListPrice) {
-          product.price = searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1);
+        if (searchResults[i].Offers && searchResults[i].Offers[0].Offer) {
+          if (searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
+            product.price = searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+          } else if (searchResults[i].Offers[0].Offer[0].OfferListing[0].Price) {
+            product.price = searchResults[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+          }
+          items.push(product);
+        } else {
+          //no offer on this product
         }
-        items.push(product);
      }
       this.setState({amazonSearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);

@@ -27,6 +27,8 @@ exports.searchAmazon = (query) => {
       parameters.push("Keywords=" + encodeURIComponent(keywords));
       parameters.push("Operation=ItemSearch");
       parameters.push("SearchIndex=All");
+      //parameters.push("Sort=price");
+      //http://docs.aws.amazon.com/AWSECommerceService/latest/DG/LocaleCA.html
       parameters.push("ResponseGroup=" + encodeURIComponent('Images,ItemAttributes,Offers'));
       parameters.push("Service=AWSECommerceService");
       parameters.push("Timestamp=" + encodeURIComponent(date));
