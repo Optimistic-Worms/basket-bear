@@ -64,7 +64,10 @@ exports.searchAmazon = (query) => {
 exports.lookupAmazon = (itemIds) => {
   return new Promise ((resolve, reject) => {
 
-    const getAmazonLookupUrl = (keywords) => {
+    let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
+
+    const getAmazonLookupUrl = () => {
+      console.log('LOOKING UP AMAZENO');
 
       const {AMAZON_PUBLIC_KEY, AMAZON_PRIVATE_KEY, AMAZON_ASSOCIATE_TAG} = process.env;
       let parameters = [];
@@ -73,11 +76,11 @@ exports.lookupAmazon = (itemIds) => {
       parameters.push("Service=AWSECommerceService");
       parameters.push("AWSAccessKeyId=" + AMAZON_PUBLIC_KEY);
       parameters.push("Operation=ItemLookup");
-      for (var i = 1 ; i <= itemIds.length ; i++) {
-        parameters.push("ItemLookup."+i+"ItemId="+itemIds[i-1]);
-      }
-      parameters.push("ItemLookup.Shared.IdType=ASIN")
-
+      parameters.push("ItemId="+encodeURIComponent(itemIds.join(',')));
+      parameters.push("IdType=ASIN");
+      parameters.push("ResponseGroup=" + encodeURIComponent('Images,ItemAttributes,Offers'));
+      parameters.push("Timestamp=" + encodeURIComponent(date));
+      parameters.push("AssociateTag=" + AMAZON_ASSOCIATE_TAG);
       parameters.sort();
 
       let paramString = parameters.join('&');
@@ -86,24 +89,23 @@ exports.lookupAmazon = (itemIds) => {
       let signature = CryptoJS.HmacSHA256(string_to_sign, AMAZON_PRIVATE_KEY);
       signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 
+      console.log('BUILDING URL');
       let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-      console.log('SEND TO URL:', amazonUrl);
+      console.log('SEND TO URL for Lookup:', amazonUrl);
       return amazonUrl;
     }
 
-    var sendToUrl = getAmazonSearchUrl(query);
+    var sendToUrl = getAmazonLookupUrl();
 
     axios.get(sendToUrl, {params: {}}).then(function(response) {
       parseString(response.data, function (err, result) {
-          resolve(result);
+        resolve(result);
       });
     }).catch(function(error) {
       console.log("ERROR: GET request from Amazon Failing " + error);
       reject("ERROR: GET request from Amazon Failing " + error);
     });
 
-    resolve('resolve');
-    reject('reject');
   });
 
 }
