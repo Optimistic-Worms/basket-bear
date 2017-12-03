@@ -7,7 +7,7 @@ class ManualUser extends React.Component {
     this.state = {
       username: '',
       password: '',
-      messages: 'No messages yet',
+      messages: '',      
     };
 
     this.handleUsername = this.handleUsername.bind(this);
@@ -31,7 +31,7 @@ class ManualUser extends React.Component {
         console.log(value.uid);
         this.props.history.push('/');
       })
-      .catch(error => console.log(`Opps. We are sorry to say: ${error.message}`));
+      .catch(error => this.setState({ messages: `Opps! We are sorry to say: ${error.message}` }));
   }
 
   handleSignup(event) {
@@ -42,14 +42,16 @@ class ManualUser extends React.Component {
         this.setState({ messages: `A verification email has been sent to: ${event.target.value.email}` });
       })
       .catch((error) => {
-        this.setState({ messages: `Opps. We are sorry to say: ${error.message}` });
+        this.setState({ messages: `Opps! We are sorry to say: ${error.message}` });
       });
   }
   render() {
     return (
-      <div>
+      <div> 
+      {this.state.messages && <div className="api-user-error">{this.state.messages}</div>}
       <form >
       <div className="manual-login">
+      
             <div className="email-form">
             <label><b>Email</b></label>
             <input

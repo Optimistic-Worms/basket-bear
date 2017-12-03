@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, browserHistory } from 'react-router-dom';
 import firebase from './user/firebase-auth';
 import '../css/styles.css';
 import Search from './Search.jsx';
@@ -13,8 +13,6 @@ import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
-
-
 
 class App extends React.Component {
   constructor() {
@@ -36,7 +34,6 @@ class App extends React.Component {
         if (user) {
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
             console.log(idToken);
-            axios.get(`/thing?access_token= ${idToken}`).then((result) => {
               this.setState({logged:'LOGOUT'});
               console.log('Just logged in. Loading shopping list prices');
               this.loginSetup(user);
@@ -50,7 +47,6 @@ class App extends React.Component {
         }
       });
   }
-
   componentDidMount() {
      this.checkLoginStatus();
   }
@@ -126,7 +122,6 @@ class App extends React.Component {
 
     })
   }
-
   logging(e){
     if(this.state.logged === 'LOGOUT') {
       this.setState({logout : '/'})

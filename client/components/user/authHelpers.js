@@ -37,10 +37,11 @@ exports.authenticate = (authProvider) => {
     }
     provider.addScope('profile');
     provider.addScope('email');
-    firebase.auth().signInWithPopup(provider).then(function(result){
+    firebase.auth().signInWithRedirect(provider).then(function(result){
     // var token = result.credential.accessToken;
     var user = result.user.uid;
     console.log(user);
+    console.log(this)
     }).catch(function(error){
     var errorMessage = error.message;
     // var credential = error.credential;
