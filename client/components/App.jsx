@@ -25,20 +25,21 @@ class App extends React.Component {
       devView: false,
     };
 
-    this.logging = this.logging.bind(this)
-    this.logout = logout.bind(this)
-    this.checkLoginStatus = this.checkLoginStatus.bind(this)
+    this.logging = this.logging.bind(this);
+    this.logout = logout.bind(this);
+    this.checkLoginStatus = this.checkLoginStatus.bind(this);
+    this.loginSetup = this.loginSetup.bind(this);
   }
 
   checkLoginStatus(){
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
-          firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
-          // Send token to your backend via HTTPS
+          firebase.auth().currentUser.getIdToken(true).then((idToken) => {
             console.log(idToken);
             axios.get(`/thing?access_token= ${idToken}`).then((result) => {
               this.setState({logged:'LOGOUT'});
-              console.log(result);
+              console.log('Just logged in. Loading shopping list prices');
+              this.loginSetup(user);
             }).catch((error) => {
               this.setState({logged:'LOGIN'});
               console.log(error);
@@ -52,6 +53,71 @@ class App extends React.Component {
 
   componentDidMount() {
      this.checkLoginStatus();
+  }
+
+  //upon first logging in, check if user has a shopping list
+  //get all update prices on shopping list
+  loginSetup(user) {
+    //get shopping list of user
+    var list;
+    axios.get('/shoppingList', {
+      params: {
+          username: user.uid,
+      }
+    })
+    .then((response) => {
+      list = response.data;
+      console.log('Current Shopping List:', list);
+      var amazonIds = [];
+      var ebayIds = [];
+      for (var item in list) {
+        if (list[item].merchant === "amazon") {
+          amazonIds.push(item);
+        } else if (list[item].merchant ==="eBay") {
+          ebayIds.push(item);
+        }
+      }
+      //console.log('Amazon item IDS:', amazonIds);
+      axios.get('/lookupAmazon', {
+        params: {
+          itemIds : amazonIds
+        }
+      })
+      .then((response) => {
+        var lookupItems = response.data.ItemLookupResponse.Items[0].Item
+        // console.log('look up amazon response', lookupItems);
+        for (var i = 0; i < lookupItems.length; i++) {
+          var itemId= lookupItems[i].ASIN;
+          var price;
+          if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
+            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+            list[itemId].currentPrice = price;
+          } else if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price) {
+            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+            list[itemId].currentPrice = price;
+          }
+        }
+        axios.put('/updateShoppingList', {
+          username : user.uid,
+          list : list
+        })
+        .then((response) => {
+          console.log(response);
+        })
+      })
+
+      //console.log('Ebay item IDS:', ebayIds);
+      // axios.get('/lookupEbay', {
+      //   params: {
+      //     itemIds : ebayIds
+      //   }
+      // })
+      // .then((response) => {
+      //   console.log('look up ebay respons', response.data);
+      //   //update prices in db
+      // })
+
+    })
   }
 
   logging(e){
@@ -75,7 +141,7 @@ class App extends React.Component {
             <Route exact path="/" component={Info}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
-            <Route path="/watchlist" component={ShoppingList}/>
+            <Route path="/watchList" component={ShoppingList}/>
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>

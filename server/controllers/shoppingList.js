@@ -24,7 +24,9 @@ exports.getShoppingList = (username) => {
       resolve(doc.data().items);
     })
     .catch(() => {
-      reject('no shopping list')
+      module.exports.createShoppingList(username);
+      console.log('no shopping list, created shopping list for user')
+      reject({});
     });
   })
 }
@@ -67,6 +69,20 @@ exports.removeItemFromShoppingList = (username, productId) => {
     })
     .catch(() => {
       reject('no shopping list');
+    })
+  });
+}
+
+exports.updateShoppingList = (username, list) => {
+  return new Promise((resolve, reject) => {
+    db.collection('shoppingLists').doc(username).set({
+      items: list
+    })
+    .then(() => {
+      resolve('Shopping List Updated');
+    })
+    .catch(() => {
+      reject('Did not save updated shopping list');
     })
   });
 }

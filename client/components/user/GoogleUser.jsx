@@ -12,18 +12,6 @@ class GoogleUser extends React.Component {
   this.logout = logout.bind(this);
   }
 
-  componentWillMount() {
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-    console.log(user.uid);
-    console.log(user.displayName);
-    } else {
-    // No user is signed in.
-    console.log('Nobody is home: Need to login or sign up!');
-    }
-    });
-  }
-
   render() {
     return (
       <div className="google-login button-wrapper">

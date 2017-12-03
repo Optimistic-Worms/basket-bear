@@ -23,10 +23,6 @@ class Search extends React.Component {
     this.addToShoppingList = this.addToShoppingList.bind(this);
   }
 
-  componentDidMount() {
-
-  }
-
   search() {
     if (this.state.queryString !== '') {
       console.log('searching '+ this.state.searchMerchant + ' for ' + this.state.queryString);
@@ -79,7 +75,7 @@ class Search extends React.Component {
     })
     .then((response) => {
       var searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      //console.log(searchResults);
+      console.log('amazon search results',searchResults);
       var items = [];
       for (var i = 0 ; i < searchResults.length ; i++) {
         var product = {
@@ -87,15 +83,26 @@ class Search extends React.Component {
           name: searchResults[i].ItemAttributes[0].Title[0],
           merchant: 'amazon',
           link: searchResults[i].DetailPageURL[0],
-          added: false
+          //added: false
+
         }
         if (searchResults[i].MediumImage) {
           product.imageUrl = searchResults[i].MediumImage[0].URL[0];
         }
-        if (searchResults[i].ItemAttributes[0].ListPrice) {
-          product.price = searchResults[i].ItemAttributes[0].ListPrice[0].FormattedPrice[0].substring(1);
+        if (searchResults[i].Offers && searchResults[i].Offers[0].Offer) {
+          if (searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
+            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
+            product.addPrice = price;
+            product.currentPrice = price;
+          } else if (searchResults[i].Offers[0].Offer[0].OfferListing[0].Price) {
+            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
+            product.price = price;
+            product.currentPrice = price;
+          }
+          items.push(product);
+        } else {
+          //no offer on this product
         }
-        items.push(product);
      }
       this.setState({amazonSearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);
@@ -113,18 +120,13 @@ class Search extends React.Component {
     })
     .then((response) => {
       console.log(response.data);
-      if (response.data !== 'No existing shopping list. Create shopping list. Try adding item again') {
-          var updateItems = this.state.searchItems;
-          updateItems[index].added = true;
-          this.setState({searchItems: updateItems});
-          item.added = true;
-        } else {
-          window.alert('Hello new user! You dont have a shopping list started yet. Setting one up for you right now. Please try adding the item again');
-        }
+      var updateItems = this.state.searchItems;
+      updateItems[index].added = true;
+      this.setState({searchItems: updateItems});
+      item.added = true;
       })
     } else {
       window.alert('Please log in to add an item to your shopping list!');
-      console.log('Cannot add to shopping list. You must log in first!');
     }
   }
 
