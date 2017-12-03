@@ -12,6 +12,7 @@ exports.addUser = (req, res) => {
         db.collection('apiUsers').add({
           email: req.body.email,
           password: hashed,
+          appName: req.body.appName
         })
         .then(ref => {
           exports.generateNewClientSecret(ref.id)

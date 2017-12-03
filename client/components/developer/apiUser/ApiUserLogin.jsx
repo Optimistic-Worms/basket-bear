@@ -11,16 +11,11 @@ class ApiUserLogin extends React.Component {
       successMsg: this.props.msg
     };
     this.handleLogin= this.handleLogin.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword = this.handlePassword.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
-  handleEmail(event) {
-    this.setState({email: event.target.value});
-  }
-
-  handlePassword(event) {
-    this.setState({password: event.target.value});
+  handleInput(event) {
+    this.setState({[event.target.name]: event.target.value})
   }
 
   handleLogin(event) {
@@ -59,17 +54,18 @@ class ApiUserLogin extends React.Component {
               className="login-input"
               required
               value={this.state.email}
-              onChange={this.handleEmail.bind(this)}
+              onChange={this.handleInput}
             />
           </div>
           <div className="password-form">
             <label htmlFor="password"><b>Password</b></label>
             <input className="login-input"
+              name="password"
               type="password"
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword}
+              onChange={this.handleInput}
              />
           </div>
           <div className="button-wrapper">
