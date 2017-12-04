@@ -33,6 +33,29 @@ exports.searchEbay = (keyword) => {
 
 }
 
+exports.lookupEbay = (itemIds) => {
+  var items = itemIds.join(',');
+  return new Promise ((resolve, reject) => {
+
+    axios.get('http://open.api.ebay.com/shopping?', {
+      params: {
+        "callname" : "GetItemStatus",
+        "version" : "1015",
+        "responseencoding" : "JSON",
+        "appid" : EBAYKEY,
+        "ItemID" : items,
+        "siteid" : "0"
+      }
+    })
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((error) => {
+      reject(error);
+    })
+  });
+}
+
 
 var parseEbayResults = function(searchResults) {
   var items = [];

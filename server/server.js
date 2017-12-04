@@ -143,6 +143,17 @@ app.get('/searchEbay', (req, res)=> {
   })
 });
 
+app.get('/lookupEbay', (req, res) => {
+  var itemIds = req.query.itemIds;
+  ebayApiCalls.lookupEbay(itemIds)
+  .then((data) => {
+    res.status(200).send(data);
+  })
+  .catch((data) => {
+    res.status(200).send(data);
+  })
+})
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon API Calls

@@ -89,7 +89,7 @@ exports.lookupAmazon = (itemIds) => {
       signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 
       let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-      console.log('SEND TO URL for Lookup:', amazonUrl);
+      //console.log('SEND TO URL for Lookup:', amazonUrl);
       return amazonUrl;
     }
 
