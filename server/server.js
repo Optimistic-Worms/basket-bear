@@ -186,15 +186,7 @@ apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
 apiRoutes.post('/signup', apiUser.addUser);
 
-apiRoutes.get('/user', apiAuth.authenticateToken, (req, res) => {
-  const { clientSecret, appName, email } = req.user.data();
-  const clientId = req.user.id;
-  res.json({clientSecret, appName, clientId, email});
-})
-
-apiRoutes.get('/logout', (req, res) => {
-  //todo
-})
+apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")
