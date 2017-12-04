@@ -76,7 +76,6 @@ class App extends React.Component {
           ebayIds.push(item);
         }
       }
-      //console.log('Amazon item IDS:', amazonIds);
       axios.get('/lookupAmazon', {
         params: {
           itemIds : amazonIds
@@ -84,7 +83,6 @@ class App extends React.Component {
       })
       .then((response) => {
         var lookupItems = response.data.ItemLookupResponse.Items[0].Item
-        // console.log('look up amazon response', lookupItems);
         for (var i = 0; i < lookupItems.length; i++) {
           var itemId= lookupItems[i].ASIN;
           var price;
@@ -96,25 +94,34 @@ class App extends React.Component {
             list[itemId].currentPrice = price;
           }
         }
-        axios.put('/updateShoppingList', {
-          username : user.uid,
-          list : list
+
+        axios.get('/lookupEbay', {
+          params: {
+            itemIds : ebayIds
+          }
         })
         .then((response) => {
-          console.log(response);
-        })
-      })
+          var ebayLookupItems = response.data.Item;
+          for (var i = 0 ; i < ebayLookupItems.length; i++) {
+            var itemId = ebayLookupItems[i].ItemID;
+            var price = ebayLookupItems[i].ConvertedCurrentPrice.Value;
+            list[itemId].currentPrice = price;
+          }
+          console.log('Updated Shopping List:', list);
+          //update prices in db
+          axios.put('/updateShoppingList', {
+            username : user.uid,
+            list : list
+          })
+          .then((response) => {
 
-      //console.log('Ebay item IDS:', ebayIds);
-      // axios.get('/lookupEbay', {
-      //   params: {
-      //     itemIds : ebayIds
-      //   }
-      // })
-      // .then((response) => {
-      //   console.log('look up ebay respons', response.data);
-      //   //update prices in db
-      // })
+          })
+        })
+        .catch((error) => {
+          console.log('ebay lookup error', error);
+        })
+
+      })
 
     })
   }
