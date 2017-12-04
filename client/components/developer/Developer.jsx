@@ -18,6 +18,7 @@ class Developer extends React.Component {
 
   toggleLoggedIn() {
     console.log('logging in')
+
     this.setState({loggedIn: !this.state.loggedIn})
   }
 
@@ -26,19 +27,26 @@ class Developer extends React.Component {
   }
 
   render() {
-    const LoginView = (props) => <ApiUserAuthCard toggleLogin={this.toggleLoggedIn}/>;
+    const LoginView = (props) => {
+      return (
+        <ApiUserAuthCard
+          toggleLogin={this.toggleLoggedIn}
+          history={props.history}
+        />
+      )
+    }
     console.log(this.state)
     return (
       <div>
-      <BrowserRouter>
-        <div className="developer">
-          <ApiNav loggedIn={this.state.loggedIn}/>
-            <Route exact path="/" component={ApiIntro}/>
-            <Route path="/api/login" render={LoginView}/>
-            <Route path="/api/docs" component={ApiDoc}/>
-            <Route path="/api/account" component={ApiAccount}/>
-        </div>
-      </BrowserRouter>
+        <BrowserRouter>
+          <div className="developer">
+            <ApiNav loggedIn={this.state.loggedIn}/>
+              <Route exact path="/" component={ApiIntro}/>
+              <Route path="/api/login" render={LoginView} />
+              <Route path="/api/docs" component={ApiDoc}/>
+              <Route path="/api/account" component={ApiAccount}/>
+          </div>
+        </BrowserRouter>
       <DeveloperFooter/>
     </div>
     );

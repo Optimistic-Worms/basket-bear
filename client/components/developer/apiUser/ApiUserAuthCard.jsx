@@ -19,8 +19,6 @@ class ApiUserAuthCard extends React.Component {
   }
 
   render() {
-    //console.log(this.props.toggleLogin)
-    const { userLoginRequest, history} = this.props;
     return (
         <div className="loginCard">
         <h2 className="login-header">
@@ -31,6 +29,7 @@ class ApiUserAuthCard extends React.Component {
             toggleView={this.toggleLoginView}
             toggleLogin={this.props.toggleLogin}
             msg={this.state.msg}
+            history={this.props.history}
           />
           : <ApiUserSignup
               toggleView={this.toggleLoginView}

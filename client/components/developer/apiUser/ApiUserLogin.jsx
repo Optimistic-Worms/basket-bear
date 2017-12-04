@@ -23,6 +23,7 @@ class ApiUserLogin extends React.Component {
   }
 
   handleLogin(event) {
+    console.log(this.props.history)
     this.setState({errorMsg: ''});
     if (this.state.email.length && this.state.password.length) {
       event.preventDefault();
@@ -38,6 +39,7 @@ class ApiUserLogin extends React.Component {
         if (res.data)
         console.log(res.data)
         this.props.toggleLogin();
+        this.props.history.push('/api/account')
       })
       .catch(err => {
       });
