@@ -619,6 +619,14 @@ footer {
   cursor: pointer;
 }
 
+.intro-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin: 20px;
+}
+
 ol {
     list-style: decimal outside;
     font-weight: 300;

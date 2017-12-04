@@ -8,16 +8,16 @@ class ApiDoc extends React.Component {
   <div className="api-doc">
     <div className="api-doc-nav">
       <Link to="/api/docs">
-      <h3>home</h3>
+      <h3>Documentation</h3>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>Getting Started</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>Authentication</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>Endpoint Reference</h5>
       </Link>
     </div>
     <div className="api-doc-intro">
@@ -32,6 +32,9 @@ class ApiDoc extends React.Component {
       <h3>Before you start</h3>
       <ol>
         <li><p>You need a Budget Basket Developers Account to request an API key, and register your application.</p></li>
+         <li><p>Create free Developer Account and enter the name of the application that will be communicating with the Budget Basket API.</p></li>
+         <li><p>Once you have created your Developer Account, sign in to view your Client Id and Client Secret</p></li>
+         <li><p>Visit the Authentication section of our Docs to get started using the API endpoints.</p></li>
       </ol>
     </div>
   </div>
