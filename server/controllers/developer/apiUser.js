@@ -12,6 +12,7 @@ exports.addUser = (req, res) => {
         db.collection('apiUsers').add({
           email: req.body.email,
           password: hashed,
+          appName: req.body.appName
         })
         .then(ref => {
           exports.generateNewClientSecret(ref.id)
@@ -73,17 +74,8 @@ exports.getNewClientSecret = (req, res) => {
   .then(secret => res.json({clientSecret: secret}))
 };
 
-exports.login = (req, res) => {
-}
-
-exports.logoutApiUser = (username) => {
-
-}
-
-exports.getProductData = (productObj) => {
-
-}
-
-exports.getMerchantData = () => {
-
-}
+exports.getClientData = (req, res) => {
+  const { clientSecret, appName, email } = req.user.data();
+  const clientId = req.user.id;
+  res.json({clientSecret, appName, clientId, email});
+};

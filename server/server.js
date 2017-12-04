@@ -180,15 +180,13 @@ apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
 });
 
-apiRoutes.post('/user', apiAuth.authenticateUser, oauth.server.token());
+apiRoutes.post('/usertoken', apiAuth.authenticateUser, oauth.server.token());
 
 apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
 apiRoutes.post('/signup', apiUser.addUser);
 
-apiRoutes.get('/logout', (req, res) => {
-  //todo
-})
+apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")

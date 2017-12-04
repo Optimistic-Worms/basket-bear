@@ -6,14 +6,13 @@ class ApiUserSignup extends React.Component {
     super(props);
     this.state = {
       email: '',
+      appName: '',
       password1:'',
       password2:'',
       errorMsg: ''
     };
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleEmail = this.handleEmail.bind(this);
-    this.handlePassword1 = this.handlePassword1.bind(this);
-    this.handlePassword2 = this.handlePassword2.bind(this);
+    this.handleInput = this.handleInput.bind(this);
   }
 
   handleSignup(event) {
@@ -28,26 +27,20 @@ class ApiUserSignup extends React.Component {
         event.preventDefault();
         axios.post('/api/signup', {
           email: this.state.email,
-          password: this.state.password1
+          password: this.state.password1,
+          appName: this.state.appName
         })
-         .then((res) => {
+        .then((res) => {
            console.log(res.data)
+           this.props.toggleView('Thank you for signing up! Please log in to access your Developer Account');
         })
          .catch(err => this.setState({errorMsg: err.response.data}));
       }
     }
   }
 
-  handleEmail(event) {
-    this.setState({email: event.target.value});
-  }
-
-  handlePassword1(event) {
-    this.setState({password1: event.target.value});
-  }
-
-  handlePassword2(event) {
-    this.setState({password2: event.target.value});
+  handleInput(event) {
+    this.setState({[event.target.name]: event.target.value})
   }
 
   render() {
@@ -63,27 +56,40 @@ class ApiUserSignup extends React.Component {
               className="login-input"
               required
               value={this.state.email}
-              onChange={this.handleEmail}
+              onChange={this.handleInput}
+            />
+          </div>
+          <div className="email-form">
+            <label htmlFor="app-name"><b>Application Name</b></label>
+            <input
+              name="appName"
+              type="text"
+              className="login-input"
+              required
+              value={this.state.appName}
+              onChange={this.handleInput}
             />
           </div>
           <div className="password-form">
             <label htmlFor="password"><b>Password</b></label>
             <input className="login-input"
+              name="password1"
               type="password"
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword1}
+              onChange={this.handleInput}
              />
           </div>
           <div className="password-form">
             <label htmlFor="password"><b>Confirm Password</b></label>
             <input className="login-input"
+              name="password2"
               type="password"
               autoComplete="new-password"
               required
               value={this.state.password}
-              onChange={this.handlePassword2}
+              onChange={this.handleInput}
              />
           </div>
           <div className="button-wrapper">
@@ -93,7 +99,7 @@ class ApiUserSignup extends React.Component {
             >Signup
             </button>
           </div>
-          <div className="toggle-login" onClick={this.props.toggle}>
+          <div className="toggle-login" onClick={this.props.toggleView}>
             <a>Already have a Developer Account? Login instead</a>
           </div>
         </form>

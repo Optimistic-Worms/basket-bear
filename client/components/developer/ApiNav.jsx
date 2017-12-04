@@ -25,23 +25,26 @@ const ApiNav = (props) => (
 		        </span>
           </Link>
       </li>
-      <li>
+      {props.loggedIn ?
+        <li>
           <Link to="/api/account">
-            <span className="desktop-show">My Account</span>
+            <span className="desktop-show">Dashboard</span>
             <span className="mobile-show col">
-				    	<i className="fa fa-user-circle" aria-hidden="true"></i>My Account
-		        </span>
+              <i className="fa fa-user-circle" aria-hidden="true"></i>My Account
+            </span>
           </Link>
-      </li>
-      <li>
-        <Link to="/api/login" >
-          <span className="desktop-show">Login</span>
-          <span className="mobile-show col">
-            <i className="fa fa-sign-in" aria-hidden="true"></i>Login
-          </span>
+        </li>
+        :
+          <li>
+            <Link to="/api/login" >
+              <span className="desktop-show">Login</span>
+              <span className="mobile-show col">
+                <i className="fa fa-sign-in" aria-hidden="true"></i>Login
+              </span>
 
-        </Link>
-      </li>
+            </Link>
+          </li>
+      }
     </div>
   </nav>
 

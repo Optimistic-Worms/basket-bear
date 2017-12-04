@@ -13,7 +13,7 @@ passport.use('userBasic', new BasicStrategy((email, password, cb) => {
       return cb(err);
     }
     if (encrypt.verifyPasswordSync(password, userData.password)) {
-      return cb(null, userRef);
+      return cb(null, userRef, userData);
     } else {
       return cb('passwords do not match')
     }
@@ -36,6 +36,7 @@ passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
 
 //for token verification after successful client credentials grant
 passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
+  console.log(accessToken)
   authToken.findByValue(accessToken, (err, tokenRef, tokenData) => {
     if (err) {
       return cb(err);
@@ -57,6 +58,7 @@ exports.authenticateUser = (req, res, next) => {
       console.log('error: ', err)
      res.status(401).send(err);
     } else {
+      console.log(info)
       req.user = user;
       next();
     }
@@ -79,6 +81,7 @@ exports.authenticateClient = (req, res, next) => {
 
 exports.authenticateToken = (req, res, next) => {
   passport.authenticate('accessToken', {session: false}, (err, user, info) => {
+   // console.log(err, user)
       if (err) {
         console.log('error: ', err)
         res.send(err);
