@@ -1,4 +1,6 @@
 import React from 'react';
+import axios from 'axios'
+import Promise from 'bluebird';
 import ApiNav from './ApiNav.jsx';
 import ApiDoc from './ApiDoc.jsx';
 import ApiIntro from './ApiIntro.jsx';
@@ -11,19 +13,38 @@ class Developer extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: false
+      loggedIn: false,
+      user: '',
+       token: ''
     };
     this.toggleLoggedIn = this.toggleLoggedIn.bind(this);
-  }
-
-  toggleLoggedIn() {
-    console.log('logging in')
-
-    this.setState({loggedIn: !this.state.loggedIn})
+    this.getUserData = this.getUserData.bind(this);
   }
 
   componentDidMount() {
 
+  }
+
+  toggleLoggedIn(user = '', token = '') {
+    console.log('logging in/out')
+
+    this.setState({
+      loggedIn: !this.state.loggedIn,
+      user: user,
+      token: token
+    })
+  }
+
+  getUserData() {
+    return new Promise((resolve, reject) => {
+      axios.get('/api/user', {
+        headers: {'Authorization': `Bearer ${this.state.token}`}
+      })
+      .then(data => {
+        resolve(data.data)
+      })
+      .catch(err => reject(err));
+    });
   }
 
   render() {
@@ -35,7 +56,19 @@ class Developer extends React.Component {
         />
       )
     }
-    console.log(this.state)
+
+    const accountView = (props) => {
+      return (
+        <ApiAccount
+          toggleLogin={this.toggleLoggedIn}
+          history={props.history}
+          token={this.state.token}
+          getUserData={this.getUserData}
+        />
+      )
+    }
+
+    //console.log(this.state)
     return (
       <div>
         <BrowserRouter>
@@ -44,7 +77,7 @@ class Developer extends React.Component {
               <Route exact path="/" component={ApiIntro}/>
               <Route path="/api/login" render={LoginView} />
               <Route path="/api/docs" component={ApiDoc}/>
-              <Route path="/api/account" component={ApiAccount}/>
+              <Route path="/api/account" render={accountView}/>
           </div>
         </BrowserRouter>
       <DeveloperFooter/>

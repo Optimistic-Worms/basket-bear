@@ -60,7 +60,7 @@ class ApiUserSignup extends React.Component {
             />
           </div>
           <div className="email-form">
-            <label htmlFor="app-name"><b>App Name</b></label>
+            <label htmlFor="app-name"><b>Application Name</b></label>
             <input
               name="appName"
               type="text"

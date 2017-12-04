@@ -18,16 +18,11 @@ class ApiUserLogin extends React.Component {
     this.setState({[event.target.name]: event.target.value})
   }
 
-  validateForm() {
-
-  }
-
   handleLogin(event) {
-    console.log(this.props.history)
     this.setState({errorMsg: ''});
     if (this.state.email.length && this.state.password.length) {
       event.preventDefault();
-      axios.post('/api/user', {'grant_type': 'client_credentials'},
+      axios.post('/api/usertoken', {'grant_type': 'client_credentials'},
         {
           withCredentials: true,
           auth: {
@@ -36,9 +31,7 @@ class ApiUserLogin extends React.Component {
         }
       })
       .then((res) => {
-        if (res.data)
-        console.log(res.data)
-        this.props.toggleLogin();
+        this.props.toggleLogin(this.state.email, res.data.access_token);
         this.props.history.push('/api/account')
       })
       .catch(err => {
