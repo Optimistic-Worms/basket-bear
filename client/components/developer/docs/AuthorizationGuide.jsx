@@ -17,7 +17,13 @@ const AuthorizationGuide = () => (
       <div>Allows your application to obtain an access token by supplying your client credentials (client ID and client secret). This flow is used in server-to-server authentication and should NOT be used for single page apps in which the credentials are stored on the client. This flow is desribed in the oauth2 specification RFC-6749.</div>
       <div className="auth-flow"> </div>
        <h3>Step 1: Your Application requests a token</h3>
-       <div>The request is sent to the /api/token endpoint</div>
+       <div>The request is sent to the /api/token endpoint:</div>
+       <div className="snippet">POST https://budgetbasket.com/api/token</div>
+       <div>The body of this POST request must contain the following parameters:</div>
+       <div className="doc-header">
+         <div>REQUEST BODY PARAMETER</div>
+         <div>VALUE</div>
+       </div>
        <h3>Step 2: Use the access token to access the Budget Basket Web API</h3>
   </div>
 );
