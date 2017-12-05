@@ -20,7 +20,7 @@ exports.getToken = () => {
 }
 
 exports.logout = () => {
-    firebase.auth().signOut().then(function() {
+    firebase.auth().signOut().then(() => {
       console.log('just logged out');
     }, function(error) {
       console.log('couldn\'log out:' + error);
@@ -29,19 +29,19 @@ exports.logout = () => {
 
 exports.authenticate = (authProvider) => {
     let provider;
-    if(authProvider ==='google'){
+    if (authProvider ==='google'){
       provider = new firebase.auth.GoogleAuthProvider();
     } 
-    if(authProvider === 'facebook'){
+    if (authProvider === 'facebook'){
       provider = new firebase.auth.FacebookAuthProvider();
     }
     provider.addScope('profile');
     provider.addScope('email');
-    firebase.auth().signInWithPopup(provider).then(function(result){
+    firebase.auth().signInWithRedirect(provider).then((result) =>{
     // var token = result.credential.accessToken;
     var user = result.user.uid;
     console.log(user);
-    }).catch(function(error){
+    }).catch((error) =>{
     var errorMessage = error.message;
     // var credential = error.credential;
     console.log(errorMessage);

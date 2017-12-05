@@ -148,6 +148,21 @@ h4 {
 
 .button-login {
   margin: auto .2em;
+  background-color: black;
+}
+
+.button-login:hover {
+  background-color: #424242;
+}
+
+  
+.button-signup {
+  margin: auto .2em;
+  background-color: black;
+}
+
+.button-signup:hover {
+  background-color: #424242;
 }
 
 .google-button {
@@ -157,12 +172,17 @@ h4 {
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
   height: 4.2em;
-  width: 17.4em;
+  width: 14.4em;
   margin: 1em auto;
   background-repeat: no-repeat;
+  padding-left: 100px;
+  background-color: white;
 }
 
+
+
 .google-button:hover {
+  cursor: pointer;
   background-image: url('./btn_google_signin_dark_pressed_web.png');
 }
 
