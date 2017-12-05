@@ -20,14 +20,6 @@ const NavBar = (props) => (
 	        </span>
 	        </Link>
 	    </li>
-	    {/* <li>
-	    		<Link to="/about">
-		        <span className="desktop-show">About</span>
-		        <span className="mobile-show col">
-		     	<i className="fa fa-bookmark" aria-hidden="true"></i>About
-		     		</span>
-	        </Link>
-	    </li> */}
 	    <li>
 	        <Link to="/watchList">
 		        <span className="desktop-show">WATCH LIST</span>
@@ -36,6 +28,13 @@ const NavBar = (props) => (
 		        </span>
 	        </Link>
 	    </li>
+			<li>
+					<Link to="/about">
+						<span className="mobile-show col">
+					<i className="fa fa-cog" aria-hidden="true"></i>Settings
+						</span>
+					</Link>
+			</li>
 	    <li>
 	      <Link to={{pathname: props.logout}} onClick={props.logging}>
 	        <span className="desktop-show">{props.logged}</span>

@@ -8,16 +8,16 @@ class ApiDoc extends React.Component {
   <div className="api-doc">
     <div className="api-doc-nav">
       <Link to="/api/docs">
-      <h3>home</h3>
+      <h3>Home</h3>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>Getting Started</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>User Guide</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>placeholder</h5>
+      <h5>Beginner's Tutorial</h5>
       </Link>
     </div>
     <div className="api-doc-intro">
@@ -31,7 +31,9 @@ class ApiDoc extends React.Component {
       <p>This document is intended for developers who want to write applications that interact with Budget Basket. It explains basic concepts of Budget Basket and of the API itself. It also provides an overview of the different functions that the API supports.</p>
       <h3>Before you start</h3>
       <ol>
-        <li><p>You need a Budget Basket Developers Account to request an API key, and register your application.</p></li>
+        <li><p>Sign up for a Budget Basket Developers Account </p></li>
+        <li><p>Request an API key and register your application.</p></li>
+        <li><p>Start making API calls</p></li>
       </ol>
     </div>
   </div>
