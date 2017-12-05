@@ -742,6 +742,7 @@ footer {
   width: 95%;
   margin: 0 auto;
   flex-direction: column;
+
 }
 
 .api-doc-intro--header {
@@ -809,4 +810,14 @@ ol {
 
 ol p {
   font-weight: 100;
+}
+
+.auth-flow {
+  height: 419px;
+  width: 454px;
+  background-image: url('./bb_client_flow.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: 2em auto 2em auto;
+
 }

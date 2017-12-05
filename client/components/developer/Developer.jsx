@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios'
 import Promise from 'bluebird';
 import ApiNav from './ApiNav.jsx';
-import ApiDoc from './ApiDoc.jsx';
+import ApiDoc from './docs/ApiDoc.jsx';
 import ApiIntro from './ApiIntro.jsx';
 import JoinApiTout from './JoinApiTout.jsx';
 import DeveloperFooter from './DeveloperFooter.jsx';
