@@ -14,7 +14,7 @@ const Product = (props) => {
       </div>
         <div className="button-wrapper">
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
-        { !props.item.added && <button className="button button--product" onClick= {()=>{ props.addItem(props.item, props.index) } } >Watch Item</button>
+        { !props.item.added && <button className="button button--watch" onClick= {()=>{ props.addItem(props.item, props.index) } } >Watch Item</button>
         }
       </div>
 

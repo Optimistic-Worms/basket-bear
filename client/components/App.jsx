@@ -7,6 +7,7 @@ import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
 import ShoppingList from './ShoppingList.jsx';
+import JoinHomeTout from './JoinHomeTout.jsx';
 import Developer from './developer/Developer.jsx';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
@@ -147,6 +148,7 @@ class App extends React.Component {
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/watchList" component={ShoppingList}/>
+            <Route exact path="/" component={JoinHomeTout}/>
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>
