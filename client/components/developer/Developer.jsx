@@ -4,6 +4,7 @@ import Promise from 'bluebird';
 import ApiNav from './ApiNav.jsx';
 import ApiDoc from './ApiDoc.jsx';
 import ApiIntro from './ApiIntro.jsx';
+import JoinApiTout from './JoinApiTout.jsx';
 import DeveloperFooter from './DeveloperFooter.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';
@@ -75,6 +76,7 @@ class Developer extends React.Component {
           <div className="developer">
             <ApiNav loggedIn={this.state.loggedIn}/>
               <Route exact path="/" component={ApiIntro}/>
+              <Route exact path="/" component={JoinApiTout}/>
               <Route path="/api/login" render={LoginView} />
               <Route path="/api/docs" component={ApiDoc}/>
               <Route path="/api/account" render={accountView}/>

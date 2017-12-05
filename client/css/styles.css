@@ -157,8 +157,9 @@ h4 {
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
   height: 4.2em;
-  width: 17.45em;
+  width: 17.4em;
   margin: 1em auto;
+  background-repeat: no-repeat;
 }
 
 .google-button:hover {
@@ -417,6 +418,10 @@ button.search-button:focus {
 
 }
 
+.hometout-wrapper-api {
+  margin-top: 1em;
+}
+
 .hometout-grid {
   display: grid;
   grid-template-columns: 50% 50%;
@@ -570,8 +575,15 @@ button.search-button:focus {
     font-size: 65%;
   }
 
+
   .intro-card--api h1 {
     font-size: 1.3em;
+    width: 100% !important;
+  }
+
+  .intro-card--api h4 {
+    font-size: 1em;
+    width: 95% !important;
   }
 
   .search-button, .search-selection {
@@ -597,7 +609,7 @@ button.search-button:focus {
   }
 
   .hometout-join h2 {
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   .hometout-wrapper p {
@@ -711,11 +723,16 @@ footer {
   height: 200%;
   background: #dadada;
   flex-direction: column;
-  padding-left: 1em;
+  padding-left: 1.2em;
+}
+
+.api-doc h3 {
+  font-weight: 500;
+  font-size: 1em;
 }
 
 .api-doc-nav h5 {
-  margin-top: -1em;
+  margin-top: -.5em;
 }
 
 
@@ -734,11 +751,17 @@ footer {
 .intro-card--api h1 {
   justify-content: center;
   width: 75%;
-  color: #000;
   font-weight: 500;
 }
 .intro-card--api {
-  background-image: url(https://static.pexels.com/photos/628281/pexels-photo-628281.jpeg);
+  background-image: none;
+  background: #E0E0E0;
+  color: #000;
+  height: 13em;
+}
+
+.intro-card--api h4 {
+  line-height: 1.2em;
 }
 
 .api-doc-intro h1, .api-doc-intro h2 {
