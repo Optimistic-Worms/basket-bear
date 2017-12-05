@@ -155,7 +155,15 @@ h4 {
   border-radius: 0;
   border-style: solid;
   border-width: 0;
-  padding: 0;
+  background-image: url('./btn_google_signin_dark_normal_web.png');
+  height: 4.2em;
+  width: 17.4em;
+  margin: 1em auto;
+  background-repeat: no-repeat;
+}
+
+.google-button:hover {
+  background-image: url('./btn_google_signin_dark_pressed_web.png');
 }
 
 .google-login {
@@ -299,6 +307,7 @@ button.search-button:focus {
   padding: 0;
   align-items: center;
   justify-content: center;
+  margin: 0 auto;
 }
 
 
@@ -323,7 +332,7 @@ button.search-button:focus {
   justify-content: center;
 }
 
-.card h4 {
+.card h4, h3 {
   font-weight: 100;
   font-size: .8em;
 }
@@ -372,6 +381,87 @@ button.search-button:focus {
   border-color: #2E7D32;
 }
 
+.button--remove {
+  margin: .1em;
+  height: 100%;
+  width: auto;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.button--remove:hover {
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+
+.button--watch {
+  margin: .1em;
+  height: 100%;
+  width: auto;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+
+.button--watch:hover {
+  background-color: #ec971f;
+  border-color: #ec971f;
+}
+
+/** Hometout **/
+
+.hometout-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin: -1em auto .5em;
+  width: 80%;
+  padding: 1em;
+
+}
+
+.hometout-wrapper-api {
+  margin-top: 1em;
+}
+
+.hometout-grid {
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin: 0 auto;
+  padding-bottom: 3em;
+  width: 100;
+  grid-gap: 1em;
+  align-items: center;
+}
+
+.hometout-join {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid #dadada;
+  padding-right: 1em;
+  align-items: center;
+}
+
+.button--hometout {
+  background-color: #212121;
+  border-color: #212121;
+}
+
+.button--hometout:hover {
+  background-color: #424242;
+  border-color: #424242;
+}
+
+.hometout-join h1 {
+  font-size: 3em;
+}
+
+.hometout-join h2 {
+  margin-top: -1em;
+}
+
+.hometout-wrapper p {
+  line-height: 1.3em;
+}
+
 /** Watch List **/
 
 .watch-container {
@@ -383,9 +473,26 @@ button.search-button:focus {
   text-align: center!important;
 }
 
+.watch-container .price {
+  font-size: .75em;
+}
+
 .watch-container h1 {
   font-weight: 300;
 }
+
+.item-info-watch {
+  justify-content: center;
+
+}
+
+.item-info-watch .current-price {
+  color: #000;
+  font-weight: 500;
+  font-size: 1em;
+  margin-top: -.5em;
+}
+
 
 /** Media Queries **/
 
@@ -455,6 +562,61 @@ button.search-button:focus {
   .menu li:hover {
     height: 4.2em;
   }
+
+  .api-doc-nav {
+    display: none !important;
+  }
+
+  .api-doc {
+    grid-template-columns: auto !important;
+  }
+
+  .api-doc-intro {
+    font-size: 65%;
+  }
+
+
+  .intro-card--api h1 {
+    font-size: 1.3em;
+    width: 100% !important;
+  }
+
+  .intro-card--api h4 {
+    font-size: 1em;
+    width: 95% !important;
+  }
+
+  .search-button, .search-selection {
+    height: 4.4em;
+
+  }
+
+  .hometout-grid {
+    display: grid;
+    grid-template-columns: auto;
+    margin: 0 auto;
+    padding-bottom: 3em;
+    width: 100;
+    grid-gap: 1em;
+    align-items: center;
+  }
+
+  .hometout-join {
+    border-bottom: 1px solid #dadada;
+    padding-bottom: 1em;
+    border-right: none;
+    padding-right: 0;
+  }
+
+  .hometout-join h2 {
+    font-size: 1em;
+  }
+
+  .hometout-wrapper p {
+    margin-top: -.5em;
+  }
+
+
 }
 
 @media (min-width:769px) and (max-width:1000px) {
@@ -561,11 +723,17 @@ footer {
   height: 200%;
   background: #dadada;
   flex-direction: column;
-  padding-left: 1em;
+  padding-left: 1.2em;
+  padding-top: 2em;
+}
+
+.api-doc h3 {
+  font-weight: 500;
+  font-size: 1em;
 }
 
 .api-doc-nav h5 {
-  margin-top: -1em;
+  margin-top: -.5em;
 }
 
 
@@ -584,11 +752,17 @@ footer {
 .intro-card--api h1 {
   justify-content: center;
   width: 75%;
-  color: #000;
   font-weight: 500;
 }
 .intro-card--api {
-  background-image: url(https://static.pexels.com/photos/628281/pexels-photo-628281.jpeg);
+  background-image: none;
+  background: #E0E0E0;
+  color: #000;
+  height: 13em;
+}
+
+.intro-card--api h4 {
+  line-height: 1.2em;
 }
 
 .api-doc-intro h1, .api-doc-intro h2 {

@@ -8,16 +8,13 @@ class ApiDoc extends React.Component {
   <div className="api-doc">
     <div className="api-doc-nav">
       <Link to="/api/docs">
-      <h3>Documentation</h3>
-      </Link>
-      <Link to="/api/docs">
       <h5>Getting Started</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>Authentication</h5>
+      <h5>Authorization Guide</h5>
       </Link>
       <Link to="/api/docs">
-      <h5>Endpoint Reference</h5>
+      <h5>API Endoint Reference</h5>
       </Link>
     </div>
     <div className="api-doc-intro">
@@ -31,10 +28,10 @@ class ApiDoc extends React.Component {
       <p>This document is intended for developers who want to write applications that interact with Budget Basket. It explains basic concepts of Budget Basket and of the API itself. It also provides an overview of the different functions that the API supports.</p>
       <h3>Before you start</h3>
       <ol>
-        <li><p>You need a Budget Basket Developers Account to request an API key, and register your application.</p></li>
-         <li><p>Create free Developer Account and enter the name of the application that will be communicating with the Budget Basket API.</p></li>
-         <li><p>Once you have created your Developer Account, sign in to view your Client Id and Client Secret</p></li>
-         <li><p>Visit the Authentication section of our Docs to get started using the API endpoints.</p></li>
+        <li><p>Sign up for a Budget Basket Developers Account and enter your application name.</p></li>
+        <li><p>Log in to your Developer Account to retrieve your Client ID and Client Secret.</p></li>
+        <li><p>Refer to the Authorization Guide to learn how to use your client credentials to obtain an access token.</p></li>
+        <li><p>Refer to the API Endpoint Reference to start making authenticated requests to the Budget Basket API.</p></li>
       </ol>
     </div>
   </div>

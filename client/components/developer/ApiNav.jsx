@@ -25,6 +25,13 @@ const ApiNav = (props) => (
 		        </span>
           </Link>
       </li>
+      <li>
+          <Link to="/about">
+            <span className="mobile-show col">
+          <i className="fa fa-cog" aria-hidden="true"></i>Settings
+            </span>
+          </Link>
+      </li>
       {props.loggedIn ?
         <li>
           <Link to="/api/account">
