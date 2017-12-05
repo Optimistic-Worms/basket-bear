@@ -18,10 +18,9 @@ class LoginCard extends React.Component {
     return (
       <div className="loginCard">
         
-        <h2 className="login-header">Login</h2>
-        
+        <h2 className="login-header">Login/Sign Up</h2>   
         <ManualUser errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest} history={this.props.history}/>
-        <GoogleUser />
+        <GoogleUser userLoginRequest={userLoginRequest} history={this.props.history} />
       </div>
     );
   }

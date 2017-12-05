@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Link, browserHistory } from 'react-router-dom';
 import firebase from './user/firebase-auth';
+import createHistory from 'history/createBrowserHistory'
 import '../css/styles.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
@@ -13,6 +14,11 @@ import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
+
+
+const history = createHistory()
+
+
 
 class App extends React.Component {
   constructor() {
@@ -32,23 +38,27 @@ class App extends React.Component {
   checkLoginStatus(){
     firebase.auth().onAuthStateChanged((user) => {
         if (user) {
+          this.setState({logged:'LOGOUT'});
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-            console.log(idToken);
-              this.setState({logged:'LOGOUT'});
+          //  console.log('this is the location:')
+           
+          //  console.log(idToken);
+            
               console.log('Just logged in. Loading shopping list prices');
               this.loginSetup(user);
             }).catch((error) => {
               this.setState({logged:'LOGIN'});
               console.log(error);
             });
-          });
-        } else {
+          } else {
           console.log('Nobody is home: Need to login or sign up!');
         }
       });
   }
   componentDidMount() {
      this.checkLoginStatus();
+      console.log(history.location)
+
   }
 
   //upon first logging in, check if user has a shopping list
