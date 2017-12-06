@@ -27,6 +27,7 @@ class App extends React.Component {
       logged: 'LOGIN',
       logout: 'login',
       devView: false,
+      isLoggedIn: false
     };
 
     this.logging = this.logging.bind(this);
@@ -40,19 +41,16 @@ class App extends React.Component {
         if (user) {
           this.setState({logged:'LOGOUT'});
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-          //  console.log('this is the location:')
-           this.setState({isLoggedIn : true});
-          //  console.log(idToken);
-
-              console.log('Just logged in. Loading shopping list prices');
-              this.loginSetup(user);
+            this.setState({isLoggedIn : true});
+            console.log('Just logged in. Loading shopping list prices');
+            this.loginSetup(user);
             }).catch((error) => {
               this.setState({logged:'LOGIN'});
               console.log(error);
             });
           } else {
             this.setState({isLoggedIn : false});
-          console.log('Nobody is home: Need to login or sign up!');
+            console.log('Nobody is home: Need to login or sign up!');
         }
       });
   }
@@ -154,7 +152,10 @@ class App extends React.Component {
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
             <Route path="/watchList" component={ShoppingList}/>
-            <Route exact path="/" component={JoinHomeTout}/>
+            {
+              !this.state.isLoggedIn &&
+              <Route exact path="/" component={JoinHomeTout}/>
+            }
         </div>
       </BrowserRouter>
       <Footer handleSwitch={this.switchToDev.bind(this)}/>
