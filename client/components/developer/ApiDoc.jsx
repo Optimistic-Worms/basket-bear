@@ -24,12 +24,12 @@ class ApiDoc extends React.Component {
       <div className="api-doc-intro api-doc-intro--header">
         <h1>Budget Basket API Guide</h1>
       </div>
-      <p>Based on simple REST principles, our API endpoints return metadata in JSON format about “requested price” information directly from the our product database. The API also provides access to user-related data such as wishlist items. </p>
+      <p>Based on simple REST principles, our API endpoints return metadata in JSON format about “requested price” information directly from our product database. The API also provides access to user-related data such as wishlist items. </p>
       <div className="api-doc-intro api-doc-intro--header">
         <h2>Introduction</h2>
       </div>
       <p>This document is intended for developers who want to write applications that interact with Budget Basket. It explains basic concepts of Budget Basket and of the API itself. It also provides an overview of the different functions that the API supports.</p>
-      <h3>Before you start</h3>
+      <h3>Quick Start</h3>
       <ol>
         <li><p>Sign up for a Budget Basket Developers Account </p></li>
         <li><p>Request an API key and register your application.</p></li>
