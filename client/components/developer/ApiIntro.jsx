@@ -1,7 +1,6 @@
 import React from 'react'
 
 class ApiIntro extends React.Component {
-
   render(){
   return (
   <div className="intro-card intro-card--api">
