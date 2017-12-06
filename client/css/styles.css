@@ -635,8 +635,6 @@ button.search-button:focus {
   .hometout-wrapper p {
     margin-top: -.5em;
   }
-
-
 }
 
 @media (min-width:769px) and (max-width:1000px) {
@@ -860,4 +858,22 @@ ol p {
 
 .doc-header div {
   margin: 0 10px 0 10px;
+}
+
+.doc-content {
+  display: flex;
+  padding: 5px;
+  margin: 10px;
+  margin-top: 0;
+  background-color: #f9f9f9;
+  font-size: 15px;
+}
+
+.doc-content div {
+  margin-right: 9em;
+  padding-left: 10px;
+}
+
+.value-lower {
+  margin-left: 4em !important;
 }

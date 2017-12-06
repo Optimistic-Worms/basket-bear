@@ -18,13 +18,34 @@ const AuthorizationGuide = () => (
       <div className="auth-flow"> </div>
        <h3>Step 1: Your Application requests a token</h3>
        <div>The request is sent to the /api/token endpoint:</div>
-       <div className="snippet">POST https://budgetbasket.com/api/token</div>
+       <div className="snippet">POST http://budgetbasket.com/api/token</div>
        <div>The body of this POST request must contain the following parameters:</div>
        <div className="doc-header">
          <div>REQUEST BODY PARAMETER</div>
          <div>VALUE</div>
        </div>
+       <div className="doc-content">
+         <div>grant_type</div>
+         <div>Required. Set it to “client_credentials”</div>
+       </div>
+       <div className="doc-header">
+         <div>HEADER PARAMETER</div>
+         <div className="value-lower">VALUE</div>
+       </div>
+       <div className="doc-content">
+         <div>Authorization</div>
+         <div>Required. Base 64 encoded string that contains the client ID and client secret key. The field must have the format: Authorization: Basic {`<base64 encoded client_id:client_secret>`}</div>
+       </div>
+       <div>For Example:</div>
+        <div className="snippet">{`$ curl -X "POST" -H "Authorization: Basic ZjM4ZjAw...WY0MzE=" -d grant_type=client_credentials http://budgetbasket.com/api/token
+          {
+             "access_token": "NgCXRKc...MzYjw",
+             "token_type": "bearer",
+             "expires_in": 3600,
+          }
+          `}</div>
        <h3>Step 2: Use the access token to access the Budget Basket Web API</h3>
+        <div className="snippet">{`curl -H "Authorization: Bearer NgCXRKc...MzYjw" http://budgetbasket.com/api/product {<request body>}`}</div>
   </div>
 );
 
