@@ -41,9 +41,9 @@ class App extends React.Component {
           this.setState({logged:'LOGOUT'});
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
           //  console.log('this is the location:')
-           
+           this.setState({isLoggedIn : true});
           //  console.log(idToken);
-            
+
               console.log('Just logged in. Loading shopping list prices');
               this.loginSetup(user);
             }).catch((error) => {
@@ -51,6 +51,7 @@ class App extends React.Component {
               console.log(error);
             });
           } else {
+            this.setState({isLoggedIn : false});
           console.log('Nobody is home: Need to login or sign up!');
         }
       });
@@ -134,7 +135,7 @@ class App extends React.Component {
   }
   logging(e){
     if(this.state.logged === 'LOGOUT') {
-      this.setState({logout : '/'})
+      //this.setState({logout : '/'})
       this.logout();
       this.setState({logged: 'LOGIN'})
     }
