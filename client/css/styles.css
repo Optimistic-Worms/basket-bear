@@ -74,6 +74,8 @@ h4 {
   margin-top: 1em;
   margin-bottom: 0em;
   font-weight: 300;
+  text-align: center;
+  justify-content: center;
 }
 .intro-card h4 {
   display: flex;
@@ -171,8 +173,8 @@ h4 {
   border-style: solid;
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
-  height: 4.2em;
-  width: 14.4em;
+  height: 4.4em;
+  width: 17.5em;
   margin: 1em auto;
   background-repeat: no-repeat;
   padding-left: 100px;
@@ -214,6 +216,7 @@ nav {
   z-index: 1030;
   opacity: 0.85;
   font-weight: 100;
+  text-transform: uppercase;
 }
 
 .brand {
@@ -494,7 +497,8 @@ button.search-button:focus {
 }
 
 .watch-container .price {
-  font-size: .75em;
+  font-size: .9em;
+  font-weight: 300;
 }
 
 .watch-container h1 {
@@ -503,6 +507,7 @@ button.search-button:focus {
 
 .item-info-watch {
   justify-content: center;
+  flex-direction: column;
 
 }
 
@@ -512,6 +517,14 @@ button.search-button:focus {
   font-size: 1em;
   margin-top: -.5em;
 }
+
+.item-info-merchant {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
 
 
 /** Media Queries **/
@@ -534,6 +547,13 @@ button.search-button:focus {
   nav {
     justify-content: space-around;
   }
+
+  .menu {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+
   .list {
     grid-template-columns: auto;
     margin: 0 .5em;
@@ -592,7 +612,7 @@ button.search-button:focus {
   }
 
   .api-doc-intro {
-    font-size: 65%;
+    font-size: 75%;
   }
 
 
