@@ -1,11 +1,11 @@
 const axios = require('axios');
 
-exports.updateListPrices = function (user) {
+exports.updateListPrices = function (idToken) {
   let list;
   let amazonIds = [];
   let ebayIds = [];
 
-  axios.get('/shoppingList', { params: { username: user.uid } })
+  axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
     console.log('Current Shopping List:', list);
