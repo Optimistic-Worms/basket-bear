@@ -22,6 +22,7 @@ module.exports = {
       }).catch((error) => {
        console.log(error) 
        req.username = null;
+       res.sendStatus(401)
       });
     }
 }

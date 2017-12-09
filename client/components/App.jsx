@@ -46,6 +46,7 @@ class App extends React.Component {
           console.log('Just logged in. Loading shopping list prices');
           //console.log(idToken)
           PriceLookup.updateListPrices(idToken);
+          PriceLookup.updateListPrices(idToken, user);
         })
         .catch((error) => {
           this.setState({logged:'LOGIN'});

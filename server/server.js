@@ -79,14 +79,14 @@ app.post('/shoppingList', isAuthenticated, (req, res) => {
   });
 });
 
-app.get('/shoppingList', isAuthenticated , (req, res) => {
+app.get('/shoppingList', isAuthenticated, (req, res) => {
   var username = req.username;
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
   })
   .catch((data) => {
-    res.status(200).send(data);
+    res.status(401).send(data);
   })
 });
 
