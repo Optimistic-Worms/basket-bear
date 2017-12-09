@@ -44,7 +44,7 @@ class App extends React.Component {
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {
           this.setState({isLoggedIn : true});
           console.log('Just logged in. Loading shopping list prices');
-          console.log(idToken)
+          //console.log(idToken)
           PriceLookup.updateListPrices(idToken);
         })
         .catch((error) => {

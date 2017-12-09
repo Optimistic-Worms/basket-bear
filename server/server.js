@@ -81,7 +81,6 @@ app.post('/shoppingList', isAuthenticated, (req, res) => {
 
 app.get('/shoppingList', isAuthenticated , (req, res) => {
   var username = req.username;
-  console.log('username:', username);
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);

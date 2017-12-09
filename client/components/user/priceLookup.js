@@ -8,7 +8,7 @@ exports.updateListPrices = function (idToken) {
   axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
-    console.log('Current Shopping List:', list);
+    //console.log('Current Shopping List:', list);
     for (var item in list) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);
@@ -35,8 +35,11 @@ exports.updateListPrices = function (idToken) {
 let parseAmazonIds = function(response, list) {
   response.data.ItemLookupResponse.Items[0].Item.forEach((item) => {
     let offer = item.Offers[0].Offer[0].OfferListing[0];
-    if (offer.SalePrice) list[item.ASIN].currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
-    if (offer.Price) list[item.ASIN].currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+    if (offer.SalePrice) {
+      list[item.ASIN].currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+    } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
+      list[item.ASIN].currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+    }
   })
   return list;
 }
