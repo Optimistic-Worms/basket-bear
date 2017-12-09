@@ -14,20 +14,15 @@ var config = {
 firebase.initializeApp(config);
 
 module.exports = {
-    isAuthenticated: function (req, res, next) {
+    isAuthenticated: (req, res, next) => {
       let idToken = req.query.access_token;
-      let user = admin.auth().verifyIdToken(idToken).then(function(decodedToken) {
-      var uid = decodedToken.uid;
-       return uid;
-      }).catch(function(error) {
-       return error
+      admin.auth().verifyIdToken(idToken).then((decodedToken) => {
+      req.username = decodedToken.uid;
+       next();
+      }).catch((error) => {
+       console.log(error) 
+       req.username = null;
       });
-      if (user !== null) {
-        req.user = user;
-        next();
-      } else {
-        res.redirect('/login');
-      }
     }
 }
 
