@@ -8,7 +8,7 @@ exports.updateListPrices = function (idToken) {
   axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
-    console.log('Current Shopping List:', list);
+    //console.log('Current Shopping List:', list);
     for (var item in list) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);

@@ -19,30 +19,31 @@ class ShoppingList extends React.Component {
   }
 
   loadShoppingList() {
-    var user = firebase.auth().currentUser;
+    //var user = firebase.auth().currentUser;
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+        axios.get(`/shoppingList?access_token=${idToken}`)
+        .then((response) => {
+          console.log(response.data);
+          var itemsObj = response.data;
+          var itemsArr = [];
+          for (var i in itemsObj) {
+            itemsArr.push(itemsObj[i]);
+          }
+          if (itemsArr.length < 1) {
+            this.setState({alert: 'You are not watching any items'})
+          } else {
+            this.setState({alert: ''});
+            this.setState({items: itemsArr});
+          }
+        })
 
-    if (user) {
-      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-      axios.get(`/shoppingList?access_token=${idToken}`)
-      .then((response) => {
-        console.log(response.data);
-        var itemsObj = response.data;
-        var itemsArr = [];
-        for (var i in itemsObj) {
-          itemsArr.push(itemsObj[i]);
-        }
-        if (itemsArr.length < 1) {
-          this.setState({alert: 'You are not watching any items'})
-        } else {
-          this.setState({alert: ''});
-          this.setState({items: itemsArr});
-        }
-      })
-
-    })// End of token fetch.
-    } else {
-      this.setState({ alert: 'Please sign in to view your shopping list!'})
-    }
+      })// End of token fetch.
+      } else {
+        this.setState({ alert: 'Please sign in to view your shopping list!'})
+      }
+    })
   }
 
   removeItem(item) {
