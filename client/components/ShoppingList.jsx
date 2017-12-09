@@ -14,7 +14,7 @@ class ShoppingList extends React.Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.loadShoppingList();
   }
 
