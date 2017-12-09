@@ -34,6 +34,8 @@ class App extends React.Component {
     this.logout = logout.bind(this);
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
     this.loginSetup = this.loginSetup.bind(this);
+    this.parseAmazonIds = this.parseAmazonIds.bind(this);
+    this.parseEbayIds = this.parseEbayIds.bind(this);
   }
 
   checkLoginStatus(){
@@ -60,76 +62,63 @@ class App extends React.Component {
 
   }
 
+  parseAmazonIds(response, list){
+    response.data.ItemLookupResponse.Items[0].Item.forEach((item)=>{
+      let offer = item.Offers[0].Offer[0].OfferListing[0]
+      if(offer.SalePrice) list[item.ASIN].currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+      if (offer.Price) list[item.ASIN].currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+    })
+    return list;
+  }
+
+  parseEbayIds(response, list){
+    response.data.Item.forEach((item)=>{
+      list[item.ItemID].currentPrice = item.ConvertedCurrentPrice.Value
+    })
+    return list
+  }  
+
+
+  
   //upon first logging in, check if user has a shopping list
   //get all update prices on shopping list
   loginSetup(user) {
     //get shopping list of user
-    var list;
-    axios.get('/shoppingList', {
-      params: {
-          username: user.uid,
-      }
-    })
+    let list;
+    let amazonIds = [];
+    let ebayIds = [];
+    //firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
+    //console.log(idToken);
+    //axios.get(`/shoppingList?access_token= ${idToken}`)    
+    axios.get('/shoppingList', { params: { username: user.uid }})
     .then((response) => {
       list = response.data;
       console.log('Current Shopping List:', list);
-      var amazonIds = [];
-      var ebayIds = [];
       for (var item in list) {
-        if (list[item].merchant === "amazon") {
-          amazonIds.push(item);
-        } else if (list[item].merchant ==="eBay") {
-          ebayIds.push(item);
-        }
+        if (list[item].merchant === "amazon") amazonIds.push(item);
+        if (list[item].merchant ==="eBay") ebayIds.push(item);
       }
-      axios.get('/lookupAmazon', {
-        params: {
-          itemIds : amazonIds
-        }
-      })
+      axios.get('/lookupAmazon', { params: { itemIds : amazonIds }})
       .then((response) => {
-        var lookupItems = response.data.ItemLookupResponse.Items[0].Item
-        for (var i = 0; i < lookupItems.length; i++) {
-          var itemId= lookupItems[i].ASIN;
-          var price;
-          if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
-            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
-            list[itemId].currentPrice = price;
-          } else if (lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price) {
-            price = lookupItems[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
-            list[itemId].currentPrice = price;
-          }
-        }
+        list = this.parseAmazonIds(response, list);
 
-        axios.get('/lookupEbay', {
-          params: {
-            itemIds : ebayIds
-          }
-        })
+        axios.get('/lookupEbay', { params: { itemIds : ebayIds }})
         .then((response) => {
-          var ebayLookupItems = response.data.Item;
-          for (var i = 0 ; i < ebayLookupItems.length; i++) {
-            var itemId = ebayLookupItems[i].ItemID;
-            var price = ebayLookupItems[i].ConvertedCurrentPrice.Value;
-            list[itemId].currentPrice = price;
-          }
+          list = this.parseEbayIds(response, list)
           console.log('Updated Shopping List:', list);
           //update prices in db
-          axios.put('/updateShoppingList', {
-            username : user.uid,
-            list : list
-          })
-          .then((response) => {
-
-          })
-        })
-        .catch((error) => {
-          console.log('ebay lookup error', error);
-        })
-
+            axios.put('/updateShoppingList', { username : user.uid, list : list})
+            .then((response) => {})
+            })
+            .catch((error) => {
+              console.log('ebay lookup error', error);
+            })
       })
-
     })
+
+ //  }) // End Token get
+
+
   }
   logging(e){
     if(this.state.logged === 'LOGOUT') {
