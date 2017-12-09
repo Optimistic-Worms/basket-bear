@@ -79,8 +79,8 @@ app.post('/shoppingList', (req, res) => {
   });
 });
 
-app.get('/shoppingList', (req, res) => {
-  var username = req.query.username;
+app.get('/shoppingList', isAuthenticated , (req, res) => {
+  var username = req.username;
   console.log('username:', username);
   shoppingList.getShoppingList(username)
   .then((data) => {
