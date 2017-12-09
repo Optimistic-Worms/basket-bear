@@ -114,16 +114,17 @@ class Search extends React.Component {
   addToShoppingList(item, index) {
     var user = firebase.auth().currentUser;
     if (user) {
-      axios.put('/shoppingList', {
-        username: user.uid,
-        product: item
-    })
-    .then((response) => {
-      console.log(response.data);
-      var updateItems = this.state.searchItems;
-      updateItems[index].added = true;
-      this.setState({searchItems: updateItems});
-      item.added = true;
+      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+        axios.put(`/shoppingList?access_token=${idToken}`, {
+          product: item
+        })
+        .then((response) => {
+          console.log(response.data);
+          var updateItems = this.state.searchItems;
+          updateItems[index].added = true;
+          this.setState({searchItems: updateItems});
+          item.added = true;
+        })
       })
     } else {
       window.alert('Please log in to add an item to your shopping list!');

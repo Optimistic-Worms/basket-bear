@@ -71,8 +71,8 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   //call the request handler
   //send the response after request handler returns a value
 
-app.post('/shoppingList', (req, res) => {
-  var username = req.body.username;
+app.post('/shoppingList', isAuthenticated, (req, res) => {
+  var username = req.username;
   shoppingList.createShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -91,8 +91,8 @@ app.get('/shoppingList', isAuthenticated , (req, res) => {
   })
 });
 
-app.put('/shoppingList', (req, res) => {
-  var username = req.body.username;
+app.put('/shoppingList', isAuthenticated, (req, res) => {
+  var username = req.username;
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
   .then((data) => {
@@ -100,8 +100,8 @@ app.put('/shoppingList', (req, res) => {
   });
 });
 
-app.delete('/shoppingList', (req, res) => {
-  var username = req.query.username;
+app.delete('/shoppingList', isAuthenticated, (req, res) => {
+  var username = req.username;
   var productId = req.query.productId;
   shoppingList.removeItemFromShoppingList(username, productId)
   .then((data) => {
@@ -109,8 +109,8 @@ app.delete('/shoppingList', (req, res) => {
   });
 })
 
-app.put('/updateShoppingList', (req, res) => {
-  var username = req.body.username;
+app.put('/updateShoppingList', isAuthenticated, (req, res) => {
+  var username = req.username;
   var list = req.body.list;
   shoppingList.updateShoppingList(username, list)
   .then((data) => {

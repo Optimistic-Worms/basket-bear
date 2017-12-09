@@ -21,7 +21,9 @@ exports.updateListPrices = function (idToken) {
       .then((response) => {
         list = parseEbayIds(response, list);
         console.log('Updated Shopping List:', list);
-        axios.put('/updateShoppingList', { username : user.uid, list : list})
+        axios.put(`/updateShoppingList?access_token=${idToken}`, {
+          list : list
+        })
       })
       .catch((error) => {
         console.log('ebay lookup error', error);

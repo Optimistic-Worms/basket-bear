@@ -20,7 +20,7 @@ class ShoppingList extends React.Component {
 
   loadShoppingList() {
     var user = firebase.auth().currentUser;
-    
+
     if (user) {
       firebase.auth().currentUser.getIdToken(true).then((idToken) => {
       axios.get(`/shoppingList?access_token=${idToken}`)
@@ -48,25 +48,26 @@ class ShoppingList extends React.Component {
   removeItem(item) {
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        axios.delete('/shoppingList', {
-          params: {
-            username : user.uid,
-            productId : item.id
-          }
-        })
-        .then((response) => {
-          console.log(response.data);
-          var itemsObj = response.data;
-          var itemsArr = [];
-          for (var i in itemsObj) {
-            itemsArr.push(itemsObj[i]);
-          }
-          if (itemsArr.length < 1) {
-            this.setState({alert: 'You are not watching any items'})
-          } else {
-            this.setState({alert: ''});
-          }
-          this.setState({items: itemsArr});
+        firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+          axios.delete(`/shoppingList?access_token=${idToken}`, {
+            params: {
+              productId : item.id
+            }
+          })
+          .then((response) => {
+            console.log(response.data);
+            var itemsObj = response.data;
+            var itemsArr = [];
+            for (var i in itemsObj) {
+              itemsArr.push(itemsObj[i]);
+            }
+            if (itemsArr.length < 1) {
+              this.setState({alert: 'You are not watching any items'})
+            } else {
+              this.setState({alert: ''});
+            }
+            this.setState({items: itemsArr});
+          })
         })
       } else {
         console.log('Cant get shopping list. Must Log in');
