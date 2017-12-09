@@ -19,13 +19,11 @@ class ShoppingList extends React.Component {
   }
 
   loadShoppingList() {
-    //var user = firebase.auth().currentUser;
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {
         axios.get(`/shoppingList?access_token=${idToken}`)
         .then((response) => {
-          console.log(response.data);
           var itemsObj = response.data;
           var itemsArr = [];
           for (var i in itemsObj) {
@@ -38,7 +36,6 @@ class ShoppingList extends React.Component {
             this.setState({items: itemsArr});
           }
         })
-
       })// End of token fetch.
       } else {
         this.setState({ alert: 'Please sign in to view your shopping list!'})
@@ -56,7 +53,6 @@ class ShoppingList extends React.Component {
             }
           })
           .then((response) => {
-            console.log(response.data);
             var itemsObj = response.data;
             var itemsArr = [];
             for (var i in itemsObj) {
