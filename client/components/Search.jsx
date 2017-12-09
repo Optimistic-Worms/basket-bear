@@ -21,6 +21,7 @@ class Search extends React.Component {
     this.query = this.query.bind(this);
     this.sortItems = this.sortItems.bind(this);
     this.addToShoppingList = this.addToShoppingList.bind(this);
+    this.parseAmazonResults = this.parseAmazonResults.bind(this);
   }
 
   search() {
@@ -74,41 +75,48 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
-      var searchResults = response.data.ItemSearchResponse.Items[0].Item;
+      let searchResults = response.data.ItemSearchResponse.Items[0].Item;
       console.log('amazon search results',searchResults);
-      var items = [];
-      for (var i = 0 ; i < searchResults.length ; i++) {
-        var product = {
-          id: searchResults[i].ASIN[0],
-          name: searchResults[i].ItemAttributes[0].Title[0],
-          merchant: 'amazon',
-          link: searchResults[i].DetailPageURL[0],
-          //added: false
-
-        }
-        if (searchResults[i].MediumImage) {
-          product.imageUrl = searchResults[i].MediumImage[0].URL[0];
-        }
-        if (searchResults[i].Offers && searchResults[i].Offers[0].Offer) {
-          if (searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice) {
-            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].SalePrice[0].FormattedPrice[0].substring(1);
-            product.addPrice = price;
-            product.currentPrice = price;
-          } else if (searchResults[i].Offers[0].Offer[0].OfferListing[0].Price) {
-            var price = searchResults[i].Offers[0].Offer[0].OfferListing[0].Price[0].FormattedPrice[0].substring(1);
-            product.price = price;
-            product.currentPrice = price;
-          }
-          items.push(product);
-        } else {
-          //no offer on this product
-        }
-     }
+      let items = this.parseAmazonResults(searchResults);
       this.setState({amazonSearchItems: items});
-      var combinedItems = items.concat(this.state.searchItems);
+      let combinedItems = items.concat(this.state.searchItems);
       this.sortItems(combinedItems);
       this.setState({searchItems: combinedItems});
     })
+  }
+
+  parseAmazonResults(searchResults) {
+    let items = [];
+
+    for (var i = 0 ; i < searchResults.length ; i++) {
+      var product = {
+        id: searchResults[i].ASIN[0],
+        name: searchResults[i].ItemAttributes[0].Title[0],
+        merchant: 'amazon',
+        link: searchResults[i].DetailPageURL[0],
+      }
+
+      if (searchResults[i].MediumImage) {
+        product.imageUrl = searchResults[i].MediumImage[0].URL[0];
+      }
+
+      if (searchResults[i].Offers && searchResults[i].Offers[0].Offer) {
+        let offer = searchResults[i].Offers[0].Offer[0].OfferListing[0];
+        let price;
+
+        if (offer.SalePrice) {
+          price = offer.SalePrice[0].FormattedPrice[0].substring(1);
+        } else if (offer.Price) {
+          price = offer.Price[0].FormattedPrice[0].substring(1);
+        }
+        product.price = price;
+        product.currentPrice = price;
+        items.push(product);
+      } else {
+        //no offer on this product
+      }
+    }
+    return items;
   }
 
   addToShoppingList(item, index) {
@@ -130,6 +138,8 @@ class Search extends React.Component {
       window.alert('Please log in to add an item to your shopping list!');
     }
   }
+
+
 
 
   query(input) {
