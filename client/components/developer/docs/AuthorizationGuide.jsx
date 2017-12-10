@@ -7,11 +7,11 @@ const AuthorizationGuide = () => (
       <h1>Budget Basket API Authorization Guide</h1>
     </div>
     <p>This guide shows you how to get authorization to access protected endpoints on the Budget Basket API.</p>
-    <div className="api-doc-intro api-doc-intro--header">
+    <div >
       <h2>Introduction</h2>
     </div>
     <p>All requests to the Budget Basket API require authorization. After creating your Developer account you will be provided with a unique client ID and client Secret to use in the authorization flows detatiled below.</p>
-      <div className="api-doc-intro api-doc-intro--header">
+      <div >
         <h2>Supported Authorization Flows</h2>
       </div>
       <h3>Client Credentials Flow</h3>
