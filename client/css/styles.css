@@ -860,40 +860,45 @@ ol p {
 }
 
 .snippet {
-  padding: 5px;
-  border: 1px solid grey;
+  color: #505050 ;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #505050;
   border-radius: 3px;
-  margin: 30px;
-  font-family: monospace;
-  background-color: #f9f9f9;
+  margin: 20px;
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  background-color: #F0F0F0;
+  word-break: break-all;
+  word-wrap: break-word; }
+
+.param {
+  width: 85%;
+  margin: 20px;
+  border-collapse: collapse;
 }
 
-.doc-header {
-  display: flex;
-  padding: 5px;
-  margin:10px;
+.param th {
+  min-width: 15em;
+  font-weight: normal;
+  color: #787878;
+  text-align: left;
   background-color: #d9edf7;
-  font-size: 15px;
+  padding: 5px 20px 5px 20px;
 }
 
-.doc-header div {
-  margin: 0 10px 0 10px;
+.param td {
+  padding: 10px 20px 10px 20px;
+  text-align: left;
+  background-color: #F8F8F8 ;
 }
 
-.doc-content {
-  display: flex;
-  padding: 5px;
-  margin: 10px;
-  margin-top: 0;
-  background-color: #f9f9f9;
-  font-size: 15px;
-}
-
+.
+/*
 .doc-content div {
   margin-right: 9em;
   padding-left: 10px;
 }
-
+*/
 .value-lower {
   margin-left: 4em !important;
 }
