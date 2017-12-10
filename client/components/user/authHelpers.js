@@ -32,9 +32,6 @@ exports.authenticate = (authProvider) => {
     if (authProvider ==='google'){
       provider = new firebase.auth.GoogleAuthProvider();
     } 
-    if (authProvider === 'facebook'){
-      provider = new firebase.auth.FacebookAuthProvider();
-    }
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithRedirect(provider).then((result) =>{

@@ -32,7 +32,7 @@ class App extends React.Component {
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.checkLoginStatus();
     console.log(history.location)
   }
@@ -40,12 +40,14 @@ class App extends React.Component {
   checkLoginStatus(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        console.log('There is a user')
+        this.setState({isLoggedIn : true});
         this.setState({logged:'LOGOUT'});
-        firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-          this.setState({isLoggedIn : true});
-          console.log('Just logged in. Loading shopping list prices');
+        firebase.auth().currentUser.getIdToken(true).then((idToken) => {          
+          console.log('Just got auth token. Loading shopping list prices');
           //console.log(idToken)
           PriceLookup.updateListPrices(idToken);
+          PriceLookup.updateListPrices(idToken, user);
         })
         .catch((error) => {
           this.setState({logged:'LOGIN'});
