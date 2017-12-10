@@ -15,7 +15,6 @@ import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
 import PriceLookup from './user/priceLookup.js';
 
-
 const history = createHistory()
 
 class App extends React.Component {

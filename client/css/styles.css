@@ -851,11 +851,7 @@ ol p {
 }
 
 .auth-flow {
-  height: 419px;
-  width: 454px;
-  background-image: url('./bb_client_flow.png');
-  background-size: contain;
-  background-repeat: no-repeat;
+  max-width: 80%;
   margin: 2em auto 2em auto;
 }
 
@@ -892,13 +888,6 @@ ol p {
   background-color: #F8F8F8 ;
 }
 
-.
-/*
-.doc-content div {
-  margin-right: 9em;
-  padding-left: 10px;
-}
-*/
 .value-lower {
   margin-left: 4em !important;
 }
