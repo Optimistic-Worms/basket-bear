@@ -611,7 +611,7 @@ button.search-button:focus {
     grid-template-columns: auto !important;
   }
 
-  .api-doc-intro {
+  .api-doc-intro  {
     font-size: 75%;
   }
 
@@ -655,6 +655,7 @@ button.search-button:focus {
   .hometout-wrapper p {
     margin-top: -.5em;
   }
+
 }
 
 @media (min-width:769px) and (max-width:1000px) {
@@ -865,27 +866,27 @@ ol p {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
   background-color: #F0F0F0;
   word-break: break-all;
-  word-wrap: break-word; }
+  word-wrap: break-word;
+}
 
 .param {
-  width: 85%;
   margin: 20px;
   border-collapse: collapse;
 }
 
 .param th {
-  min-width: 15em;
   font-weight: normal;
-  color: #787878;
+  max-width: 40em;
   text-align: left;
   background-color: #d9edf7;
-  padding: 5px 20px 5px 20px;
+  padding: 0.5em 1em;
 }
 
 .param td {
-  padding: 10px 20px 10px 20px;
+  max-width: 40em;
   text-align: left;
   background-color: #F8F8F8 ;
+  padding: 0.5em 1em;
 }
 
 .value-lower {
