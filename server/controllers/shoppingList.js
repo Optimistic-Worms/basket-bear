@@ -32,7 +32,7 @@ exports.getShoppingList = (username) => {
 }
 
 exports.addItemToShoppingList = (username, product) => {
-  var items;
+  let items;
   return new Promise((resolve, reject) => {
     module.exports.getShoppingList(username)
     .then((shoppingListItems) => {
