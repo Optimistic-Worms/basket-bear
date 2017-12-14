@@ -15,6 +15,7 @@ const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
+const userSettings = require('./controllers/userSettings');
 const amazonApiCalls = require('./controllers/amazonApiCalls');
 const ebayApiCalls = require('./controllers/ebayApiCalls');
 
@@ -63,6 +64,30 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   console.log('hit the 200')
   res.sendStatus(200);
 });
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  User settings Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/userSettings', isAuthenticated, (req, res) => {
+  var username = req.username;
+  userSettings.getSettings(username)
+  .then((result) => {
+    res.status(200).send(result);
+  });
+});
+
+app.post('/userSettings', isAuthenticated, (req, res) => {
+  var username = req.username;
+  var data = req.body;
+  userSettings.createSettings(username, data)
+  .then((result) => {
+    res.status(200).send(result);
+  });
+});
+
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Shopping List Routes

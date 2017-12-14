@@ -12,6 +12,7 @@ import Developer from './developer/Developer.jsx';
 import Home from './Home.jsx';
 import Profile from './Profile.jsx';
 import Footer from './Footer.jsx';
+import Settings from './user/Settings.jsx';
 import { logout } from './user/authHelpers.js';
 import PriceLookup from './user/priceLookup.js';
 
@@ -33,13 +34,11 @@ class App extends React.Component {
 
   componentWillMount() {
     this.checkLoginStatus();
-    console.log(history.location)
   }
 
   checkLoginStatus(){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
-        console.log('There is a user')
         this.setState({isLoggedIn : true});
         this.setState({logged:'LOGOUT'});
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {          
@@ -78,6 +77,7 @@ class App extends React.Component {
           <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
             <Route exact path="/" component={Search}/>
             <Route path="/login" component={LoginCard}/>
+            <Route path="/settings" component={Settings}/>
             <Route path="/watchList" component={ShoppingList}/>
             {
               !this.state.isLoggedIn &&
