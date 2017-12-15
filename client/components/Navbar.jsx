@@ -29,11 +29,12 @@ const NavBar = (props) => (
 	        </Link>
 	    </li>
 			<li>
-					<Link to="/about">
-						<span className="mobile-show col">
-					<i className="fa fa-cog" aria-hidden="true"></i>Settings
-						</span>
-					</Link>
+			<Link to="/settings">
+			    <span className="desktop-show">Settings</span>
+				<span className="mobile-show col">
+			<i className="fa fa-cog" aria-hidden="true"></i>Settings
+				</span>
+			</Link>
 			</li>
 	    <li>
 	      <Link to={{pathname: props.logout}} onClick={props.logging}>
