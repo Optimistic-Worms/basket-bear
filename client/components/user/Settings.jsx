@@ -10,7 +10,8 @@ class Settings extends React.Component {
       name: '',
       newName: '',
       emailList: [],
-      newEmail: 'email'
+      newEmail: 'email',
+      messages: '',
     };
     this.updateUserProfile = this.updateUserProfile.bind(this)
     this.setName = this.setName.bind(this)
@@ -20,35 +21,50 @@ class Settings extends React.Component {
     this.deleteEmail = this.deleteEmail.bind(this)
     this.addEmail = this.addEmail.bind(this)
     this.trackNewEmail = this.trackNewEmail.bind(this)
+    this.setMessages = this.setMessages.bind(this)
+  }
+
+  componentDidMount(){
+		firebase.auth().onAuthStateChanged((user) => {
+	    if (user) {
+	      let name = user.displayName;
+	    	(name)? this.setState({name:name}): this.setState({name:''})        
+	    } else {
+	      console.log('Error no user detected!');
+	    }
+	  });
+	  this.getEmailNotificationPreferences()
+	}
+
+  setName(e){
+    let newName = e.target.value;
+    this.setState({newName})
   }
 
   updateUserProfile(){
   	let newName;
-  	(this.state.newName === '')? newName = this.state.name : newName = this.state.newName;
-    	
-    firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-		  user.updateProfile({
-		  displayName: newName
-
-		}).then(function() {
-		  // Update successful.
-		}).catch(function(error) {
-		  // An error happened.
-		});
-    } else {
-    // No user is signed in.
-    }
-   });
+  	(this.state.newName === '')? newName = this.state.name : newName = this.state.newName;    	
+	    firebase.auth().onAuthStateChanged(function(user) {
+		    if (user) {
+				  user.updateProfile({displayName: newName})
+				  .then(function() {
+					  // Update successful.
+					}).catch(function(error) {
+					  // An error happened.
+					});
+			    } else {
+			    // No user is signed in.
+		    }
+   		});
   }
 
-  setEmailNotificationPreferences(data){
-  	console.log(data)
+
+  setEmailNotificationPreferences(data, callback){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {
      	axios.post(`/userSettings?access_token=${idToken}`,data).then((result)=>{
-     		console.log(result)
+     		return callback(result);
      	})
         })
       }     
@@ -69,63 +85,62 @@ class Settings extends React.Component {
     }) 
   }
 
+  setMessages(message){
+    this.setState({messages:message})
+    setTimeout(()=> this.setState({messages:''}),1500)
+  }
+
   OnOffForEmail(e,email){
     let checked = e.target.checked;
-    let emails = this.state.emailList;
-    let newL = emails.map((item) => (item.email === email)? {email:item.email,status:checked}: item);
+    let newL = this.state.emailList.map((item) => (item.email === email)? {email:item.email,status:checked}: item);
     this.setState({emailList:newL})
-    this.setEmailNotificationPreferences(newL)
+    this.setEmailNotificationPreferences(newL,(result)=>{this.setMessages(result.data)})
   }
 
   deleteEmail(email){
     let emails = this.state.emailList;
-    let newL = emails.filter((item) => !(item.email === email));
-    this.setState({emailList:newL})
-    this.setEmailNotificationPreferences(newL)
+    let emailList = emails.filter((item) => !(item.email === email));
+    this.setState({emailList:emailList})
+    this.setEmailNotificationPreferences(emailList,(result)=>{this.setMessages(result.data)})
   }
 
   addEmail(){
-  let email = this.state.newEmail;
-  const validateEmail=(email)=> /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
-	  if(validateEmail(email)){
-	    let emails = this.state.emailList;
-	  	emails.push({email:email,status:true});
-	    this.setState({emailList:emails})
-	    this.setEmailNotificationPreferences(emails)
-	  }
-	  this.setState({newEmail:''})
-  }
+	  let stop = false;
+	  let email = this.state.newEmail;
+	  let emailList = this.state.emailList
+	  if(emailList.length === 5){
+	  	this.setMessages('Opps...! You already have 5 emails')
+	  	stop = true;
+	  } 
+	  emailList.forEach(item => {
+	  	if (item.email === email){
+	  		this.setMessages('Opps...! you already have this email registered')
+	  		stop = true;
+	  	}
+	  })
+	  if (stop) return;
+	  const validateEmail=(email)=> /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email);
+		  if(validateEmail(email)){
+		  	emailList.push({email:email,status:true});
+		    this.setState({emailList:emailList})
+		    this.setEmailNotificationPreferences(emailList,(result)=>{this.setMessages(result.data)})
+		  } else{
+		  	this.setMessages('Not a valid email format!')
+		  }
+   }
 
   trackNewEmail(e){
     let email = e.target.value;
     this.setState({newEmail:email})
   }
 
-  componentDidMount(){
-  	firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-      	let name = user.displayName;
-      	if(name){
-      	this.setState({name:name})
-        } else {
-        this.setState({name:''})
-        }
-      } else {
-        console.log('Error no user detected!');
-    }
-    });
-    this.getEmailNotificationPreferences()
-  }
 
-  setName(e){
-    let newName = e.target.value;
-    this.setState({newName})
-  }
 
   render(){
   return (
     <div className="watch-container">
       <h1>Your Account Settings</h1>
+      
       <div>
       	<h2>Username:</h2>      
 	      <div>
@@ -133,12 +148,14 @@ class Settings extends React.Component {
 		      <button onClick={() => this.updateUserProfile()}>Update</button>
 	      </div>
       </div>
+      
       <EmailPreferences 
 	      emails={this.state.emailList} 
 	      OnOffForEmail={this.OnOffForEmail}
 	      deleteEmail={this.deleteEmail}
 	      addEmail={this.addEmail}
 	      trackNewEmail={this.trackNewEmail}
+	      messages={this.state.messages}
       />
       <div>
 	      <h2>Device notification settings</h2>

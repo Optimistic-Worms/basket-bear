@@ -11,10 +11,10 @@ exports.createSettings = (username, data) => {
       emailNotificationSettings: data
     })
     .then(() => {
-      resolve('Created settings for user ', username);
+      resolve("We updated your changes", username);
     })
     .catch(() => {
-      reject('Failed to create settings for user ', username);
+      reject("We couldn't update your changes please try again later", username);
     });
   });
 }

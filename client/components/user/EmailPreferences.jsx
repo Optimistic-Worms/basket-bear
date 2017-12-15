@@ -6,7 +6,9 @@ const EmailPreferences = (props) => {
   return (
     <div className="card">
       <h2>Email Notification Preferences:</h2>
+      <p>You can have up to 5 email accounts that budget basket will notifiy to</p>
       <div className="card">
+      <span style={{background:'grey', color:'white'}}>{props.messages}</span>
         <input 
           placeholder="Add email..."  
           onKeyUp={(e)=>{ 
