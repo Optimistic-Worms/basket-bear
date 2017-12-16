@@ -609,6 +609,10 @@ button.search-button:focus {
     font-weight: 300 !important;
   }
 
+  .search-button {
+    display: none;
+  }
+
 
 
 }
@@ -697,7 +701,7 @@ button.search-button:focus {
     width: 95% !important;
   }
   .search-button, .search-selection {
-    height: 4.4em;
+    height: 4em;
   }
   .hometout-grid {
     display: grid;
