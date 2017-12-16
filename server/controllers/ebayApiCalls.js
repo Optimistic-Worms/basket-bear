@@ -67,7 +67,8 @@ var parseEbayResults = function(searchResults) {
       imageUrl: searchResults[i].galleryURL[0],
       merchant: 'eBay',
       price: searchResults[i].sellingStatus[0].currentPrice[0].__value__,
-      link: searchResults[i].viewItemURL[0]
+      link: searchResults[i].viewItemURL[0],
+      currentPrice: searchResults[i].sellingStatus[0].currentPrice[0].__value__
     }
     items.push(product);
   }
