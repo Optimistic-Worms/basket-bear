@@ -17,7 +17,7 @@ const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const amazon = require('./controllers/amazon');
-const ebayApiCalls = require('./controllers/ebayApiCalls');
+const ebay = require('./controllers/ebay');
 
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser.js');
@@ -165,7 +165,7 @@ app.get('/searchEbay', (req, res)=> {
   var keyword = req.query.keyword;
   console.log('searching for ', keyword);
 
-  ebayApiCalls.searchEbay(keyword)
+  ebay.searchProducts(keyword)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -176,7 +176,7 @@ app.get('/searchEbay', (req, res)=> {
 
 app.get('/lookupEbay', (req, res) => {
   var itemIds = req.query.itemIds;
-  ebayApiCalls.lookupEbay(itemIds)
+  ebay.lookupProductsById(itemIds)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -236,12 +236,17 @@ apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
   //declare results variable
   let results = [];
   //search Amazon for 100 results and add to results
-  amazon.searchProducts(product)
-  .then(rawResults => {
-    //console.log(rawResults)
-    let parsed = amazon.parseResultsSync(rawResults);
-    res.send(parsed);
-  })
+ // amazon.searchProducts(product)
+ // .then(rawResults => {
+   // let parsed = amazon.parseResultsSync(rawResults);
+   // results = results.concat(parsed);
+    ebay.searchProducts(product)
+    .then(data => {
+
+      console.log(data.length)
+      res.send(data);
+    });
+  //})
   //search Ebay for 100 results and add to results
 
   //sort results by price and get the lowest 100

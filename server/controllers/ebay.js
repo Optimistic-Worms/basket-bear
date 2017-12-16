@@ -1,7 +1,7 @@
 const axios = require('axios')
 const EBAYKEY = process.env.EBAY_KEY;
 
-exports.searchEbay = (keyword) => {
+exports.searchProducts = (keyword) => {
 
   return new Promise ((resolve, reject) => {
 
@@ -21,7 +21,7 @@ exports.searchEbay = (keyword) => {
     .then(function (response) {
       var results = JSON.parse(response.data.slice(28, -1));
       var items = results.findItemsByKeywordsResponse[0].searchResult[0].item;
-      resolve(JSON.stringify(parseEbayResults(items)));
+      resolve(JSON.stringify(parseResults(items)));
     })
     .catch(function (error) {
       console.log("ERROR: GET request from Ebay Failing " + error);
@@ -33,7 +33,7 @@ exports.searchEbay = (keyword) => {
 
 }
 
-exports.lookupEbay = (itemIds) => {
+exports.lookupProductsById = (itemIds) => {
   var items = itemIds.join(',');
   return new Promise ((resolve, reject) => {
 
@@ -57,7 +57,7 @@ exports.lookupEbay = (itemIds) => {
 }
 
 
-var parseEbayResults = function(searchResults) {
+var parseResults = function(searchResults) {
   var items = [];
 
   for (var i = 0 ; i < searchResults.length ; i++) {
