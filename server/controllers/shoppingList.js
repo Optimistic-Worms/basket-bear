@@ -32,7 +32,7 @@ exports.getShoppingList = (username) => {
 }
 
 exports.addItemToShoppingList = (username, product) => {
-  var items;
+  let items;
   return new Promise((resolve, reject) => {
     module.exports.getShoppingList(username)
     .then((shoppingListItems) => {
@@ -40,6 +40,19 @@ exports.addItemToShoppingList = (username, product) => {
       items[product.id] = product;
       db.collection('shoppingLists').doc(username).set({
         items: items
+      })
+      .then(()=> {
+        console.log('adding to product list');
+        console.log('product merchant:', product.merchant);
+        //start a transaction that
+        //check if product is already in collection
+        //if not, add product to collection
+        //else update the current price and the list of users watching the item
+        db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
+          'currentPrice': product.currentPrice,
+          users: username
+        }, {merge: true});
+        return ''
       })
       .then(()=> {
         resolve(items);
@@ -52,6 +65,8 @@ exports.addItemToShoppingList = (username, product) => {
       module.exports.createShoppingList(username);
       resolve('No existing shopping list. Create shopping list. Try adding item again');
     })
+
+
   })
 }
 
@@ -87,4 +102,20 @@ exports.updateShoppingList = (username, list) => {
   });
 }
 
-
+exports.updateWatchPrice = (username, productId, watchPrice) => {
+  var items;
+  return new Promise((resolve, reject) => {
+    module.exports.getShoppingList(username)
+    .then((shoppingListItems) => {
+      items = shoppingListItems;
+      items[productId].watchPrice = watchPrice;
+      db.collection('shoppingLists').doc(username).set({
+        items: items
+      })
+      resolve(items);
+    })
+    .catch(() => {
+      reject('no shopping list');
+    })
+  });
+}

@@ -14,10 +14,14 @@ const ShoppingListItem = (props) => {
             <p className="price">Price when added ${ props.item && props.item.price }</p>
           </div>
           <p className="current-price">Current Price ${ props.item && props.item.currentPrice }</p>
+          <p className="current-price">Watch Price ${ props.item && props.item.watchPrice }</p>
+
         </div>
       <div className="button-wrapper">
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>
        <button className="button button--remove" onClick= {()=>{ props.removeItem(props.item, props.index)} } > Remove</button>
+       <button className="button" onClick= {()=>{props.openProductSettings(props.item)}}> Set Watch Price</button>
+
      </div>
    </div>
  </div>
