@@ -237,9 +237,10 @@ apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
   let results = [];
   //search Amazon for 100 results and add to results
   amazon.searchProducts(product)
-  .then(results => {
-    console.log(results);
-    res.send(results);
+  .then(rawResults => {
+    //console.log(rawResults)
+    let parsed = amazon.parseResultsSync(rawResults);
+    res.send(parsed);
   })
   //search Ebay for 100 results and add to results
 
