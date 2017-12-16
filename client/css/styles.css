@@ -326,7 +326,7 @@ button.search-button:focus {
   grid-gap: 1.2em;
   color: #444;
   justify-content: center;
-  margin: 1em 2em;
+  margin: 1em 2em 4em;
   background: #fafafa;
 }
 
