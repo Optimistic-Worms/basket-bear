@@ -48,7 +48,6 @@ const ApiNav = (props) => (
               <span className="mobile-show col">
                 <i className="fa fa-sign-in" aria-hidden="true"></i>Login
               </span>
-
             </Link>
           </li>
       }

@@ -326,7 +326,7 @@ button.search-button:focus {
   grid-gap: 1.2em;
   color: #444;
   justify-content: center;
-  margin: 1em 2em;
+  margin: 1em 2em 4em;
   background: #fafafa;
 }
 
@@ -526,7 +526,7 @@ button.search-button:focus {
 .settings-form-wrapper {
   display: flex;
   width: 100%;
-  flex-direction: row;
+  flex-direction: row wrap;
 }
 
 .settings-layout {
@@ -546,12 +546,37 @@ button.search-button:focus {
 .settings-email-update {
   display: flex;
   flex-direction: row;
-  width: 45%;
+  width: 60%;
   margin: .5em 0;
   justify-content: space-between;
   align-items: center;
   padding-bottom: 1em;
   border-bottom: 1px solid #dadada;
+}
+
+.email-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.settings-header {
+  padding: .75rem 1.25rem;
+  margin-top: 0;
+  background-color: #f7f7f9;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  font-weight: 300;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.client-secret {
+  word-wrap: break-word;
+  margin-bottom: 2em;
 }
 
 /** Media Queries **/
@@ -571,8 +596,40 @@ button.search-button:focus {
 
   .settings-email-update {
     width: 100%;
-    flex-flow: row wrap;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
   }
+
+  .settings-form-wrapper {
+    flex-direction: column;
+  }
+
+  .settings-form {
+    width: 100%;
+    height: 4em;
+    border: 1px solid #dadada;
+    margin: .5em 0;
+  }
+
+  .button--remove-settings {
+    width: 100% !important;
+  }
+
+  .button-settings {
+    width: 100% !important;
+    margin-top: .7em;
+  }
+
+  .settings-card {
+    font-size: 70%;
+    font-weight: 300 !important;
+  }
+
+  .search-button {
+    display: none;
+  }
+
 
 
 }
@@ -661,7 +718,7 @@ button.search-button:focus {
     width: 95% !important;
   }
   .search-button, .search-selection {
-    height: 4.4em;
+    height: 4em;
   }
   .hometout-grid {
     display: grid;
@@ -687,6 +744,21 @@ button.search-button:focus {
 
   .settings-email-update {
     width: 100%;
+  }
+
+  .settings-card {
+    justify-content: center;
+    width: 95%;
+  }
+
+  .api-user-account {
+    display: grid;
+    grid-template-columns: auto;
+    width: 95%;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 5em;
   }
 
 }
