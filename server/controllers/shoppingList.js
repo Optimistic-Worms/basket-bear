@@ -42,6 +42,14 @@ exports.addItemToShoppingList = (username, product) => {
         items: items
       })
       .then(()=> {
+        console.log('adding to product list');
+        db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
+          'currentPrice': product.currentPrice,
+          username: '20.00'
+        }, {merge: true});
+        return ''
+      })
+      .then(()=> {
         resolve(items);
       })
       .catch(() => {
@@ -52,6 +60,8 @@ exports.addItemToShoppingList = (username, product) => {
       module.exports.createShoppingList(username);
       resolve('No existing shopping list. Create shopping list. Try adding item again');
     })
+
+
   })
 }
 
