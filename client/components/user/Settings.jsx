@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from './firebase-auth';
 import axios from 'axios';
 import EmailPreferences from './EmailPreferences.jsx'
+import PushNotification2 from './PushNotification2.jsx'
 
 class Settings extends React.Component {
    constructor() {
@@ -162,6 +163,7 @@ class Settings extends React.Component {
 	      trackNewEmail={this.trackNewEmail}
 	      messages={this.state.messages}
       />
+<<<<<<< HEAD
       <div className="settings-layout">
 	      <h3>Device notification settings</h3>
 	      <div className="settings-notification-settings">
@@ -173,6 +175,9 @@ class Settings extends React.Component {
 		      <button className="button button--remove button--remove-settings">Turn off</button>
 	      </div>
       </div>
+=======
+      <PushNotification2/>
+>>>>>>> Add service worker and push notification handling
     </div>
   )
   }

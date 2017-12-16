@@ -78,6 +78,8 @@ app.get('/userSettings', isAuthenticated, (req, res) => {
   userSettings.getSettings(username)
   .then((result) => {
     res.status(200).send(result);
+  }).catch((error)=>{
+    console.log(error)
   });
 });
 
@@ -87,6 +89,8 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
   userSettings.createSettings(username, data)
   .then((result) => {
     res.status(200).send(result);
+  }).catch((error)=>{
+    console.log(error)
   });
 });
 
