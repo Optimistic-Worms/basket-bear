@@ -32,7 +32,7 @@ const ApiNav = (props) => (
             </span>
           </Link>
       </li>
-      {props.isLoggedIn ?
+      {props.loggedIn ?
         <li>
           <Link to="/api/account">
             <span className="desktop-show">Dashboard</span>
@@ -48,7 +48,6 @@ const ApiNav = (props) => (
               <span className="mobile-show col">
                 <i className="fa fa-sign-in" aria-hidden="true"></i>Login
               </span>
-
             </Link>
           </li>
       }
