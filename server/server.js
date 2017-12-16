@@ -93,9 +93,6 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  //call the request handler
-  //send the response after request handler returns a value
-
 app.post('/shoppingList', isAuthenticated, (req, res) => {
   var username = req.username;
   shoppingList.createShoppingList(username)
@@ -137,6 +134,16 @@ app.put('/updateShoppingList', isAuthenticated, (req, res) => {
   var username = req.username;
   var list = req.body.list;
   shoppingList.updateShoppingList(username, list)
+  .then((data) => {
+    res.status(200).send(data);
+  })
+});
+
+app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
+  var username = req.username;
+  var productId = req.body.productId;
+  var watchPrice = req.body.watchPrice;
+  shoppingList.updateWatchPrice(username, productId, watchPrice)
   .then((data) => {
     res.status(200).send(data);
   })

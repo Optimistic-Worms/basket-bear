@@ -102,4 +102,20 @@ exports.updateShoppingList = (username, list) => {
   });
 }
 
-
+exports.updateWatchPrice = (username, productId, watchPrice) => {
+  var items;
+  return new Promise((resolve, reject) => {
+    module.exports.getShoppingList(username)
+    .then((shoppingListItems) => {
+      items = shoppingListItems;
+      items[productId].watchPrice = watchPrice;
+      db.collection('shoppingLists').doc(username).set({
+        items: items
+      })
+      resolve(items);
+    })
+    .catch(() => {
+      reject('no shopping list');
+    })
+  });
+}
