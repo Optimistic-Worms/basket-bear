@@ -16,7 +16,7 @@ const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const amazonApiCalls = require('./controllers/amazonApiCalls');
+const amazon = require('./controllers/amazon');
 const ebayApiCalls = require('./controllers/ebayApiCalls');
 
 /* dev controllers */
@@ -192,7 +192,7 @@ app.get('/lookupEbay', (req, res) => {
 
 app.get('/searchAmazon', (req, res) => {
   var searchQuery = req.query.keyword;
-  amazonApiCalls.searchAmazon(searchQuery)
+  amazon.searchProducts(searchQuery)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -203,7 +203,7 @@ app.get('/searchAmazon', (req, res) => {
 
 app.get('/lookupAmazon', (req, res) => {
   var itemIds = req.query.itemIds;
-  amazonApiCalls.lookupAmazon(itemIds)
+  amazon.lookupProductsById(itemIds)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -231,10 +231,16 @@ apiRoutes.post('/signup', apiUser.addUser);
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
-
   //get product from request params
+  const  product = req.query.keyword;
   //declare results variable
+  let results = [];
   //search Amazon for 100 results and add to results
+  amazon.searchProducts(product)
+  .then(results => {
+    console.log(results);
+    res.send(results);
+  })
   //search Ebay for 100 results and add to results
 
   //sort results by price and get the lowest 100

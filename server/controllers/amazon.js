@@ -11,7 +11,7 @@ const parseString = require('xml2js').parseString;
   Amazon API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-exports.searchAmazon = (query) => {
+exports.searchProducts = (query) => {
   return new Promise ((resolve, reject) => {
 
     let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
@@ -61,7 +61,7 @@ exports.searchAmazon = (query) => {
 
 }
 
-exports.lookupAmazon = (itemIds) => {
+exports.lookupProductsById = (itemIds) => {
   return new Promise ((resolve, reject) => {
 
     let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
