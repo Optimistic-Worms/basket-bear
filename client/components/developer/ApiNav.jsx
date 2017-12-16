@@ -32,7 +32,7 @@ const ApiNav = (props) => (
             </span>
           </Link>
       </li>
-      {props.loggedIn ?
+      {props.isLoggedIn ?
         <li>
           <Link to="/api/account">
             <span className="desktop-show">Dashboard</span>

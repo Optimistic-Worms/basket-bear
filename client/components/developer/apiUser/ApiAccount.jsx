@@ -24,20 +24,21 @@ class ApiAccount extends React.Component {
   render() {
     return (
       this.state.userObj &&
-      <div className="api-user-account" >
+      <div className="settings-card">
         <div></div>
         <div>
-          <div className="dashboard-title">
+          <div className="settings-header">
             <div>{this.state.userObj.email}</div>
-            <div className="api-user-logout" onClick={this.handleLogout}>Logout</div>
+            <div className="button button--remove" onClick={this.handleLogout}>Logout</div>
           </div>
-          <hr/>
+          <div className="settings-layout">
           <h3>Application Name</h3>
           <div>{this.state.userObj.appName}</div>
           <h3>Client ID</h3>
           <div>{this.state.userObj.clientId}</div>
           <h3>Client Secret</h3>
-          <div>{this.state.userObj.clientSecret}</div>
+          <div className="client-secret">{this.state.userObj.clientSecret}</div>
+        </div>
         </div>
         <div></div>
       </div>
