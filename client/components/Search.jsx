@@ -12,7 +12,8 @@ class Search extends React.Component {
       ebaySearchItems : [],
       amazonSearchItems: [],
       queryString: '',
-      searchItems: []
+      searchItems: [],
+      searchMessage: ''
     };
 
     this.search = this.search.bind(this);
@@ -26,6 +27,7 @@ class Search extends React.Component {
 
   search() {
     if (this.state.queryString !== '') {
+      this.setState({searchMessage: ''});
       console.log('searching '+ this.state.searchMerchant + ' for ' + this.state.queryString);
       this.setState({searchItems: []});
       this.setState({ebaySearchItems: []});
@@ -54,6 +56,7 @@ class Search extends React.Component {
       this.setState({searchItems: combinedItems});
     })
     .catch((response) => {
+      this.setState({searchMessage: 'Ebay returned no results for this query.'})
       console.log('no items match this query');
     })
   }
@@ -167,6 +170,7 @@ class Search extends React.Component {
           </div>
         </div>
       <div className="results">
+        <h4>{this.state.searchMessage}</h4>
         <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
       </div>
       </div>
