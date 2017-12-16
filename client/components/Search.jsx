@@ -53,6 +53,9 @@ class Search extends React.Component {
       this.sortItems(combinedItems);
       this.setState({searchItems: combinedItems});
     })
+    .catch((response) => {
+      console.log('no items match this query');
+    })
   }
 
   sortItems(array){
