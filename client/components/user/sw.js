@@ -1,5 +1,5 @@
 /* eslint-env browser, serviceworker, es6 */
-import './assets/budgetBasket.png';
+
 
 'use strict';
 self.addEventListener('push', function(event) {
@@ -9,8 +9,8 @@ self.addEventListener('push', function(event) {
   const title = 'Budge Basket says';
   const options = {
     body: event.data.text(),
-    icon: './assets/budgetBasket.png',
-    badge: './assets/budgetBasket.png'
+    icon: '',
+    badge: ''
   };
 
  const notificationPromise = self.registration.showNotification(title, options);

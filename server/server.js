@@ -28,6 +28,17 @@ const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 
+/* Push */
+const webPush = require('web-push');
+
+// VAPID keys should only be generated only once.
+//const vapidKeys = webpush.generateVAPIDKeys();
+const vapidKeys = { publicKey: 'BLsbtk_kNrAfek4KTxD7ZhNe6HxXkRAf-DHuTxHoT7by4QSSpbACzFr6VmmaWTGyk2ZHG5W710XSdr_ArN0eSxU',
+  privateKey: 'mLb3rfv8snnNtfa5EtgAR0teNK6YsaQdZoOc8LXJdF0' }
+
+
+
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -68,6 +79,40 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   res.sendStatus(200);
 });
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Push Subscription 
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+const pushSubscription = {
+  endpoint: "https://fcm.googleapis.com/fcm/send/fRrddhOtCak:APA91bEPUDSz02umNG_DFOVvwTycbusoF084IRY2tKfhgN4kvCeIclmSSQ47WSlXXHyAk3dKMYrXoO8dQWLyDMMil5Ol8mde6IKFH29Md8csRY2UKzuUY7KyiZDf2cvkEqoquCn4Kg5R",
+  keys: {
+    p256dh: vapidKeys.publicKey,
+    auth: vapidKeys.privateKey
+  }
+};
+
+const payload = '< Push Payload String >';
+/*const options = {
+  gcmAPIKey: '< GCM API Key >',
+  vapidDetails: {
+    subject: '< \'mailto\' Address or URL >',
+    publicKey: '< URL Safe Base64 Encoded Public Key >',
+    privateKey: '< URL Safe Base64 Encoded Private Key >'
+  },
+  TTL: <Number>,
+  headers: {
+    '< header name >': '< header value >'
+  }
+}*/
+
+webPush.sendNotification(
+  pushSubscription,
+  payload,
+).then(result => {
+  console.log(result)
+}).catch(error =>{
+  console.log(error)
+});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   User settings Routes
@@ -78,8 +123,6 @@ app.get('/userSettings', isAuthenticated, (req, res) => {
   userSettings.getSettings(username)
   .then((result) => {
     res.status(200).send(result);
-  }).catch((error)=>{
-    console.log(error)
   });
 });
 
@@ -89,8 +132,6 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
   userSettings.createSettings(username, data)
   .then((result) => {
     res.status(200).send(result);
-  }).catch((error)=>{
-    console.log(error)
   });
 });
 
