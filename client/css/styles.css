@@ -10,12 +10,12 @@ body {
   font-weight: 100;
 }
 
-html,body {
-    width: 100%;
-    height: 100%;
-    margin: 0px;
-    padding: 0px;
-    overflow-x: hidden;
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  overflow-x: hidden;
 }
 
 h4 {
@@ -47,7 +47,6 @@ h4 {
   flex-flow: row wrap;
 }
 
-
 /** Intro **/
 
 .intro-card {
@@ -77,6 +76,7 @@ h4 {
   text-align: center;
   justify-content: center;
 }
+
 .intro-card h4 {
   display: flex;
   align-items: center;
@@ -95,7 +95,7 @@ h4 {
 
 /** Login **/
 
-.loginCard {
+.login-card {
   display: flex;
   flex-direction: column;
   border: 1px solid #dadada;
@@ -106,7 +106,6 @@ h4 {
   text-align: center!important;
   background-color: #fff;
   font-weight: 300 !important;
-
 }
 
 .login-header {
@@ -115,6 +114,7 @@ h4 {
   background-color: #f7f7f9;
   border-bottom: 1px solid rgba(0, 0, 0, .125);
   font-weight: 300;
+  text-align: center;
 }
 
 .manual-login {
@@ -157,7 +157,6 @@ h4 {
   background-color: #424242;
 }
 
-
 .button-signup {
   margin: auto .2em;
   background-color: black;
@@ -180,8 +179,6 @@ h4 {
   padding-left: 100px;
   background-color: white;
 }
-
-
 
 .google-button:hover {
   cursor: pointer;
@@ -252,7 +249,7 @@ nav .brand a:hover {
 
 .menu li a {
   display: block;
-   padding: 0 1em;
+  padding: 0 1em;
   color: #fff;
   text-decoration: none !important;
 }
@@ -272,17 +269,6 @@ nav .brand a:hover {
   justify-content: center;
 }
 
-
-/*.intro-card h1 {
-  display: flex;
-  font-size: 3em;
-  align-items: center;
-  width: 60%;
-  padding: 0;
-  margin-top: 1em;
-  margin-bottom: 0em;
-}*/
-
 .search {
   display: flex;
   width: 75%;
@@ -301,24 +287,25 @@ input.search-form:focus {
   margin-right: .1em;
   border-left: 0;
 }
+
 select.search-selection:focus {
   outline: none;
 }
+
 .search-selection {
   width: 15%;
   border: 1px solid #dadada;
-  /*border-radius: 0;
-  border-left: 0;*/
 }
+
 .search-button {
   width: 5%;
   border: 1px solid #dadada;
-  border-right:0;
+  border-right: 0;
   border-radius: 0;
   padding: 0;
   background: #fff;
-
 }
+
 button.search-button:focus {
   outline: none;
 }
@@ -332,7 +319,6 @@ button.search-button:focus {
   justify-content: center;
   margin: 0 auto;
 }
-
 
 .list {
   display: grid;
@@ -438,7 +424,6 @@ button.search-button:focus {
   margin: -1em auto .5em;
   width: 80%;
   padding: 1em;
-
 }
 
 .hometout-wrapper-api {
@@ -508,7 +493,6 @@ button.search-button:focus {
 .item-info-watch {
   justify-content: center;
   flex-direction: column;
-
 }
 
 .item-info-watch .current-price {
@@ -525,7 +509,50 @@ button.search-button:focus {
   justify-content: center;
 }
 
+/** Settings **/
 
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  border-radius: 0.25em;
+  justify-content: left;
+  width: 80%;
+  margin: 5em auto;
+  background-color: #fff;
+  font-weight: 300 !important;
+}
+
+.settings-form-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+}
+
+.settings-layout {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto;
+}
+
+.settings-form {
+  width: 100%;
+  height: 4em;
+  border: 1px solid #dadada;
+  margin-right: .2em;
+}
+
+.settings-email-update {
+  display: flex;
+  flex-direction: row;
+  width: 45%;
+  margin: .5em 0;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #dadada;
+}
 
 /** Media Queries **/
 
@@ -541,19 +568,34 @@ button.search-button:focus {
     justify-content: center;
     margin: 1em auto -.8em auto;
   }
+
+  .settings-email-update {
+    width: 100%;
+    flex-flow: row wrap;
+  }
+
+
 }
 
+
+@media (max-width:600px) {
+  .button--remove {
+    margin: .5em 0;
+    height: 100%;
+    width: auto;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+}
 @media (max-width:768px) {
   nav {
     justify-content: space-around;
   }
-
   .menu {
     display: flex;
     justify-content: space-around;
     width: 100%;
   }
-
   .list {
     grid-template-columns: auto;
     margin: 0 .5em;
@@ -595,42 +637,32 @@ button.search-button:focus {
   .desktop-show {
     display: none;
   }
-  .loginCard {
+  .login-card {
     width: 95%;
   }
-
   .menu li:hover {
     height: 4.2em;
   }
-
   .api-doc-nav {
     display: none !important;
   }
-
   .api-doc {
     grid-template-columns: auto !important;
   }
-
-  .api-doc-intro  {
+  .api-doc-intro {
     font-size: 75%;
   }
-
-
   .intro-card--api h1 {
     font-size: 1.3em;
     width: 100% !important;
   }
-
   .intro-card--api h4 {
     font-size: 1em;
     width: 95% !important;
   }
-
   .search-button, .search-selection {
     height: 4.4em;
-
   }
-
   .hometout-grid {
     display: grid;
     grid-template-columns: auto;
@@ -640,20 +672,21 @@ button.search-button:focus {
     grid-gap: 1em;
     align-items: center;
   }
-
   .hometout-join {
     border-bottom: 1px solid #dadada;
     padding-bottom: 1em;
     border-right: none;
     padding-right: 0;
   }
-
   .hometout-join h2 {
     font-size: 1em;
   }
-
   .hometout-wrapper p {
     margin-top: -.5em;
+  }
+
+  .settings-email-update {
+    width: 100%;
   }
 
 }
@@ -677,6 +710,7 @@ button.search-button:focus {
 }
 
 /** Developer **/
+
 footer {
   display: flex;
   justify-content: flex-start;
@@ -775,13 +809,11 @@ footer {
   margin-top: -.5em;
 }
 
-
 .api-doc-intro {
   display: flex;
   width: 95%;
   margin: 0 auto;
   flex-direction: column;
-
 }
 
 .api-doc-intro--header {
@@ -794,6 +826,7 @@ footer {
   width: 75%;
   font-weight: 500;
 }
+
 .intro-card--api {
   background-image: none;
   background: #E0E0E0;
@@ -842,9 +875,9 @@ footer {
 }
 
 ol {
-    list-style: decimal outside;
-    font-weight: 300;
-    margin-top: -1em;
+  list-style: decimal outside;
+  font-weight: 300;
+  margin-top: -1em;
 }
 
 ol p {
@@ -857,13 +890,13 @@ ol p {
 }
 
 .snippet {
-  color: #505050 ;
+  color: #505050;
   font-size: 14px;
   padding: 10px;
   border: 1px solid #505050;
   border-radius: 3px;
   margin: 20px;
-  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   background-color: #F0F0F0;
   word-break: break-all;
   word-wrap: break-word;
@@ -885,7 +918,7 @@ ol p {
 .param td {
   max-width: 40em;
   text-align: left;
-  background-color: #F8F8F8 ;
+  background-color: #F8F8F8;
   padding: 0.5em 1em;
 }
 
