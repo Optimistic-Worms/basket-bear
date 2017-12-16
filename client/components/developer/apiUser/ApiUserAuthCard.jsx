@@ -20,7 +20,7 @@ class ApiUserAuthCard extends React.Component {
 
   render() {
     return (
-        <div className="loginCard">
+        <div className="login-card">
         <h2 className="login-header">
           {this.state.loginView ? 'Login' : 'Signup'}
         </h2>

@@ -28,7 +28,7 @@ class Settings extends React.Component {
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
 	      let name = user.displayName;
-	    	(name)? this.setState({name:name}): this.setState({name:''})        
+	    	(name)? this.setState({name:name}): this.setState({name:''})
 	    } else {
 	      console.log('Error no user detected!');
 	    }
@@ -43,7 +43,7 @@ class Settings extends React.Component {
 
   updateUserProfile(){
   	let newName;
-  	(this.state.newName === '')? newName = this.state.name : newName = this.state.newName;    	
+  	(this.state.newName === '')? newName = this.state.name : newName = this.state.newName;
 	    firebase.auth().onAuthStateChanged(function(user) {
 		    if (user) {
 				  user.updateProfile({displayName: newName})
@@ -67,7 +67,7 @@ class Settings extends React.Component {
      		return callback(result);
      	})
         })
-      }     
+      }
     })
   }
 
@@ -76,13 +76,13 @@ class Settings extends React.Component {
       if (user) {
 	      firebase.auth().currentUser.getIdToken(true).then((idToken) => {
 		     	axios.get(`/userSettings?access_token=${idToken}`)
-			     	.then((result)=>{     		
+			     	.then((result)=>{
 			     		let emailList = result.data;
 		     	    this.setState({emailList:emailList})
 		     	})
 	      })
-      }     
-    }) 
+      }
+    })
   }
 
   setMessages(message){
@@ -111,7 +111,7 @@ class Settings extends React.Component {
 	  if(emailList.length === 5){
 	  	this.setMessages('Opps...! You already have 5 emails')
 	  	stop = true;
-	  } 
+	  }
 	  emailList.forEach(item => {
 	  	if (item.email === email){
 	  		this.setMessages('Opps...! you already have this email registered')
@@ -138,39 +138,41 @@ class Settings extends React.Component {
 
   render(){
   return (
-    <div className="watch-container">
-      <h1>Your Account Settings</h1>
-      
-      <div>
-      	<h2>Username:</h2>      
+    <div className="settings-card">
+      <h1 className="login-header">Account Settings</h1>
+
+      <div className="settings-layout">
 	      <div>
-		      <input type="text" onKeyUp={(e) => this.setName(e)} placeholder={this.state.name}/>
-		      <button onClick={() => this.updateUserProfile()}>Update</button>
+		      <h2>Username:</h2>
+          <div className="settings-form-wrapper">
+            <input className="settings-form" type="text" onKeyUp={(e) => this.setName(e)} placeholder={this.state.name}/>
+		      <button className="button" onClick={() => this.updateUserProfile()}>Update</button>
+        </div>
 	      </div>
       </div>
-      
-      <EmailPreferences 
-	      emails={this.state.emailList} 
+
+      <EmailPreferences
+	      emails={this.state.emailList}
 	      OnOffForEmail={this.OnOffForEmail}
 	      deleteEmail={this.deleteEmail}
 	      addEmail={this.addEmail}
 	      trackNewEmail={this.trackNewEmail}
 	      messages={this.state.messages}
       />
-      <div>
+      <div className="settings-layout">
 	      <h2>Device notification settings</h2>
 	      <div>
 		      Register this device to get notifications.
-		      <button>Register Now</button>
+		      <button className="button">Register Now</button>
 	      </div>
 	      <div>
 		      Turn off Notifications for this device.
-		      <button>Turn off</button>
+		      <button className="button button--remove">Turn off</button>
 	      </div>
-      </div>      
+      </div>
     </div>
   )
-  }	
+  }
 
 }
 

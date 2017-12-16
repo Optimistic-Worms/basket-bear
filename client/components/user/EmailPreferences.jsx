@@ -4,31 +4,33 @@ import React from 'react';
 const EmailPreferences = (props) => {
 
   return (
-    <div className="card">
+    <div className="settings-layout">
       <h2>Email Notification Preferences:</h2>
-      <p>You can have up to 5 email accounts that budget basket will notifiy to</p>
-      <div className="card">
+      <div>
       <span style={{background:'grey', color:'white'}}>{props.messages}</span>
-        <input 
-          placeholder="Add email..."  
-          onKeyUp={(e)=>{ 
-            (e.keyCode === 13)? props.addEmail():props.trackNewEmail(e) 
-          }} 
+      <div className="settings-form-wrapper">
+        <input className="settings-form"
+          placeholder="Add email..."
+          onKeyUp={(e)=>{
+            (e.keyCode === 13)? props.addEmail():props.trackNewEmail(e)
+          }}
           type="email"/>
-        <button onClick={() =>{props.addEmail()}}>Add</button>
+        <button className="button" onClick={() =>{props.addEmail()}}>Add</button>
       </div>
+      </div>
+      <p>You can have up to 5 email accounts that budget basket will notifiy to:</p>
       {props.emails.map((item,index)=>{
         return(
-          <div className="card" key={`emailCard${index}`}>
+          <div className="settings-email-update" key={`emailCard${index}`}>
             <div>{item.email}</div>
             <label>Use:
-            <input 
-              type="checkbox" 
-              defaultChecked={item.status} 
+            <input
+              type="checkbox"
+              defaultChecked={item.status}
               onChange={(e) =>{props.OnOffForEmail(e,item.email)}}/>
             </label>
             <div>
-              <button onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>
+              <button className="button button--remove" onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>
             </div>
           </div>
           )

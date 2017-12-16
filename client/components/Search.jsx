@@ -155,7 +155,7 @@ class Search extends React.Component {
           <h4>FIND THE BEST PRICES FOR ITEMS YOU WANT</h4>
           <div className="search">
             <button className="search-button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
-            <input onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="text"/>
+            <input onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} className="search-form" placeholder="search for an item" onChange= {(input) => this.query(input)} type="search"/>
             <select className="search-selection" onChange={(e)=> { this.setState({searchItems: []}); this.setState({ebaySearchItems: []}); this.setState({amazonSearchItems: []}); this.setState({searchMerchant: e.target.value})}}>
               <option value="all">All</option>
               <option value="ebay">Ebay</option>
