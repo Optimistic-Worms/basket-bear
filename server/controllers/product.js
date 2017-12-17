@@ -4,6 +4,7 @@ const ebay = require('./ebay');
 exports.getLowestPrices = (req, res) => {
   const product = req.query.keyword;
   let results = [];
+
   amazon.searchProducts(product)
   .then(rawResults => {
     let parsed = amazon.parseResultsSync(rawResults);
@@ -12,22 +13,19 @@ exports.getLowestPrices = (req, res) => {
     ebay.searchProducts(product)
     .then(data => {
       results = results.concat(JSON.parse(data));
-
-      const sorted = results.sort((a, b) => {
-        return Number(a.price) - Number(b.price);
-      });
-
+      //sort combined results by ascending price
+      const sorted = results.sort((a, b) => +a.price - +b.price);
       res.send(sorted);
     })
     .catch(err => res.status(400).send(err));
   })
   .catch(err => res.status(400).send(err));
-}
+};
 
-exports.addPriceData = () => {
+exports.addData = (req, res) => {
+  console.log(req.body);
+};
 
-}
-
-exports.getPriceData = () => {
+exports.getData = () => {
 
 }
