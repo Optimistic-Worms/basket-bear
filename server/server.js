@@ -18,6 +18,7 @@ const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const amazon = require('./controllers/amazon');
 const ebay = require('./controllers/ebay');
+const product = require('./controllers/product');
 
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser.js');
@@ -230,26 +231,7 @@ apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
-apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
-  const  product = req.query.keyword;
-  let results = [];
-  amazon.searchProducts(product)
-  .then(rawResults => {
-    let parsed = amazon.parseResultsSync(rawResults);
-    results = results.concat(parsed);
-
-    ebay.searchProducts(product)
-    .then(data => {
-      results = results.concat(JSON.parse(data));
-
-      const sorted = results.sort((a, b) => {
-        return Number(a.price) - Number(b.price);
-      });
-
-      res.send(sorted);
-    });
-  })
-});
+apiRoutes.get('/product', apiAuth.authenticateToken, product.getLowestPrices);
 
 apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")

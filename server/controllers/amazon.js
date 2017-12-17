@@ -16,7 +16,7 @@ exports.parseResultsSync = (results) =>  {
   let items = [];
 
   for (var i = 0 ; i < resultsArr.length ; i++) {
-    var product = {
+    let product = {
       id: resultsArr[i].ASIN[0],
       name: resultsArr[i].ItemAttributes[0].Title[0],
       merchant: 'amazon',
