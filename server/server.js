@@ -13,17 +13,17 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 
+/* helpers */
+const amazon = require('./helpers/amazon');
+const ebay = require('./helpers/ebay');
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const amazon = require('./controllers/amazon');
-const ebay = require('./controllers/ebay');
 const product = require('./controllers/product');
-
 /* dev controllers */
-const apiUser = require('./controllers/developer/apiUser.js');
-const apiAuth = require('./controllers/developer/auth/apiAuth.js');
-const oauth = require('./controllers/developer/auth/oauth2.js');
+const apiUser = require('./controllers/developer/apiUser');
+const apiAuth = require('./controllers/developer/auth/apiAuth');
+const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 
@@ -73,7 +73,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   userSettings.getSettings(username)
   .then((result) => {
     res.status(200).send(result);
@@ -81,7 +81,7 @@ app.get('/userSettings', isAuthenticated, (req, res) => {
 });
 
 app.post('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   var data = req.body;
   userSettings.createSettings(username, data)
   .then((result) => {
@@ -96,7 +96,7 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.post('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   shoppingList.createShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -104,7 +104,7 @@ app.post('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.get('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -115,7 +115,7 @@ app.get('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.put('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
   .then((data) => {
@@ -124,7 +124,7 @@ app.put('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.delete('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   var productId = req.query.productId;
   shoppingList.removeItemFromShoppingList(username, productId)
   .then((data) => {
@@ -133,7 +133,7 @@ app.delete('/shoppingList', isAuthenticated, (req, res) => {
 })
 
 app.put('/updateShoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
+  var username = req.userId;
   var list = req.body.list;
   shoppingList.updateShoppingList(username, list)
   .then((data) => {
@@ -142,7 +142,7 @@ app.put('/updateShoppingList', isAuthenticated, (req, res) => {
 });
 
 app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
-  var username = req.username;
+  var username = req.userId;
   var productId = req.body.productId;
   var watchPrice = req.body.watchPrice;
   shoppingList.updateWatchPrice(username, productId, watchPrice)
@@ -212,7 +212,7 @@ app.get('/lookupAmazon', (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', product.update);
+apiRoutes.post('/products', isAuthenticated, product.update);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Business API Routes

@@ -1,5 +1,5 @@
-const amazon = require('./amazon');
-const ebay = require('./ebay');
+const amazon = require('../helpers/amazon');
+const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
 
 exports.getLowestPrices = (req, res) => {
@@ -24,12 +24,12 @@ exports.getLowestPrices = (req, res) => {
 };
 
 exports.addNew = (req, res) => {
-  const {name, id, merchant, targetPrice, userId} = req.body;
+  const {name, id, merchant, targetPrice} = req.body;
 
   db.collection('products').doc(id).set({
     name, name,
     merhcant: merchant,
-    prices: {[userId]: targetPrice}
+    prices: {[req.userId]: targetPrice}
   }).then(() => {
     res.send('succesfully added product');
   })
@@ -37,14 +37,14 @@ exports.addNew = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const {id, targetPrice, userId} = req.body;
+  const {id, targetPrice} = req.body;
   const productRef = db.collection('products').doc(id);
 
   productRef.get()
   .then((product) => {
     if (product.exists) {
       let prices = product.data().prices;
-      prices[userId] = targetPrice;
+      prices[req.userId] = targetPrice;
 
       productRef.update({prices: prices})
       .then(() => res.send('Product succesfully updated product'))
