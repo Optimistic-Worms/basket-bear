@@ -231,27 +231,24 @@ apiRoutes.post('/signup', apiUser.addUser);
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
-  //get product from request params
   const  product = req.query.keyword;
-  //declare results variable
   let results = [];
-  //search Amazon for 100 results and add to results
- // amazon.searchProducts(product)
- // .then(rawResults => {
-   // let parsed = amazon.parseResultsSync(rawResults);
-   // results = results.concat(parsed);
+  amazon.searchProducts(product)
+  .then(rawResults => {
+    let parsed = amazon.parseResultsSync(rawResults);
+    results = results.concat(parsed);
+
     ebay.searchProducts(product)
     .then(data => {
+      results = results.concat(JSON.parse(data));
 
-      console.log(data.length)
-      res.send(data);
+      const sorted = results.sort((a, b) => {
+        return Number(a.price) - Number(b.price);
+      });
+
+      res.send(sorted);
     });
-  //})
-  //search Ebay for 100 results and add to results
-
-  //sort results by price and get the lowest 100
-
-  //send results
+  })
 });
 
 apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {

@@ -13,7 +13,6 @@ const parseString = require('xml2js').parseString;
 
 exports.parseResultsSync = (results) =>  {
   const resultsArr = results.ItemSearchResponse.Items[0].Item;
-  console.log(resultsArr.length)
   let items = [];
 
   for (var i = 0 ; i < resultsArr.length ; i++) {
