@@ -20,10 +20,23 @@ class ShoppingList extends React.Component {
     this.openProductSettings = this.openProductSettings.bind(this);
     this.saveProductSettings = this.saveProductSettings.bind(this);
     this.updateInputString = this.updateInputString.bind(this);
+    this.sortItems = this.sortItems.bind(this);
   }
 
   componentDidMount() {
     this.loadShoppingList();
+  }
+
+  sortItems(array){
+    array.sort(function(a,b) {
+      if (Number(a.currentPrice) < Number(b.currentPrice)) {
+        return -1;
+      }
+      if (Number(a.currentPrice) > Number(b.currentPrice)) {
+        return 1;
+      }
+      return 0;
+    })
   }
 
   loadShoppingList() {
@@ -41,6 +54,7 @@ class ShoppingList extends React.Component {
             this.setState({alert: 'You are not watching any items'})
           } else {
             this.setState({alert: ''});
+            this.sortItems(itemsArr);
             this.setState({items: itemsArr});
           }
         })
@@ -71,6 +85,7 @@ class ShoppingList extends React.Component {
             } else {
               this.setState({alert: ''});
             }
+            this.sortItems(itemsArr);
             this.setState({items: itemsArr});
           })
         })
@@ -96,6 +111,7 @@ class ShoppingList extends React.Component {
         for (var i in itemsObj) {
           itemsArr.push(itemsObj[i]);
         }
+        this.sortItems(itemsArr);
         this.setState({items: itemsArr});
       })
     })
