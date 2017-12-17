@@ -32,11 +32,11 @@ const expressValidator = require('express-validator');
 const webPush = require('web-push');
 
 // VAPID keys should only be generated only once.
-//const vapidKeys = webpush.generateVAPIDKeys();
-const vapidKeys = { publicKey: 'BLsbtk_kNrAfek4KTxD7ZhNe6HxXkRAf-DHuTxHoT7by4QSSpbACzFr6VmmaWTGyk2ZHG5W710XSdr_ArN0eSxU',
-  privateKey: 'mLb3rfv8snnNtfa5EtgAR0teNK6YsaQdZoOc8LXJdF0' }
+//const vapidKeys = webPush.generateVAPIDKeys();
+const vapidKeys = { publicKey: 'BBiDR9Hln1a-QlSo8gzl5xqsZbFB5w4lLmOL9K0l0mfKt0OvtCR333P1RnPbqaIihknU9z1Dj2_sXKzrv3GWOFc',
+  privateKey: 'Zs2nd2cutZkjZVDHtN7qZlBxNIFmqu1OqiNTjUiT9qE' }
 
-
+//console.log(vapidKeys)
 
 
 
@@ -79,40 +79,83 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   res.sendStatus(200);
 });
 
+
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription 
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+let VAPID_SUBJECT =  'mailto:thihara@favoritemedium.com';
+let VAPID_PUBLIC_KEY = vapidKeys.publicKey;
+let VAPID_PRIVATE_KEY = vapidKeys.privateKey;
 
-const pushSubscription = {
-  endpoint: "https://fcm.googleapis.com/fcm/send/fRrddhOtCak:APA91bEPUDSz02umNG_DFOVvwTycbusoF084IRY2tKfhgN4kvCeIclmSSQ47WSlXXHyAk3dKMYrXoO8dQWLyDMMil5Ol8mde6IKFH29Md8csRY2UKzuUY7KyiZDf2cvkEqoquCn4Kg5R",
-  keys: {
-    p256dh: vapidKeys.publicKey,
-    auth: vapidKeys.privateKey
-  }
-};
+//Auth secret used to authentication notification requests.
+let AUTH_SECRET = 'Hello';
 
-const payload = '< Push Payload String >';
-/*const options = {
-  gcmAPIKey: '< GCM API Key >',
-  vapidDetails: {
-    subject: '< \'mailto\' Address or URL >',
-    publicKey: '< URL Safe Base64 Encoded Public Key >',
-    privateKey: '< URL Safe Base64 Encoded Private Key >'
-  },
-  TTL: <Number>,
-  headers: {
-    '< header name >': '< header value >'
-  }
+/*if (!VAPID_SUBJECT) {
+    return console.error('VAPID_SUBJECT environment variable not found.')
+} else if (!VAPID_PUBLIC_KEY) {
+    return console.error('VAPID_PUBLIC_KEY environment variable not found.')
+} else if (!VAPID_PRIVATE_KEY) {
+    return console.error('VAPID_PRIVATE_KEY environment variable not found.')
+} else if (!AUTH_SECRET) {
+    return console.error('AUTH_SECRET environment variable not found.')
 }*/
+  //  VAPID_SUBJECT,
+webPush.setVapidDetails(
+    VAPID_SUBJECT,
+    VAPID_PUBLIC_KEY,
+    VAPID_PRIVATE_KEY
+);
+let subscribers = [];
 
-webPush.sendNotification(
-  pushSubscription,
-  payload,
-).then(result => {
-  console.log(result)
-}).catch(error =>{
-  console.log(error)
-});
+ app.post('/subscribe', function (req, res) {
+     let data = req.body.subscription;
+     let auth = data.keys.auth;
+     //let auth =  req.username;
+     let pushSubscription = {
+         endpoint: data.endpoint,
+         keys: {
+             p256dh: data.keys.p256dh, // Public Key
+             auth: auth
+         }
+     };
+     subscribers.push(pushSubscription);
+     res.send('Subscription accepted!');
+ });
+
+
+ app.post('/unsubscribe', function (req, res) {
+/*     let data = req.body.subscription;
+     let endpoint = data.endpoint;*/
+     subscribers = []// subscribers.filter(subscriber => { endpoint == subscriber.endpoint });
+     res.send('Subscription removed!');
+ });
+
+
+app.get('/notify/all', function (req, res) {
+     
+     if(req.get('auth-secret') !== AUTH_SECRET) {
+         console.log("Missing or incorrect auth-secret header. Rejecting request.");
+         return res.sendStatus(401);
+     }
+     let message = req.query.message || `Willy Wonka's chocolate is the best!`;
+     let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
+     let title = req.query.title || `Push notification received!`;
+
+     subscribers.forEach(pushSubscription => {
+         //Can be anything you want. No specific structure necessary.
+     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
+
+         webPush.sendNotification(pushSubscription, payload, {}).then(response =>{
+             console.log(response)
+         }).catch(error =>{         
+          console.log(error)
+         });
+     });
+
+     res.send('Notification sent!');
+ });
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   User settings Routes

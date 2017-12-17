@@ -154,7 +154,6 @@ class Settings extends React.Component {
         </div>
 	      </div>
       </div>
-
       <EmailPreferences
 	      emails={this.state.emailList}
 	      OnOffForEmail={this.OnOffForEmail}

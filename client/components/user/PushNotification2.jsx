@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import firebase from './firebase-auth';
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
@@ -13,7 +14,7 @@ class PushNotification2 extends React.Component {
   	  messages:'',
   	  pushButtonDisabled: true,
       subscriptionJson: {},
-  	  applicationServerPublicKey: 'BLsbtk_kNrAfek4KTxD7ZhNe6HxXkRAf-DHuTxHoT7by4QSSpbACzFr6VmmaWTGyk2ZHG5W710XSdr_ArN0eSxU'
+  	  applicationServerPublicKey: 'BBiDR9Hln1a-QlSo8gzl5xqsZbFB5w4lLmOL9K0l0mfKt0OvtCR333P1RnPbqaIihknU9z1Dj2_sXKzrv3GWOFc'
   	}
     this.initializeUI = this.initializeUI.bind(this)
     this.updateBtn = this.updateBtn.bind(this)
@@ -127,9 +128,29 @@ class PushNotification2 extends React.Component {
     // in live code send the subscription key to be stored for this user 
     // Here instead make is visibile on the front end. 
     // TODO: Send subscription to application serve
+      // get user's key. 
+      firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+          firebase.auth().currentUser.getIdToken(true).then((idToken) => {
+        //  axios.get(`/shoppingList?access_token=${idToken}`)
+        })
+        } else {
+         return
+        }
+      })
       if (subscription) {
+        axios.post('/subscribe',{subscription:subscription}).then((result)=>{
+          console.log(result)
+        }).catch(error =>{
+          console.log(error)
+        });
         this.setState({subscriptionJson:subscription})
       } else {
+        axios.post('/unsubscribe',{subscription:subscription}).then((result)=>{
+          console.log(result)
+        }).catch(error =>{
+          console.log(error)
+        });
         this.setState({subscriptionJson:{}})
       }
     }
@@ -147,7 +168,7 @@ class PushNotification2 extends React.Component {
         console.log('Error unsubscribing', error);
       })
       .then(function() {
-      that.updateSubscriptionOnServer(null);
+      that.updateSubscriptionOnServer(null); // Should be null
         console.log('User is unsubscribed.');
       that.setState({isSubscribed:false});
       that.updateBtn();
