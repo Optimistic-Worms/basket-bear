@@ -1,5 +1,6 @@
 const amazon = require('./amazon');
 const ebay = require('./ebay');
+const db = require('../../db/db-config');
 
 exports.getLowestPrices = (req, res) => {
   const product = req.query.keyword;
@@ -8,7 +9,7 @@ exports.getLowestPrices = (req, res) => {
   amazon.searchProducts(product)
   .then(rawResults => {
     let parsed = amazon.parseResultsSync(rawResults);
-    results = results.concat(parsed);
+    results = results.concat(parsed);""
 
     ebay.searchProducts(product)
     .then(data => {
@@ -22,8 +23,19 @@ exports.getLowestPrices = (req, res) => {
   .catch(err => res.status(400).send(err));
 };
 
-exports.addData = (req, res) => {
-  console.log(req.body);
+exports.addNew = (req, res) => {
+  //console.log(req.body);
+  const {name, id, merchant, targetPrice} = req.body;
+  db.collection('product').add({
+      name, name,
+      id: id,
+      merhcant: merchant,
+      targetPrice: targetPrice
+    }).then(productRef => {
+      console.log(productRef.id);
+      res.json({id: productRef.id});
+    })
+    .catch(err =>res.status(400).send(err));
 };
 
 exports.getData = () => {

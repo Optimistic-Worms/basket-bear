@@ -233,7 +233,7 @@ apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
 
-apiRoutes.post('/products', apiAuth.authenticateToken, product.addData);
+apiRoutes.post('/products', apiAuth.authenticateToken, product.addNew);
 
 apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")
