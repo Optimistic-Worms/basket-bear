@@ -24,18 +24,36 @@ exports.getLowestPrices = (req, res) => {
 };
 
 exports.addNew = (req, res) => {
-  //console.log(req.body);
-  const {name, id, merchant, targetPrice} = req.body;
-  db.collection('product').add({
-      name, name,
-      id: id,
-      merhcant: merchant,
-      targetPrice: targetPrice
-    }).then(productRef => {
-      console.log(productRef.id);
-      res.json({id: productRef.id});
-    })
-    .catch(err =>res.status(400).send(err));
+  const {name, id, merchant, targetPrice, userId} = req.body;
+
+  db.collection('products').doc(id).set({
+    name, name,
+    merhcant: merchant,
+    prices: {[userId]: targetPrice}
+  }).then(() => {
+    res.send('succesfully added product');
+  })
+  .catch(err =>res.status(400).send(err));
+};
+
+exports.update = (req, res) => {
+  const {id, targetPrice, userId} = req.body;
+  const productRef = db.collection('products').doc(id);
+
+  productRef.get()
+  .then((product) => {
+    if (product.exists) {
+      let prices = product.data().prices;
+      prices[userId] = targetPrice;
+
+      productRef.update({prices: prices})
+      .then(() => res.send('Product succesfully updated product'))
+      .catch((err) => res.status(400).send(err));
+    } else {
+      exports.addNew(req, res);
+    }
+  })
+  .catch((err) => res.status(400).send(err));
 };
 
 exports.getData = () => {

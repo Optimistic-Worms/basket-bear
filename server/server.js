@@ -52,7 +52,8 @@ console.log('server is listening on port ' + port);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
-
+const apiRoutes = express.Router();
+app.use('/api', apiRoutes);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
@@ -151,13 +152,6 @@ app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
 });
 
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Product Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Ebay API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -213,11 +207,16 @@ app.get('/lookupAmazon', (req, res) => {
   })
 });
 
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Product Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+apiRoutes.post('/products', product.update);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Business API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-const apiRoutes = express.Router();
-app.use('/api', apiRoutes);
 
 apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
@@ -232,8 +231,6 @@ apiRoutes.post('/signup', apiUser.addUser);
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
-
-apiRoutes.post('/products', apiAuth.authenticateToken, product.addNew);
 
 apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")
