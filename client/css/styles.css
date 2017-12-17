@@ -280,8 +280,12 @@ input.search-form:focus {
   outline: none;
 }
 
+.form {
+  width: 100%;
+}
+
 .search-form {
-  width: 80%;
+  width: 100%;
   height: 4em;
   border: 1px solid #dadada;
   margin-right: .1em;
@@ -339,6 +343,10 @@ button.search-button:focus {
   border-radius: 0.25em;
   background-color: #fff;
   justify-content: center;
+}
+
+.card-set-price {
+  padding: 1em;
 }
 
 .card h4, h3 {
@@ -421,7 +429,7 @@ button.search-button:focus {
 .hometout-wrapper {
   display: flex;
   flex-direction: column;
-  margin: -1em auto .5em;
+  margin: -5em auto .5em;
   width: 80%;
   padding: 1em;
 }
@@ -541,6 +549,7 @@ button.search-button:focus {
   height: 4em;
   border: 1px solid #dadada;
   margin-right: .2em;
+  margin-bottom: .5em;
 }
 
 .settings-email-update {
@@ -606,10 +615,10 @@ button.search-button:focus {
   }
 
   .settings-form {
-    width: 100%;
+    width: 95%;
     height: 4em;
     border: 1px solid #dadada;
-    margin: .5em 0;
+    margin: .5em auto;
   }
 
   .button--remove-settings {
@@ -622,7 +631,7 @@ button.search-button:focus {
   }
 
   .settings-card {
-    font-size: 70%;
+    font-size: 85%;
     font-weight: 300 !important;
   }
 
@@ -707,7 +716,7 @@ button.search-button:focus {
     grid-template-columns: auto !important;
   }
   .api-doc-intro {
-    font-size: 75%;
+    font-size: 85%;
   }
   .intro-card--api h1 {
     font-size: 1.3em;
