@@ -3,9 +3,10 @@ const Promise = require('bluebird');
 
 // Shopping List Handlers
 
-exports.createSettings = (username, data) => {
+exports.createSettings = (username, data = []) => {
   console.log('Hit createSettings')
   console.log(username)
+
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).set({
       emailNotificationSettings: data

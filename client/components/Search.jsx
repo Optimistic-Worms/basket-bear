@@ -39,7 +39,6 @@ class Search extends React.Component {
         this.searchAmazon(this.state.queryString);
       }
     }
-
   }
 
   searchEbay(keyword) {

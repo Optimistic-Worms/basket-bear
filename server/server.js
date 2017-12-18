@@ -13,16 +13,17 @@ const path = require('path');
 const port = process.env.PORT || 3000;
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 
+/* helpers */
+const amazon = require('./helpers/amazon');
+const ebay = require('./helpers/ebay');
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const amazonApiCalls = require('./controllers/amazonApiCalls');
-const ebayApiCalls = require('./controllers/ebayApiCalls');
-
+const product = require('./controllers/product');
 /* dev controllers */
-const apiUser = require('./controllers/developer/apiUser.js');
-const apiAuth = require('./controllers/developer/auth/apiAuth.js');
-const oauth = require('./controllers/developer/auth/oauth2.js');
+const apiUser = require('./controllers/developer/apiUser');
+const apiAuth = require('./controllers/developer/auth/apiAuth');
+const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 
@@ -51,7 +52,8 @@ console.log('server is listening on port ' + port);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
-
+const apiRoutes = express.Router();
+app.use('/api', apiRoutes);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
@@ -150,13 +152,6 @@ app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
 });
 
 
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Product Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Ebay API Calls
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -165,7 +160,7 @@ app.get('/searchEbay', (req, res)=> {
   var keyword = req.query.keyword;
   console.log('searching for ', keyword);
 
-  ebayApiCalls.searchEbay(keyword)
+  ebay.searchProducts(keyword)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -176,7 +171,7 @@ app.get('/searchEbay', (req, res)=> {
 
 app.get('/lookupEbay', (req, res) => {
   var itemIds = req.query.itemIds;
-  ebayApiCalls.lookupEbay(itemIds)
+  ebay.lookupProductsById(itemIds)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -192,7 +187,7 @@ app.get('/lookupEbay', (req, res) => {
 
 app.get('/searchAmazon', (req, res) => {
   var searchQuery = req.query.keyword;
-  amazonApiCalls.searchAmazon(searchQuery)
+  amazon.searchProducts(searchQuery)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -203,7 +198,7 @@ app.get('/searchAmazon', (req, res) => {
 
 app.get('/lookupAmazon', (req, res) => {
   var itemIds = req.query.itemIds;
-  amazonApiCalls.lookupAmazon(itemIds)
+  amazon.lookupProductsById(itemIds)
   .then((data) => {
     res.status(200).send(data);
   })
@@ -212,11 +207,16 @@ app.get('/lookupAmazon', (req, res) => {
   })
 });
 
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Product Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+apiRoutes.post('/products', isAuthenticated, product.update);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Business API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-const apiRoutes = express.Router();
-app.use('/api', apiRoutes);
 
 apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
   res.send('Welcome to the Budget Basket API!')
@@ -230,9 +230,7 @@ apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
-apiRoutes.get('/product', apiAuth.authenticateToken, (req, res) => {
-  res.send("Yay, you successfully accessed the restricted resource!")
-});
+apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
 
 apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
   res.send("Yay, you successfully accessed the restricted resource!")
