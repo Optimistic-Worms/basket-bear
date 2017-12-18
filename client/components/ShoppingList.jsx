@@ -21,6 +21,7 @@ class ShoppingList extends React.Component {
     this.saveProductSettings = this.saveProductSettings.bind(this);
     this.updateInputString = this.updateInputString.bind(this);
     this.sortItems = this.sortItems.bind(this);
+    this.submitProductData = this.submitProductData.bind(this);
   }
 
   componentDidMount() {
@@ -99,10 +100,10 @@ class ShoppingList extends React.Component {
     this.setState({inputString : input.target.value});
   }
 
-  setWatchPrice(productId, watchPrice) {
+  setWatchPrice(product, watchPrice) {
     firebase.auth().currentUser.getIdToken(true).then((idToken) => {
       axios.put(`/updateWatchPrice?access_token=${idToken}`, {
-        productId: productId,
+        productId: product.id,
         watchPrice: watchPrice
       })
       .then((response) => {
@@ -113,6 +114,7 @@ class ShoppingList extends React.Component {
         }
         this.sortItems(itemsArr);
         this.setState({items: itemsArr});
+        this.submitProductData(product, watchPrice, idToken)
       })
     })
   }
@@ -123,9 +125,22 @@ class ShoppingList extends React.Component {
   }
 
   saveProductSettings(product){
-    this.setWatchPrice(product.id, this.state.inputString)
+    this.setWatchPrice(product, this.state.inputString)
     this.setState({viewProductSettings: false});
-    this.setState({editProduct: {}});
+  }
+
+  submitProductData(product, watchPrice, idToken) {
+    const {name, merchant, id} = product;
+    axios.post(`/api/products?access_token=${idToken}`, {
+      name: name,
+      id: id,
+      merchant: merchant,
+      targetPrice: watchPrice
+    })
+    .then(data => {
+      console.log(data.data);
+      this.setState({editProduct: {}});
+    })
   }
 
   render () {

@@ -17,13 +17,12 @@ module.exports = {
     isAuthenticated: (req, res, next) => {
       let idToken = req.query.access_token;
       admin.auth().verifyIdToken(idToken).then((decodedToken) => {
-      req.userId = decodedToken.uid;
-      console.log(decodedToken.uid)
-       next();
+        req.username = decodedToken.uid;
+        next();
       }).catch((error) => {
-       console.log(error)
-       req.userId = null;
-       res.sendStatus(401)
+        console.log(error)
+        req.userId = null;
+        res.sendStatus(401)
       });
     }
 }

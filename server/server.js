@@ -73,7 +73,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   userSettings.getSettings(username)
   .then((result) => {
     res.status(200).send(result);
@@ -81,7 +81,7 @@ app.get('/userSettings', isAuthenticated, (req, res) => {
 });
 
 app.post('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   var data = req.body;
   userSettings.createSettings(username, data)
   .then((result) => {
@@ -96,7 +96,7 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.post('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   shoppingList.createShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -104,7 +104,7 @@ app.post('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.get('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   shoppingList.getShoppingList(username)
   .then((data) => {
     res.status(200).send(data);
@@ -115,7 +115,7 @@ app.get('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.put('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
   .then((data) => {
@@ -124,7 +124,7 @@ app.put('/shoppingList', isAuthenticated, (req, res) => {
 });
 
 app.delete('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   var productId = req.query.productId;
   shoppingList.removeItemFromShoppingList(username, productId)
   .then((data) => {
@@ -133,7 +133,7 @@ app.delete('/shoppingList', isAuthenticated, (req, res) => {
 })
 
 app.put('/updateShoppingList', isAuthenticated, (req, res) => {
-  var username = req.userId;
+  var username = req.username;
   var list = req.body.list;
   shoppingList.updateShoppingList(username, list)
   .then((data) => {
@@ -142,7 +142,7 @@ app.put('/updateShoppingList', isAuthenticated, (req, res) => {
 });
 
 app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
-  var username = req.userId;
+  var username = req.username;
   var productId = req.body.productId;
   var watchPrice = req.body.watchPrice;
   shoppingList.updateWatchPrice(username, productId, watchPrice)
