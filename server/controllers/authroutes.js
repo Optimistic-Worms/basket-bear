@@ -21,7 +21,7 @@ module.exports = {
         next();
       }).catch((error) => {
         console.log(error)
-        req.userId = null;
+        req.username = null;
         res.sendStatus(401)
       });
     }
