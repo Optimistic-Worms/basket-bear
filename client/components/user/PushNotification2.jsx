@@ -124,35 +124,35 @@ class PushNotification2 extends React.Component {
 		}
 
     updateSubscriptionOnServer(subscription) {
-      console.log(subscription)
     // in live code send the subscription key to be stored for this user 
     // Here instead make is visibile on the front end. 
-    // TODO: Send subscription to application serve
-      // get user's key. 
+
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-        //  axios.get(`/shoppingList?access_token=${idToken}`)
-        })
+          if (subscription) {  
+          // TODO: Send subscription to application db        
+            axios.post(`/subscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
+              console.log(result)
+            }).catch(error =>{
+              console.log(error)
+            });
+            this.setState({subscriptionJson:subscription})
+          } else {
+          // TODO: Delete subscription on application db
+            axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
+              console.log(result)
+            }).catch(error =>{
+              console.log(error)
+            });
+            this.setState({subscriptionJson:{}})
+          } // End subscription if else 
+        }) // End Token get
         } else {
-         return
+         console.log('NO USER FOR subscription')
         }
-      })
-      if (subscription) {
-        axios.post('/subscribe',{subscription:subscription}).then((result)=>{
-          console.log(result)
-        }).catch(error =>{
-          console.log(error)
-        });
-        this.setState({subscriptionJson:subscription})
-      } else {
-        axios.post('/unsubscribe',{subscription:subscription}).then((result)=>{
-          console.log(result)
-        }).catch(error =>{
-          console.log(error)
-        });
-        this.setState({subscriptionJson:{}})
-      }
+      }) // End auth check
+
     }
 
     unsubscribeUser() {
@@ -174,11 +174,6 @@ class PushNotification2 extends React.Component {
       that.updateBtn();
       })
     }
-
-
-    
-
-
 
    render(){
    	return (

@@ -5,20 +5,21 @@ const Promise = require('bluebird');
 
 exports.createSettings = (username, data = []) => {
   console.log('Hit createSettings')
-  console.log(username)
-
+>>>>>>> added first version of push notification
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).set({
-      emailNotificationSettings: data
+      emailNotificationSettings: data,
     })
     .then(() => {
       resolve("We updated your changes", username);
     })
-    .catch(() => {
-      reject("We couldn't update your changes please try again later", username);
+    .catch(error => {
+      reject("We couldn't update your changes please try again later", error);
     });
   });
 }
+
+
 
 exports.getSettings = (username) => {
   return new Promise((resolve, reject) => {

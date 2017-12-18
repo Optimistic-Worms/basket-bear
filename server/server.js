@@ -108,10 +108,10 @@ webPush.setVapidDetails(
 );
 let subscribers = [];
 
- app.post('/subscribe', function (req, res) {
+ app.post('/subscribe', isAuthenticated, function (req, res) {
      let data = req.body.subscription;
      let auth = data.keys.auth;
-     //let auth =  req.username;
+     console.log(req.username);
      let pushSubscription = {
          endpoint: data.endpoint,
          keys: {
@@ -119,17 +119,24 @@ let subscribers = [];
              auth: auth
          }
      };
+     // Need to add subscription to DB
      subscribers.push(pushSubscription);
      res.send('Subscription accepted!');
  });
 
 
  app.post('/unsubscribe', function (req, res) {
+     // Need to remove end point from DB
 /*     let data = req.body.subscription;
      let endpoint = data.endpoint;*/
      subscribers = []// subscribers.filter(subscriber => { endpoint == subscriber.endpoint });
      res.send('Subscription removed!');
  });
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Send Push Notification  
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 
 
 app.get('/notify/all', function (req, res) {
@@ -141,18 +148,17 @@ app.get('/notify/all', function (req, res) {
      let message = req.query.message || `Willy Wonka's chocolate is the best!`;
      let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
      let title = req.query.title || `Push notification received!`;
-
+     // incoming data with list of end points. 
      subscribers.forEach(pushSubscription => {
          //Can be anything you want. No specific structure necessary.
      let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
 
-         webPush.sendNotification(pushSubscription, payload, {}).then(response =>{
+         webPush.sendNotification(pushSubscription, payload, {}).then(response => {
              console.log(response)
-         }).catch(error =>{         
+         }).catch(error => {         
           console.log(error)
          });
      });
-
      res.send('Notification sent!');
  });
 
