@@ -507,8 +507,9 @@ button.search-button:focus {
 }
 
 .item-info-watch {
-  justify-content: center;
+  justify-content: left;
   flex-direction: column;
+  width: 100%
 }
 
 .item-info-watch .current-price {
@@ -519,10 +520,11 @@ button.search-button:focus {
 }
 
 .item-info-merchant {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
 }
 
 .watch-card {
@@ -544,6 +546,11 @@ button.search-button:focus {
     background-color: #f7f7f9;
     border-left: 1px solid rgba(0, 0, 0, .125);
     width: 60%;
+}
+
+.watch-list h3 {
+  font-size: 1em;
+  font-weight: 500;
 }
 
 /** Settings **/
