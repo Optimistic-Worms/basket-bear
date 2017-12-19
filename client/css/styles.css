@@ -601,6 +601,16 @@ input.settings-form:focus {
   justify-content: space-between;
 }
 
+.settings-notification-settings {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+    margin: .5em 0;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1em;
+}
+
 .client-secret {
   word-wrap: break-word;
   margin-bottom: 2em;
@@ -626,6 +636,15 @@ input.settings-form:focus {
     justify-content: center;
     align-items: center;
   }
+
+  .settings-notification-settings {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
   .settings-form-wrapper {
     flex-direction: column;
     height: auto;
@@ -681,6 +700,11 @@ input.settings-form:focus {
     grid-template-columns: auto;
     margin: 0 .5em;
     grid-gap: .2em;
+  }
+
+  .settings-card h3 {
+    font-size: 1.3em;
+    font-weight: 500;
   }
   h3 {
     font-size: 1em;
@@ -768,9 +792,15 @@ input.settings-form:focus {
   .settings-email-update {
     width: 100%;
   }
+
+  .settings-notification-settings {
+    width: 100%;
+  }
+
   .settings-card {
     justify-content: center;
     width: 95%;
+    text-align: center;
   }
   .api-user-account {
     display: grid;

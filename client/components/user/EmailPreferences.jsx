@@ -5,7 +5,7 @@ const EmailPreferences = (props) => {
 
   return (
     <div className="settings-layout">
-      <h2>Email Notification Preferences</h2>
+      <h3>Email Notification Preferences</h3>
       <div>
       <span style={{background:'grey', color:'white'}}>{props.messages}</span>
       <div className="settings-form-wrapper">

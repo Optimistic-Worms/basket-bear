@@ -146,7 +146,7 @@ class Settings extends React.Component {
 
       <div className="settings-layout">
 	      <div>
-		      <h2>Update Username</h2>
+		      <h3>Update Username</h3>
           <div className="settings-form-wrapper">
             <input className="settings-form" type="text" onKeyUp={(e) => this.setName(e)} placeholder={this.state.name}/>
 		      <button className="button button-settings" onClick={() => this.updateUserProfile()}>Update</button>
@@ -163,12 +163,12 @@ class Settings extends React.Component {
 	      messages={this.state.messages}
       />
       <div className="settings-layout">
-	      <h2>Device notification settings</h2>
-	      <div className="settings-email-update">
+	      <h3>Device notification settings</h3>
+	      <div className="settings-notification-settings">
 		      Register this device to get notifications.
 		      <button className="button button-settings">Register Now</button>
 	      </div>
-	      <div className="settings-email-update">
+	      <div className="settings-notification-settings">
 		      Turn off Notifications for this device.
 		      <button className="button button--remove button--remove-settings">Turn off</button>
 	      </div>
