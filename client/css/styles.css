@@ -798,9 +798,7 @@ input.settings-form:focus {
     font-size: 1em;
     width: 95% !important;
   }
-  .search-button, .search-selection {
-    height: 4em;
-  }
+
   .hometout-grid {
     display: grid;
     grid-template-columns: auto;
