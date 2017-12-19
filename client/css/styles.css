@@ -37,6 +37,8 @@ h4 {
   background: dodgerblue;
   color: #fff;
   cursor: pointer;
+  height: 100%;
+  margin: .1em;
 }
 
 .button:hover {
@@ -523,8 +525,8 @@ button.search-button:focus {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
-    width: 100%;
+    justify-content: space-between;
+    width: 85%;
 }
 
 .watch-card {

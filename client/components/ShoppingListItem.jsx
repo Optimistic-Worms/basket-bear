@@ -13,8 +13,10 @@ const ShoppingListItem = (props) => {
             <p>{ props.item && props.item.merchant }</p>
             <p className="price">Price when added ${ props.item && props.item.price }</p>
           </div>
+          <div className="item-info-merchant">
           <p className="current-price">Current Price ${ props.item && props.item.currentPrice }</p>
           <p className="current-price">Watch Price ${ props.item && props.item.watchPrice }</p>
+        </div>
 
         </div>
       <div className="button-wrapper">

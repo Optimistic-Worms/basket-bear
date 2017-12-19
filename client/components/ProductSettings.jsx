@@ -10,14 +10,19 @@ const ProductSettings = (props) => {
       <h3>{props.item.name}</h3>
 
       <div className="item-info item-info-watch">
+
         <div className="item-info-merchant">
           <p>{ props.item && props.item.merchant }</p>
           <p className="price">Price when added ${ props.item && props.item.price }</p>
         </div>
+
+        <div className="item-info-merchant">
         <p className="current-price">Current Price ${ props.item && props.item.currentPrice }</p>
 
+          </div>
+
         Set a watch Price
- <input className="settings-form" placeholder="Set a Watch Price" onChange= {(input) => props.updateInputString(input)} type="text"/>
+        <input className="settings-form" placeholder="Set a Watch Price" onChange= {(input) => props.updateInputString(input)} type="text"/>
 
 
       </div>
