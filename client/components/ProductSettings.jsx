@@ -26,7 +26,7 @@ const ProductSettings = (props) => {
 
 
       </div>
-      <button className="button" onClick= {()=>{props.saveProductSettings(props.item)}}> Save</button>
+      <button className="button button-product-watch" onClick= {()=>{props.saveProductSettings(props.item)}}> Save</button>
     </div>
   );
 

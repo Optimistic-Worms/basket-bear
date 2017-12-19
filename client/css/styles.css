@@ -554,10 +554,20 @@ button.search-button:focus {
 }
 
 .watch-form {
-    width: 100%;
+    width: 50%;
     border: 1px solid #dadada;
     height: 2.5rem;
     margin: 1em auto;
+}
+
+input.watch-form:focus {
+  outline: none;
+  font-size: 1em;
+}
+
+.button-product-watch {
+  width: 50%;
+  margin: 0 auto;
 }
 
 /** Settings **/
@@ -729,6 +739,15 @@ input.settings-form:focus {
     background-color: #d9534f;
     border-color: #d43f3a;
   }
+
+  .watch-form {
+      width: 95%;
+  }
+
+  .button-product-watch {
+    width: 95%;
+  }
+
 }
 
 @media (max-width:768px) {
