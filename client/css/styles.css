@@ -1,22 +1,26 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
 /** General CSS **/
 
-body {
-  width: 100%;
-  background: #fff;
-  font-family: 'Roboto', sans-serif;
-  margin-top: 3.2em;
-  background: #fafafa;
-  font-weight: 100;
-}
-
-html, body {
-  width: 100%;
+html {
   height: 100%;
-  margin: 0px;
-  padding: 0px;
+  box-sizing: border-box;
   overflow-x: hidden;
 }
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
 
 h4 {
   text-align: center;
@@ -792,19 +796,30 @@ button.search-button:focus {
 
 /** Developer **/
 
-footer {
+/*footer {
   display: flex;
   justify-content: flex-start;
   height: 2em;
-  /*background-color: rgba(33,150,243, 0.2);*/
   background-color: #dadada;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   color: #fff;
   background-color: #424242;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+}*/
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #dadada;
+  text-align: center;
 }
 
 .footer-link {
