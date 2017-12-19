@@ -729,6 +729,7 @@ input.settings-form:focus {
 }
 
 @media (max-width:768px) {
+
   nav {
     justify-content: space-around;
   }
@@ -847,6 +848,22 @@ input.settings-form:focus {
     align-items: flex-start;
     justify-content: center;
     margin-top: 5em;
+  }
+
+  .watch-card {
+      flex-direction: column;
+  }
+
+  .watch-item-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0.5em 1em;
+    background-color: #f7f7f9;
+    border-top: 1px solid rgba(0, 0, 0, .125);
+    width: 100%;
+    border-left: none;
   }
 }
 
