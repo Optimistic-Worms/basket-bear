@@ -348,6 +348,7 @@ button.search-button:focus {
 
 .card-set-price {
   padding: 1em;
+  width: 90%
 }
 
 .card h4, h3 {
@@ -550,6 +551,13 @@ button.search-button:focus {
 .watch-list h3 {
   font-size: 1em;
   font-weight: 500;
+}
+
+.watch-form {
+    width: 100%;
+    border: 1px solid #dadada;
+    height: 2.5rem;
+    margin: 1em auto;
 }
 
 /** Settings **/
