@@ -633,6 +633,7 @@ input.settings-form:focus {
 
   .settings-form-wrapper {
     flex-direction: column;
+    height: auto;
   }
 
   .settings-form {
