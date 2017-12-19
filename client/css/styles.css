@@ -48,6 +48,7 @@ h4 {
 .button-wrapper {
   display: flex;
   flex-flow: row wrap;
+  align-items: center;
 }
 
 /** Intro **/
