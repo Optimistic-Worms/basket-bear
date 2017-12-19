@@ -153,7 +153,7 @@ class ShoppingList extends React.Component {
         }
 
         { !this.state.viewProductSettings &&
-          <div className="list">
+          <div className="watch-list">
             { this.state.items.map((item, key)=> {
                 return (<ShoppingListItem key={key} index={key} item={item} openProductSettings={this.openProductSettings} removeItem = {this.removeItem}/> );
                 })

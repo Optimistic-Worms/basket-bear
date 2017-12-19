@@ -4,10 +4,10 @@ import React from 'react';
 const ShoppingListItem = (props) => {
 
   return (
-    <div className="card">
+    <div className="watch-card">
       <img className="product-image" src={props.item && props.item.imageUrl} />
-      <h3>{ props.item && props.item.name }</h3>
-      <div className="product-footer product-footer-watch">
+      <div className="watch-item-footer">
+        <h3>{ props.item && props.item.name }</h3>
           <div className="item-info item-info-watch">
             <div className="item-info-merchant">
             <p>{ props.item && props.item.merchant }</p>

@@ -431,7 +431,7 @@ button.search-button:focus {
 .hometout-wrapper {
   display: flex;
   flex-direction: column;
-  margin: -5em auto .5em;
+  margin: -4em auto .5em;
   width: 80%;
   padding: 1em;
 }
@@ -482,6 +482,12 @@ button.search-button:focus {
 
 /** Watch List **/
 
+.watch-list {
+  grid-template-columns: auto;
+  margin: 1em;
+  grid-gap: .2em;
+}
+
 .watch-container {
   display: flex;
   flex-direction: column;
@@ -517,6 +523,27 @@ button.search-button:focus {
   flex-direction: row;
   align-items: center;
   justify-content: center;
+}
+
+.watch-card {
+  display: flex;
+    flex-direction: row;
+    border: 1px solid #dadada;
+    border-radius: 0.25em;
+    background-color: #fff;
+    justify-content: center;
+    margin-bottom: 1em;
+}
+
+.watch-item-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0.5em 1em;
+    background-color: #f7f7f9;
+    border-left: 1px solid rgba(0, 0, 0, .125);
+    width: 60%;
 }
 
 /** Settings **/
@@ -604,11 +631,16 @@ input.settings-form:focus {
 .settings-notification-settings {
     display: flex;
     flex-direction: row;
-    width: 60%;
+    width: 70%;
     margin: .5em 0;
     justify-content: space-between;
     align-items: center;
     padding-bottom: 1em;
+}
+
+.settings-card h3 {
+  font-size: 1.3em;
+  font-weight: 500;
 }
 
 .client-secret {
@@ -702,10 +734,6 @@ input.settings-form:focus {
     grid-gap: .2em;
   }
 
-  .settings-card h3 {
-    font-size: 1.3em;
-    font-weight: 500;
-  }
   h3 {
     font-size: 1em;
   }
