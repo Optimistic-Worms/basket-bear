@@ -141,7 +141,7 @@ class Settings extends React.Component {
     <div className="settings-card">
       <div className="settings-header">
       <h2>Account Settings</h2>
-      <h2>{this.state.name}</h2>
+      <h2 className="desktop-show">{this.state.name}</h2>
     </div>
 
       <div className="settings-layout">
