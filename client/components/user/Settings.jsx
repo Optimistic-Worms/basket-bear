@@ -26,16 +26,13 @@ class Settings extends React.Component {
   }
 
   componentWillMount(){
-    alert('componentWillMount')
-    
+
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
         this.getEmailNotificationPreferences()
 	      let name = user.displayName;
 	    	(name)? this.setState({name:name}): this.setState({name:''})
-	    } else {
-	      console.log('Error no user detected!');
-	    }
+	    } 
 	  });
 	}
 

@@ -123,7 +123,7 @@ class PushNotification2 extends React.Component {
 			});
 		}
 
-    updateSubscriptionOnServer(subscription) {
+    updateSubscriptionOnServer(subscription, endpoint) {
     // in live code send the subscription key to be stored for this user 
     // Here instead make is visibile on the front end. 
 
@@ -140,7 +140,7 @@ class PushNotification2 extends React.Component {
             this.setState({subscriptionJson:subscription})
           } else {
           // TODO: Delete subscription on application db
-            axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
+            axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:endpoint}).then((result)=>{
               console.log(result)
             }).catch(error =>{
               console.log(error)
@@ -168,7 +168,7 @@ class PushNotification2 extends React.Component {
         console.log('Error unsubscribing', error);
       })
       .then(function() {
-      that.updateSubscriptionOnServer(null); // Should be null
+      that.updateSubscriptionOnServer(null, swRegistration.pushManager.getSubscription()); // Should be null
         console.log('User is unsubscribed.');
       that.setState({isSubscribed:false});
       that.updateBtn();
