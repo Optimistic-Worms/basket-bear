@@ -278,10 +278,12 @@ nav .brand a:hover {
   width: 75%;
   flex-direction: row;
   margin: 0.8em auto 0;
+  height: 4em;
 }
 
 input.search-form:focus {
   outline: none;
+  font-size: 1em;
 }
 
 .form {
@@ -290,7 +292,6 @@ input.search-form:focus {
 
 .search-form {
   width: 100%;
-  height: 4em;
   border: 1px solid #dadada;
   margin-right: .1em;
   border-left: 0;
