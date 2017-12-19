@@ -41,7 +41,7 @@ class App extends React.Component {
       if (user) {
         this.setState({isLoggedIn : true});
         this.setState({logged:'LOGOUT'});
-        firebase.auth().currentUser.getIdToken(true).then((idToken) => {          
+        firebase.auth().currentUser.getIdToken(true).then((idToken) => {
           console.log('Just got auth token. Loading shopping list prices');
           //console.log(idToken)
           PriceLookup.updateListPrices(idToken);
@@ -83,9 +83,11 @@ class App extends React.Component {
               !this.state.isLoggedIn &&
               <Route exact path="/" component={JoinHomeTout}/>
             }
+            <Route exact path='/' render={(props) => (
+  <Footer handleSwitch={this.switchToDev.bind(this)}/>
+)}/>
         </div>
       </BrowserRouter>
-      <Footer handleSwitch={this.switchToDev.bind(this)}/>
     </div>
       );
   }
