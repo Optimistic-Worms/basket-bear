@@ -45,11 +45,6 @@ h4 {
   background: #3F51B5;
 }
 
-.button-wrapper {
-  display: flex;
-  flex-flow: row wrap;
-  align-items: center;
-}
 
 /** Intro **/
 
@@ -65,7 +60,7 @@ h4 {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 18em;
+  height: 24em;
 }
 
 .intro-card h1 {
@@ -150,6 +145,7 @@ h4 {
   display: flex;
   flex-direction: row;
   margin: 0 auto;
+  align-items: center;
 }
 
 .button-login {
@@ -278,7 +274,7 @@ nav .brand a:hover {
   width: 75%;
   flex-direction: row;
   margin: 0.8em auto 0;
-  height: 4em;
+  height: 2.75em;
 }
 
 input.search-form:focus {
@@ -708,9 +704,7 @@ input.settings-form:focus {
     font-size: 85%;
     font-weight: 300 !important;
   }
-  .search-button {
-    display: none;
-  }
+
 
 
   .settings-header {
