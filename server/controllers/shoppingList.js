@@ -104,6 +104,7 @@ exports.updateShoppingList = (username, list) => {
 
 exports.updateWatchPrice = (username, productId, watchPrice) => {
   var items;
+  //also need to throw the info to a new collection
   return new Promise((resolve, reject) => {
     module.exports.getShoppingList(username)
     .then((shoppingListItems) => {
@@ -114,6 +115,19 @@ exports.updateWatchPrice = (username, productId, watchPrice) => {
       })
       resolve(items);
     })
+  .then(()=> {
+  console.log('adding to product list');
+  console.log('product merchant:', product.merchant);
+  //start a transaction that
+  //check if product is already in collection
+  //if not, add product to collection
+  //else update the current price and the list of users watching the item
+  db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
+    'currentPrice': product.currentPrice,
+    users: username
+  }, {merge: true});
+  return ''
+})
     .catch(() => {
       reject('no shopping list');
     })
