@@ -130,12 +130,13 @@ class ShoppingList extends React.Component {
   }
 
   submitProductData(product, watchPrice, idToken) {
-    const {name, merchant, id} = product;
+    const {name, merchant, id, currentPrice} = product;
     axios.post(`/api/products?access_token=${idToken}`, {
       name: name,
       id: id,
       merchant: merchant,
-      targetPrice: watchPrice
+      targetPrice: watchPrice,
+      currentPrice: currentPrice
     })
     .then(data => {
       console.log(data.data);

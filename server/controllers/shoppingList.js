@@ -42,19 +42,6 @@ exports.addItemToShoppingList = (username, product) => {
         items: items
       })
       .then(()=> {
-        console.log('adding to product list');
-        console.log('product merchant:', product.merchant);
-        //start a transaction that
-        //check if product is already in collection
-        //if not, add product to collection
-        //else update the current price and the list of users watching the item
-        db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
-          'currentPrice': product.currentPrice,
-          users: username
-        }, {merge: true});
-        return ''
-      })
-      .then(()=> {
         resolve(items);
       })
       .catch(() => {
