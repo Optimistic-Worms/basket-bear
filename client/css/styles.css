@@ -925,7 +925,7 @@ input.settings-form:focus {
     display: none;
   }
 
-  .button-wrapper {
+  .button-wrapper--watch {
     display: flex;
     flex-direction: row;
     margin: 0 auto;

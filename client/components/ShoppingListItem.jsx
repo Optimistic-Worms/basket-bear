@@ -19,7 +19,7 @@ const ShoppingListItem = (props) => {
         </div>
 
         </div>
-      <div className="button-wrapper">
+      <div className="button-wrapper button-wrapper--watch">
         <div className="button-wrapper--flex-left">
         <button className="button button--remove" onClick= {()=>{ props.removeItem(props.item, props.index)} } > <span className="desktop-show">Remove</span><span className="mobile-show"><i className="fa fa-times" aria-hidden="true"></i></span></button>
 
