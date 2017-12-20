@@ -604,7 +604,8 @@ input.watch-form:focus {
   font-weight: 300;
   text-align: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .settings-form-wrapper {
@@ -739,7 +740,6 @@ input.settings-form:focus {
 
   .settings-header {
     padding: 0;
-    justify-content: center;
   }
 
 }
