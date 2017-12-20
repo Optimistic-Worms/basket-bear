@@ -20,8 +20,11 @@ const ShoppingListItem = (props) => {
 
         </div>
       <div className="button-wrapper">
+        <div className="button-wrapper--flex-left">
         <button className="button button--remove" onClick= {()=>{ props.removeItem(props.item, props.index)} } > <span className="desktop-show">Remove</span><span className="mobile-show"><i className="fa fa-times" aria-hidden="true"></i></span></button>
+
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} ><span className="desktop-show">Buy Product</span><span className="mobile-show"><i className="fa fa-shopping-cart" aria-hidden="true"></i></span></button>
+      </div>
        <button className="button" onClick= {()=>{props.openProductSettings(props.item)}}> Set Watch Price</button>
 
      </div>

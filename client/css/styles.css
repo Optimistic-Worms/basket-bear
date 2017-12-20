@@ -918,10 +918,20 @@ input.settings-form:focus {
   }
 }
 
+
+
 @media (min-width:769px) {
   .mobile-show {
     display: none;
   }
+
+  .button-wrapper {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 85%;
+}
 }
 
 @media (min-width:1600px) {
