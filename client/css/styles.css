@@ -173,7 +173,7 @@ h4 {
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
   height: 4.4em;
-  width: 17.5em;
+  width: 14em;
   margin: 1em auto;
   background-repeat: no-repeat;
   padding-left: 100px;
@@ -289,8 +289,9 @@ input.search-form:focus {
 .search-form {
   width: 100%;
   border: 1px solid #dadada;
-  border-radius: 0;
   height: inherit;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
   -webkit-appearance: none;
 }
 
@@ -301,20 +302,19 @@ select.search-selection:focus {
 .search-selection {
   width: 15%;
   border: 1px solid #dadada;
-  -webkit-appearance: none;
-  background: #fff;
+  height: inherit;
 }
 
 .search-button {
   width: 5%;
   height: inherit;
   border: 1px solid #dadada;
-  border-right: 0;
-  border-radius: 0;
   padding: 0;
   background: #E0E0E0;
   margin-right: .2em;
   font-size: .8em;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
   -webkit-appearance: none;
 }
 
@@ -557,7 +557,7 @@ button.search-button:focus {
     padding: 0 0.5em 1em;
     background-color: #f7f7f9;
     border-left: 1px solid rgba(0, 0, 0, .125);
-    width: 60%;
+    width: 70%;
 }
 
 .watch-list h3 {
@@ -604,7 +604,8 @@ input.watch-form:focus {
   font-weight: 300;
   text-align: center;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  width: 100%;
 }
 
 .settings-form-wrapper {
@@ -613,6 +614,7 @@ input.watch-form:focus {
   flex-direction: row wrap;
   height: 2em;
   margin-bottom: .5em;
+  align-items: center;
 }
 
 .settings-layout {
@@ -631,6 +633,7 @@ input.settings-form:focus {
   width: 100%;
   border: 1px solid #dadada;
   margin-right: .2em;
+  height: inherit;
 }
 
 .settings-email-update {
@@ -737,7 +740,6 @@ input.settings-form:focus {
 
   .settings-header {
     padding: 0;
-    justify-content: center;
   }
 
 }
@@ -752,7 +754,7 @@ input.settings-form:focus {
   }
 
   .search-selection {
-    width: 25%;
+    width: 20%;
   }
 
   .search-button {
@@ -760,7 +762,7 @@ input.settings-form:focus {
   }
 
   .search-form {
-    width: 65%;
+    width: 70%;
   }
 
   .watch-form {
@@ -916,10 +918,20 @@ input.settings-form:focus {
   }
 }
 
+
+
 @media (min-width:769px) {
   .mobile-show {
     display: none;
   }
+
+  .button-wrapper--watch {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 85%;
+}
 }
 
 @media (min-width:1600px) {
