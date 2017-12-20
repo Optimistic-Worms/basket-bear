@@ -23,6 +23,7 @@ class ShoppingList extends React.Component {
     this.sortItems = this.sortItems.bind(this);
     this.submitProductData = this.submitProductData.bind(this);
     this.addToWatchList = this.addToWatchList.bind(this);
+    this.removeFromWatchList = this.removeFromWatchList.bind(this);
   }
 
   componentDidMount() {
@@ -89,6 +90,7 @@ class ShoppingList extends React.Component {
             }
             this.sortItems(itemsArr);
             this.setState({items: itemsArr});
+            this.removeFromWatchList(item, idToken);
           })
         })
       } else {
@@ -138,6 +140,14 @@ class ShoppingList extends React.Component {
       merchant: merchant,
       targetPrice: watchPrice,
       currentPrice: currentPrice
+    })
+  }
+
+  removeFromWatchList(product, idToken) {
+    const {merchant, id} = product;
+    axios.put(`/watchedItems?access_token=${idToken}`, {
+      id: id,
+      merchant: merchant
     })
   }
 
