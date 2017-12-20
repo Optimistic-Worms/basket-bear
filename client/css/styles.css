@@ -301,6 +301,7 @@ select.search-selection:focus {
 .search-selection {
   width: 15%;
   border: 1px solid #dadada;
+  height: inherit;
 }
 
 .search-button {

@@ -97,7 +97,7 @@ class Search extends React.Component {
       var product = {
         id: searchResults[i].ASIN[0],
         name: searchResults[i].ItemAttributes[0].Title[0],
-        merchant: 'amazon',
+        merchant: <i className="fa fa-amazon" aria-hidden="true"></i>,
         link: searchResults[i].DetailPageURL[0],
       }
 
