@@ -28,6 +28,13 @@ exports.addNew = (req, res) => {
   const {name, id, merchant, targetPrice} = req.body;
 
   console.log(name, id, merchant, targetPrice)
+
+  //   save current price
+  //   separate by merchant
+  //   db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
+  //     'currentPrice': product.currentPrice,
+  //     users: username
+
   db.collection('products').doc(id).set({
     name, name,
     merhcant: merchant,
