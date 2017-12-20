@@ -20,6 +20,7 @@ const ebay = require('./helpers/ebay');
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const product = require('./controllers/product');
+const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
 const apiAuth = require('./controllers/developer/auth/apiAuth');
@@ -150,6 +151,13 @@ app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
     res.status(200).send(data);
   })
 });
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Watched Items Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
+app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
