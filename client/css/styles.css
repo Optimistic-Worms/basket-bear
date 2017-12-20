@@ -291,6 +291,8 @@ input.search-form:focus {
   border: 1px solid #dadada;
   border-radius: 0;
   height: inherit;
+  border-top-left-radius: .25rem;
+  border-bottom-left-radius: .25rem;
   -webkit-appearance: none;
 }
 
@@ -313,6 +315,8 @@ select.search-selection:focus {
   background: #E0E0E0;
   margin-right: .2em;
   font-size: .8em;
+  border-top-right-radius: .25rem;
+  border-bottom-right-radius: .25rem;
   -webkit-appearance: none;
 }
 
@@ -750,7 +754,7 @@ input.settings-form:focus {
   }
 
   .search-selection {
-    width: 25%;
+    width: 20%;
   }
 
   .search-button {
@@ -758,7 +762,7 @@ input.settings-form:focus {
   }
 
   .search-form {
-    width: 65%;
+    width: 70%;
   }
 
   .watch-form {
