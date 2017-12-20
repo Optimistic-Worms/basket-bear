@@ -159,9 +159,9 @@ class Search extends React.Component {
           <h1>BUDGET BASKET</h1>
           <h4>FIND THE BEST PRICES FOR ITEMS YOU WANT</h4>
           <div className="search">
-            <button className="search-button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
 
             <input className="search-form" onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} placeholder="search for an item" onChange= {(input) => this.query(input)} type="search"/>
+            <button className="search-button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
 
 
 
