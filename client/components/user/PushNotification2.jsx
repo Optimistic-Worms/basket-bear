@@ -124,8 +124,6 @@ class PushNotification2 extends React.Component {
 		}
 
     updateSubscriptionOnServer(subscription, endpoint) {
-    // in live code send the subscription key to be stored for this user 
-    // Here instead make is visibile on the front end. 
 
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
