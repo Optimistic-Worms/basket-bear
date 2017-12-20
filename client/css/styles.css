@@ -289,7 +289,6 @@ input.search-form:focus {
 .search-form {
   width: 100%;
   border: 1px solid #dadada;
-  border-radius: 0;
   height: inherit;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
@@ -310,7 +309,6 @@ select.search-selection:focus {
   width: 5%;
   height: inherit;
   border: 1px solid #dadada;
-  border-radius: 0;
   padding: 0;
   background: #E0E0E0;
   margin-right: .2em;
@@ -559,7 +557,7 @@ button.search-button:focus {
     padding: 0 0.5em 1em;
     background-color: #f7f7f9;
     border-left: 1px solid rgba(0, 0, 0, .125);
-    width: 60%;
+    width: 70%;
 }
 
 .watch-list h3 {
