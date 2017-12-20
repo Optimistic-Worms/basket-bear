@@ -34,7 +34,7 @@ exports.searchProducts = (keyword) => {
 }
 
 exports.lookupProductsById = (itemIds) => {
-  var items = itemIds.join(',');
+  var items = itemIds ? itemIds.join(',') :  '';
   return new Promise ((resolve, reject) => {
 
     axios.get('http://open.api.ebay.com/shopping?', {

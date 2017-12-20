@@ -139,7 +139,6 @@ class ShoppingList extends React.Component {
       currentPrice: currentPrice
     })
     .then(data => {
-      console.log(data.data);
       this.setState({editProduct: {}});
     })
   }
