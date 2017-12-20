@@ -613,6 +613,7 @@ input.watch-form:focus {
   flex-direction: row wrap;
   height: 2em;
   margin-bottom: .5em;
+  align-items: center;
 }
 
 .settings-layout {
@@ -631,6 +632,7 @@ input.settings-form:focus {
   width: 100%;
   border: 1px solid #dadada;
   margin-right: .2em;
+  height: inherit;
 }
 
 .settings-email-update {
