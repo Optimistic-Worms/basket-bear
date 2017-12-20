@@ -35,6 +35,7 @@ class ApiUserLogin extends React.Component {
         this.props.history.push('/api/account')
       })
       .catch(err => {
+        this.setState({errorMsg: err.response.data});
       });
     }
   }
