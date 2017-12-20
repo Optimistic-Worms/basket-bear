@@ -24,20 +24,13 @@ exports.getLowestPrices = (req, res) => {
 };
 
 exports.addNew = (req, res) => {
-  console.log('adding product')
-  const {name, id, merchant, targetPrice} = req.body;
+  const {name, id, merchant, targetPrice, currentPrice} = req.body;
+  //console.log(name, id, merchant, targetPrice, currentPrice)
 
-  console.log(name, id, merchant, targetPrice)
-
-  //   save current price
-  //   separate by merchant
-  //   db.collection('productList').doc(product.merchant).collection('products').doc(product.id).set({
-  //     'currentPrice': product.currentPrice,
-  //     users: username
-
-  db.collection('products').doc(id).set({
-    name, name,
-    merhcant: merchant,
+  db.collection('productList').doc(merchant).collection('products').doc(id).set({
+    name: name,
+    merchant: merchant,
+    currentPrice: currentPrice,
     prices: {[req.username]: targetPrice}
   }).then(() => {
     console.log('succesfully added new product price data')
@@ -47,8 +40,8 @@ exports.addNew = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  const {id, targetPrice} = req.body;
-  const productRef = db.collection('products').doc(id);
+  const {id, targetPrice, merchant} = req.body;
+  const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
 
   productRef.get().then((product) => {
     if (product.exists) {
