@@ -77,6 +77,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
+      inject: false,
       title: 'Shopping',
       template: './index.html',
     }),
