@@ -82,16 +82,20 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   Push Subscription 
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-
-if (!process.env.VAPID_SUBJECT) {
-    return console.error('VAPID_SUBJECT environment variable not found.')
-} else if (!process.env.VAPID_PUBLIC_KEY) {
-    return console.error('VAPID_PUBLIC_KEY environment variable not found.')
-} else if (!process.env.VAPID_PRIVATE_KEY) {
-    return console.error('VAPID_PRIVATE_KEY environment variable not found.')
-} else if (!process.env.AUTH_SECRET) {
-    return console.error('AUTH_SECRET environment variable not found.')
+let checkPushCreds = () => {
+    if (!process.env.VAPID_SUBJECT) {
+        console.error('VAPID_SUBJECT environment variable not found.')
+    } else if (!process.env.VAPID_PUBLIC_KEY) {
+        console.error('VAPID_PUBLIC_KEY environment variable not found.')
+    } else if (!process.env.VAPID_PRIVATE_KEY) {
+        console.error('VAPID_PRIVATE_KEY environment variable not found.')
+    } else if (!process.env.AUTH_SECRET) {
+        console.error('AUTH_SECRET environment variable not found.')
+    }
 }
+
+checkPushCreds();
+
   //  VAPID_SUBJECT,
 webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
