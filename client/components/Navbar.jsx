@@ -28,14 +28,16 @@ const NavBar = (props) => (
 		        </span>
 	        </Link>
 	    </li>
-			<li>
-			<Link to="/settings">
+	        { (props.logged === 'LOGOUT') && 
+			<li>			
+			<Link to="/settings">			   
 			    <span className="desktop-show">Settings</span>
 				<span className="mobile-show col">
 			<i className="fa fa-cog" aria-hidden="true"></i>Settings
 				</span>
 			</Link>
 			</li>
+			}
 	    <li>
 	      <Link to={{pathname: props.logout}} onClick={props.logging}>
 	        <span className="desktop-show">{props.logged}</span>
