@@ -33,7 +33,8 @@ const webPush = require('web-push');
 const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
 const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
-// VAPID keys should only be generated only once.
+
+// VAPID keys should only be generated once.
 // const newVapidKeys = webPush.generateVAPIDKeys();
 // console.log(newVapidKeys)
 
@@ -81,11 +82,19 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription 
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+setTimeout(() => {
+
 webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
 );
+
+
+
+
+}, 1000)
+
 
 
   app.post('/subscribe', isAuthenticated, (req, res) => {
