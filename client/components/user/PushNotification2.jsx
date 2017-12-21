@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import Loadable from 'react-loading-overlay';
 import firebase from './firebase-auth';
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
@@ -14,8 +15,9 @@ class PushNotification2 extends React.Component {
   	  pushButton:'Subscribe On this device',
   	  messages:'',
   	  pushButtonDisabled: true,
+      overlayLoader: false,
       subscriptionJson: {},
-  	  applicationServerPublicKey: 'BBiDR9Hln1a-QlSo8gzl5xqsZbFB5w4lLmOL9K0l0mfKt0OvtCR333P1RnPbqaIihknU9z1Dj2_sXKzrv3GWOFc'
+  	  applicationServerPublicKey: 'BLEvqwFXhnK_rPZtRn7O8Z10kt1c6RDl2vfZsBHCeZVhmwTkDQE841NM9TkKvvmEbrbcwA0aaXA9oYwfJSpT1mI'
   	}
     this.initializeUI = this.initializeUI.bind(this)
     this.updateBtn = this.updateBtn.bind(this)
@@ -61,6 +63,7 @@ class PushNotification2 extends React.Component {
    }
    
    updateBtn() {
+
       if (Notification.permission === 'denied') {
         this.setState({pushButton:'Push Messaging Blocked.'});
         this.setState({pushButtonDisabled:true});
@@ -76,6 +79,7 @@ class PushNotification2 extends React.Component {
 		}
 
 		pushButtonListener(){
+      this.setState({overlayLoader: true})
   	 this.setState({pushButtonDisabled:true})
   	 if(this.state.isSubscribed){
   	 	this.unsubscribeUser();
@@ -106,6 +110,7 @@ class PushNotification2 extends React.Component {
 			.then(function(subscription) {
 			that.updateSubscriptionOnServer(subscription, 'add');
 		  that.setState({isSubscribed:true}); 
+
 			that.updateBtn();
 			})
 			.catch(function(err) {
@@ -123,6 +128,7 @@ class PushNotification2 extends React.Component {
       that.updateSubscriptionOnServer(subscription, 'delete')
       that.setState({isSubscribed:false});
       that.updateBtn();
+      this.setState({overlayLoader: false})
       subscription.unsubscribe()
       return ;
       }
@@ -134,8 +140,10 @@ class PushNotification2 extends React.Component {
 
     addSubscription(idToken, subscription){
       axios.post(`/subscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
-        this.setState({isSubscribed:true}); 
-        this.setState({messages: result.data}); 
+        this.setState({isSubscribed:true});
+        this.setState({overlayLoader: false})  
+        this.setState({messages: result.data});
+
       }).catch(error =>{
         this.setState({messages: error}); 
       });
@@ -168,11 +176,11 @@ class PushNotification2 extends React.Component {
 
    render(){
    	return (
-		<div>
+    <div>
       <Loadable
-        active={true}
-        spinner
-        text='Loading your content...'
+      active={this.state.overlayLoader}
+      spinner
+      text='Saving...'
       >
       <div className="settings-layout">
         <h2>Device notification settings</h2>
@@ -187,7 +195,6 @@ class PushNotification2 extends React.Component {
         </button>
         </div>
       </div>
-        <span>{JSON.stringify(this.state.subscriptionJson)}</span>
         </Loadable>
 		</div> 
     )

@@ -34,13 +34,8 @@ const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscrip
 const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
 // VAPID keys should only be generated only once.
-//const vapidKeys = webPush.generateVAPIDKeys();
-const vapidKeys = { publicKey: 'BBiDR9Hln1a-QlSo8gzl5xqsZbFB5w4lLmOL9K0l0mfKt0OvtCR333P1RnPbqaIihknU9z1Dj2_sXKzrv3GWOFc',
-  privateKey: 'Zs2nd2cutZkjZVDHtN7qZlBxNIFmqu1OqiNTjUiT9qE' }
-
-//console.log(vapidKeys)
-
-
+// const newVapidKeys = webPush.generateVAPIDKeys();
+// console.log(newVapidKeys)
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -86,27 +81,22 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription 
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-let VAPID_SUBJECT =  'mailto:thihara@favoritemedium.com';
-let VAPID_PUBLIC_KEY = vapidKeys.publicKey;
-let VAPID_PRIVATE_KEY = vapidKeys.privateKey;
 
-//Auth secret used to authentication notification requests.
-let AUTH_SECRET = 'Hello';
 
-/*if (!VAPID_SUBJECT) {
+if (!process.env.VAPID_SUBJECT) {
     return console.error('VAPID_SUBJECT environment variable not found.')
-} else if (!VAPID_PUBLIC_KEY) {
+} else if (!process.env.VAPID_PUBLIC_KEY) {
     return console.error('VAPID_PUBLIC_KEY environment variable not found.')
-} else if (!VAPID_PRIVATE_KEY) {
+} else if (!process.env.VAPID_PRIVATE_KEY) {
     return console.error('VAPID_PRIVATE_KEY environment variable not found.')
-} else if (!AUTH_SECRET) {
+} else if (!process.env.AUTH_SECRET) {
     return console.error('AUTH_SECRET environment variable not found.')
-}*/
+}
   //  VAPID_SUBJECT,
 webPush.setVapidDetails(
-    VAPID_SUBJECT,
-    VAPID_PUBLIC_KEY,
-    VAPID_PRIVATE_KEY
+    process.env.VAPID_SUBJECT,
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
 );
 
 
@@ -161,26 +151,27 @@ app.get('/notify', function (req, res) {
 
     for (var i in subs){
     subscribers.push(subs[i])
-  }      
-  if(req.get('auth-secret') !== AUTH_SECRET) {
+  }   
+  subscribers.shift();
+  if(req.get('auth-secret') !== process.env.AUTH_SECRET) {
     console.log("Missing or incorrect auth-secret header. Rejecting request.");
-    return res.sendStatus(401);
+    return res.status(401).send('Not Authorized')
   }
   let message = req.query.message || `Willy Wonka's chocolate is the best!`;
   let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
   let title = req.query.title || `Push notification received!`;
-  console.log(subscribers)
   subscribers.forEach(pushSubscription => {
   //Can be anything you want. No specific structure necessary.
     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-    webPush.sendNotification(pushSubscription, payload, {}).then(response => {
+    webPush.sendNotification(pushSubscription, payload).then(response => {
       res.status(200).send(response)
-    }).catch(error => {         
+    }).catch(error => {
+    console.log(error)         
       res.status(500).send(error)
     });
   });
   }).catch(error => {
-  res.status(500).send(error)
+    res.status(500).send(error)
   })
 });
 
