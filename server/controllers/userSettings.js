@@ -30,23 +30,24 @@ exports.createSettings = (username, data = []) => {
 }
 
 exports.addSubscriptionToDb = (username, data) => {
-
   return new Promise((resolve, reject) => {
-    db.collection('userSettings').doc(username).update({
-      pushNotificationEndpoints: data
-    }).then((result) => {
+    db.collection('userSettings').doc(username).update(data)
+    .then((result) => {
       resolve(console.log(result))
     }).catch(error => {
       reject(console.log(error))
     })
   })
 }
+
 exports.removeSubscriptionFromDb = (username, data) => {
-  
+  var FieldValue = require("firebase-admin").firestore.FieldValue;
   return new Promise((resolve, reject) => {
-  db.collection('userSettings').doc(username).delete({
-      pushNotificationEndpoints: data
-    }).then((result) => {
+  let obj = {}  
+  let name = Object.keys(data)[0];
+  obj[name] = FieldValue.delete()    
+  db.collection('userSettings').doc(username).update(obj)
+  .then((result) => {
       resolve(console.log(result))
     }).catch(error => {
       reject(console.log(error))
@@ -56,12 +57,13 @@ exports.removeSubscriptionFromDb = (username, data) => {
 
 exports.getSubscriptionsFromDB = (username) => {
 
-   console.log('geting subs')
+   console.log('getting subs')
    console.log(username)
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).get()
     .then((doc) => {
-      resolve(doc.data().pushNotificationEndpoints);
+      delete doc.data().emailNotificationSettings
+      resolve(doc.data());
     })
     .catch((error) => {
       console.log(error)

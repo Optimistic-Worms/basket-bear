@@ -113,7 +113,8 @@ webPush.setVapidDetails(
   app.post('/subscribe', isAuthenticated, (req, res) => {
     let data = req.body.subscription;
     let pushSubscription = {};
-    pushSubscription[data.endpoint] = {
+    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
+    pushSubscription[name] = {
        endpoint: data.endpoint,
        keys: {
            p256dh: data.keys.p256dh, // Public Key
@@ -129,15 +130,18 @@ webPush.setVapidDetails(
 
 
  app.post('/unsubscribe', isAuthenticated, function (req, res) {
-     // Need to remove end point from DB
-/*     let data = req.body.subscription;
-     let endpoint = data.endpoint;*/
       let data = req.body.subscription;
       let username = req.username;
-      let pushSubscription = {};
-      console.log(data)
-     subscribers = []// subscribers.filter(subscriber => { endpoint == subscriber.endpoint });
-     //removeSubscriptionFromDb(username, pushSubscription);
+          let pushSubscription = {};
+    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
+    pushSubscription[name] = {
+       endpoint: data.endpoint,
+       keys: {
+           p256dh: data.keys.p256dh, // Public Key
+           auth: data.keys.auth
+       }
+    };
+     removeSubscriptionFromDb(username, pushSubscription);
      res.send('Subscription removed!');
  });
 
@@ -151,9 +155,10 @@ webPush.setVapidDetails(
 app.get('/notify', function (req, res) {
 // get subscription from firebase. 
   let username = req.get('user');
-
+  
   getSubscriptionsFromDB(username).then(subs => {
     let subscribers = []
+
     for (var i in subs){
     subscribers.push(subs[i])
   }      
@@ -164,6 +169,7 @@ app.get('/notify', function (req, res) {
   let message = req.query.message || `Willy Wonka's chocolate is the best!`;
   let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
   let title = req.query.title || `Push notification received!`;
+  console.log(subscribers)
   subscribers.forEach(pushSubscription => {
   //Can be anything you want. No specific structure necessary.
     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});

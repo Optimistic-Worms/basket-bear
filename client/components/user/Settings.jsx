@@ -57,7 +57,6 @@ class Settings extends React.Component {
    		});
   }
 
-
   setEmailNotificationPreferences(data, callback){
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -133,8 +132,6 @@ class Settings extends React.Component {
     this.setState({newEmail:email})
   }
 
-
-
   render(){
   return (
     <div className="settings-card">
@@ -157,22 +154,10 @@ class Settings extends React.Component {
 	      trackNewEmail={this.trackNewEmail}
 	      messages={this.state.messages}
       />
-      <div className="settings-layout">
-	      <h2>Device notification settings</h2>
-	      <div className="settings-email-update">
-		      Register this device to get notifications.
-		      <button className="button button-settings">Register Now</button>
-	      </div>
-	      <div className="settings-email-update">
-		      Turn off Notifications for this device.
-		      <button className="button button--remove button--remove-settings">Turn off</button>
-	      </div>
-      </div>
       <PushNotification2/>
     </div>
   )
   }
-
 }
 
 export default Settings

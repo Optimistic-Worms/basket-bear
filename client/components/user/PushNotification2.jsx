@@ -3,6 +3,7 @@ import axios from 'axios';
 import firebase from './firebase-auth';
 import runtime from 'serviceworker-webpack-plugin/lib/runtime';
 
+
 let swRegistration = null;
 
 class PushNotification2 extends React.Component {
@@ -22,12 +23,14 @@ class PushNotification2 extends React.Component {
     this.subscribeUser = this.subscribeUser.bind(this)
     this.urlB64ToUint8Array = this.urlB64ToUint8Array.bind(this)
     this.unsubscribeUser = this.unsubscribeUser.bind(this)
+    this.addSubscription = this.addSubscription.bind(this)
+    this.deleteSubscription = this.deleteSubscription.bind(this)
   }
   
    componentWillMount(){
      if ('serviceWorker' in navigator && 'PushManager' in window) {
        runtime.register().then((swReg)=>{
-       	this.setState({messages:'This browser can support device notifications'})
+       	this.setState({messages:'This device can support device notifications'})
        	swRegistration = swReg;
        	this.initializeUI();
        }).catch(error =>{
@@ -39,39 +42,34 @@ class PushNotification2 extends React.Component {
      }
    }
 
-
-
    initializeUI(){
-			let that = this
-			swRegistration.pushManager.getSubscription()
-			.then(function(subscription) {
-				let isSubscribed = !(subscription === null);
-        that.setState({isSubscribed:isSubscribed})
-				if (isSubscribed) {
-					console.log('User IS subscribed.');
-				} else {
-					console.log('User is NOT subscribed.');
-			}
-		that.updateBtn();
-  	});
+    let that = this
+    swRegistration.pushManager.getSubscription()
+    .then(function(subscription) {
+      let isSubscribed = !(subscription === null);
+      that.setState({isSubscribed:isSubscribed})
+    if (isSubscribed) {
+
+      that.setState({messages:'You are subscribed on this device' });
+    } else {
+      console.log('User is NOT subscribed.');
+    }
+    that.updateBtn();
+    }).catch(error => {
+      console.log(error)
+    });
    }
    
    updateBtn() {
       if (Notification.permission === 'denied') {
         this.setState({pushButton:'Push Messaging Blocked.'});
         this.setState({pushButtonDisabled:true});
-          this.updateSubscriptionOnServer(null);
+        this.updateSubscriptionOnServer(null);
         return;
       }
-
-
-
-
   		if (this.state.isSubscribed) {
-   // 	pushButton.textContent = 'Disable Push Messaging';
     	this.setState({pushButton:'Disable Push Messaging' })
   		} else {
-   // 	pushButton.textContent = 'Enable Push Messaging';
     	this.setState({pushButton:'Enable Push Messaging' })
   	  }
   		this.setState({pushButtonDisabled:false});
@@ -101,20 +99,13 @@ class PushNotification2 extends React.Component {
       return outputArray;
 		}
 
-
-
 		subscribeUser() {
-      console.log('hit subscribe user')
 			let that = this      
 			const applicationServerKey = this.urlB64ToUint8Array(this.state.applicationServerPublicKey);
 			swRegistration.pushManager.subscribe({userVisibleOnly: true,applicationServerKey: applicationServerKey})
 			.then(function(subscription) {
-			console.log('User is subscribed.');
-
-			that.updateSubscriptionOnServer(subscription);
-
-		  that.setState({isSubscribed:true});
-
+			that.updateSubscriptionOnServer(subscription, 'add');
+		  that.setState({isSubscribed:true}); 
 			that.updateBtn();
 			})
 			.catch(function(err) {
@@ -123,29 +114,51 @@ class PushNotification2 extends React.Component {
 			});
 		}
 
-    updateSubscriptionOnServer(subscription, endpoint) {
+    unsubscribeUser() {
+      let that = this;
+      swRegistration.pushManager.getSubscription()
+      .then(subscription => {
+        if (subscription) {
+      // TODO: Tell application server to delete subscription
+      that.updateSubscriptionOnServer(subscription, 'delete')
+      that.setState({isSubscribed:false});
+      that.updateBtn();
+      subscription.unsubscribe()
+      return ;
+      }
+      })
+      .catch(error => {
+      console.log('Error unsubscribing', error);
+      })
+    }
 
+    addSubscription(idToken, subscription){
+      axios.post(`/subscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
+        this.setState({isSubscribed:true}); 
+        this.setState({messages: result.data}); 
+      }).catch(error =>{
+        this.setState({messages: error}); 
+      });
+      this.setState({subscriptionJson:subscription})
+    }
+
+    deleteSubscription(idToken, endpoint){
+      axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:endpoint}).then((result)=>{
+      this.setState({messages: result.data});
+      }).catch(error =>{
+        this.setState({messages: error});
+      });
+      this.setState({subscriptionJson:{}})
+    }
+
+    updateSubscriptionOnServer(endpoint, task) {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-          if (subscription) {  
-          // TODO: Send subscription to application db        
-            axios.post(`/subscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
-              console.log(result)
-            }).catch(error =>{
-              console.log(error)
-            });
-            this.setState({subscriptionJson:subscription})
-          } else {
-          // TODO: Delete subscription on application db
-            axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:endpoint}).then((result)=>{
-              console.log(result)
-            }).catch(error =>{
-              console.log(error)
-            });
-            this.setState({subscriptionJson:{}})
-          } // End subscription if else 
-        }) // End Token get
+          (task === 'add')? this.addSubscription(idToken, endpoint): this.deleteSubscription(idToken, endpoint)  
+        }).catch(error => {
+          console.log(error)
+        })
         } else {
          console.log('NO USER FOR subscription')
         }
@@ -153,42 +166,29 @@ class PushNotification2 extends React.Component {
 
     }
 
-    unsubscribeUser() {
-      let that = this;
-      swRegistration.pushManager.getSubscription()
-      .then(function(subscription) {
-      if (subscription) {
-        // TODO: Tell application server to delete subscription
-        return subscription.unsubscribe();
-      }
-      })
-      .catch(function(error) {
-        console.log('Error unsubscribing', error);
-      })
-      .then(function() {
-      that.updateSubscriptionOnServer(null, swRegistration.pushManager.getSubscription()); // Should be null
-        console.log('User is unsubscribed.');
-      that.setState({isSubscribed:false});
-      that.updateBtn();
-      })
-    }
-
    render(){
    	return (
 		<div>
-			<h2>Device notification settings</h2>
-			  <span style={{background:'grey', color:'white'}}>{this.state.messages}</span>
-				<div>
-				Register this device to get notifications.
-				<button 
-				  onClick={(e)=>this.pushButtonListener()}
-				  disabled={this.state.pushButtonDisabled}
-          
-				>
-				{this.state.pushButton}
-				</button>
+      <Loadable
+        active={true}
+        spinner
+        text='Loading your content...'
+      >
+      <div className="settings-layout">
+        <h2>Device notification settings</h2>
+        <span style={{background:'grey', color:'white'}}>{this.state.messages}</span>
+        <div className="settings-email-update" >
+          Register this device to get notifications.
+                  <button className={ (this.state.isSubscribed)? "button button--remove button--remove-settings" :"button button-settings"   }
+          onClick={(e)=>this.pushButtonListener()}
+          disabled={this.state.pushButtonDisabled}          
+        >
+        {this.state.pushButton}
+        </button>
+        </div>
+      </div>
         <span>{JSON.stringify(this.state.subscriptionJson)}</span>
-				</div>
+        </Loadable>
 		</div> 
     )
    }
