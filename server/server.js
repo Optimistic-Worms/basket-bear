@@ -1,5 +1,12 @@
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
+  const webPush = require('web-push');
+
+  webPush.setVapidDetails(
+    process.env.VAPID_SUBJECT,
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
 }
 
 const express = require('express')
@@ -29,7 +36,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Push */
-const webPush = require('web-push');
+
 const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
 const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -41,8 +48,6 @@ const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubsc
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-
 
 app.use(express.static(__dirname));
 
@@ -82,16 +87,6 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-setTimeout(() => {
-webPush.setVapidDetails(
-    process.env.VAPID_SUBJECT,
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
-);
-}, 1000)
-
-
-
   app.post('/subscribe', isAuthenticated, (req, res) => {
     let data = req.body.subscription;
     let pushSubscription = {};
@@ -163,7 +158,9 @@ app.get('/notify', function (req, res) {
     sendNotification(pushSubscription, payload).then(response => {
       res.send(response)
     }).catch(error => {
-      res.sendStatus(500)
+    console.log(error)
+      res.status(500).send(error)
+
     });
   });
 
