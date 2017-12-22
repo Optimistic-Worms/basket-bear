@@ -1,24 +1,83 @@
 const db = require('../../db/db-config');
-const Promise = require('bluebird');
+
 
 // Shopping List Handlers
 
 exports.createSettings = (username, data = []) => {
-  console.log('Hit createSettings')
-  console.log(username)
-
+  
   return new Promise((resolve, reject) => {
-    db.collection('userSettings').doc(username).set({
-      emailNotificationSettings: data
+    db.collection('userSettings').doc(username).update({
+      emailNotificationSettings: data,
     })
     .then(() => {
-      resolve("We updated your changes", username);
+      resolve("We updated your changes");
     })
-    .catch(() => {
-      reject("We couldn't update your changes please try again later", username);
+    .catch(error => {
+      let message = error.Error;
+      if(message = 'no entity to update:') {
+      db.collection('userSettings').doc(username).set({
+      emailNotificationSettings: data,
+    }).then(() => {
+      resolve('We update your changes')
+    }).catch(error =>{
+      reject('Something went wrong please try again')
+    })
+    } else {
+      reject(error.Error);
+    }
     });
   });
 }
+
+exports.addSubscriptionToDb = (username, data) => {
+  return new Promise((resolve, reject) => {
+    db.collection('userSettings').doc(username).update(data)
+    .then((result) => {
+      resolve(console.log(result))
+    }).catch(error => {
+      reject(console.log(error))
+    })
+  })
+}
+
+exports.removeSubscriptionFromDb = (username, data) => {
+  var FieldValue = require("firebase-admin").firestore.FieldValue;
+  return new Promise((resolve, reject) => {
+  let obj = {}  
+  let name = Object.keys(data)[0];
+  obj[name] = FieldValue.delete()    
+  db.collection('userSettings').doc(username).update(obj)
+  .then((result) => {
+      resolve(console.log(result))
+    }).catch(error => {
+      reject(console.log(error))
+    })
+  })
+}
+
+exports.getSubscriptionsFromDB = (username) => {
+
+   console.log('getting subs')
+   console.log(username)
+  return new Promise((resolve, reject) => {
+    db.collection('userSettings').doc(username).get()
+    .then((doc) => {
+      delete doc.data().emailNotificationSettings
+      resolve(doc.data());
+    })
+    .catch((error) => {
+      console.log(error)
+      console.log('no registered push endpoints')
+      reject(error);
+    });
+  })
+
+
+
+
+
+}
+
 
 exports.getSettings = (username) => {
   return new Promise((resolve, reject) => {
@@ -33,59 +92,3 @@ exports.getSettings = (username) => {
     });
   })
 }
-/*
-exports.addSettings = (username, product) => {
-  var items;
-  return new Promise((resolve, reject) => {
-    module.exports.getShoppingList(username)
-    .then((shoppingListItems) => {
-      items = shoppingListItems;
-      items[product.id] = product;
-      db.collection('shoppingLists').doc(username).set({
-        items: items
-      })
-      .then(()=> {
-        resolve(items);
-      })
-      .catch(() => {
-        reject('Couldnt add item to shopping list');
-      })
-    })
-    .catch(() => {
-      module.exports.createShoppingList(username);
-      resolve('No existing shopping list. Create shopping list. Try adding item again');
-    })
-  })
-}
-
-exports.removeSettings = (username, productId) => {
-  var items;
-  return new Promise((resolve, reject) => {
-    module.exports.getShoppingList(username)
-    .then((shoppingListItems) => {
-      items = shoppingListItems;
-      delete items[productId];
-      db.collection('shoppingLists').doc(username).set({
-        items: items
-      })
-      resolve(items);
-    })
-    .catch(() => {
-      reject('no shopping list');
-    })
-  });
-}
-
-exports.updateShoppingList = (username, list) => {
-  return new Promise((resolve, reject) => {
-    db.collection('shoppingLists').doc(username).set({
-      items: list
-    })
-    .then(() => {
-      resolve('Shopping List Updated');
-    })
-    .catch(() => {
-      reject('Did not save updated shopping list');
-    })
-  });
-}*/
