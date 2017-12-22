@@ -28,6 +28,15 @@ const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 
+/* Push */
+const webPush = require('web-push');
+const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
+const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
+const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
+
+// VAPID keys should only be generated once.
+// const newVapidKeys = webPush.generateVAPIDKeys();
+// console.log(newVapidKeys)
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -59,13 +68,108 @@ app.use('/api', apiRoutes);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-app.get('/', (req,res)=> {
+/*app.get('/', (req,res)=> {
   res.send(200)
-});
+});*/
 
 app.get('/thing', isAuthenticated, (req,res) =>{
   console.log('hit the 200')
   res.sendStatus(200);
+});
+
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Push Subscription 
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+setTimeout(() => {
+
+webPush.setVapidDetails(
+    process.env.VAPID_SUBJECT,
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+);
+
+
+
+
+}, 1000)
+
+
+
+  app.post('/subscribe', isAuthenticated, (req, res) => {
+    let data = req.body.subscription;
+    let pushSubscription = {};
+    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
+    pushSubscription[name] = {
+       endpoint: data.endpoint,
+       keys: {
+           p256dh: data.keys.p256dh, // Public Key
+           auth: data.keys.auth
+       }
+    };
+    addSubscriptionToDb(req.username, pushSubscription).then(response => {
+    res.send('Subscription accepted!');
+    }).catch(error => {
+    res.status(500).send(error)
+    });   
+  });
+
+
+ app.post('/unsubscribe', isAuthenticated, function (req, res) {
+      let data = req.body.subscription;
+      let username = req.username;
+          let pushSubscription = {};
+    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
+    pushSubscription[name] = {
+       endpoint: data.endpoint,
+       keys: {
+           p256dh: data.keys.p256dh, // Public Key
+           auth: data.keys.auth
+       }
+    };
+     removeSubscriptionFromDb(username, pushSubscription);
+     res.send('Subscription removed!');
+ });
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Send Push Notification  
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+
+// WARNING ROUTE ONLY SEMI PROTECTED USE FOR EXAMPLES ONLY
+
+app.get('/notify', function (req, res) {
+// get subscription from firebase. 
+  let username = req.get('user');
+  
+  getSubscriptionsFromDB(username).then(subs => {
+    let subscribers = []
+
+    for (var i in subs){
+    subscribers.push(subs[i])
+  }   
+  subscribers.shift();
+  if(req.get('auth-secret') !== process.env.AUTH_SECRET) {
+    console.log("Missing or incorrect auth-secret header. Rejecting request.");
+    return res.status(401).send('Not Authorized')
+  }
+  let message = req.query.message || `Willy Wonka's chocolate is the best!`;
+  let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
+  let title = req.query.title || `Push notification received!`;
+  subscribers.forEach(pushSubscription => {
+  //Can be anything you want. No specific structure necessary.
+    let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
+    webPush.sendNotification(pushSubscription, payload).then(response => {
+      res.status(200).send(response)
+    }).catch(error => {
+    console.log(error)         
+      res.status(500).send(error)
+    });
+  });
+  }).catch(error => {
+    res.status(500).send(error)
+  })
 });
 
 
@@ -78,6 +182,8 @@ app.get('/userSettings', isAuthenticated, (req, res) => {
   userSettings.getSettings(username)
   .then((result) => {
     res.status(200).send(result);
+  }).catch(error => {
+    res.status(500).send(error)
   });
 });
 
@@ -87,6 +193,8 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
   userSettings.createSettings(username, data)
   .then((result) => {
     res.status(200).send(result);
+  }).catch(error => {
+    res.status(500).send(error)
   });
 });
 
@@ -258,9 +366,6 @@ app.get('*.js', function (req, res, next) {
 app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, '../index.html'))
 });
-
-
-
 
 
 module.exports.server = server;

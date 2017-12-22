@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from './firebase-auth';
 import axios from 'axios';
 import EmailPreferences from './EmailPreferences.jsx'
+import PushNotification2 from './PushNotification2.jsx'
 
 class Settings extends React.Component {
    constructor() {
@@ -24,16 +25,14 @@ class Settings extends React.Component {
     this.setMessages = this.setMessages.bind(this)
   }
 
-  componentDidMount(){
+  componentWillMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
+        this.getEmailNotificationPreferences()
 	      let name = user.displayName;
 	    	(name)? this.setState({name:name}): this.setState({name:''})
-	    } else {
-	      console.log('Error no user detected!');
-	    }
+	    } 
 	  });
-	  this.getEmailNotificationPreferences()
 	}
 
   setName(e){
@@ -57,7 +56,6 @@ class Settings extends React.Component {
 		    }
    		});
   }
-
 
   setEmailNotificationPreferences(data, callback){
     firebase.auth().onAuthStateChanged((user) => {
@@ -134,26 +132,20 @@ class Settings extends React.Component {
     this.setState({newEmail:email})
   }
 
-
-
   render(){
   return (
     <div className="settings-card">
-      <div className="settings-header">
-      <h2>Account Settings</h2>
-      <h2 className="desktop-show">{this.state.name}</h2>
-    </div>
+      <h1 className="login-header">Account Settings</h1>
 
       <div className="settings-layout">
 	      <div>
-		      <h3>Update Username</h3>
+		      <h2>Username:</h2>
           <div className="settings-form-wrapper">
             <input className="settings-form" type="text" onKeyUp={(e) => this.setName(e)} placeholder={this.state.name}/>
 		      <button className="button button-settings" onClick={() => this.updateUserProfile()}>Update</button>
         </div>
 	      </div>
       </div>
-
       <EmailPreferences
 	      emails={this.state.emailList}
 	      OnOffForEmail={this.OnOffForEmail}
@@ -162,21 +154,10 @@ class Settings extends React.Component {
 	      trackNewEmail={this.trackNewEmail}
 	      messages={this.state.messages}
       />
-      <div className="settings-layout">
-	      <h3>Device notification settings</h3>
-	      <div className="settings-notification-settings">
-		      Register this device to get notifications.
-		      <button className="button button-settings">Register Now</button>
-	      </div>
-	      <div className="settings-notification-settings">
-		      Turn off Notifications for this device.
-		      <button className="button button--remove button--remove-settings">Turn off</button>
-	      </div>
-      </div>
+      <PushNotification2/>
     </div>
   )
   }
-
 }
 
 export default Settings
