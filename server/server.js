@@ -83,16 +83,11 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   Push Subscription 
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 setTimeout(() => {
-
 webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
 );
-
-
-
-
 }, 1000)
 
 
@@ -145,30 +140,35 @@ app.get('/notify', function (req, res) {
   
   getSubscriptionsFromDB(username).then(subs => {
     let subscribers = []
-
     for (var i in subs){
     subscribers.push(subs[i])
   }   
   subscribers.shift();
+  if(subscribers.length === 0 ){
+    res.status(200).send('user has no subscriptions')
+  }
   if(req.get('auth-secret') !== process.env.AUTH_SECRET) {
     console.log("Missing or incorrect auth-secret header. Rejecting request.");
-    return res.status(401).send('Not Authorized')
+    res.status(401).send('Not Authorized')
   }
+
   let message = req.query.message || `Willy Wonka's chocolate is the best!`;
   let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
   let title = req.query.title || `Push notification received!`;
   subscribers.forEach(pushSubscription => {
+
   //Can be anything you want. No specific structure necessary.
     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-    webPush.sendNotification(pushSubscription, payload).then(response => {
-      res.status(200).send(response)
-    }).catch(error => {
-    console.log(error)         
-      res.status(500).send(error)
+   webPush.
+    sendNotification(pushSubscription, payload).then(response => {
+      res.send(response)
+    }).catch(error => { 
+      res.sendStatus(500)    
     });
   });
+
   }).catch(error => {
-    res.status(500).send(error)
+      res.sendStatus(500)
   })
 });
 
