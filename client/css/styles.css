@@ -173,7 +173,7 @@ h4 {
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
   height: 4.4em;
-  width: 14.3em;
+  width: 17.1em;
   margin: 1em auto;
   background-repeat: no-repeat;
   padding-left: 100px;
@@ -292,6 +292,8 @@ input.search-form:focus {
   height: inherit;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   -webkit-appearance: none;
 }
 
@@ -315,6 +317,8 @@ select.search-selection:focus {
   font-size: .8em;
   border-top-right-radius: .25rem;
   border-bottom-right-radius: .25rem;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   -webkit-appearance: none;
 }
 
