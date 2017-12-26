@@ -169,11 +169,3 @@ input.settings-form:focus {
 
 
 }
-
-
-
-@media (min-width:1600px) {
-  .list {
-    grid-template-columns: auto auto auto auto;
-  }
-}

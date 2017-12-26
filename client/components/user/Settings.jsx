@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from './firebase-auth';
 import axios from 'axios';
+import '../../css/settings.css';
 import EmailPreferences from './EmailPreferences.jsx'
 import PushNotification2 from './PushNotification2.jsx'
 
@@ -31,7 +32,7 @@ class Settings extends React.Component {
         this.getEmailNotificationPreferences()
 	      let name = user.displayName;
 	    	(name)? this.setState({name:name}): this.setState({name:''})
-	    } 
+	    }
 	  });
 	}
 
