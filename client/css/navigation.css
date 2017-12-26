@@ -1,0 +1,122 @@
+/**  Navigation Bar  **/
+
+nav {
+  color: #fff;
+  background-color: #424242;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  box-sizing: border-box;
+  font-family: Roboto, sans-serif;
+  box-shadow: #323232 0 0.01em 0.03em, #323232 0 0.05em 0.1em;
+  border-radius: 0px;
+  position: relative;
+  width: 100%;
+  display: flex;
+  padding-left: .1em;
+  padding-right: .1em;
+  align-items: center;
+  height: 3em;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+  opacity: 0.85;
+  font-weight: 100;
+  text-transform: uppercase;
+}
+
+.brand {
+  font-size: 1.5em;
+  justify-content: center;
+  margin-right: auto;
+  margin-left: 0.6em;
+  text-decoration: none !important;
+}
+
+.brand a {
+  text-decoration: none !important;
+  color: #fff;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -ms-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+  font-size: .8em;
+}
+
+nav .brand a:hover {
+  color: #000;
+}
+
+.menu li {
+  display: inline-block;
+  cursor: pointer;
+  line-height: 3.3em;
+  font-size: 1.1em;
+  position: Relative;
+}
+
+.menu li a {
+  display: block;
+  padding: 0 1em;
+  color: #fff;
+  text-decoration: none !important;
+}
+
+.menu li:hover {
+  background: #616161;
+}
+
+
+/** Media Queries **/
+
+@media (max-width:360px) {
+  .menu li {
+    font-size: .9em;
+  }
+}
+
+@media (max-width:420px) {
+  li .fa {
+    font-size: 2.5em;
+    justify-content: center;
+    margin: 1em auto -.8em auto;
+  }
+
+}
+
+
+@media (max-width:768px) {
+
+  nav {
+    justify-content: space-around;
+  }
+  .menu {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+  }
+  .list {
+    grid-template-columns: auto;
+    margin: 0 .5em;
+    grid-gap: .2em;
+  }
+
+  h3 {
+    font-size: 1em;
+  }
+  li .fa {
+    font-size: 3.2em;
+    justify-content: center;
+    margin: 1em auto -.6em auto;
+  }
+
+  .brand {
+    display: none;
+  }
+
+  .menu li:hover {
+    height: 4.2em;
+  }
+
+}

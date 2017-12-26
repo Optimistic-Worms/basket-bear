@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../css/navigation.css'
 import Search from './Search.jsx';
 
 const NavBar = (props) => (
@@ -28,9 +29,9 @@ const NavBar = (props) => (
 		        </span>
 	        </Link>
 	    </li>
-	        { (props.logged === 'LOGOUT') && 
-			<li>			
-			<Link to="/settings">			   
+	        { (props.logged === 'LOGOUT') &&
+			<li>
+			<Link to="/settings">
 			    <span className="desktop-show">Settings</span>
 				<span className="mobile-show col">
 			<i className="fa fa-cog" aria-hidden="true"></i>Settings
