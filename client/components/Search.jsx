@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import '../css/styles.css';
 import firebase from './user/firebase-auth';
 import SearchList from './SearchList.jsx';
 
