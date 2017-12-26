@@ -46,265 +46,14 @@ h4 {
   background: #3F51B5;
 }
 
-/** Watch List **/
-
-.watch-list {
-  grid-template-columns: auto;
-  margin: 1em;
-  grid-gap: .2em;
-}
-
-.watch-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  margin: 3.5em auto 1em;
-  text-align: center!important;
-}
-
-.watch-container .price {
-  font-size: .9em;
-  font-weight: 300;
-}
-
-.watch-container h1 {
-  font-weight: 300;
-}
-
-.item-info-watch {
-  justify-content: left;
-  flex-direction: column;
-  width: 100%
-}
-
-.item-info-watch .current-price {
-  color: #000;
-  font-weight: 500;
-  font-size: 1em;
-  margin-top: -.5em;
-}
-
-.item-info-merchant {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 85%;
-}
-
-.watch-card {
-  display: flex;
-    flex-direction: row;
-    border: 1px solid #dadada;
-    border-radius: 0.25em;
-    background-color: #fff;
-    justify-content: center;
-    margin-bottom: 1em;
-}
-
-.watch-item-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 0.5em 1em;
-    background-color: #f7f7f9;
-    border-left: 1px solid rgba(0, 0, 0, .125);
-    width: 70%;
-}
-
-.watch-list h3 {
-  font-size: 1em;
-  font-weight: 500;
-  text-decoration: none !important;
-  color: #414141;
-}
-
-.watch-item-footer a {
-  text-decoration: none !important;
-}
-
-.watch-list h3:hover {
-  color: #3F51B5;
-}
-
-.watch-form {
-    width: 50%;
-    border: 1px solid #dadada;
-    height: 2.5rem;
-    margin: 1em auto;
-}
-
-input.watch-form:focus {
-  outline: none;
-  font-size: 1em;
-}
-
-.button-product-watch {
-  width: 50%;
-  margin: 0 auto;
-}
-
-/** Settings **/
-
-.settings-card {
-  display: flex;
-  flex-direction: column;
-  border: 1px solid #dadada;
-  border-radius: 0.25em;
-  justify-content: left;
-  width: 80%;
-  margin: 5em auto;
-  background-color: #fff;
-  font-weight: 300 !important;
-}
-
-.settings-header {
-  padding: .75rem 1.25rem;
-  margin-top: 0;
-  background-color: #f7f7f9;
-  border-bottom: 1px solid rgba(0, 0, 0, .125);
-  font-weight: 300;
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
-
-.settings-form-wrapper {
-  display: flex;
-  width: 100%;
-  flex-direction: row wrap;
-  height: 2em;
-  margin-bottom: .5em;
-  align-items: center;
-}
-
-.settings-layout {
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  margin: 0 auto;
-}
-
-input.settings-form:focus {
-  outline: none;
-  font-size: 1em;
-}
-
-.settings-form {
-  width: 100%;
-  border: 1px solid #dadada;
-  margin-right: .2em;
-  height: inherit;
-}
-
-.settings-email-update {
-  display: flex;
-  flex-direction: row;
-  width: 60%;
-  margin: .5em 0;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 1em;
-  border-bottom: 1px solid #dadada;
-}
-
-.email-wrapper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
-}
-
-.settings-header {
-  padding: .75rem 1.25rem;
-  margin-top: 0;
-  background-color: #f7f7f9;
-  border-bottom: 1px solid rgba(0, 0, 0, .125);
-  font-weight: 300;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.settings-notification-settings {
-    display: flex;
-    flex-direction: row;
-    width: 70%;
-    margin: .5em 0;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1em;
-}
-
-.settings-card h3 {
-  font-size: 1.3em;
-  font-weight: 500;
-}
-
-.client-secret {
-  word-wrap: break-word;
-  margin-bottom: 2em;
-}
 
 /** Media Queries **/
 
-@media (max-width:360px) {
-  .menu li {
-    font-size: .9em;
-  }
-}
+
 
 @media (max-width:420px) {
-  li .fa {
-    font-size: 2.5em;
-    justify-content: center;
-    margin: 1em auto -.8em auto;
-  }
-  .settings-email-update {
-    width: 100%;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .settings-notification-settings {
-    width: 100%;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-  }
 
 
-  .settings-form-wrapper {
-    flex-direction: column;
-    height: auto;
-  }
-  .settings-form {
-    width: 95%;
-    height: 4em;
-    border: 1px solid #dadada;
-    margin: .5em auto;
-  }
-  .button--remove-settings {
-    width: 100% !important;
-  }
-  .button-settings {
-    width: 100% !important;
-    margin-top: .7em;
-  }
-  .settings-card {
-    font-size: 85%;
-    font-weight: 300 !important;
-  }
-
-  .settings-header {
-    padding: 0;
-  }
 
 }
 
@@ -317,55 +66,16 @@ input.settings-form:focus {
     border-color: #d43f3a;
   }
 
-  .search-selection {
-    width: 20%;
-  }
-
-  .search-button {
-    width: 10%;
-  }
-
-  .search-form {
-    width: 70%;
-  }
-
-  .watch-form {
-      width: 95%;
-  }
-
-  .button-product-watch {
-    width: 95%;
-  }
 
 }
 
 @media (max-width:768px) {
 
-  nav {
-    justify-content: space-around;
-  }
-  .menu {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-  }
-  .list {
-    grid-template-columns: auto;
-    margin: 0 .5em;
-    grid-gap: .2em;
-  }
 
   h3 {
     font-size: 1em;
   }
-  .search {
-    width: 90%;
-  }
-  li .fa {
-    font-size: 3.2em;
-    justify-content: center;
-    margin: 1em auto -.6em auto;
-  }
+
   .card {
     position: relative;
     display: flex;
@@ -391,101 +101,10 @@ input.settings-form:focus {
   .desktop-show {
     display: none;
   }
-  .login-card {
-    width: 95%;
-  }
-  .menu li:hover {
-    height: 4.2em;
-  }
-  .api-doc {
-    display: flex !important;
-    flex-direction: column !important;
-  }
-  .api-doc-intro {
-    font-size: 85%;
-  }
-  .intro-card--api h1 {
-    font-size: 1.3em;
-    width: 100% !important;
-  }
-  .intro-card--api h4 {
-    font-size: 1em;
-    width: 95% !important;
-  }
-
-  .hometout-grid {
-    display: grid;
-    grid-template-columns: auto;
-    margin: 0 auto;
-    padding-bottom: 3em;
-    width: 100;
-    grid-gap: 1em;
-    align-items: center;
-  }
-  .hometout-join {
-    border-bottom: 1px solid #dadada;
-    padding-bottom: 1em;
-    border-right: none;
-    padding-right: 0;
-  }
-  .hometout-join h2 {
-    font-size: 1em;
-  }
-  .hometout-wrapper p {
-    margin-top: -.5em;
-  }
-  .settings-email-update {
-    width: 100%;
-  }
-
-  .settings-notification-settings {
-    width: 100%;
-  }
-
-  .settings-card {
-    justify-content: center;
-    width: 95%;
-    text-align: center;
-  }
-  .api-user-account {
-    display: grid;
-    grid-template-columns: auto;
-    width: 95%;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-top: 5em;
-  }
-
-  .watch-card {
-      flex-direction: column;
-  }
-
-  .watch-item-footer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 0.5em 1em;
-    background-color: #f7f7f9;
-    border-top: 1px solid rgba(0, 0, 0, .125);
-    width: 100%;
-    border-left: none;
-  }
-
-  .api-doc-nav {
-    width: 95%;
-    margin: 1em auto .1em;
-    padding-top: 0 !important;
-  }
 
 }
 
-@media (min-width:769px) and (max-width:1000px) {
-  .list {
-    grid-template-columns: auto auto;
-  }
-}
+
 
 
 
@@ -494,38 +113,7 @@ input.settings-form:focus {
     display: none;
   }
 
-  .button-wrapper--watch {
-    display: flex;
-    flex-direction: row;
-    margin: 0 auto;
-    justify-content: space-between;
-    width: 85%;
 }
-}
-
-@media (min-width:1600px) {
-  .list {
-    grid-template-columns: auto auto auto auto;
-  }
-}
-
-/** Developer **/
-
-/*footer {
-  display: flex;
-  justify-content: flex-start;
-  height: 2em;
-  background-color: #dadada;
-  width: 100%;
-  color: #fff;
-  background-color: #424242;
-
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  padding: 1rem;
-}*/
 
 footer {
   position: absolute;
