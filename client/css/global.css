@@ -1,0 +1,260 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
+
+/** General CSS **/
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+h4 {
+  text-align: center;
+  padding: 0 .1em;
+}
+
+.button {
+  display: inline-block;
+  line-height: 1.25;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  border: 1px solid transparent;
+  padding: 0.3em 1em;
+  font-size: 1em;
+  border-radius: 0.3em;
+  background: dodgerblue;
+  color: #fff;
+  cursor: pointer;
+  height: 100%;
+  margin: .1em;
+}
+
+.button:hover {
+  background: #3F51B5;
+}
+
+/** Product **/
+
+.card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  border-radius: 0.25em;
+  background-color: #fff;
+  justify-content: center;
+}
+
+.card-set-price {
+  padding: 1em;
+  width: 90%
+}
+
+.card h4, h3 {
+  font-weight: 100;
+  font-size: .8em;
+}
+
+.product-image {
+  max-width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+.price {
+  color: red;
+  font-size: 1.1em;
+}
+
+.product-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0.5em 1em;
+  background-color: #f7f7f9;
+  border-top: 1px solid rgba(0, 0, 0, .125);
+}
+
+.product-footer p {
+  padding: 0 .5em;
+}
+
+.item-info {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+}
+
+.button--product {
+  width: auto;
+  background-color: #5cb85c;
+  border-color: #5cb85c;
+  margin: .1em;
+  height: 100%
+}
+
+.button--product:hover {
+  background-color: #2E7D32;
+  border-color: #2E7D32;
+}
+
+.button--remove {
+  margin: .1em;
+  height: 100%;
+  width: auto;
+  background-color: #d9534f;
+  border-color: #d43f3a;
+}
+
+.button--remove:hover {
+  background-color: #c9302c;
+  border-color: #ac2925;
+}
+
+.button--watch {
+  margin: .1em;
+  height: 100%;
+  width: auto;
+  background-color: #f0ad4e;
+  border-color: #f0ad4e;
+}
+
+.button--watch:hover {
+  background-color: #ec971f;
+  border-color: #ec971f;
+}
+
+/** Footer **/
+
+footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #dadada;
+  text-align: center;
+}
+
+.footer-link {
+  color: #fff;
+  margin: 10px 20px 10px 20px;
+  cursor: pointer;
+  text-decoration: none !important;
+}
+
+.footer-link:hover {
+  color: #2196F3;
+}
+
+/** TBD **/
+.snippet {
+  color: #505050;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid #505050;
+  border-radius: 3px;
+  margin: 20px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  background-color: #F0F0F0;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.param {
+  margin: 20px;
+  border-collapse: collapse;
+}
+
+.param th {
+  font-weight: normal;
+  max-width: 40em;
+  text-align: left;
+  background-color: #d9edf7;
+  padding: 0.5em 1em;
+}
+
+.param td {
+  max-width: 40em;
+  text-align: left;
+  background-color: #F8F8F8;
+  padding: 0.5em 1em;
+}
+
+.value-lower {
+  margin-left: 4em !important;
+}
+
+
+/** Media Queries **/
+
+
+
+@media (max-width:600px) {
+  .button--remove {
+    margin: .5em 0;
+    height: 100%;
+    width: auto;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+
+
+}
+
+@media (max-width:768px) {
+
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: .25rem;
+    margin: .7em auto;
+    width: 95%;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    font-size: .5em;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    font-family: "Noto", sans-serif;
+  }
+  .brand {
+    display: none;
+  }
+  .desktop-show {
+    display: none;
+  }
+
+}
+
+
+
+@media (min-width:769px) {
+  .mobile-show {
+    display: none;
+  }
+
+}

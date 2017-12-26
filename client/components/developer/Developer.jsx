@@ -5,6 +5,7 @@ import ApiNav from './ApiNav.jsx';
 import ApiDoc from './docs/ApiDoc.jsx';
 import ApiIntro from './ApiIntro.jsx';
 import JoinApiTout from './JoinApiTout.jsx';
+import '../../css/api.css';
 import DeveloperFooter from './DeveloperFooter.jsx';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';

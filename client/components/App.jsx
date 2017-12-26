@@ -1,8 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route, Link, browserHistory } from 'react-router-dom';
 import firebase from './user/firebase-auth';
-import createHistory from 'history/createBrowserHistory'
-import '../css/styles.css';
+import createHistory from 'history/createBrowserHistory';
+import '../css/global.css';
+import '../css/homepage.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';

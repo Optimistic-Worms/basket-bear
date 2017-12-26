@@ -1,0 +1,141 @@
+/** Watch List **/
+
+.watch-list {
+  grid-template-columns: auto;
+  margin: 1em;
+  grid-gap: .2em;
+}
+
+.watch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin: 3.5em auto 1em;
+  text-align: center!important;
+}
+
+.watch-container .price {
+  font-size: .9em;
+  font-weight: 300;
+}
+
+.watch-container h1 {
+  font-weight: 300;
+}
+
+.item-info-watch {
+  justify-content: left;
+  flex-direction: column;
+  width: 100%
+}
+
+.item-info-watch .current-price {
+  color: #000;
+  font-weight: 500;
+  font-size: 1em;
+  margin-top: -.5em;
+}
+
+.item-info-merchant {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 85%;
+}
+
+.watch-card {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #dadada;
+  border-radius: 0.25em;
+  background-color: #fff;
+  justify-content: center;
+  margin-bottom: 1em;
+}
+
+.watch-item-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0.5em 1em;
+  background-color: #f7f7f9;
+  border-left: 1px solid rgba(0, 0, 0, .125);
+  width: 70%;
+}
+
+.watch-list h3 {
+  font-size: 1em;
+  font-weight: 500;
+  text-decoration: none !important;
+  color: #414141;
+}
+
+.watch-item-footer a {
+  text-decoration: none !important;
+}
+
+.watch-list h3:hover {
+  color: #3F51B5;
+}
+
+.watch-form {
+  width: 50%;
+  border: 1px solid #dadada;
+  height: 2.5rem;
+  margin: 1em auto;
+}
+
+input.watch-form:focus {
+  outline: none;
+  font-size: 1em;
+}
+
+.button-product-watch {
+  width: 50%;
+  margin: 0 auto;
+}
+
+/** Media Queries **/
+
+@media (max-width:600px) {
+  .button--remove {
+    margin: .5em 0;
+    height: 100%;
+    width: auto;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+  .button-product-watch {
+    width: 95%;
+  }
+}
+
+@media (max-width:768px) {
+  .watch-card {
+    flex-direction: column;
+  }
+  .watch-item-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 0.5em 1em;
+    background-color: #f7f7f9;
+    border-top: 1px solid rgba(0, 0, 0, .125);
+    width: 100%;
+    border-left: none;
+  }
+}
+
+@media (min-width:769px) {
+  .button-wrapper--watch {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    justify-content: space-between;
+    width: 85%;
+  }
+}

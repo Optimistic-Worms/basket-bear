@@ -1,6 +1,7 @@
 import React from 'react';
 import ApiUserLogin from './ApiUserLogin.jsx'
 import ApiUserSignup from './ApiUserSignup.jsx'
+import '../../../css/signup-login.css'
 
 class ApiUserAuthCard extends React.Component {
   constructor() {

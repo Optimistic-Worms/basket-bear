@@ -1,0 +1,171 @@
+/** Settings **/
+
+.settings-card {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #dadada;
+  border-radius: 0.25em;
+  justify-content: left;
+  width: 80%;
+  margin: 5em auto;
+  background-color: #fff;
+  font-weight: 300 !important;
+}
+
+.settings-header {
+  padding: .75rem 1.25rem;
+  margin-top: 0;
+  background-color: #f7f7f9;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  font-weight: 300;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.settings-form-wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row wrap;
+  height: 2em;
+  margin-bottom: .5em;
+  align-items: center;
+}
+
+.settings-layout {
+  display: flex;
+  flex-direction: column;
+  width: 95%;
+  margin: 0 auto;
+}
+
+input.settings-form:focus {
+  outline: none;
+  font-size: 1em;
+}
+
+.settings-form {
+  width: 100%;
+  border: 1px solid #dadada;
+  margin-right: .2em;
+  height: inherit;
+}
+
+.settings-email-update {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  margin: .5em 0;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #dadada;
+}
+
+.email-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.settings-header {
+  padding: .75rem 1.25rem;
+  margin-top: 0;
+  background-color: #f7f7f9;
+  border-bottom: 1px solid rgba(0, 0, 0, .125);
+  font-weight: 300;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.settings-notification-settings {
+    display: flex;
+    flex-direction: row;
+    width: 70%;
+    margin: .5em 0;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 1em;
+}
+
+.settings-card h3 {
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+.client-secret {
+  word-wrap: break-word;
+  margin-bottom: 2em;
+}
+
+/** Media Queries **/
+
+
+@media (max-width:420px) {
+  .settings-email-update {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .settings-notification-settings {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+
+  .settings-form-wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+  .settings-form {
+    width: 95%;
+    height: 4em;
+    border: 1px solid #dadada;
+    margin: .5em auto;
+  }
+  .button--remove-settings {
+    width: 100% !important;
+  }
+  .button-settings {
+    width: 100% !important;
+    margin-top: .7em;
+  }
+  .settings-card {
+    font-size: 85%;
+    font-weight: 300 !important;
+  }
+
+  .settings-header {
+    padding: 0;
+  }
+
+}
+
+
+
+@media (max-width:768px) {
+  .settings-email-update {
+    width: 100%;
+  }
+
+  .settings-notification-settings {
+    width: 100%;
+  }
+
+  .settings-card {
+    justify-content: center;
+    width: 95%;
+    text-align: center;
+  }
+
+
+}
