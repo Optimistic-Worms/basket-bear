@@ -10,6 +10,7 @@ class ApiDoc extends React.Component {
       <BrowserRouter>
         <div className="api-doc">
           <div className="api-doc-nav">
+                <h3>Contents</h3>
             <Link to="/api/docs/">
             <h5>Getting Started</h5>
             </Link>

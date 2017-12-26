@@ -838,10 +838,12 @@ input.settings-form:focus {
     height: 4.2em;
   }
   .api-doc-nav {
-    display: none !important;
+    width: 100% !important;
+
   }
   .api-doc {
-    grid-template-columns: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
   }
   .api-doc-intro {
     font-size: 85%;
@@ -914,6 +916,12 @@ input.settings-form:focus {
     width: 100%;
     border-left: none;
   }
+
+  .api-doc-nav {
+    border-left: 3px solid #f00;
+    padding: 1em;
+  }
+
 }
 
 @media (min-width:769px) and (max-width:1000px) {
@@ -1049,6 +1057,17 @@ footer {
 .api-doc h3 {
   font-weight: 500;
   font-size: 1em;
+  color: #757575;
+}
+
+.api-doc-nav a {
+  text-decoration: none !important;
+  color: #414141 !important;
+}
+
+.api-doc-nav h5:hover {
+  text-decoration: underline;
+  color: #3F51B5;
 }
 
 .api-doc-nav h5 {
