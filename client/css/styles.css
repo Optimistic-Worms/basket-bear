@@ -837,10 +837,6 @@ input.settings-form:focus {
   .menu li:hover {
     height: 4.2em;
   }
-  .api-doc-nav {
-    width: 100% !important;
-
-  }
   .api-doc {
     display: flex !important;
     flex-direction: column !important;
@@ -918,8 +914,9 @@ input.settings-form:focus {
   }
 
   .api-doc-nav {
-    border-left: 3px solid #f00;
-    padding: 1em;
+    width: 95%;
+    margin: 1em auto .1em;
+    padding-top: 0 !important;
   }
 
 }
@@ -1047,11 +1044,11 @@ footer {
 .api-doc-nav {
   display: flex;
   width: 90%;
-  height: 200%;
-  background: #dadada;
+  background: #fff;
   flex-direction: column;
   padding-left: 1.2em;
-  padding-top: 2em;
+  border-left: 3px solid #f00;
+  margin: 2em 1em 0;
 }
 
 .api-doc h3 {
