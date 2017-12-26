@@ -567,6 +567,16 @@ button.search-button:focus {
 .watch-list h3 {
   font-size: 1em;
   font-weight: 500;
+  text-decoration: none !important;
+  color: #414141;
+}
+
+.watch-item-footer a {
+  text-decoration: none !important;
+}
+
+.watch-list h3:hover {
+  color: #3F51B5;
 }
 
 .watch-form {
