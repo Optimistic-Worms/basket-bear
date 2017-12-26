@@ -79,7 +79,7 @@
   border-width: 0;
   background-image: url('./btn_google_signin_dark_normal_web.png');
   height: 4.4em;
-  width: 17.1em;
+  width: 17.2em;
   margin: 1em auto;
   background-repeat: no-repeat;
   padding-left: 100px;
@@ -93,4 +93,12 @@
 
 .google-login {
   margin-top: .2em;
+}
+
+/** Media Queries **/
+
+@media (max-width:768px) {
+  .login-card {
+    width: 95%;
+  }
 }

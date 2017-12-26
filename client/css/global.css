@@ -137,74 +137,6 @@ h4 {
   border-color: #ec971f;
 }
 
-
-/** Media Queries **/
-
-
-
-@media (max-width:420px) {
-
-
-
-}
-
-@media (max-width:600px) {
-  .button--remove {
-    margin: .5em 0;
-    height: 100%;
-    width: auto;
-    background-color: #d9534f;
-    border-color: #d43f3a;
-  }
-
-
-}
-
-@media (max-width:768px) {
-
-
-  h3 {
-    font-size: 1em;
-  }
-
-  .card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    border: 1px solid #dadada;
-    border-radius: .25rem;
-    margin: .7em auto;
-    width: 95%;
-  }
-  .col {
-    display: flex;
-    flex-direction: column;
-    font-size: .5em;
-    justify-content: center;
-    margin: 0 auto;
-    align-items: center;
-    font-family: "Noto", sans-serif;
-  }
-  .brand {
-    display: none;
-  }
-  .desktop-show {
-    display: none;
-  }
-
-}
-
-
-
-@media (min-width:769px) {
-  .mobile-show {
-    display: none;
-  }
-
-}
-
-
 /** Footer **/
 
 footer {
@@ -264,4 +196,65 @@ footer {
 
 .value-lower {
   margin-left: 4em !important;
+}
+
+
+/** Media Queries **/
+
+
+
+@media (max-width:600px) {
+  .button--remove {
+    margin: .5em 0;
+    height: 100%;
+    width: auto;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+  }
+
+
+}
+
+@media (max-width:768px) {
+
+
+  h3 {
+    font-size: 1em;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    border: 1px solid #dadada;
+    border-radius: .25rem;
+    margin: .7em auto;
+    width: 95%;
+  }
+  .col {
+    display: flex;
+    flex-direction: column;
+    font-size: .5em;
+    justify-content: center;
+    margin: 0 auto;
+    align-items: center;
+    font-family: "Noto", sans-serif;
+  }
+  .brand {
+    display: none;
+  }
+  .desktop-show {
+    display: none;
+  }
+
+}
+
+
+
+@media (min-width:769px) {
+  .mobile-show {
+    display: none;
+  }
+
 }
