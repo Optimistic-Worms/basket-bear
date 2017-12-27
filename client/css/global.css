@@ -147,25 +147,34 @@ footer {
   padding: 1rem;
   background-color: #263238;
   text-align: center;
-  display: grid;
-  grid-template-columns: 10% 10% 80%;
+  display: flex;
+  flex-direction: row;
   align-items: center;
   color: #dadada;
+  justify-content: space-between;
+  padding: .5em 2em;
 }
 
-.footer-github .fa {
+.footer-about {
+  flex-direction: row;
+  display: flex;
+}
+
+.footer-about .fa {
   color: #dadada;
   font-size: 2em;
+  margin: 0 .5em;
 }
 
-.footer-github .fa:hover {
+.footer-about .fa:hover {
   color: #fff;
 }
 
-
 .footer-developer {
   border-left: 2px solid #dadada;
+  padding: 0 2em;
 }
+
 
 .footer-link {
   color: #dadada;
