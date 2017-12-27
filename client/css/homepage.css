@@ -221,10 +221,6 @@ button.search-button:focus {
     margin: 0 .5em;
     grid-gap: .2em;
   }
-
-  h3 {
-    font-size: 1em;
-  }
   .search {
     width: 90%;
   }
