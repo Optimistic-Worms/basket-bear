@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 const ApiNav = (props) => (
-  <div className="api-nav"> 
+  <div className="api-nav">
   <nav>
     <div className="brand">
       <Link to="/">
@@ -25,19 +25,12 @@ const ApiNav = (props) => (
 		        </span>
           </Link>
       </li>
-      <li>
-          <Link to="/about">
-            <span className="mobile-show col">
-          <i className="fa fa-cog" aria-hidden="true"></i>Settings
-            </span>
-          </Link>
-      </li>
       {props.loggedIn ?
         <li>
           <Link to="/api/account">
             <span className="desktop-show">Dashboard</span>
             <span className="mobile-show col">
-              <i className="fa fa-user-circle" aria-hidden="true"></i>My Account
+              <i className="fa fa-user-circle" aria-hidden="true"></i>Dashboard
             </span>
           </Link>
         </li>

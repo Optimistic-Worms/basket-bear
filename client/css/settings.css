@@ -12,17 +12,6 @@
   font-weight: 300 !important;
 }
 
-.settings-header {
-  padding: .75rem 1.25rem;
-  margin-top: 0;
-  background-color: #f7f7f9;
-  border-bottom: 1px solid rgba(0, 0, 0, .125);
-  font-weight: 300;
-  text-align: center;
-  display: flex;
-  justify-content: space-around;
-  width: 100%;
-}
 
 .settings-form-wrapper {
   display: flex;
@@ -145,7 +134,7 @@ input.settings-form:focus {
   }
 
   .settings-header {
-    padding: 0;
+    padding: 0 .5em;
   }
 
 }
