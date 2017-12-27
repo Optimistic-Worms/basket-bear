@@ -145,19 +145,45 @@ footer {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #dadada;
+  background-color: #263238;
   text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #dadada;
+  justify-content: space-between;
+  padding: .5em 2em;
 }
 
-.footer-link {
+.footer-about {
+  flex-direction: row;
+  display: flex;
+}
+
+.footer-about .fa {
+  color: #dadada;
+  font-size: 2em;
+  margin: 0 .5em;
+}
+
+.footer-about .fa:hover {
   color: #fff;
-  margin: 10px 20px 10px 20px;
+}
+
+.footer-developer {
+  border-left: 2px solid #dadada;
+  padding: 0 2em;
+}
+
+
+.footer-link {
+  color: #dadada;
   cursor: pointer;
   text-decoration: none !important;
 }
 
 .footer-link:hover {
-  color: #2196F3;
+  color: #fff;
 }
 
 /** TBD **/
