@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-
+const axios = require('axios')
 
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -172,6 +172,42 @@ app.get('/notify', function (req, res) {
   })
 });
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Send Email
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+//CODE TO SEND THE INFO
+app.post('/email', (req, res) => {
+    console.log(req.query)
+   var data = {
+    'name': req.query.name,
+    'email': req.query.email,
+    'message':req.query.message,
+    'subject': req.query.subject, 
+   };
+   var options = {
+     'method' : 'post',
+     'contentType': 'application/json',
+     'payload' : data,
+     'auth': 'welcome'
+   };
+   var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
+   axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
+     console.log(response.data)
+     res.sendStatus(response.status)  
+   }).catch(error =>{
+     res.send(error) 
+   }).catch(error =>{
+    res.send(error)
+   });
+   
+
+// short term fix.
+
+});
+
+
+    
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   User settings Routes

@@ -1,5 +1,5 @@
 /* eslint-env browser, serviceworker, es6 */
-import './budgetBasket.png'
+import './budgetBasket.png';
 let url = '';
 
 'use strict';
