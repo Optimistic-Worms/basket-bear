@@ -145,21 +145,36 @@ footer {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #dadada;
+  background-color: #263238;
   text-align: center;
   display: grid;
-  grid-template-columns: auto auto auto;
+  grid-template-columns: 10% 10% 80%;
   align-items: center;
+  color: #dadada;
+}
+
+.footer-github .fa {
+  color: #dadada;
+  font-size: 2em;
+}
+
+.footer-github .fa:hover {
+  color: #fff;
+}
+
+
+.footer-developer {
+  border-left: 2px solid #dadada;
 }
 
 .footer-link {
-  color: #414141;
+  color: #dadada;
   cursor: pointer;
   text-decoration: none !important;
 }
 
 .footer-link:hover {
-  color: #2196F3;
+  color: #fff;
 }
 
 /** TBD **/
