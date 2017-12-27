@@ -96,20 +96,7 @@ nav .brand a:hover {
     justify-content: space-around;
     width: 100%;
   }
-  .list {
-    grid-template-columns: auto;
-    margin: 0 .5em;
-    grid-gap: .2em;
-  }
 
-  h3 {
-    font-size: 1em;
-  }
-  li .fa {
-    font-size: 3.2em;
-    justify-content: center;
-    margin: 1em auto -.6em auto;
-  }
 
   .brand {
     display: none;
