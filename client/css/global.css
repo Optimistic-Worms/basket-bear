@@ -147,11 +147,13 @@ footer {
   padding: 1rem;
   background-color: #dadada;
   text-align: center;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
 }
 
 .footer-link {
-  color: #fff;
-  margin: 10px 20px 10px 20px;
+  color: #414141;
   cursor: pointer;
   text-decoration: none !important;
 }
