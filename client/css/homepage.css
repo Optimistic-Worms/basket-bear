@@ -198,7 +198,6 @@ button.search-button:focus {
 /** Media Queries **/
 
 
-
 @media (max-width:600px) {
   .search-selection {
     width: 20%;
@@ -220,6 +219,10 @@ button.search-button:focus {
     grid-template-columns: auto;
     margin: 0 .5em;
     grid-gap: .2em;
+  }
+
+  h3 {
+    font-size: 1em;
   }
   .search {
     width: 90%;

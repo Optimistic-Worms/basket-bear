@@ -97,6 +97,11 @@ nav .brand a:hover {
     width: 100%;
   }
 
+  li .fa {
+    font-size: 3.2em;
+    justify-content: center;
+    margin: 1em auto -.6em auto;
+  }
 
   .brand {
     display: none;
