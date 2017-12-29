@@ -1,4 +1,6 @@
 const db = require('../../db/db-config');
+const amazon = require('../helpers/amazon');
+const ebay = require('../helpers/ebay');
 
 
 exports.addToWatchList = (req, res) => {
@@ -58,3 +60,42 @@ exports.removeFromWatchList = (req, res) => {
   .catch((err) => res.status(400).send(err));
 }
 
+exports.updateWatchListItemPrice = (id, merchant, currentPrice) => {
+  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+
+  productRef.update({
+    currentPrice: currentPrice
+  })
+  .then(()=> {
+    console.log('updated current price of item');
+  })
+  .catch(()=> {
+    console.error('error updating current price of item');
+  })
+}
+
+exports.compareWatchPrices = (currentPrice, pricesObject) => {
+  // pricesObject in format  {userUID: price}
+  // currentPrice as a string
+
+  // for the list of users watching,
+  // if the current price drops to or below their watched price
+  // add the user to notification queue to be notified according to their notification settings
+}
+
+exports.workOnWatchList = (req, res) => {
+  // scan the collection of watched items: AMAZON
+  // add each product ID to a amazon QUEUE to send for price lookup
+
+  // while queue is longer than 10 items,
+  // send the first 10 items for price lookup
+  // remove those IDs from the queue
+
+  // for each item returned from amazon price lookup,
+  // parse for the current price of the item
+  // update the current price : module.exports.updateWatchListItemPrice(id, )
+  // compare watch prices of users watching : module.exports.compareWatchPrices()
+
+  // do the same for ebay products
+
+}
