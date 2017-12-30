@@ -116,11 +116,20 @@ let sendToAmazon = (itemIds) => {
   })
 }
 
-exports.watchListWorker = (req, res) => {
-  const productRef = db.collection('watchedItems').doc('amazon').collection('products')
+let sendToEbay = (itemIds) => {
+  ebay.lookupProductsById(itemIds).then((response) => {
+    response.Item.forEach((item) => {
+      let id = item.ItemID;
+      let currentPrice = item.ConvertedCurrentPrice.Value;
+      updateWatchListItemPrice(id, 'eBay', currentPrice);
+    })
+  })
+}
 
-  // scan the collection of watched items: AMAZON
-  // add each product ID to a amazon QUEUE to send for price lookup
+exports.watchListWorker = (req, res) => {
+
+  //update amazon products
+  const productRef = db.collection('watchedItems').doc('amazon').collection('products')
   productRef.get().then((query)=> {
     let amazonProducts = [];
     query.forEach((doc) => {
@@ -129,10 +138,8 @@ exports.watchListWorker = (req, res) => {
     return amazonProducts;
   })
   .then((amazonProducts) => {
-    // while queue is longer than 10 items,
-    // send the first 10 items for price lookup
-    // remove those IDs from the queue
-    while (amazonProducts.length > 10) {
+    // send in batched of 10 max due to amazon api lookup limit
+    while (amazonProducts.length >= 10) {
       sendToAmazon(amazonProducts.slice(0, 9));
       amazonProducts.splice(0, 9);
     }
@@ -140,9 +147,27 @@ exports.watchListWorker = (req, res) => {
       sendToAmazon(amazonProducts);
     }
   })
+
+  // update ebay products
+  const productRefEbay = db.collection('watchedItems').doc('eBay').collection('products')
+  productRefEbay.get().then((query)=> {
+    let ebayProducts = [];
+    query.forEach((doc) => {
+      ebayProducts.push(doc.id);
+    })
+    return ebayProducts;
+  })
+  .then((ebayProducts) => {
+    // send in batched of 10 max due to ebay api lookup limit
+    while (ebayProducts.length >= 10) {
+      sendToEbay(ebayProducts.slice(0, 9));
+      ebayProducts.splice(0, 9);
+    }
+    if (ebayProducts.length > 0) {
+      sendToEbay(ebayProducts);
+    }
+  })
+
   res.send('starting watch worker');
-
-
-  // do the same for ebay products
 
 }
