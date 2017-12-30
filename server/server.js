@@ -80,7 +80,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Push Subscription 
+  Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 setTimeout(() => {
 webPush.setVapidDetails(
@@ -107,7 +107,7 @@ webPush.setVapidDetails(
     res.send('Subscription accepted!');
     }).catch(error => {
     res.status(500).send(error)
-    });   
+    });
   });
 
 
@@ -128,21 +128,21 @@ webPush.setVapidDetails(
  });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Send Push Notification  
+  Send Push Notification
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 // WARNING ROUTE ONLY SEMI PROTECTED USE FOR EXAMPLES ONLY
 
 app.get('/notify', function (req, res) {
-// get subscription from firebase. 
+// get subscription from firebase.
   let username = req.get('user');
-  
+
   getSubscriptionsFromDB(username).then(subs => {
     let subscribers = []
     for (var i in subs){
     subscribers.push(subs[i])
-  }   
+  }
   subscribers.shift();
   if(subscribers.length === 0 ){
     res.status(200).send('user has no subscriptions')
@@ -162,8 +162,8 @@ app.get('/notify', function (req, res) {
    webPush.
     sendNotification(pushSubscription, payload).then(response => {
       res.send(response)
-    }).catch(error => { 
-      res.sendStatus(500)    
+    }).catch(error => {
+      res.sendStatus(500)
     });
   });
 
@@ -183,7 +183,7 @@ app.post('/email', (req, res) => {
     'name': req.query.name,
     'email': req.query.email,
     'message':req.query.message,
-    'subject': req.query.subject, 
+    'subject': req.query.subject,
    };
    var options = {
      'method' : 'post',
@@ -194,20 +194,20 @@ app.post('/email', (req, res) => {
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
      console.log(response.data)
-     res.sendStatus(response.status)  
+     res.sendStatus(response.status)
    }).catch(error =>{
-     res.send(error) 
+     res.send(error)
    }).catch(error =>{
     res.send(error)
    });
-   
+
 
 // short term fix.
 
 });
 
 
-    
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   User settings Routes
@@ -302,6 +302,7 @@ app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
 
 app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
 app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
+app.get('/watchedItemsWorker', watch.watchListWorker);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

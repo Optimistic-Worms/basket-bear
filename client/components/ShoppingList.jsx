@@ -134,12 +134,13 @@ class ShoppingList extends React.Component {
   }
 
   addToWatchList(product, watchPrice, idToken) {
-    const {merchant, id, currentPrice} = product;
+    const {name, merchant, id, currentPrice} = product;
     axios.post(`/watchedItems?access_token=${idToken}`, {
+      name: name,
       id: id,
       merchant: merchant,
       targetPrice: watchPrice,
-      currentPrice: currentPrice
+      currentPrice: currentPrice,
     })
   }
 

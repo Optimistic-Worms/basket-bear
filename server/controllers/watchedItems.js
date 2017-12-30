@@ -4,8 +4,9 @@ const ebay = require('../helpers/ebay');
 
 
 exports.addToWatchList = (req, res) => {
-  const {id, merchant, targetPrice, currentPrice} = req.body;
+  const {name, id, merchant, targetPrice, currentPrice} = req.body;
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+  //console.log('adding to watch list:', name, id, merchant, targetPrice, currentPrice);
 
   productRef.get().then((product) => {
     if (product.exists) {
@@ -18,6 +19,7 @@ exports.addToWatchList = (req, res) => {
       .catch((err) => res.status(400).send(err));
     } else {
       productRef.set({
+        name: name,
         merchant: merchant,
         currentPrice: currentPrice,
         prices: {[req.username]: targetPrice}
@@ -60,41 +62,86 @@ exports.removeFromWatchList = (req, res) => {
   .catch((err) => res.status(400).send(err));
 }
 
-exports.updateWatchListItemPrice = (id, merchant, currentPrice) => {
+let updateWatchListItemPrice = (id, merchant, currentPrice) => {
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
 
   productRef.update({
     currentPrice: currentPrice
   })
   .then(()=> {
-    console.log('updated current price of item');
+    console.log('updated current price of item, ',id, merchant, currentPrice);
+    compareWatchPrices(id, merchant);
   })
   .catch(()=> {
     console.error('error updating current price of item');
   })
 }
 
-exports.compareWatchPrices = (currentPrice, pricesObject) => {
-  // pricesObject in format  {userUID: price}
-  // currentPrice as a string
+let compareWatchPrices = (id, merchant) => {
+  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
 
-  // for the list of users watching,
-  // if the current price drops to or below their watched price
-  // add the user to notification queue to be notified according to their notification settings
+  productRef.get().then((doc) => {
+    let currentPrice = doc.data().currentPrice;
+    let pricesObject = doc.data().prices;
+    let productName = doc.data().name;
+    for (let user in pricesObject) {
+      if (currentPrice <= pricesObject[user]) {
+        addToNotificationQueue(user, productName , merchant, id, currentPrice);
+      }
+    }
+  })
 }
 
-exports.workOnWatchList = (req, res) => {
+let addToNotificationQueue = (user, productName, merchant, productId, currentPrice) => {
+  console.log('Notify user: ', user,
+    'Product: ', productName,
+    'productId: ', productId,
+    'Merchant: ', merchant,
+    'Price dropped to ', currentPrice);
+}
+
+let sendToAmazon = (itemIds) => {
+  amazon.lookupProductsById(itemIds).then((response) => {
+    response.ItemLookupResponse.Items[0].Item.forEach((item) => {
+      let offer = item.Offers[0].Offer[0].OfferListing[0];
+      let id = item.ASIN[0];
+      let currentPrice;
+      if (offer.SalePrice) {
+        currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+      } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
+        currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+      }
+      updateWatchListItemPrice(id, 'amazon', currentPrice);
+    })
+  })
+}
+
+exports.watchListWorker = (req, res) => {
+  const productRef = db.collection('watchedItems').doc('amazon').collection('products')
+
   // scan the collection of watched items: AMAZON
   // add each product ID to a amazon QUEUE to send for price lookup
+  productRef.get().then((query)=> {
+    let amazonProducts = [];
+    query.forEach((doc) => {
+      amazonProducts.push(doc.id);
+    })
+    return amazonProducts;
+  })
+  .then((amazonProducts) => {
+    // while queue is longer than 10 items,
+    // send the first 10 items for price lookup
+    // remove those IDs from the queue
+    while (amazonProducts.length > 10) {
+      sendToAmazon(amazonProducts.slice(0, 9));
+      amazonProducts.splice(0, 9);
+    }
+    if (amazonProducts.length > 0) {
+      sendToAmazon(amazonProducts);
+    }
+  })
+  res.send('starting watch worker');
 
-  // while queue is longer than 10 items,
-  // send the first 10 items for price lookup
-  // remove those IDs from the queue
-
-  // for each item returned from amazon price lookup,
-  // parse for the current price of the item
-  // update the current price : module.exports.updateWatchListItemPrice(id, )
-  // compare watch prices of users watching : module.exports.compareWatchPrices()
 
   // do the same for ebay products
 
