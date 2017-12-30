@@ -95,6 +95,7 @@ exports.searchProducts = (query) => {
 };
 
 exports.lookupProductsById = (itemIds) => {
+  console.log('LOOKING UP ITEMS ON AMAZON');
   return new Promise ((resolve, reject) => {
 
     let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
