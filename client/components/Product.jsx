@@ -6,7 +6,7 @@ const Product = (props) => {
   return (
     <div className="card">
       <img className="product-image" src={props.item && props.item.imageUrl} />
-      <h4>{ props.item && props.item.name }</h4>
+      <a href={props.item.link}><h4>{ props.item && props.item.name }</h4></a>
       <div className="product-footer">
         <div className="item-info">
         <p>{ props.item && props.item.merchant }</p>
