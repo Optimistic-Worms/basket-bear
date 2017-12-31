@@ -184,7 +184,7 @@ class PushNotification2 extends React.Component {
       >
       <div className="settings-layout">
         <h2>Device notification settings</h2>
-        <span style={{background:'grey', color:'white'}}>{this.state.messages}</span>
+        <span className="settings-push-message">{this.state.messages}</span>
         <div className="settings-push-update" >
           Update push notification settings
                   <button className={ (this.state.isSubscribed)? "button button--remove button--remove-settings" :"button button-settings"   }
