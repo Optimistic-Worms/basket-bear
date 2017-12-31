@@ -56,35 +56,17 @@ footer {
   }
 
   .footer-about {
-    flex-direction: row;
-    display: flex;
+    margin-bottom: 1em;
   }
 
-  .footer-about .fa {
-    color: #dadada;
-    font-size: 2em;
-    margin: 0 .5em;
-  }
-
-  .footer-about .fa:hover {
-    color: #fff;
-  }
 
   .footer-developer {
-    border-left: 2px solid #dadada;
-    padding: 0 2em;
+    border-left: none;
+    border-top: 1px solid #dadada;
+    padding: 0;
   }
 
 
-  .footer-link {
-    color: #dadada;
-    cursor: pointer;
-    text-decoration: none !important;
-  }
-
-  .footer-link:hover {
-    color: #fff;
-  }
 
 
 }
