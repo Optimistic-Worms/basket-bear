@@ -137,6 +137,21 @@ h4 {
   border-color: #ec971f;
 }
 
+.card h4 {
+  font-weight: 500;
+  text-decoration: none !important;
+  color: #414141;
+}
+
+.card a {
+  text-decoration: none !important;
+}
+
+
+.card h4:hover {
+  color: #3F51B5;
+}
+
 
 /** TBD **/
 .snippet {
