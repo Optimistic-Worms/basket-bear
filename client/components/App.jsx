@@ -4,6 +4,7 @@ import firebase from './user/firebase-auth';
 import createHistory from 'history/createBrowserHistory';
 import '../css/global.css';
 import '../css/homepage.css';
+import '../css/footer.css';
 import Search from './Search.jsx';
 import Navbar from './Navbar.jsx';
 import LoginCard from './user/LoginCard.jsx';
