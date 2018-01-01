@@ -75,7 +75,7 @@ exports.getNewClientSecret = (req, res) => {
 };
 
 exports.getClientData = (req, res) => {
-  const { clientSecret, appName, email } = req.user.data();
+  const {appName, email } = req.user.data();
   const clientId = req.user.id;
-  res.json({clientSecret, appName, clientId, email});
+  res.json({appName, clientId, email});
 };
