@@ -1,7 +1,7 @@
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
-  const webPush = require('web-push');
 
+  const webPush = require('web-push');
   webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const axios = require('axios')
+const axios = require('axios');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -36,7 +36,6 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Push */
-
 const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
 const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -48,6 +47,8 @@ const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubsc
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
+
+
 
 app.use(express.static(__dirname));
 
@@ -87,6 +88,7 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
   app.post('/subscribe', isAuthenticated, (req, res) => {
     let data = req.body.subscription;
     let pushSubscription = {};
