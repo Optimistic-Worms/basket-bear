@@ -29,6 +29,12 @@
   margin: 0 auto;
 }
 
+.settings-push-message {
+  background-color: #9E9E9E;
+  padding: .5em;
+  color: #fff;
+}
+
 input.settings-form:focus {
   outline: none;
   font-size: 1em;
@@ -50,6 +56,16 @@ input.settings-form:focus {
   align-items: center;
   padding-bottom: 1em;
   border-bottom: 1px solid #dadada;
+}
+
+.settings-push-update {
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: .5em 0;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
 }
 
 .email-wrapper {
@@ -97,6 +113,13 @@ input.settings-form:focus {
 
 @media (max-width:420px) {
   .settings-email-update {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .settings-push-update {
     width: 100%;
     flex-flow: column;
     justify-content: center;

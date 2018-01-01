@@ -28,7 +28,7 @@ class PushNotification2 extends React.Component {
     this.addSubscription = this.addSubscription.bind(this)
     this.deleteSubscription = this.deleteSubscription.bind(this)
   }
-  
+
    componentWillMount(){
      if ('serviceWorker' in navigator && 'PushManager' in window) {
        runtime.register().then((swReg)=>{
@@ -61,7 +61,7 @@ class PushNotification2 extends React.Component {
       console.log(error)
     });
    }
-   
+
    updateBtn() {
 
       if (Notification.permission === 'denied') {
@@ -104,12 +104,12 @@ class PushNotification2 extends React.Component {
 		}
 
 		subscribeUser() {
-			let that = this      
+			let that = this
 			const applicationServerKey = this.urlB64ToUint8Array(this.state.applicationServerPublicKey);
 			swRegistration.pushManager.subscribe({userVisibleOnly: true,applicationServerKey: applicationServerKey})
 			.then(function(subscription) {
 			that.updateSubscriptionOnServer(subscription, 'add');
-		  that.setState({isSubscribed:true}); 
+		  that.setState({isSubscribed:true});
 
 			that.updateBtn();
 			})
@@ -141,11 +141,11 @@ class PushNotification2 extends React.Component {
     addSubscription(idToken, subscription){
       axios.post(`/subscribe?access_token=${idToken}`,{subscription:subscription}).then((result)=>{
         this.setState({isSubscribed:true});
-        this.setState({overlayLoader: false})  
+        this.setState({overlayLoader: false})
         this.setState({messages: result.data});
 
       }).catch(error =>{
-        this.setState({messages: error}); 
+        this.setState({messages: error});
       });
       this.setState({subscriptionJson:subscription})
     }
@@ -163,7 +163,7 @@ class PushNotification2 extends React.Component {
       firebase.auth().onAuthStateChanged((user) => {
         if (user) {
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-          (task === 'add')? this.addSubscription(idToken, endpoint): this.deleteSubscription(idToken, endpoint)  
+          (task === 'add')? this.addSubscription(idToken, endpoint): this.deleteSubscription(idToken, endpoint)
         }).catch(error => {
           console.log(error)
         })
@@ -184,19 +184,19 @@ class PushNotification2 extends React.Component {
       >
       <div className="settings-layout">
         <h2>Device notification settings</h2>
-        <span style={{background:'grey', color:'white'}}>{this.state.messages}</span>
-        <div className="settings-email-update" >
-          Register this device to get notifications.
+        <span className="settings-push-message">{this.state.messages}</span>
+        <div className="settings-push-update" >
+          Update push notification settings
                   <button className={ (this.state.isSubscribed)? "button button--remove button--remove-settings" :"button button-settings"   }
           onClick={(e)=>this.pushButtonListener()}
-          disabled={this.state.pushButtonDisabled}          
+          disabled={this.state.pushButtonDisabled}
         >
         {this.state.pushButton}
         </button>
         </div>
       </div>
         </Loadable>
-		</div> 
+		</div>
     )
    }
 }
