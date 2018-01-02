@@ -61,7 +61,6 @@ exports.authenticateUser = (req, res, next) => {
       console.log('error: ', err)
      res.status(401).send(err);
     } else {
-      console.log(info)
       req.user = user;
       next();
     }
@@ -90,7 +89,6 @@ exports.authenticateToken = (req, res, next) => {
     } else if (!user) {
       res.status(401).send('Authentication Error')
     } else {
-      console.log('api token authenticated', user)
       req.user = user;
       next();
     }

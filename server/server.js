@@ -26,7 +26,7 @@ const ebay = require('./helpers/ebay');
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const product = require('./controllers/product');
+const { getLowestPrices, updateProduct, getPriceData } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -359,12 +359,14 @@ app.get('/lookupAmazon', (req, res) => {
   })
 });
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', isAuthenticated, product.update);
+apiRoutes.post('/products', isAuthenticated, updateProduct);
+
+apiRoutes.get('/products', apiAuth.authenticateToken, getPriceData);
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Business API Routes
@@ -382,9 +384,7 @@ apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
-apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
-
-apiRoutes.get('/product', apiAuth.authenticateToken, product.getData);
+apiRoutes.get('/search', apiAuth.authenticateToken, getLowestPrices);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes

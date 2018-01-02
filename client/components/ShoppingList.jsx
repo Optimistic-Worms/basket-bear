@@ -164,6 +164,7 @@ class ShoppingList extends React.Component {
     .then(data => {
       this.setState({editProduct: {}});
     })
+    .catch(err => console.log(err));
   }
 
   render () {

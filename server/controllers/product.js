@@ -1,6 +1,8 @@
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
+const productHelpers = require('../helpers/productHelpers.js');
+const Promise = require('bluebird');
 
 exports.getLowestPrices = (req, res) => {
   console.log(req.user)
@@ -10,7 +12,7 @@ exports.getLowestPrices = (req, res) => {
   amazon.searchProducts(product)
   .then(rawResults => {
     let parsed = amazon.parseResultsSync(rawResults);
-    results = results.concat(parsed);""
+    results = results.concat(parsed);
 
     ebay.searchProducts(product)
     .then(data => {
@@ -24,15 +26,14 @@ exports.getLowestPrices = (req, res) => {
   .catch(err => res.status(400).send(err));
 };
 
-exports.addNew = (req, res) => {
+exports.addNewProduct = (req, res) => {
   const {name, id, merchant, targetPrice, currentPrice} = req.body;
-  //console.log(name, id, merchant, targetPrice, currentPrice)
 
   db.collection('productList').doc(merchant).collection('products').doc(id).set({
     name: name,
     merchant: merchant,
     currentPrice: currentPrice,
-    prices: {[req.username]: targetPrice}
+    prices: {[req.username]: Number(targetPrice)}
   }).then(() => {
     console.log('succesfully added new product price data')
     res.send('succesfully added new product price data');
@@ -40,10 +41,9 @@ exports.addNew = (req, res) => {
   .catch(err =>res.status(400).send(err));
 };
 
-exports.update = (req, res) => {
+exports.updateProduct = (req, res) => {
   const {id, targetPrice, merchant} = req.body;
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
-
   productRef.get().then((product) => {
     if (product.exists) {
       let prices = product.data().prices;
@@ -55,14 +55,58 @@ exports.update = (req, res) => {
       })
       .catch((err) => res.status(400).send(err));
     } else {
-      exports.addNew(req, res);
+      exports.addNewProduct(req, res);
     }
   })
   .catch((err) => {
+    console.log(err);
     res.status(400).send(err);
   });
 };
 
-exports.getData = () => {
+exports.getProductById = (id) => {
+  return new Promise((resolve, reject) => {
+    const amazonRef = db.collection('productList').doc('amazon').collection('products').doc(id);
+    const ebayRef = db.collection('productList').doc('eBay').collection('products').doc(id);
 
-}
+    amazonRef.get().then((product) => {
+      if (product.exists) {
+        return resolve(product);
+      } else {
+        ebayRef.get().then((product) => {
+          if (product.exists) {
+           return resolve(product);
+          } else {
+            return reject(`No product found in amazon or ebay for ID:${id}`)
+          }
+        })
+        .catch(err => reject(err));
+      }
+    })
+    .catch(err => reject(err));
+  });
+};
+
+exports.getPriceData = (req, res) => {
+  const { id } = req.query;
+
+  if (!id) {
+    res.send('A product ID must be included in the request');
+  } else {
+    exports.getProductById(id)
+    .then(product => {
+      const { name, merchant, prices } = product.data();
+      const { avg, count } = productHelpers.getAveragePrice(prices);
+      res.send({
+        name: name,
+        merchant: merchant,
+        recorded_price_count: count,
+        average_requested_price: avg
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(400).send(err);
+    });
+  }
+};
