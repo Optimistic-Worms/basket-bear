@@ -27,7 +27,16 @@ const EndpointReference = () => (
           </tbody>
         </table>
           <div>For Example:</div>
-          <div className="snippet">{`$ curl -H "Authorization: Bearer NgCXRKc...MzYjw" http://budgetbasket.com/api/search?keyword=usb-c cable`}
+          <div className="snippet">{`axios.get('http://budgetbasket.com/api/search', {
+          params: {
+            id: 'usb c cable'
+          },
+          headers: {
+            Authorization: 'Bearer NgCXRKc...MzYjw'
+          }
+           })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));`}
           </div>
           <div>Returns the following JSON formatted array of results:</div>
           <div className="snippet">{`[
@@ -52,6 +61,7 @@ const EndpointReference = () => (
     etc...
 ]`}
           </div>
+          <div>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX library or client can be used</div>
   </div>
 );
 

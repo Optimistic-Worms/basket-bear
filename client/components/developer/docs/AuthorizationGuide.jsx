@@ -42,17 +42,39 @@ const AuthorizationGuide = () => (
           </tbody>
         </table>
           <div>For Example:</div>
-          <div className="snippet">{`$ curl -X "POST" -H "Authorization: Basic ZjM4ZjAw...WY0MzE=" -d grant_type=client_credentials http://budgetbasket.com/api/token
-            {
-               "access_token": "NgCXRKc...MzYjw",
-               "token_type": "bearer",
-               "expires_in": 3600,
-            }
-            `}
+          <div className="snippet">{` axios.post('http://budgetbasket.com/api/token', {'grant_type': 'client_credentials'}, {
+                  withCredentials: true,
+                  auth: {
+                    username: example@example.com,
+                    password: 'password',
+                }
+              })
+              .then((res) => {
+                console.log(res.data)
+              })
+              .catch(err => {
+                console.log(err);
+              });`}
+          </div>
+          <div>Returns a JSON response containing an authorization token:</div>
+          <div className="snippet">{
+          `{\n  "access_token": "NgCXRKc...MzYjw", \n  "token_type": "bearer", \n  "expires_in": 3600  \n}`}
           </div>
        <h3>Step 2: Use the access token to access the Budget Basket Web API</h3>
-        <div className="snippet">{`curl -H "Authorization: Bearer NgCXRKc...MzYjw" http://budgetbasket.com/api/product {<request body>}`}</div>
+
+        <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+          params: {
+            id: 'B073WV3KCD'
+          },
+          headers: {
+            Authorization: 'Bearer NgCXRKc...MzYjw'
+          }
+           })
+        .then(res => console.log(res.data))
+        .catch(err => console.log(err));`}</div>
+        <div>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX library or client can be used</div>
   </div>
+
 );
 
 export default AuthorizationGuide;
