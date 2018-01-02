@@ -64,7 +64,7 @@
 .api-doc h3 {
   font-weight: 500;
   font-size: 1em;
-  color: #757575;
+  color: #D50000;
 }
 
 .api-doc-nav a {
@@ -153,7 +153,8 @@
 }
 
 .api-doc ol p {
-  font-weight: 100;
+  font-weight: 500;
+  font-size: .9em;
 }
 
 .auth-flow {
