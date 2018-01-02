@@ -21,6 +21,7 @@ const NavBar = (props) => (
 	        </span>
 	        </Link>
 	    </li>
+			{ (props.logged === 'LOGOUT') &&
 	    <li>
 	        <Link to="/watchList">
 		        <span className="desktop-show">WATCH LIST</span>
@@ -29,6 +30,7 @@ const NavBar = (props) => (
 		        </span>
 	        </Link>
 	    </li>
+		}
 	        { (props.logged === 'LOGOUT') &&
 			<li>
 			<Link to="/settings">
