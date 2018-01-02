@@ -31,11 +31,15 @@
 }
 
 .item-info-watch .current-price {
-  color: #000;
+  color: #616161;
   font-weight: 500;
-  font-size: 1em;
   margin-top: -.5em;
 }
+
+.item-info-watch .current-price-dollar {
+  color: #00C853;
+}
+
 
 .item-info-merchant {
   display: flex;
@@ -128,6 +132,11 @@ input.watch-form:focus {
     width: 100%;
     border-left: none;
   }
+  .button-wrapper--flex-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }
 
 @media (min-width:769px) {
@@ -138,4 +147,5 @@ input.watch-form:focus {
     justify-content: space-between;
     width: 85%;
   }
+
 }
