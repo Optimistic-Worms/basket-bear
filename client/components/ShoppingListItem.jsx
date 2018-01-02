@@ -7,7 +7,7 @@ const ShoppingListItem = (props) => {
     <div className="watch-card">
       <img className="product-image" src={props.item && props.item.imageUrl} />
       <div className="watch-item-footer">
-        <a href={props.item.link}><h3>{ props.item && props.item.name }</h3></a>
+        <a target="_blank" href={props.item.link}><h3>{ props.item && props.item.name }</h3></a>
           <div className="item-info item-info-watch">
             <div className="item-info-merchant">
             <p>{ props.item && props.item.merchant }</p>

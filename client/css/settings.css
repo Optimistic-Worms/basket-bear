@@ -29,11 +29,13 @@
   margin: 0 auto;
 }
 
+
 .settings-push-message {
   background-color: #9E9E9E;
   padding: .5em;
   color: #fff;
 }
+
 
 input.settings-form:focus {
   outline: none;
