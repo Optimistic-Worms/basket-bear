@@ -28,6 +28,7 @@ class ShoppingList extends React.Component {
 
   componentDidMount() {
     this.loadShoppingList();
+    this.testCall();
   }
 
   sortItems(array){
@@ -164,6 +165,20 @@ class ShoppingList extends React.Component {
     .then(data => {
       this.setState({editProduct: {}});
     })
+    .catch(err => console.log(err));
+  }
+
+  testCall() {
+    axios.get('/api/products', {
+      params: {
+        id: 'B073WV3KCD'
+      },
+      headers: {
+        Authorization: 'Bearer 5255b....c466'
+      }
+    })
+    .then(res => console.log(res.data))
+    .catch(err => console.log(err));
   }
 
   render () {

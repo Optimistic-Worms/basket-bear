@@ -165,6 +165,7 @@ h4 {
   background-color: #F0F0F0;
   word-break: break-all;
   word-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 .param {

@@ -1,5 +1,12 @@
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
   require('dotenv').config();
+
+  const webPush = require('web-push');
+  webPush.setVapidDetails(
+    process.env.VAPID_SUBJECT,
+    process.env.VAPID_PUBLIC_KEY,
+    process.env.VAPID_PRIVATE_KEY
+  );
 }
 
 const express = require('express')
@@ -7,7 +14,7 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const axios = require('axios')
+const axios = require('axios');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
@@ -19,7 +26,7 @@ const ebay = require('./helpers/ebay');
 /* controllers */
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const product = require('./controllers/product');
+const { getLowestPrices, updateProduct, getPriceData } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -29,7 +36,6 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Push */
-const webPush = require('web-push');
 const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
 const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -82,15 +88,6 @@ app.get('/thing', isAuthenticated, (req,res) =>{
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-setTimeout(() => {
-webPush.setVapidDetails(
-    process.env.VAPID_SUBJECT,
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
-);
-}, 1000)
-
-
 
   app.post('/subscribe', isAuthenticated, (req, res) => {
     let data = req.body.subscription;
@@ -163,7 +160,9 @@ app.get('/notify', function (req, res) {
     sendNotification(pushSubscription, payload).then(response => {
       res.send(response)
     }).catch(error => {
-      res.sendStatus(500)
+    console.log(error)
+      res.status(500).send(error)
+
     });
   });
 
@@ -360,12 +359,14 @@ app.get('/lookupAmazon', (req, res) => {
   })
 });
 
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', isAuthenticated, product.update);
+apiRoutes.post('/products', isAuthenticated, updateProduct);
+
+apiRoutes.get('/products', apiAuth.authenticateToken, getPriceData);
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Business API Routes
@@ -383,11 +384,7 @@ apiRoutes.post('/signup', apiUser.addUser);
 
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
-apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
-
-apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
-  res.send("Yay, you successfully accessed the restricted resource!")
-});
+apiRoutes.get('/search', apiAuth.authenticateToken, getLowestPrices);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
