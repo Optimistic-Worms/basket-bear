@@ -3,6 +3,7 @@ const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
 
 exports.getLowestPrices = (req, res) => {
+  console.log(req.user)
   const product = req.query.keyword;
   let results = [];
 

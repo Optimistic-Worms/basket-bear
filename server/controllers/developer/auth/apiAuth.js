@@ -36,13 +36,16 @@ passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
 
 //for token verification after successful client credentials grant
 passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
+  console.log('Token Strategy')
   console.log(accessToken)
   authToken.findByValue(accessToken, (err, tokenRef, tokenData) => {
     if (err) {
+      console.log('token error')
       return cb(err);
     }
     apiUser.findByClientId(tokenData.clientId, (err, clientRef, clientData) => {
       if (err) {
+        console.log('token error')
         return cb(err);
       }
       console.log('granting access')
@@ -81,13 +84,15 @@ exports.authenticateClient = (req, res, next) => {
 
 exports.authenticateToken = (req, res, next) => {
   passport.authenticate('accessToken', {session: false}, (err, user, info) => {
-   // console.log(err, user)
-      if (err) {
-        console.log('error: ', err)
-        res.send(err);
-      } else {
-        req.user = user;
-        next();
-      }
-    })(req, res, next);
+    if (err) {
+      console.log('error: ', err)
+      res.send(err);
+    } else if (!user) {
+      res.status(401).send('Authentication Error')
+    } else {
+      console.log('api token authenticated', user)
+      req.user = user;
+      next();
+    }
+  })(req, res, next);
 };
