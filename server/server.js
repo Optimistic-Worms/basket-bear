@@ -384,9 +384,7 @@ apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/search', apiAuth.authenticateToken, product.getLowestPrices);
 
-apiRoutes.get('/merchant', apiAuth.authenticateToken, (req, res) => {
-  res.send("Yay, you successfully accessed the restricted resource!")
-});
+apiRoutes.get('/product', apiAuth.authenticateToken, product.getData);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
