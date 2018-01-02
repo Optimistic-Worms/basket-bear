@@ -57,14 +57,14 @@
   background: #fff;
   flex-direction: column;
   padding-left: 1.2em;
-  border-left: 3px solid #f00;
+  border-left: 3px solid #C62828;
   margin: 2em 1em 0;
 }
 
 .api-doc h3 {
   font-weight: 500;
   font-size: 1em;
-  color: #D50000;
+  color: #C62828;
 }
 
 .api-doc-nav a {
