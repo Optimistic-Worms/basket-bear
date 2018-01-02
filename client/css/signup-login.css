@@ -77,13 +77,14 @@
   border-radius: 0;
   border-style: solid;
   border-width: 0;
-  background-image: url('./btn_google_signin_dark_normal_web.png');
+  background-image: url(/assets/btn_google_signin_dark_normal_web.png);
   height: 4.4em;
-  width: 17.2em;
+  width: 18.1em;
   margin: 1em auto;
   background-repeat: no-repeat;
   padding-left: 100px;
   background-color: white;
+  background-size: cover;
 }
 
 .google-button:hover {

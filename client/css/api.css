@@ -57,14 +57,14 @@
   background: #fff;
   flex-direction: column;
   padding-left: 1.2em;
-  border-left: 3px solid #f00;
+  border-left: 3px solid #C62828;
   margin: 2em 1em 0;
 }
 
 .api-doc h3 {
   font-weight: 500;
   font-size: 1em;
-  color: #757575;
+  color: #C62828;
 }
 
 .api-doc-nav a {
@@ -86,6 +86,7 @@
   width: 95%;
   margin: 0 auto;
   flex-direction: column;
+  color: #424242;
 }
 
 .api-doc-intro--header {
@@ -96,7 +97,7 @@
 .intro-card--api h1 {
   justify-content: center;
   width: 75%;
-  font-weight: 500;
+  font-weight: 300;
 }
 
 .intro-card--api {
@@ -153,7 +154,8 @@
 }
 
 .api-doc ol p {
-  font-weight: 100;
+  font-weight: 500;
+  font-size: .9em;
 }
 
 .auth-flow {
