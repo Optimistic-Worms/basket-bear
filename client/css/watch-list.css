@@ -1,7 +1,9 @@
 /** Watch List **/
 
 .watch-list {
+  display: grid;
   grid-template-columns: auto;
+  width: 95%;
   margin: 1em;
   grid-gap: .2em;
 }
@@ -57,6 +59,7 @@
   background-color: #fff;
   justify-content: center;
   margin-bottom: 1em;
+  box-shadow: rgba(0, 0, 0, 0.01) 0px 1px 2px, rgba(0, 0, 0, 0.01) 0px 1px 1px;
 }
 
 .watch-item-footer {
