@@ -77,7 +77,7 @@
   border-radius: 0;
   border-style: solid;
   border-width: 0;
-  background-image: url(/assets/btn_google_signin_dark_normal_web.png);
+  background-image: url('./btn-google-normal.png');
   height: 4.4em;
   width: 18.1em;
   margin: 1em auto;
@@ -89,7 +89,7 @@
 
 .google-button:hover {
   cursor: pointer;
-  background-image: url('./btn_google_signin_dark_pressed_web.png');
+  background-image: url('./btn-google-pressed.png');
 }
 
 .google-login {
