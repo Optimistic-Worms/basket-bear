@@ -199,13 +199,6 @@ app.post('/email', (req, res) => {
    }).catch(error =>{
     res.send(error)
    });
-<<<<<<< HEAD
-
-
-// short term fix.
-
-=======
->>>>>>> email update
 });
 
 
