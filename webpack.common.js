@@ -4,9 +4,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
+const entryApp = process.env.HOT ? ['react-hot-loader/patch', './client/src/index.jsx', 'webpack-hot-middleware/client'] : ['react-hot-loader/patch', './client/src/index.jsx'];
+
 module.exports = {
   entry: {
-    app: './client/src/index.jsx',
+    app: entryApp
   },
   module: {
     rules: [
@@ -82,9 +84,8 @@ module.exports = {
       title: 'Shopping',
       template: './index.html',
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, './client/components/user/sw.js'),
-    }),
+    })
   ],
 }
