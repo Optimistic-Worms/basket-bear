@@ -4,6 +4,7 @@ const webpack = require('webpack');
 
 module.exports = merge(common, {
   plugins: [
+    new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
      "HOT": process.env.HOT
     })
