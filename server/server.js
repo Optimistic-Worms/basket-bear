@@ -1,12 +1,14 @@
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  require('dotenv').config();
+let webPush
 
-  const webPush = require('web-push');
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+ require('dotenv').config();
+
+ webPush = require('web-push');
   webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
-  );
+);
 }
 
 const express = require('express')
@@ -37,10 +39,8 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Push */
-const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
-const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
-
+const push = require('./controllers/pushNotifications');
 // VAPID keys should only be generated once.
 // const newVapidKeys = webPush.generateVAPIDKeys();
 // console.log(newVapidKeys)
@@ -90,40 +90,8 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  app.post('/subscribe', isAuthenticated, (req, res) => {
-    let data = req.body.subscription;
-    let pushSubscription = {};
-    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
-    pushSubscription[name] = {
-       endpoint: data.endpoint,
-       keys: {
-           p256dh: data.keys.p256dh, // Public Key
-           auth: data.keys.auth
-       }
-    };
-    addSubscriptionToDb(req.username, pushSubscription).then(response => {
-    res.send('Subscription accepted!');
-    }).catch(error => {
-    res.status(500).send(error)
-    });
-  });
-
-
- app.post('/unsubscribe', isAuthenticated, function (req, res) {
-      let data = req.body.subscription;
-      let username = req.username;
-          let pushSubscription = {};
-    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
-    pushSubscription[name] = {
-       endpoint: data.endpoint,
-       keys: {
-           p256dh: data.keys.p256dh, // Public Key
-           auth: data.keys.auth
-       }
-    };
-     removeSubscriptionFromDb(username, pushSubscription);
-     res.send('Subscription removed!');
- });
+  app.post('/subscribe', isAuthenticated, push.subscribe);
+  app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Send Push Notification
@@ -157,8 +125,7 @@ app.get('/notify', function (req, res) {
 
   //Can be anything you want. No specific structure necessary.
     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-   webPush.
-    sendNotification(pushSubscription, payload).then(response => {
+   webPush.sendNotification(pushSubscription, payload).then(response => {
       res.send(response)
     }).catch(error => {
     console.log(error)
@@ -168,6 +135,7 @@ app.get('/notify', function (req, res) {
   });
 
   }).catch(error => {
+      console.log('Push Completely failed', error)
       res.sendStatus(500)
   })
 });
