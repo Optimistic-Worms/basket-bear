@@ -200,10 +200,6 @@ app.post('/email', (req, res) => {
    }).catch(error =>{
     res.send(error)
    });
-
-
-// short term fix.
-
 });
 
 

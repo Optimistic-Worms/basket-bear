@@ -2,7 +2,6 @@ const db = require('../../db/db-config');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 
-
 exports.addToWatchList = (req, res) => {
   const {name, id, merchant, targetPrice, currentPrice} = req.body;
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
@@ -86,18 +85,25 @@ let compareWatchPrices = (id, merchant) => {
     let productName = doc.data().name;
     for (let user in pricesObject) {
       if (currentPrice <= pricesObject[user]) {
-        addToNotificationQueue(user, productName , merchant, id, currentPrice);
+        let requestedPrice = pricesObject[user]
+        addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
       }
     }
   })
 }
 
-let addToNotificationQueue = (user, productName, merchant, productId, currentPrice) => {
-  console.log('Notify user: ', user,
-    'Product: ', productName,
-    'productId: ', productId,
-    'Merchant: ', merchant,
-    'Price dropped to ', currentPrice);
+let addToNotificationQueue = (user, productName, merchant, productId, currentPrice, requestedPrice) => {
+    let notification = {    
+    'user': user,
+    'product': productName,
+    'productId': productId,
+    'merchant': merchant,
+    'requestedPrice': requestedPrice,
+    'priceDroppedTo': currentPrice
+  }
+  db.collection('awaitNotification').doc().set({
+      items: data
+  })
 }
 
 let sendToAmazon = (itemIds) => {
