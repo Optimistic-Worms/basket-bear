@@ -84,7 +84,6 @@ module.exports = {
       title: 'Shopping',
       template: './index.html',
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new ServiceWorkerWebpackPlugin({
       entry: path.join(__dirname, './client/components/user/sw.js'),
     })
