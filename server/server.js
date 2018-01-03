@@ -1,8 +1,9 @@
-let webPush
+let webPush;
+let emailAuth;
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
  require('dotenv').config();
-
+ emailAuth = process.env.EMAIL_AUTH
  webPush = require('web-push');
   webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
@@ -146,7 +147,6 @@ app.get('/notify', function (req, res) {
 
 //CODE TO SEND THE INFO
 app.post('/email', (req, res) => {
-    console.log(req.query)
    var data = {
     'name': req.query.name,
     'email': req.query.email,
@@ -157,7 +157,7 @@ app.post('/email', (req, res) => {
      'method' : 'post',
      'contentType': 'application/json',
      'payload' : data,
-     'auth': 'welcome'
+     'auth': emailAuth
    };
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
