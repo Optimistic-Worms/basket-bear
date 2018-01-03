@@ -45,6 +45,8 @@ const push = require('./controllers/pushNotifications');
 // VAPID keys should only be generated once.
 // const newVapidKeys = webPush.generateVAPIDKeys();
 // console.log(newVapidKeys)
+/* Notification */
+const notificationWorker =  require('./controllers/notificationWorker')
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -170,6 +172,11 @@ app.post('/email', (req, res) => {
    });
 });
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Notification Worker
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/runnotifications', notificationWorker.notificationWorker)
 
 
 
