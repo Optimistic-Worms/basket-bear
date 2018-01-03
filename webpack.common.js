@@ -81,7 +81,7 @@ module.exports = {
     new CleanWebpackPlugin(['dist']),
     new HtmlWebpackPlugin({
       inject: false,
-      title: 'Shopping',
+      title: 'Budget Basket',
       template: './index.html',
     }),
     new ServiceWorkerWebpackPlugin({

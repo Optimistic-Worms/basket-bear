@@ -18,18 +18,14 @@ import Settings from './user/Settings.jsx';
 import { logout } from './user/authHelpers.js';
 import PriceLookup from './user/priceLookup.js';
 
-const history = createHistory()
-
 class App extends React.Component {
 
   render() {
     return(
-        <BrowserRouter>
           <div>
-            <Route exact path="/" component={Home}/>
+            <Route exact path='/' component={Home}/>
             <Route path="/dev" component={Developer}/>
           </div>
-        </BrowserRouter>
       );
   }
 }

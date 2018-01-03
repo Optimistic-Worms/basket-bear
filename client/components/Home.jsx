@@ -26,6 +26,7 @@ class Home extends React.Component {
   }
 
   componentWillMount() {
+    console.log(this.props.match)
     this.checkLoginStatus();
   }
 
@@ -76,7 +77,7 @@ class Home extends React.Component {
                 <Route exact path="/" component={JoinHomeTout}/>
               }
               <Route exact path='/' render={(props) => (
-    <Footer handleSwitch={this.switchToDev.bind(this)}/>
+    <Footer history={this.props.history}/>
   )}/>
         </div>
       </BrowserRouter>
