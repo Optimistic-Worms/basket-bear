@@ -1,8 +1,6 @@
 const db = require('../../db/db-config');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
-const notificationWorker = require('./watchedPriceWorker')
-
 
 exports.addToWatchList = (req, res) => {
   const {name, id, merchant, targetPrice, currentPrice} = req.body;
@@ -103,7 +101,9 @@ let addToNotificationQueue = (user, productName, merchant, productId, currentPri
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
   }
-  notificationWorker.saveNotificationsListToDB(notification)
+  db.collection('awaitNotification').doc().set({
+      items: data
+  })
 }
 
 let sendToAmazon = (itemIds) => {
