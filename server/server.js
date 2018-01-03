@@ -15,15 +15,16 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 const axios = require('axios');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
-const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 
 /* helpers */
 const amazon = require('./helpers/amazon');
 const ebay = require('./helpers/ebay');
 /* controllers */
+const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const { getLowestPrices, updateProduct, getPriceData } = require('./controllers/product');
@@ -48,10 +49,6 @@ let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
 
-
-
-app.use(express.static(__dirname));
-
 app.use(passport.initialize());
 app.use(expressValidator())
 
@@ -60,6 +57,10 @@ const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
 });
 
 app.use(webpackDevMiddlewareInstance);
+
+if (process.env.HOT) {
+  app.use(webpackHotMiddleware(compiler));
+}
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
