@@ -96,15 +96,14 @@ let compareWatchPrices = (id, merchant) => {
 
 let addToNotificationQueue = (user, productName, merchant, productId, currentPrice, requestedPrice) => {
     let notification = {    
-    'Notify user': user,
-    'Product': productName,
+    'user': user,
+    'product': productName,
     'productId': productId,
-    'Merchant': merchant,
+    'merchant': merchant,
     'requestedPrice': requestedPrice,
-    'PriceDroppedTo': currentPrice
+    'priceDroppedTo': currentPrice
   }
   notificationWorker.saveNotificationsListToDB(notification)
-  console.log(notification) 
 }
 
 let sendToAmazon = (itemIds) => {
