@@ -10,7 +10,7 @@ import JoinHomeTout from './JoinHomeTout.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
 import PriceLookup from './user/priceLookup.js';
-
+import Developer from './developer/Developer.jsx';
 
 class Home extends React.Component {
     constructor() {
@@ -65,22 +65,24 @@ class Home extends React.Component {
 
   render() {
     return (
-    <BrowserRouter>
           <div>
-            <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
+              <Route path='/' render={(props) => (
+                <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
+              )}/>
+
               <Route exact path="/" component={Search}/>
               <Route path="/login" component={LoginCard}/>
               <Route path="/settings" component={Settings}/>
               <Route path="/watchList" component={ShoppingList}/>
+
               {
                 !this.state.isLoggedIn &&
                 <Route exact path="/" component={JoinHomeTout}/>
               }
               <Route exact path='/' render={(props) => (
-    <Footer history={this.props.history}/>
-  )}/>
+                <Footer history={props.history}/>
+              )}/>
         </div>
-      </BrowserRouter>
   )
   }
 }

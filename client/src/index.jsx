@@ -9,9 +9,7 @@ if (module.hot && HOT) {
   const render = Component => {
     ReactDOM.render(
       <AppContainer>
-        <BrowserRouter>
           <Component />
-        </BrowserRouter>
       </AppContainer>,
       document.getElementById('root')
     )
