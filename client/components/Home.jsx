@@ -18,7 +18,6 @@ class Home extends React.Component {
     this.state = {
       logged: 'LOGIN',
       logout: 'login',
-      devView: false,
       isLoggedIn: false
     };
     this.logging = this.logging.bind(this);
@@ -52,22 +51,21 @@ class Home extends React.Component {
   }
 
   logging(e){
-    if(this.state.logged === 'LOGOUT') {
-      this.logout();
-      this.setState({logged: 'LOGIN'})
+    if (this.state.logged === 'LOGOUT') {
+       logout();
+       this.setState({logged: 'LOGIN'})
     }
-  }
-
-  switchToDev() {
-    this.setState({devView: true});
   }
 
   render() {
     return (
           <div>
-              <Route path='/' render={(props) => (
-                <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
-              )}/>
+              <Route path='/' render={(props) => {
+                 return (
+                <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>)
+              }
+
+              }/>
 
               <Route exact path="/" component={Search}/>
               <Route path="/login" component={LoginCard}/>
