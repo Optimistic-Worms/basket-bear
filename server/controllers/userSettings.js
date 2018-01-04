@@ -56,9 +56,6 @@ exports.removeSubscriptionFromDb = (username, data) => {
 }
 
 exports.getSubscriptionsFromDB = (username) => {
-
-   console.log('getting subs')
-   console.log(username)
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).get()
     .then((doc) => {
