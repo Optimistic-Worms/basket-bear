@@ -84,7 +84,7 @@ let compareWatchPrices = (id, merchant) => {
     let pricesObject = doc.data().prices;
     let productName = doc.data().name;
     for (let user in pricesObject) {
-      if (currentPrice <= pricesObject[user]) {
+      if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
         let requestedPrice = pricesObject[user]
         addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
       }
@@ -93,7 +93,7 @@ let compareWatchPrices = (id, merchant) => {
 }
 
 let addToNotificationQueue = (user, productName, merchant, productId, currentPrice, requestedPrice) => {
-    let notification = {    
+    let notification = {
     'user': user,
     'product': productName,
     'productId': productId,
@@ -114,7 +114,6 @@ let addToNotificationQueue = (user, productName, merchant, productId, currentPri
 let sendToAmazon = (itemIds) => {
   amazon.lookupProductsById(itemIds).then((response) => {
     response.ItemLookupResponse.Items[0].Item.forEach((item) => {
-        
       let offer;
       if (item.Offers[0].Offer) {
         offer = item.Offers[0].Offer[0].OfferListing[0];
@@ -126,7 +125,7 @@ let sendToAmazon = (itemIds) => {
         currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
       }
       updateWatchListItemPrice(id, 'amazon', currentPrice);
-      }      
+      }
     })
   })
 }
@@ -134,6 +133,7 @@ let sendToAmazon = (itemIds) => {
 let sendToEbay = (itemIds) => {
   ebay.lookupProductsById(itemIds).then((response) => {
     response.Item.forEach((item) => {
+      console.log('ebay item', item);
       let id = item.ItemID;
       let currentPrice = item.ConvertedCurrentPrice.Value;
       updateWatchListItemPrice(id, 'eBay', currentPrice);
