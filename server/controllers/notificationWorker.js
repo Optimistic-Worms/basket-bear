@@ -1,12 +1,16 @@
 const db = require('../../db/db-config');
 const getSubscriptionsFromDB = require('./userSettings.js').getSubscriptionsFromDB;
 
-const webPush = require('web-push');
+let webPush;
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+ require('dotenv').config();
+ webPush = require('web-push');
   webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
 );
+}
 
 
 
