@@ -50,13 +50,16 @@ const sendPush = (pushSubscribers, info) =>{
 	pushSubscribers.forEach(pushSubscription => {
 	webPush.sendNotification(pushSubscription, payload).then(response => {
 	//  console.log(response)
-	}).catch(error => { console.log(error) });
+	}).catch(error => { 
+	//	console.log(error) 
+	});
 	});
 }
 
+let dataObj = {};
+
 
 const emailer = (email, info) => {
-
    var data = {
     'name': '',
     'email': email,
@@ -89,7 +92,7 @@ const sendEmail = (emailSubscribers, info) =>{
   emailer(email, info)
 	});
 }
-
+  let obj = {}
 const sendNotificationToUser = (username, info) =>{
   
   /*info = {
@@ -100,24 +103,36 @@ const sendNotificationToUser = (username, info) =>{
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
   }*/
+
   getSubscriptionsFromDB(username).then(subs => {
     let pushSubscribers = [];
     let emailSubscribers = [];
-    for (var i in subs){
-	    if(subs[i].keys.auth) {
-	    	pushSubscribers.push(subs[i])
-	    } else {
-	    	subs[i].forEach(item => {
-	    	 if(item.status) emailSubscribers.push(item.email)
-	    	})
+    for (var i in subs){    	
+    	if(subs[i].keys && subs[i].keys.auth ){
+	    pushSubscribers.push(subs[i])
 	    }
   	}
+  	if (subs.emailNotificationSettings.length) {  
+	  	
+	  	let user = subs.username;
+	  	let emailArr;		
+	  	let emails = {}
+	    subs.emailNotificationSettings.forEach(item =>{
+	    	if(item.status === true ) {
+	    		emails[item.email] = true;
+	    	}
+	    	obj[user] = emails
+	    })
+  	} 
+  
 	  if(pushSubscribers.length){
 	    sendPush(pushSubscribers, info)
 	  }  
-	  if(emailSubscribers.length){
-	    sendEmail(emailSubscribers, info)
-	  }    
+	  if(emailSubscribers.length){	
+  //  console.log(emailSubscribers)
+	//  sendEmail(emailSubscribers, dataObj)
+	  } 
+	  console.log(obj)   
   }).catch(error => {
   	console.log('Push Completely failed', error)
   })
@@ -132,7 +147,6 @@ const sendPushNotifications =(data) => {
    data.forEach(info =>{
    	if(info.data) {
      sendNotificationToUser(info.data.user, info.data)
-    //  sendEmailNotificationToUser(info.data.user, info.data)
    	} 
    })
 }
