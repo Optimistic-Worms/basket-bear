@@ -40,68 +40,52 @@ const getSubData = () =>{
 	});
 }
 
-const sendNotificationToUser = (username) =>{
-// get subscription from firebase.
-  //let username = req.get('user');
+const sendNotificationToUser = (username, info) =>{
+  
+
+  /*info = {
+    'user': user,
+    'product': productName,
+    'productId': productId,
+    'merchant': merchant,
+    'requestedPrice': requestedPrice,
+    'priceDroppedTo': currentPrice
+  }*/
 
   getSubscriptionsFromDB(username).then(subs => {
     let subscribers = []
     for (var i in subs){
-    subscribers.push(subs[i])
+    if(subs[i].keys.auth) subscribers.push(subs[i])
   }
-  subscribers.shift();
   if(subscribers.length === 0 ){
     console.log('user has no subscriptions')
+    return;
   }
-  let message =  `Willy Wonka's chocolate is the best!`;
+  let message = `${info.product} \nDropped to $${info.priceDroppedTo} You were asking $${info.requestedPrice}` || `Budget-basket updated`;
   let clickTarget =  `http://www.favoritemedium.com`;
-  let title = `Push notification received!`;
+  let title = `Price update!`;
+  let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
   subscribers.forEach(pushSubscription => {
-
-  //Can be anything you want. No specific structure necessary.
-    let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-   webPush.sendNotification(pushSubscription, payload).then(response => {
-     console.log(response)
-    }).catch(error => {
-    console.log(error)
-      console.log(error)
-
-    });
+  
+	webPush.sendNotification(pushSubscription, payload).then(response => {
+    console.log(response)
+    }).catch(error => { console.log(error) });
   });
-
+    
   }).catch(error => {
       console.log('Push Completely failed', error)
-    //  res.sendStatus(500)
   })
 
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 const sendPushNotifications =(data) => {
-
-
-
 
    data.forEach(info =>{
    	if(info.data) {
-      sendNotificationToUser(info.data.user)
+      sendNotificationToUser(info.data.user, info.data)
    	} 
    })
-
-
 }
 
 
@@ -109,7 +93,6 @@ exports.notificationWorker = (req, res) =>{
 
   getSubData().then(result =>{
   	sendPushNotifications(result)
-
   	res.sendStatus(200);
   }).catch(err =>{
   	console.log(err)
