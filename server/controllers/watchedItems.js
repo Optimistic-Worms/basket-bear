@@ -101,15 +101,23 @@ let addToNotificationQueue = (user, productName, merchant, productId, currentPri
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
   }
+  console.log(notification.user)
   db.collection('awaitNotification').doc().set({
-      items: data
+      items: notification
+  }).then(result =>{
+    console.log(result)
+  }).catch(err =>{
+    console.log(err)
   })
 }
 
 let sendToAmazon = (itemIds) => {
   amazon.lookupProductsById(itemIds).then((response) => {
     response.ItemLookupResponse.Items[0].Item.forEach((item) => {
-      let offer = item.Offers[0].Offer[0].OfferListing[0];
+        
+      let offer;
+      if (item.Offers[0].Offer) {
+        offer = item.Offers[0].Offer[0].OfferListing[0];
       let id = item.ASIN[0];
       let currentPrice;
       if (offer.SalePrice) {
@@ -118,6 +126,7 @@ let sendToAmazon = (itemIds) => {
         currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
       }
       updateWatchListItemPrice(id, 'amazon', currentPrice);
+      }      
     })
   })
 }
