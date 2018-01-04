@@ -1,15 +1,17 @@
-let webPush;
+const webPush = require('web-push');
 let emailAuth;
 
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
  require('dotenv').config();
- emailAuth = process.env.EMAIL_AUTH
- webPush = require('web-push');
-  webPush.setVapidDetails(
+}
+
+if(process.env.NODE_ENV !== 'test'){
+    emailAuth = process.env.EMAIL_AUTH
+    webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
-);
+    );
 }
 
 const express = require('express')
