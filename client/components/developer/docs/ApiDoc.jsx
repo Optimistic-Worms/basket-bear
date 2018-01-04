@@ -12,19 +12,19 @@ class ApiDoc extends React.Component {
         <div className="api-doc">
           <div className="api-doc-nav">
                 <h3>Contents</h3>
-            <Link to="/api/docs/">
+            <Link to="/dev/docs/">
             <h5>Getting Started</h5>
             </Link>
-            <Link to="/api/docs/authorization">
+            <Link to="/dev/docs/authorization">
             <h5>Authorization Guide</h5>
             </Link>
-            <Link to="/api/docs/endpoints">
+            <Link to="/dev/docs/endpoints">
             <h5>API Endpoint Reference</h5>
             </Link>
           </div>
-          <Route exact path="/api/docs/" component={GettingStarted}/>
-          <Route exact path="/api/docs/authorization" component={AuthorizationGuide}/>
-          <Route exact path="/api/docs/endpoints" component={EndpointReference}/>
+          <Route exact path="/dev/docs/" component={GettingStarted}/>
+          <Route exact path="/dev/docs/authorization" component={AuthorizationGuide}/>
+          <Route exact path="/dev/docs/endpoints" component={EndpointReference}/>
         </div>
       </BrowserRouter>
     )

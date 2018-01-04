@@ -18,7 +18,7 @@ class ApiAccount extends React.Component {
 
   handleLogout() {
     this.props.toggleLogin();
-    this.props.history.push('/');
+    this.props.history.push('/dev');
   }
 
   render() {
