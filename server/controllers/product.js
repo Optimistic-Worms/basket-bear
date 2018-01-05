@@ -111,12 +111,39 @@ exports.getPriceData = (req, res) => {
   }
 };
 
-exports.getAllProducts = (req, res) => {
+exports.searchProductsByName = (req, res) => {
+    console.log(req.query.name)
+    const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+    const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+    let matchingProducts = [];
+    amazonProducts.get().then(products => {
+      products.forEach(product => {
+        if (product.name.includes(req.name)) {
+          matchingProducts.push(product);
+         }
+      });
+      ebayProducts.get().then(products => {
+        products.forEach(product => {
+         if (product.name.includes(req.name)) {
+          matchingProducts.push(product);
+         }
+        });
+        const sorted = (allProducts.slice(0, 100).sort((a, b) => {
+          return Object.keys(b.prices).length - Object.keys(a.prices).length;
+        }));
+        res.send(sorted);
+      }).catch(err => res.status(400).send(err));
+    }).catch(err => res.status(400).send(err));
+};
+
+exports.getProducts = (req, res) => {
   const amazonProducts = db.collection('productList').doc('amazon').collection('products');
   const ebayProducts = db.collection('productList').doc('eBay').collection('products');
 
   if (req.query.id) {
     exports.getPriceData(req, res);
+  } else if (req.query.name) {
+      exports.searchProductsByName(req, res);
   } else {
     let allProducts = [];
     amazonProducts.get().then(products => {
