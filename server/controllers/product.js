@@ -110,3 +110,24 @@ exports.getPriceData = (req, res) => {
     });
   }
 };
+
+exports.getAllProducts = (req, res) => {
+  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+
+  let allProducts = [];
+  amazonProducts.get().then(products => {
+    products.forEach(product => allProducts.push(product.data()));
+    ebayProducts.get().then(products => {
+      products.forEach(product => {
+        allProducts.push(product.data());
+      });
+      const sorted = (allProducts.slice(0, 100).sort((a, b) => {
+        return Object.keys(b.prices).length - Object.keys(a.prices).length;
+      }));
+      res.send(sorted);
+    }).catch(err => res.status(400).send(err));
+  }).catch(err => res.status(400).send(err));
+
+
+}
