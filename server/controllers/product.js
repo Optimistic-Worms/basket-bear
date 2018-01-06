@@ -3,10 +3,13 @@ const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
 const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
+let amazonProducts;
+let ebayProducts;
 
 if (process.env.NODE_ENV !== 'test') {
-  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+  console.log('setting db')
+  amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  ebayProducts = db.collection('productList').doc('eBay').collection('products');
 }
 
 exports.getLowestPrices = (req, res) => {
