@@ -12,8 +12,8 @@ import ApiUserAuthCard from './apiUser/ApiUserAuthCard.jsx';
 import ApiAccount from './apiUser/ApiAccount.jsx';
 
 class Developer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       loggedIn: false,
       user: '',
@@ -24,7 +24,6 @@ class Developer extends React.Component {
   }
 
   componentDidMount() {
-
   }
 
   toggleLoggedIn(user = '', token = '') {
@@ -70,20 +69,20 @@ class Developer extends React.Component {
       )
     }
 
+    const { path, url } = this.props.match;
+
     //console.log(this.state)
     return (
       <div>
-        <BrowserRouter>
           <div className="developer">
             <ApiNav loggedIn={this.state.loggedIn}/>
-              <Route exact path="/" component={ApiIntro}/>
-              <Route exact path="/" component={JoinApiTout}/>
-              <Route path="/api/login" render={LoginView} />
-              <Route path="/api/docs" component={ApiDoc}/>
-              <Route path="/api/account" render={accountView}/>
+              <Route exact path={path} component={ApiIntro}/>
+              <Route exact path={path} component={JoinApiTout}/>
+              <Route path="/dev/login" render={LoginView} />
+              <Route path="/dev/docs" component={ApiDoc}/>
+              <Route path="/dev/account" render={accountView}/>
               <Route exact path="/" component={DeveloperFooter}/>
           </div>
-        </BrowserRouter>
     </div>
     );
   }

@@ -32,7 +32,7 @@ class ApiUserLogin extends React.Component {
       })
       .then((res) => {
         this.props.toggleLogin(this.state.email, res.data.access_token);
-        this.props.history.push('/api/account')
+        this.props.history.push('/dev/account')
       })
       .catch(err => {
         this.setState({errorMsg: err.response.data});

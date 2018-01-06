@@ -2,7 +2,6 @@ const db = require('../../db/db-config');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 
-
 exports.addToWatchList = (req, res) => {
   const {name, id, merchant, targetPrice, currentPrice} = req.body;
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
@@ -85,25 +84,39 @@ let compareWatchPrices = (id, merchant) => {
     let pricesObject = doc.data().prices;
     let productName = doc.data().name;
     for (let user in pricesObject) {
-      if (currentPrice <= pricesObject[user]) {
-        addToNotificationQueue(user, productName , merchant, id, currentPrice);
+      if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
+        let requestedPrice = pricesObject[user]
+        addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
       }
     }
   })
 }
 
-let addToNotificationQueue = (user, productName, merchant, productId, currentPrice) => {
-  console.log('Notify user: ', user,
-    'Product: ', productName,
-    'productId: ', productId,
-    'Merchant: ', merchant,
-    'Price dropped to ', currentPrice);
+let addToNotificationQueue = (user, productName, merchant, productId, currentPrice, requestedPrice) => {
+    let notification = {
+    'user': user,
+    'product': productName,
+    'productId': productId,
+    'merchant': merchant,
+    'requestedPrice': requestedPrice,
+    'priceDroppedTo': currentPrice
+  }
+  console.log(notification.user)
+  db.collection('awaitNotification').doc().set({
+      items: notification
+  }).then(result =>{
+    console.log(result)
+  }).catch(err =>{
+    console.log(err)
+  })
 }
 
 let sendToAmazon = (itemIds) => {
   amazon.lookupProductsById(itemIds).then((response) => {
     response.ItemLookupResponse.Items[0].Item.forEach((item) => {
-      let offer = item.Offers[0].Offer[0].OfferListing[0];
+      let offer;
+      if (item.Offers[0].Offer) {
+        offer = item.Offers[0].Offer[0].OfferListing[0];
       let id = item.ASIN[0];
       let currentPrice;
       if (offer.SalePrice) {
@@ -112,6 +125,7 @@ let sendToAmazon = (itemIds) => {
         currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
       }
       updateWatchListItemPrice(id, 'amazon', currentPrice);
+      }
     })
   })
 }
@@ -119,6 +133,7 @@ let sendToAmazon = (itemIds) => {
 let sendToEbay = (itemIds) => {
   ebay.lookupProductsById(itemIds).then((response) => {
     response.Item.forEach((item) => {
+      console.log('ebay item', item);
       let id = item.ItemID;
       let currentPrice = item.ConvertedCurrentPrice.Value;
       updateWatchListItemPrice(id, 'eBay', currentPrice);

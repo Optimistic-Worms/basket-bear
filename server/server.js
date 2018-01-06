@@ -1,12 +1,17 @@
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
-  require('dotenv').config();
+const webPush = require('web-push');
+let emailAuth;
 
-  const webPush = require('web-push');
-  webPush.setVapidDetails(
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+ require('dotenv').config();
+}
+
+if(process.env.NODE_ENV !== 'test'){
+    emailAuth = process.env.EMAIL_AUTH
+    webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
     process.env.VAPID_PRIVATE_KEY
-  );
+    );
 }
 
 const express = require('express')
@@ -15,18 +20,19 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
 const axios = require('axios');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
-const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 
 /* helpers */
 const amazon = require('./helpers/amazon');
 const ebay = require('./helpers/ebay');
 /* controllers */
+const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const { getLowestPrices, updateProduct, getPriceData } = require('./controllers/product');
+const { getLowestPrices, updateProduct, getPriceData, getProducts } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -36,21 +42,17 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Push */
-const addSubscriptionToDb = require('./controllers/userSettings.js').addSubscriptionToDb;
-const removeSubscriptionFromDb = require('./controllers/userSettings.js').removeSubscriptionFromDb;
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
-
+const push = require('./controllers/pushNotifications');
 // VAPID keys should only be generated once.
 // const newVapidKeys = webPush.generateVAPIDKeys();
 // console.log(newVapidKeys)
+/* Notification */
+const notificationWorker =  require('./controllers/notificationWorker')
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-
-
-app.use(express.static(__dirname));
 
 app.use(passport.initialize());
 app.use(expressValidator())
@@ -60,6 +62,10 @@ const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
 });
 
 app.use(webpackDevMiddlewareInstance);
+
+if (process.env.HOT) {
+  app.use(webpackHotMiddleware(compiler));
+}
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
@@ -89,40 +95,8 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  app.post('/subscribe', isAuthenticated, (req, res) => {
-    let data = req.body.subscription;
-    let pushSubscription = {};
-    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
-    pushSubscription[name] = {
-       endpoint: data.endpoint,
-       keys: {
-           p256dh: data.keys.p256dh, // Public Key
-           auth: data.keys.auth
-       }
-    };
-    addSubscriptionToDb(req.username, pushSubscription).then(response => {
-    res.send('Subscription accepted!');
-    }).catch(error => {
-    res.status(500).send(error)
-    });
-  });
-
-
- app.post('/unsubscribe', isAuthenticated, function (req, res) {
-      let data = req.body.subscription;
-      let username = req.username;
-          let pushSubscription = {};
-    let name = data.endpoint.replace('https://fcm.googleapis.com/fcm/send/','')
-    pushSubscription[name] = {
-       endpoint: data.endpoint,
-       keys: {
-           p256dh: data.keys.p256dh, // Public Key
-           auth: data.keys.auth
-       }
-    };
-     removeSubscriptionFromDb(username, pushSubscription);
-     res.send('Subscription removed!');
- });
+  app.post('/subscribe', isAuthenticated, push.subscribe);
+  app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Send Push Notification
@@ -156,8 +130,7 @@ app.get('/notify', function (req, res) {
 
   //Can be anything you want. No specific structure necessary.
     let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-   webPush.
-    sendNotification(pushSubscription, payload).then(response => {
+   webPush.sendNotification(pushSubscription, payload).then(response => {
       res.send(response)
     }).catch(error => {
     console.log(error)
@@ -167,6 +140,7 @@ app.get('/notify', function (req, res) {
   });
 
   }).catch(error => {
+      console.log('Push Completely failed', error)
       res.sendStatus(500)
   })
 });
@@ -177,7 +151,6 @@ app.get('/notify', function (req, res) {
 
 //CODE TO SEND THE INFO
 app.post('/email', (req, res) => {
-    console.log(req.query)
    var data = {
     'name': req.query.name,
     'email': req.query.email,
@@ -188,7 +161,7 @@ app.post('/email', (req, res) => {
      'method' : 'post',
      'contentType': 'application/json',
      'payload' : data,
-     'auth': 'welcome'
+     'auth': emailAuth
    };
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
@@ -199,12 +172,13 @@ app.post('/email', (req, res) => {
    }).catch(error =>{
     res.send(error)
    });
-
-
-// short term fix.
-
 });
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Notification Worker
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/runnotifications', notificationWorker.notificationWorker)
 
 
 
@@ -365,7 +339,7 @@ app.get('/lookupAmazon', (req, res) => {
 
 apiRoutes.post('/products', isAuthenticated, updateProduct);
 
-apiRoutes.get('/products', apiAuth.authenticateToken, getPriceData);
+apiRoutes.get('/products', apiAuth.authenticateToken, getProducts);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
