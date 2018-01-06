@@ -81,7 +81,7 @@ class Developer extends React.Component {
               <Route path="/dev/login" render={LoginView} />
               <Route path="/dev/docs" component={ApiDoc}/>
               <Route path="/dev/account" render={accountView}/>
-              <Route exact path="/" component={DeveloperFooter}/>
+              <Route exact path="/dev" component={DeveloperFooter}/>
           </div>
     </div>
     );
