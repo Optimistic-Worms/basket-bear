@@ -61,6 +61,18 @@ exports.removeFromWatchList = (req, res) => {
   .catch((err) => res.status(400).send(err));
 }
 
+let checkIfPriceChanged = (id, merchant, currentPrice) => {
+  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+
+  productRef.get().then((doc) => {
+    if (currentPrice < doc.data().currentPrice) {
+      console.log('price has dropped');
+      updateWatchListItemPrice(id, merchant, currentPrice);
+    }
+  })
+
+}
+
 let updateWatchListItemPrice = (id, merchant, currentPrice) => {
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
 
@@ -124,7 +136,7 @@ let sendToAmazon = (itemIds) => {
       } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
         currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
       }
-      updateWatchListItemPrice(id, 'amazon', currentPrice);
+      checkIfPriceChanged(id, 'amazon', currentPrice);
       }
     })
   })
@@ -136,7 +148,7 @@ let sendToEbay = (itemIds) => {
       console.log('ebay item', item);
       let id = item.ItemID;
       let currentPrice = item.ConvertedCurrentPrice.Value;
-      updateWatchListItemPrice(id, 'eBay', currentPrice);
+      checkIfPriceChanged(id, 'eBay', currentPrice);
     })
   })
 }
