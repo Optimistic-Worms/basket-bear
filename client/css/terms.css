@@ -1,9 +1,10 @@
 .terms {
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 70%;
   margin: 5em auto 1em;
   color: #424242;
+  font-size: .7em;
 }
 
 .terms h3, h4 {

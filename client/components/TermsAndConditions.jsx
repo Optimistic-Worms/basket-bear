@@ -6,7 +6,7 @@ const TermsAndConditions = (props) => {
 
   return (
     <div className="terms">
-    <h2>TERMS AND CONDITIONS</h2>
+    <h2>BASKET BEAR - TERMS AND CONDITIONS</h2>
 
     <h3>Introduction</h3>
 
