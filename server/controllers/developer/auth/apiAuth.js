@@ -6,7 +6,7 @@ const encrypt = require('../../../helpers/encryption.js');
 const apiUser = require('../apiUser.js');
 const authToken = require('./authToken.js');
 
-//for the Budget Basket client API User signup and login routes
+//for the Basket Bear client API User signup and login routes
 passport.use('userBasic', new BasicStrategy((email, password, cb) => {
   apiUser.findByEmail(email, (err, userRef, userData) => {
     if (err) {

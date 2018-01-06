@@ -3,9 +3,9 @@ import React from 'react';
 const EndpointReference = () => (
   <div className="api-doc-intro">
     <div className="api-doc-intro api-doc-intro--header">
-      <h1>Budget Basket API Endpoint Reference</h1>
+      <h1>Basket Bear API Endpoint Reference</h1>
     </div>
-    <p>This guide shows you how to access the public endpoints for the Budget Basket API. All requests to the Budget Basket API require authorization. See our Authorization Guide to learn how to obtain a token.</p>
+    <p>This guide shows you how to access the public endpoints for the Basket Bear API. All requests to the Basket Bear API require authorization. See our Authorization Guide to learn how to obtain a token.</p>
       <h2>Endpoints</h2>
       <div >
       </div>

@@ -18,7 +18,7 @@ const EmailPreferences = (props) => {
         <button className="button" onClick={() =>{props.addEmail()}}>Add</button>
       </div>
       </div>
-      <p>You can have up to 5 email accounts that budget basket will notifiy to:</p>
+      <p>You can have up to 5 email accounts that Basket Bear will notifiy to:</p>
       {props.emails.map((item,index)=>{
         return(
           <div className="settings-email-update" key={`emailCard${index}`}>

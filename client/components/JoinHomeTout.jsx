@@ -12,7 +12,7 @@ class JoinHomeTout extends React.Component {
           <a href="./login">
           <button className="button button--hometout">Sign Up</button></a>
         </div>
-        <p>Join Budget Basket to add items to your watch list and monitor products for price drops</p>
+        <p>Join Basket Bear to add items to your watch list and monitor products for price drops</p>
       </div>
     </div>
   )
