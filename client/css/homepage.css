@@ -8,11 +8,11 @@
   color: #fff;
   align-items: center;
   justify-content: center;
-  background-image: url('./zachary-staines-65775.jpg');
+  background-image: url('./bear-min.jpg');
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  height: 24em;
+  height: 28em;
 }
 
 .intro-card h1 {
@@ -297,5 +297,9 @@ button.search-button:focus {
 @media (min-width:1600px) {
   .list {
     grid-template-columns: auto auto auto auto;
+  }
+
+  .search {
+    width: 50%;
   }
 }
