@@ -53,6 +53,7 @@ footer {
   align-items: center;
   justify-content: center;
   font-size: .7em;
+  align-self: flex-end;
 }
 
 .copyright a {
