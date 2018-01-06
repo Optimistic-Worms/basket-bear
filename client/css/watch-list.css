@@ -4,7 +4,7 @@
   display: grid;
   grid-template-columns: auto;
   width: 95%;
-  margin: 1em;
+  margin: 1em auto;
   grid-gap: .2em;
 }
 
@@ -117,6 +117,10 @@ input.watch-form:focus {
   }
   .button-product-watch {
     width: 95%;
+  }
+
+  .watch-list {
+    width: 100%;
   }
 }
 

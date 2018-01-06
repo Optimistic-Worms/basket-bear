@@ -48,6 +48,7 @@ const NavBar = (props) => (
 	        <i className="fa fa-sign-out" aria-hidden="true"></i>{props.logged}</span>
 	      </Link>
 	    </li>
+
 	  </div>
 	</nav>
 </div>);

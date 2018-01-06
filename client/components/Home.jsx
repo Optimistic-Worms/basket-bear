@@ -5,6 +5,7 @@ import Search from './Search.jsx';
 import LoginCard from './user/LoginCard.jsx';
 import Settings from './user/Settings.jsx';
 import ShoppingList from './ShoppingList.jsx';
+import TermsAndConditions from './TermsAndConditions.jsx';
 import Navbar from './Navbar.jsx';
 import JoinHomeTout from './JoinHomeTout.jsx';
 import Footer from './Footer.jsx';
@@ -71,6 +72,7 @@ class Home extends React.Component {
               <Route path="/login" component={LoginCard}/>
               <Route path="/settings" component={Settings}/>
               <Route path="/watchList" component={ShoppingList}/>
+              <Route path="/terms" component={TermsAndConditions}/>
 
               {
                 !this.state.isLoggedIn &&
