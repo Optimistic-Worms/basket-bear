@@ -4,7 +4,7 @@ const ApiNav = (props) => (
   <div className="api-nav">
   <nav>
     <div className="brand">
-      <Link to="/">
+      <Link to="/dev">
       <div className="api-nav-title">Basket Bear - Developer</div>
       </Link>
     </div>
