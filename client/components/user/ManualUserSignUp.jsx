@@ -13,7 +13,6 @@ class ManualUser extends React.Component {
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
   }
 
   handleUsername(event) {
@@ -24,16 +23,6 @@ class ManualUser extends React.Component {
     this.setState({password: event.target.value});
   }
 
-  handleLogin(event) {
-    event.preventDefault();
-    firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
-      .then((value) => {
-        console.log(value.uid);
-        console.log(this.props.history)
-        this.props.history.push('/');
-      })
-      .catch(error => this.setState({ messages: `Opps! We are sorry to say: ${error.message}` }));
-  }
 
   handleSignup(event) {
     event.preventDefault();
@@ -74,8 +63,7 @@ class ManualUser extends React.Component {
              />
            </div>
            <div className="button-wrapper">
-             <button className="button button-login button--homeout"onClick={ this.handleLogin }  >Login</button>
-             {/* <button className="button button-signup button--homeout"onClick={ this.handleSignup } >Sign Up</button> */}
+             <button className="button button-signup button--homeout"onClick={ this.handleSignup } >Sign Up</button>
             </div>
           </div>
           </form>

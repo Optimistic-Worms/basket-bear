@@ -73,10 +73,10 @@ const TermsAndConditions = (props) => {
     This website is provided “as is” without any representations or warranties, express or implied.  Basket Bear makes no representations or warranties in relation to this website or the information and materials provided on this website.
 
     Without prejudice to the generality of the foregoing paragraph, Basket Bear does not warrant that:
-
-    	this website will be constantly available, or available at all; or
-    	the information on this website is complete, true, accurate or non-misleading.
-
+<ul>
+    <li>this website will be constantly available, or available at all; or</li>
+    <li>the information on this website is complete, true, accurate or non-misleading.</li>
+</ul>
     Nothing on this website constitutes, or is meant to constitute, advice of any kind.  If you require advice in relation to any legal, financial or medical matter you should consult an appropriate professional.
     </p>
 
