@@ -155,8 +155,8 @@ class Search extends React.Component {
     return (
       <div>
         <div className="intro-card">
-          <h1>BASKET BEAR</h1>
-          <h4>FIND THE BEST PRICES FOR ITEMS YOU WANT</h4>
+          <h1>Basket Bear</h1>
+          <h4>Find the best prices for items you want</h4>
           <div className="search">
 
             <input className="search-form" onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} placeholder="search for an item" onChange= {(input) => this.query(input)} type="search"/>
