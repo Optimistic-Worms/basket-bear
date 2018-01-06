@@ -56,8 +56,6 @@ const sendPush = (pushSubscribers, info) =>{
 	});
 }
 
-let dataObj = {};
-
 
 const emailer = (email, info) => {
    var data = {
@@ -72,8 +70,8 @@ const emailer = (email, info) => {
      'payload' : data,
      'auth': emailAuth
    };
-   console.log(data.message)
-   console.log(email);
+//   console.log(data.message)
+//   console.log(email);
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
 /*   axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
      console.log(response)
@@ -88,11 +86,9 @@ const emailer = (email, info) => {
 
 
 const sendEmail = (emailSubscribers, info) =>{
-	emailSubscribers.forEach(email => {
-  emailer(email, info)
-	});
+
 }
-  let obj = {}
+const usersList = {};
 const sendNotificationToUser = (username, info) =>{
   
   /*info = {
@@ -103,52 +99,43 @@ const sendNotificationToUser = (username, info) =>{
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
   }*/
-
   getSubscriptionsFromDB(username).then(subs => {
     let pushSubscribers = [];
-    let emailSubscribers = [];
-    for (var i in subs){    	
+    for (var i in subs){ 
+      if(Array.isArray(subs[i]) && subs[i].length){
+      	let emailArr = subs[i]; 
+      	emailArr.forEach(item => {
+      		if (item.status){
+      			usersList[username].emails.add(item.email)
+      		}
+      	});
+      }
     	if(subs[i].keys && subs[i].keys.auth ){
 	    pushSubscribers.push(subs[i])
 	    }
-  	}
-  	if (subs.emailNotificationSettings.length) {  
-	  	
-	  	let user = subs.username;
-	  	let emailArr;		
-	  	let emails = {}
-	    subs.emailNotificationSettings.forEach(item =>{
-	    	if(item.status === true ) {
-	    		emails[item.email] = true;
-	    	}
-	    	obj[user] = emails
-	    })
-  	} 
-  
+  	}    
 	  if(pushSubscribers.length){
 	    sendPush(pushSubscribers, info)
-	  }  
-	  if(emailSubscribers.length){	
-  //  console.log(emailSubscribers)
-	//  sendEmail(emailSubscribers, dataObj)
 	  } 
-	  console.log(obj)   
+	  console.log(usersList) 
   }).catch(error => {
   	console.log('Push Completely failed', error)
   })
+  
 }
-
-const sendNotification = (user, info) => {
-}
-
 
 const sendPushNotifications =(data) => {
-
-   data.forEach(info =>{
-   	if(info.data) {
-     sendNotificationToUser(info.data.user, info.data)
+   
+   data.forEach(prod =>{
+   	if(prod.data) {
+   		let user = prod.data.user;
+   	usersList[user]? usersList[user].data.push(prod.data): usersList[user] = {"data":[prod.data]}
+   	if(usersList[user]) usersList[user]["emails"] = new Set();
+   	
+    sendNotificationToUser(prod.data.user, prod.data)
    	} 
    })
+   console.log(usersList)
 }
 
 
