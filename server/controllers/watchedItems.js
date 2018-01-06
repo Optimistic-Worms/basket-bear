@@ -5,7 +5,6 @@ const ebay = require('../helpers/ebay');
 exports.addToWatchList = (req, res) => {
   const {name, id, merchant, targetPrice, currentPrice} = req.body;
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
-  //console.log('adding to watch list:', name, id, merchant, targetPrice, currentPrice);
 
   productRef.get().then((product) => {
     if (product.exists) {
@@ -66,10 +65,8 @@ let checkIfPriceChanged = (id, merchant, currentPrice) => {
 
   productRef.get().then((doc) => {
     if (currentPrice !== doc.data().currentPrice) {
-      console.log('price has changed for item', id);
       updateWatchListItemPrice(id, merchant, currentPrice);
     }
-    else console.log('price of item', id, 'stayed the same');
   })
 
 }
@@ -114,7 +111,6 @@ let addToNotificationQueue = (user, productName, merchant, productId, currentPri
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
   }
-  console.log(notification.user)
   db.collection('awaitNotification').doc().set({
       items: notification
   }).then(result =>{
@@ -146,7 +142,6 @@ let sendToAmazon = (itemIds) => {
 let sendToEbay = (itemIds) => {
   ebay.lookupProductsById(itemIds).then((response) => {
     response.Item.forEach((item) => {
-      console.log('ebay item', item);
       let id = item.ItemID;
       let currentPrice = item.ConvertedCurrentPrice.Value;
       checkIfPriceChanged(id, 'eBay', currentPrice);
@@ -155,47 +150,48 @@ let sendToEbay = (itemIds) => {
 }
 
 exports.watchListWorker = (req, res) => {
-
-  //update amazon products
-  const productRef = db.collection('watchedItems').doc('amazon').collection('products')
-  productRef.get().then((query)=> {
-    let amazonProducts = [];
-    query.forEach((doc) => {
-      amazonProducts.push(doc.id);
+  if (req.query.authsecret !== process.env.AUTH_SECRET) {
+    console.error("Missing or incorrect auth-secret header. Rejecting request.");
+    res.status(401).send('Not Authorized')
+  } else {
+    //update amazon products
+    const productRef = db.collection('watchedItems').doc('amazon').collection('products')
+    productRef.get().then((query)=> {
+      let amazonProducts = [];
+      query.forEach((doc) => {
+        amazonProducts.push(doc.id);
+      })
+      return amazonProducts;
     })
-    return amazonProducts;
-  })
-  .then((amazonProducts) => {
-    // send in batched of 10 max due to amazon api lookup limit
-    while (amazonProducts.length >= 10) {
-      sendToAmazon(amazonProducts.slice(0, 9));
-      amazonProducts.splice(0, 9);
-    }
-    if (amazonProducts.length > 0) {
-      sendToAmazon(amazonProducts);
-    }
-  })
-
-  // update ebay products
-  const productRefEbay = db.collection('watchedItems').doc('eBay').collection('products')
-  productRefEbay.get().then((query)=> {
-    let ebayProducts = [];
-    query.forEach((doc) => {
-      ebayProducts.push(doc.id);
+    .then((amazonProducts) => {
+      // send in batched of 10 max due to amazon api lookup limit
+      while (amazonProducts.length >= 10) {
+        sendToAmazon(amazonProducts.slice(0, 9));
+        amazonProducts.splice(0, 9);
+      }
+      if (amazonProducts.length > 0) {
+        sendToAmazon(amazonProducts);
+      }
     })
-    return ebayProducts;
-  })
-  .then((ebayProducts) => {
-    // send in batched of 10 max due to ebay api lookup limit
-    while (ebayProducts.length >= 10) {
-      sendToEbay(ebayProducts.slice(0, 9));
-      ebayProducts.splice(0, 9);
-    }
-    if (ebayProducts.length > 0) {
-      sendToEbay(ebayProducts);
-    }
-  })
-
-  res.send('starting watch worker');
-
+    // update ebay products
+    const productRefEbay = db.collection('watchedItems').doc('eBay').collection('products')
+    productRefEbay.get().then((query)=> {
+      let ebayProducts = [];
+      query.forEach((doc) => {
+        ebayProducts.push(doc.id);
+      })
+      return ebayProducts;
+    })
+    .then((ebayProducts) => {
+      // send in batched of 10 max due to ebay api lookup limit
+      while (ebayProducts.length >= 10) {
+        sendToEbay(ebayProducts.slice(0, 9));
+        ebayProducts.splice(0, 9);
+      }
+      if (ebayProducts.length > 0) {
+        sendToEbay(ebayProducts);
+      }
+    })
+    res.send('starting watch worker');
+  }
 }
