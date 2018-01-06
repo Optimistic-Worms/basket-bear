@@ -79,7 +79,7 @@ class ManualUser extends React.Component {
             </div>
           </div>
           <div className="toggle-login" onClick={this.props.toggleView}>
-            <a>Or Sign up for a Basket Bear Account</a>
+            <a>New to Basket Bear? Sign up for an account</a>
           </div>
           </form>
           </div>
