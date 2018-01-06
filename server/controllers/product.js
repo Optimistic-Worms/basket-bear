@@ -2,10 +2,12 @@ const Promise = require('bluebird');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
-const { getAveragePrice, sortByPopularity, parseData , productNamesMatch} = require('../helpers/productHelpers.js');
-const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
 
+if (process.env.NODE_ENV !== 'test') {
+  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+}
 
 exports.getLowestPrices = (req, res) => {
   console.log(req.user)
@@ -116,14 +118,14 @@ exports.getProductData = (req, res) => {
     products.forEach(product => {
       const productObj = parseData(product);
       if (productNamesMatch(productObj, req.query.name)) {
-        allProducts.push(productObj)
+        allProducts.push(productObj);
       }
     });
 
     ebayProducts.get().then(products => {
       products.forEach(product => {
         if (productNamesMatch(productObj, req.query.name)) {
-          allProducts.push(productObj)
+          allProducts.push(productObj);
         }
       });
       const sorted = sortByPopularity(allProducts);
