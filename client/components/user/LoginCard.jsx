@@ -10,11 +10,18 @@ class LoginCard extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedIn: true
+      loggedIn: true,
+      signUpView: false,
     };
 
     this.getToken = getToken.bind(this);
+    this.toggleSignUpView = this.toggleSignUpView.bind(this);
   }
+
+  toggleSignUpView(event, msg = '') {
+    this.setState({signUpView: !this.state.signUpView, msg: msg})
+  }
+
 
     componentWillMount() {
     let that = this
@@ -37,9 +44,15 @@ class LoginCard extends React.Component {
     } else {
     return (
       <div className="login-card">
-        <h2 className="login-header">Login/Sign Up</h2>
-        <ManualUser errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest} history={this.props.history}/>
+        <h2 className="login-header">{this.state.signUpView ? 'Signup' : 'Login'}</h2>
+        {this.state.signUpView ?
+          <div>
+        <ManualUserSignUp errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest} history={this.props.history}/>
         <GoogleUser userLoginRequest={userLoginRequest} history={this.props.history} />
+      </div>
+        :
+        <div><ManualUser errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest} history={this.props.history}/>
+        <GoogleUser userLoginRequest={userLoginRequest} history={this.props.history} /></div>}
       </div>
     );
   }
