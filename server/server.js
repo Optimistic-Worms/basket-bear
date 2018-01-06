@@ -347,7 +347,7 @@ apiRoutes.get('/products', apiAuth.authenticateToken, getProducts);
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
-  res.send('Welcome to the Budget Basket API!')
+  res.send('Welcome to the Basket Bear API!')
 });
 
 apiRoutes.post('/usertoken', apiAuth.authenticateUser, oauth.server.token());

@@ -4,13 +4,13 @@ import '../../../css/bb_client_flow.png';
 const AuthorizationGuide = () => (
   <div className="api-doc-intro">
     <div className="api-doc-intro api-doc-intro--header">
-      <h1>Budget Basket API Authorization Guide</h1>
+      <h1>Basket Bear API Authorization Guide</h1>
     </div>
-    <p>This guide shows you how to get authorization to access protected endpoints on the Budget Basket API.</p>
+    <p>This guide shows you how to get authorization to access protected endpoints on the Basket Bear API.</p>
     <div >
       <h2>Introduction</h2>
     </div>
-    <p>All requests to the Budget Basket API require authorization. After creating your Developer account you will be provided with a unique client ID and client Secret to use in the authorization flows detatiled below.</p>
+    <p>All requests to the Basket Bear API require authorization. After creating your Developer account you will be provided with a unique client ID and client Secret to use in the authorization flows detatiled below.</p>
       <div >
         <h2>Supported Authorization Flows</h2>
       </div>
@@ -60,7 +60,7 @@ const AuthorizationGuide = () => (
           <div className="snippet">{
           `{\n  "access_token": "NgCXRKc...MzYjw", \n  "token_type": "bearer", \n  "expires_in": 3600  \n}`}
           </div>
-       <h3>Step 2: Use the access token to access the Budget Basket Web API</h3>
+       <h3>Step 2: Use the access token to access the Basket Bear Web API</h3>
 
         <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
           params: {

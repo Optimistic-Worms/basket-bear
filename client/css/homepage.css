@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: center;
   background-image: url('./bear-min.jpg');
-  background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
   height: 28em;
@@ -17,21 +16,20 @@
 
 .intro-card h1 {
   display: flex;
-  font-size: 3em;
-  align-items: center;
-  width: 60%;
-  padding: 0;
-  margin-top: 1em;
-  margin-bottom: 0em;
-  font-weight: 300;
-  text-align: center;
-  justify-content: center;
+      font-size: 3em;
+      align-items: center;
+      width: 65%;
+      padding: 0;
+      margin: -.5em 0 0;
+      font-weight: 500;
+      text-align: center;
+      justify-content: flex-start;
 }
 
 .intro-card h4 {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   font-size: 1.1em;
   width: 60%;
   padding: 0;
@@ -197,6 +195,14 @@ button.search-button:focus {
 
 /** Media Queries **/
 
+@media (max-width:520px) {
+
+    .intro-card {
+      background-image: url('./bear-min-M.jpg');
+      justify-content: flex-end;
+    }
+}
+
 
 @media (max-width:600px) {
   .search-selection {
@@ -209,6 +215,12 @@ button.search-button:focus {
 
   .search-form {
     width: 70%;
+  }
+
+  .intro-card h1 {
+        font-size: 3em;
+        width: 100%;
+        justify-content: center;
   }
 
 }
@@ -271,6 +283,9 @@ button.search-button:focus {
   }
   .hometout-wrapper p {
     margin-top: -.5em;
+  }
+  .hometout-wrapper {
+    margin: -1em auto .5em;
   }
 
 }

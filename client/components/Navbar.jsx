@@ -8,8 +8,8 @@ const NavBar = (props) => (
   <nav>
 		<div className="brand">
   		<Link to="/">
-	  	{/*<span className="desktop-show">Budget Basket</span>*/}
 	  	<i className="fa fa-shopping-basket"></i>
+			<span className="desktop-show"> Basket Bear</span>
 	  	</Link>
 		</div>
 	  <div className="menu">

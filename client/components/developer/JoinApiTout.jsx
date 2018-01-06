@@ -13,7 +13,7 @@ class JoinApiTout extends React.Component {
           <button className="button button--hometout">Sign Up</button></a>
 
         </div>
-        <p>Join Budget Basket Developer and start making API calls today</p>
+        <p>Join Basket Bear Developer and start making API calls today</p>
       </div>
     </div>
   )
