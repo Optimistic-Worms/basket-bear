@@ -155,7 +155,7 @@ class Search extends React.Component {
     return (
       <div>
         <div className="intro-card">
-          <h1>Basket Bear</h1>
+          <h1>BASKET BEAR</h1>
           <h4>Find the best prices for items you want</h4>
           <div className="search">
 

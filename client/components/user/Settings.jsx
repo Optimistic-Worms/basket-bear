@@ -108,12 +108,12 @@ class Settings extends React.Component {
 	  let email = this.state.newEmail;
 	  let emailList = this.state.emailList
 	  if(emailList.length === 5){
-	  	this.setMessages('Opps...! You already have 5 emails')
+	  	this.setMessages('Cannot exceed five email addresses')
 	  	stop = true;
 	  }
 	  emailList.forEach(item => {
 	  	if (item.email === email){
-	  		this.setMessages('Opps...! you already have this email registered')
+	  		this.setMessages('this email is already registered')
 	  		stop = true;
 	  	}
 	  })
@@ -136,11 +136,11 @@ class Settings extends React.Component {
   render(){
   return (
     <div className="settings-card">
-      <h1 className="login-header">Account Settings</h1>
+      <h2 className="login-header">Account Settings</h2>
 
       <div className="settings-layout">
 	      <div>
-		      <h2>Username:</h2>
+		      <h3>Username:</h3>
           <div className="settings-form-wrapper">
             <input className="settings-form" type="text" onKeyUp={(e) => this.setName(e)} placeholder={this.state.name}/>
 		      <button className="button button-settings" onClick={() => this.updateUserProfile()}>Update</button>

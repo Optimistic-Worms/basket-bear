@@ -145,7 +145,7 @@ const TermsAndConditions = (props) => {
     </p>
     <h3>Basket Bear’s details</h3>
     <p>
-    You can contact Basket Bear by email to info@Basket Bear.com
+    You can contact Basket Bear by email to info@basketbear.com
     </p>
     <h4>Credit</h4>
     <p>
