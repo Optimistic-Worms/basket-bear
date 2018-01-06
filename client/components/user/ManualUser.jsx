@@ -78,6 +78,9 @@ class ManualUser extends React.Component {
              {/* <button className="button button-signup button--homeout"onClick={ this.handleSignup } >Sign Up</button> */}
             </div>
           </div>
+          <div className="toggle-login" onClick={this.props.toggleView}>
+            <a>Or Sign up for a Basket Bear Account</a>
+          </div>
           </form>
           </div>
     );

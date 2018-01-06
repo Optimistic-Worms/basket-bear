@@ -13,6 +13,7 @@ class ManualUser extends React.Component {
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
+
   }
 
   handleUsername(event) {
@@ -65,6 +66,9 @@ class ManualUser extends React.Component {
            <div className="button-wrapper">
              <button className="button button-signup button--homeout"onClick={ this.handleSignup } >Sign Up</button>
             </div>
+          </div>
+          <div className="toggle-login" onClick={this.props.toggleView}>
+            <a>Already have a Basket Bear Account? Login instead</a>
           </div>
           </form>
           </div>
