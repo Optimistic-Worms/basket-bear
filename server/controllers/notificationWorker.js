@@ -53,7 +53,6 @@ const sendPush = (pushSubscribers, info) =>{
 	});
 }
 
-
 const emailer = (emails, info) => {
    var data = {
     'name': '',
@@ -67,8 +66,6 @@ const emailer = (emails, info) => {
      'payload' : data,
      'auth': emailAuth
    };
-   console.log(data)
-//   console.log(email);
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
      console.log(response)
@@ -109,27 +106,25 @@ const sendNotificationToUser = (username, info) =>{
   
 }
 
-const iterateAwaitNotifications =(data) => {
-   return new Promise(async(resolve,reject) => {
-   resolve(
+const iterateAwaitNotifications = (data) => {
    data.forEach(prod =>{
    	if(prod.data) {
    		let user = prod.data.user;
    	usersList[user]? usersList[user].data.push(prod.data): usersList[user] = {"data":[prod.data]}
    	if(usersList[user]) usersList[user]["emails"] = new Set();
    	sendNotificationToUser(prod.data.user, prod.data)
-   	} 
-   })
-   )
-   })
+    }
+   });
+   
+   }
 
-}
+let obj = {};
 
 
 exports.notificationWorker = (req, res) =>{
   usersList = new Object();
   getSubData().then(result =>{
-  	iterateAwaitNotifications(result).then(()=>{
+  	iterateAwaitNotifications(result)
   		setTimeout(()=>{
   			  console.log(usersList)
   			for(var i in usersList){
@@ -142,7 +137,6 @@ exports.notificationWorker = (req, res) =>{
   		},3000)
   		
   		res.sendStatus(200);
-  	})
   	
   }).catch(err =>{
   	console.log(err)
