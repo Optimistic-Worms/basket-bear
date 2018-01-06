@@ -111,29 +111,67 @@ exports.getPriceData = (req, res) => {
   }
 };
 
-exports.searchProductsByName = (req, res) => {
-    console.log(req.query.name)
-    const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-    const ebayProducts = db.collection('productList').doc('eBay').collection('products');
-    let matchingProducts = [];
-    amazonProducts.get().then(products => {
+ exports.searchProductsByName = (req, res) => {
+//     console.log(req.query.name)
+//     const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+//     // const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+//     let matchingProducts = [];
+//     console.log(amazonProducts.get)
+
+//     amazonProducts.get().then(products => {
+//       console.log('getting products', product.length)
+//       //res.send('success')
+//       products.forEach(product => {
+//         console.log(product.data())
+//         // if (product.name.includes(req.name)) {
+//         //   matchingProducts.push(product);
+//         //  }
+//       });
+      // ebayProducts.get().then(products => {
+      //   products.forEach(product => {
+      //    if (product.name.includes(req.name)) {
+      //     matchingProducts.push(product);
+      //    }
+      //   });
+      //   const sorted = allProducts.slice(0, 100).sort((a, b) => {
+      //     return Object.keys(b.prices).length - Object.keys(a.prices).length;
+      //   });
+      //   res.send(sorted);
+      // }).catch(err => res.status(400).send(err));
+    //}).catch(err => res.status(400).send(err));
+     //const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  //const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+
+
+    let allProducts = [];
+    db.collection('productList').doc('amazon').collection('products').get().then(products => {
       products.forEach(product => {
-        if (product.name.includes(req.name)) {
-          matchingProducts.push(product);
-         }
+       // console.log(product.data().name.toLowerCase().includes(req.query.name.toLowerCase()))
+        if (product.data().name.toLowerCase().includes(req.query.name.toLowerCase())) {
+        console.log('matched')
+         productObj = product.data();
+        productObj.id = product.id;
+        allProducts.push(productObj)
+        }
       });
-      ebayProducts.get().then(products => {
+
+
+      db.collection('productList').doc('eBay').collection('products').get().then(products => {
         products.forEach(product => {
-         if (product.name.includes(req.name)) {
-          matchingProducts.push(product);
+         //console.log(product.data());
+         if (product.data().name.includes(req.query.name)) {
+            productObj = product.data();
+        productObj.id = product.id;
+        allProducts.push(productObj)
          }
         });
-        const sorted = (allProducts.slice(0, 100).sort((a, b) => {
-          return Object.keys(b.prices).length - Object.keys(a.prices).length;
-        }));
-        res.send(sorted);
+        // const sorted = (allProducts.slice(0, 100).sort((a, b) => {
+        //   return Object.keys(b.prices).length - Object.keys(a.prices).length;
+        // }));
+        res.send(allProducts);
       }).catch(err => res.status(400).send(err));
     }).catch(err => res.status(400).send(err));
+
 };
 
 exports.getProducts = (req, res) => {
@@ -147,10 +185,16 @@ exports.getProducts = (req, res) => {
   } else {
     let allProducts = [];
     amazonProducts.get().then(products => {
-      products.forEach(product => allProducts.push(product.data()));
+      products.forEach(product => {
+        productObj = product.data();
+        productObj.id = product.id;
+        allProducts.push(productObj)
+      });
       ebayProducts.get().then(products => {
         products.forEach(product => {
-          allProducts.push(product.data());
+          productObj = product.data();
+          productObj.id = product.id;
+          allProducts.push(productObj);
         });
         const sorted = (allProducts.slice(0, 100).sort((a, b) => {
           return Object.keys(b.prices).length - Object.keys(a.prices).length;
