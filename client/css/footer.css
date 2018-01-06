@@ -46,6 +46,22 @@ footer {
 .footer-link:hover {
   color: #fff;
 }
+
+.copyright {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  font-size: .7em;
+}
+
+.copyright a {
+  text-decoration: none !important;
+  color: #dadada;
+}
+.copyright a:hover {
+  color: #fff;
+}
 /** Media Queries **/
 
 
