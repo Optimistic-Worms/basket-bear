@@ -52,7 +52,7 @@ const TermsAndConditions = (props) => {
 
     If Basket Bear provides you with a user ID and password to enable you to access restricted areas of this website or other content or services, you must ensure that the user ID and password are kept confidential.
 
-    Basket Bear may disable your user ID and password in Basket Bear’S sole discretion without notice or explanation.
+    Basket Bear may disable your user ID and password in Basket Bear’s sole discretion without notice or explanation.
     </p>
     <h3>User content</h3>
     <p>
