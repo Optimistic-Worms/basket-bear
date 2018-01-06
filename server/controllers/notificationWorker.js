@@ -17,9 +17,6 @@ if(process.env.NODE_ENV !== 'test'){
     );
 }
 
-
-
-
 const getSubData = () =>{
 	
 	return new Promise((resolve, reject) => {
@@ -44,7 +41,7 @@ const getSubData = () =>{
 const sendPush = (pushSubscribers, info) =>{
 
 	let message = `${info.product} \nDropped to $${info.priceDroppedTo} You were asking $${info.requestedPrice}` || `Budget-basket updated`;
-	let clickTarget =  `http://www.favoritemedium.com`;
+	let clickTarget =  `http://localhost:3000/watchList`;
 	let title = `Price update!`;
 	let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
 	pushSubscribers.forEach(pushSubscription => {
@@ -57,11 +54,11 @@ const sendPush = (pushSubscribers, info) =>{
 }
 
 
-const emailer = (email, info) => {
+const emailer = (emails, info) => {
    var data = {
     'name': '',
-    'email': email,
-    'message':`${info.product} \nDropped to $${info.priceDroppedTo} You were asking $${info.requestedPrice}`,
+    'email': emails.join(';'),
+    'message':JSON.stringify(info),
     'subject': `Price update!`,
    };
    var options = {
@@ -70,35 +67,24 @@ const emailer = (email, info) => {
      'payload' : data,
      'auth': emailAuth
    };
-//   console.log(data.message)
+   console.log(data)
 //   console.log(email);
    var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
-/*   axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
+   axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
      console.log(response)
      
    }).catch(error =>{
      console.log(error)
    }).catch(error =>{
     console.log(error)
-   });*/
+   });
 }
 
+let usersList = {};
 
-
-const sendEmail = (emailSubscribers, info) =>{
-
-}
-const usersList = {};
 const sendNotificationToUser = (username, info) =>{
   
-  /*info = {
-    'user': user,
-    'product': productName,
-    'productId': productId,
-    'merchant': merchant,
-    'requestedPrice': requestedPrice,
-    'priceDroppedTo': currentPrice
-  }*/
+
   getSubscriptionsFromDB(username).then(subs => {
     let pushSubscribers = [];
     for (var i in subs){ 
@@ -117,35 +103,59 @@ const sendNotificationToUser = (username, info) =>{
 	  if(pushSubscribers.length){
 	    sendPush(pushSubscribers, info)
 	  } 
-	  console.log(usersList) 
   }).catch(error => {
   	console.log('Push Completely failed', error)
   })
   
 }
 
-const sendPushNotifications =(data) => {
-   
+const iterateAwaitNotifications =(data) => {
+   return new Promise(async(resolve,reject) => {
+   resolve(
    data.forEach(prod =>{
    	if(prod.data) {
    		let user = prod.data.user;
    	usersList[user]? usersList[user].data.push(prod.data): usersList[user] = {"data":[prod.data]}
    	if(usersList[user]) usersList[user]["emails"] = new Set();
-   	
-    sendNotificationToUser(prod.data.user, prod.data)
+   	sendNotificationToUser(prod.data.user, prod.data)
    	} 
    })
-   console.log(usersList)
+   )
+   })
+
 }
 
 
 exports.notificationWorker = (req, res) =>{
-
+  usersList = new Object();
   getSubData().then(result =>{
-  	sendPushNotifications(result)
-  	res.sendStatus(200);
+  	iterateAwaitNotifications(result).then(()=>{
+  		setTimeout(()=>{
+  			  console.log(usersList)
+  			for(var i in usersList){
+  				let mailingList = [...usersList[i].emails];
+  				let data = usersList[i].data
+          if(mailingList.length){
+          	emailer(mailingList, data);
+          }  				          
+  			}
+  		},3000)
+  		
+  		res.sendStatus(200);
+  	})
+  	
   }).catch(err =>{
   	console.log(err)
   	res.send(err);
   })
 }
+
+
+  /*info = {
+    'user': user,
+    'product': productName,
+    'productId': productId,
+    'merchant': merchant,
+    'requestedPrice': requestedPrice,
+    'priceDroppedTo': currentPrice
+  }*/
