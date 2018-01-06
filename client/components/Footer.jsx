@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = (props) => (
   <footer >
@@ -8,7 +9,10 @@ const Footer = (props) => (
         <div><a target="_blank" href="$"><i className="fa fa-info-circle" aria-hidden="true"></i></a></div>
   </div>
   <div className="copyright">
-    <p>© 2018 Basket Bear&nbsp;-&nbsp;</p><a href="/terms">Terms of Use</a>
+    <p>© 2018 Basket Bear&nbsp;-&nbsp;</p>
+    <Link to="/terms">
+    Terms of Use
+    </Link>
     </div>
     <div className="footer-developer">
       <p><i className="fa fa-shopping-basket" aria-hidden="true"></i> Budget Basket Developers</p>
