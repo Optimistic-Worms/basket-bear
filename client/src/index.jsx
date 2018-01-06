@@ -4,17 +4,16 @@ import App from '../components/App.jsx';
 import { BrowserRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
 
+const render = Component => {
+  ReactDOM.render(
+    <AppContainer>
+        <Component />
+    </AppContainer>,
+    document.getElementById('root')
+  )
+}
 
 if (module.hot && HOT) {
-  const render = Component => {
-    ReactDOM.render(
-      <AppContainer>
-          <Component />
-      </AppContainer>,
-      document.getElementById('root')
-    )
-  }
-
   render(App);
 
   module.hot.accept('../components/App.jsx', () => {

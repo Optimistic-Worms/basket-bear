@@ -1,8 +1,13 @@
+const Promise = require('bluebird');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
-const productHelpers = require('../helpers/productHelpers.js');
-const Promise = require('bluebird');
+const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
+
+if (process.env.NODE_ENV !== 'test') {
+  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+}
 
 exports.getLowestPrices = (req, res) => {
   console.log(req.user)
@@ -66,8 +71,8 @@ exports.updateProduct = (req, res) => {
 
 exports.getProductById = (id) => {
   return new Promise((resolve, reject) => {
-    const amazonRef = db.collection('productList').doc('amazon').collection('products').doc(id);
-    const ebayRef = db.collection('productList').doc('eBay').collection('products').doc(id);
+    const amazonRef = amazonProducts.doc(id);
+    const ebayRef = ebayProducts.doc(id);
 
     amazonRef.get().then((product) => {
       if (product.exists) {
@@ -87,74 +92,62 @@ exports.getProductById = (id) => {
   });
 };
 
-exports.getPriceData = (req, res) => {
+exports.getProductData = (req, res) => {
   const { id } = req.query;
-
-  if (!id) {
-    res.send('A product ID must be included in the request');
-  } else {
-    exports.getProductById(id)
-    .then(product => {
-      const { name, merchant, prices } = product.data();
-      const { avg, count } = productHelpers.getAveragePrice(prices);
-      res.send({
-        name: name,
-        merchant: merchant,
-        recorded_price_count: count,
-        average_requested_price: avg
-      });
-    })
-    .catch(err => {
-      console.log(err);
-      res.status(400).send(err);
+  exports.getProductById(id)
+  .then(product => {
+    const { name, merchant, prices } = product.data();
+    const { avg, count } = getAveragePrice(prices);
+    res.send({
+      name: name,
+      merchant: merchant,
+      recorded_price_count: count,
+      average_requested_price: avg
     });
-  }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(400).send(err);
+  });
 };
 
-exports.searchProductsByName = (req, res) => {
-    console.log(req.query.name)
-    const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-    const ebayProducts = db.collection('productList').doc('eBay').collection('products');
-    let matchingProducts = [];
-    amazonProducts.get().then(products => {
+ exports.searchProductsByName = (req, res) => {
+  let allProducts = [];
+
+  amazonProducts.get().then(products => {
+    products.forEach(product => {
+      const productObj = parseData(product);
+      if (productNamesMatch(productObj, req.query.name)) {
+        allProducts.push(productObj);
+      }
+    });
+
+    ebayProducts.get().then(products => {
       products.forEach(product => {
-        if (product.name.includes(req.name)) {
-          matchingProducts.push(product);
-         }
+        if (productNamesMatch(productObj, req.query.name)) {
+          allProducts.push(productObj);
+        }
       });
-      ebayProducts.get().then(products => {
-        products.forEach(product => {
-         if (product.name.includes(req.name)) {
-          matchingProducts.push(product);
-         }
-        });
-        const sorted = (allProducts.slice(0, 100).sort((a, b) => {
-          return Object.keys(b.prices).length - Object.keys(a.prices).length;
-        }));
-        res.send(sorted);
-      }).catch(err => res.status(400).send(err));
+      const sorted = sortByPopularity(allProducts);
+      res.send(sorted);
     }).catch(err => res.status(400).send(err));
+  }).catch(err => res.status(400).send(err));
 };
 
 exports.getProducts = (req, res) => {
-  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+  const { id, name } = req.query;
 
-  if (req.query.id) {
-    exports.getPriceData(req, res);
-  } else if (req.query.name) {
+  if (id) {
+    exports.getProductData(req, res);
+  } else if (name) {
       exports.searchProductsByName(req, res);
   } else {
     let allProducts = [];
     amazonProducts.get().then(products => {
-      products.forEach(product => allProducts.push(product.data()));
+      products.forEach(product => allProducts.push(parseData(product)));
       ebayProducts.get().then(products => {
-        products.forEach(product => {
-          allProducts.push(product.data());
-        });
-        const sorted = (allProducts.slice(0, 100).sort((a, b) => {
-          return Object.keys(b.prices).length - Object.keys(a.prices).length;
-        }));
+        products.forEach(product => allProducts.push(parseData(product)));
+        const sorted = sortByPopularity(allProducts);
         res.send(sorted);
       }).catch(err => res.status(400).send(err));
     }).catch(err => res.status(400).send(err));
