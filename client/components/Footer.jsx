@@ -8,7 +8,7 @@ const Footer = (props) => (
   </div>
     <div className="footer-developer">
       <p><i className="fa fa-shopping-basket" aria-hidden="true"></i> Budget Basket Developers</p>
-    <div className="footer-link" onClick={props.handleSwitch}>Documentation</div>
+    <div className="footer-link" onClick={() => props.history.push('/dev')}>Documentation</div>
     </div>
   </footer>
 )

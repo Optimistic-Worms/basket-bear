@@ -32,7 +32,7 @@ const ebay = require('./helpers/ebay');
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const { getLowestPrices, updateProduct, getPriceData } = require('./controllers/product');
+const { getLowestPrices, updateProduct, getPriceData, getProducts } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -339,7 +339,7 @@ app.get('/lookupAmazon', (req, res) => {
 
 apiRoutes.post('/products', isAuthenticated, updateProduct);
 
-apiRoutes.get('/products', apiAuth.authenticateToken, getPriceData);
+apiRoutes.get('/products', apiAuth.authenticateToken, getProducts);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

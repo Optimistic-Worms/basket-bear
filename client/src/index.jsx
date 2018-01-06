@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from '../components/App.jsx';
+import { BrowserRouter } from 'react-router-dom';
 import { AppContainer } from 'react-hot-loader';
+
 
 if (module.hot && HOT) {
   const render = Component => {
     ReactDOM.render(
       <AppContainer>
-        <Component />
+          <Component />
       </AppContainer>,
       document.getElementById('root')
     )
@@ -20,5 +22,5 @@ if (module.hot && HOT) {
     render(NextApp);
   })
 } else {
-  ReactDOM.render(<App/>, document.getElementById('root'));
+  render(App);
 }

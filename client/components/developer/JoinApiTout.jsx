@@ -9,7 +9,7 @@ class JoinApiTout extends React.Component {
         <div className="hometout-join">
           <h1><i className="fa fa-shopping-basket" aria-hidden="true"></i></h1>
           <h2>Sign up for a Free Account!</h2>
-          <a href="./api/login">
+          <a href="./dev/login">
           <button className="button button--hometout">Sign Up</button></a>
 
         </div>

@@ -31,7 +31,7 @@ exports.authenticate = (authProvider) => {
     let provider;
     if (authProvider ==='google'){
       provider = new firebase.auth.GoogleAuthProvider();
-    } 
+    }
     provider.addScope('profile');
     provider.addScope('email');
     firebase.auth().signInWithRedirect(provider).then((result) =>{
@@ -45,4 +45,3 @@ exports.authenticate = (authProvider) => {
     });
   }
 
- 
