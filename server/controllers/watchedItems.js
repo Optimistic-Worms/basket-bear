@@ -65,10 +65,11 @@ let checkIfPriceChanged = (id, merchant, currentPrice) => {
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
 
   productRef.get().then((doc) => {
-    if (currentPrice < doc.data().currentPrice) {
-      console.log('price has dropped');
+    if (currentPrice !== doc.data().currentPrice) {
+      console.log('price has changed for item', id);
       updateWatchListItemPrice(id, merchant, currentPrice);
     }
+    else console.log('price of item', id, 'stayed the same');
   })
 
 }
