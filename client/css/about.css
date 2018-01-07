@@ -1,27 +1,70 @@
+
+
 .about .intro-card {
   background-image: url('./about.jpg');
   color: #fff;
   height: 100vh;
+  justify-content: center;
 }
 
 .about-profile-section {
   height: 100vh;
   display: flex;
   flex-direction: column;
-  width: 80%;
+  width: 100%;
   margin: 0 auto;
+  align-items: center;
+  color: #fff;
+  background: #616161;
+}
+
+.about-worms {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-top: 3em;
+}
+
+.about-attributes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  font-size: 4em;
+  margin: 0 auto;
+  width: 100%
+}
+
+.about-attributes i {
+  background-color: #04C2C9;
+  border: 3px solid #04C2C9;
+  color: #fff;
+  padding: 1em;
+  border-radius: 50%;
+}
+
+.about-attributes .fa-bullseye {
+  animation: bounceIn 2s;
 }
 
 .about .intro-card h1 {
   justify-content: center;
   align-items: center;
+  margin-bottom: 1em;
+}
+
+.about hr {
+  width: 90%;
+  margin: 0 auto 1.5em;
 }
 
 .button-about {
   height: 3em;
   background: transparent;
-  border: 2px solid #fff;
+  border: 3px solid #fff;
   transition: all .5s;
+  padding: 0 3em;
   cursor: pointer;
   animation: bounceIn 2s;
 }
