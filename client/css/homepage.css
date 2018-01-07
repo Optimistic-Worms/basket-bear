@@ -125,7 +125,7 @@ button.search-button:focus {
   padding: 0;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
+  margin: 0 auto 5em;
 }
 
 .list {
@@ -143,7 +143,7 @@ button.search-button:focus {
 .hometout-wrapper {
   display: flex;
   flex-direction: column;
-  margin: -4em auto .5em;
+  margin: -8em auto .5em;
   width: 80%;
   padding: 1em;
 }
@@ -200,6 +200,7 @@ button.search-button:focus {
     .intro-card {
       background-image: url('./bear-min-M.jpg');
       justify-content: flex-end;
+      height: 22em;
     }
 }
 
@@ -285,7 +286,7 @@ button.search-button:focus {
     margin-top: -.5em;
   }
   .hometout-wrapper {
-    margin: -1em auto .5em;
+    margin: -7em auto .5em;
   }
 
 }
