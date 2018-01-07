@@ -63,8 +63,7 @@ exports.getSubscriptionsFromDB = (username) => {
       resolve(doc.data());
     })
     .catch((error) => {
-      console.log(error)
-      console.log('no registered push endpoints')
+      console.log('Oops! User has no registered push endpoints')
       reject(error);
     });
   })

@@ -17,6 +17,16 @@ if(process.env.NODE_ENV !== 'test'){
     );
 }
 
+const endpoint_return = {}
+endpoint_return.start = '';
+endpoint_return.end = '';
+endpoint_return.emails = [];
+endpoint_return.push_notifications = [];
+endpoint_return.get_subscriptions = [];
+endpoint_return.deleted_subscriptions = [];
+
+const time = new Date();
+
 const getSubData = () =>{
 	
 	return new Promise((resolve, reject) => {
@@ -28,11 +38,15 @@ const getSubData = () =>{
 		  let data = doc.data().items;
 		  dataArr.push({docId,data});
 		  });
+		  let message = `Got ${dataArr.length} subscribers`
+		  let success = {time,message}
+		  endpoint_return.get_subscriptions.push(success)
       resolve(dataArr)
 		})
 		.catch((error) => {
-		  console.log(error)
-		  console.log('no registered push endpoints')
+		  let failmessage = error
+		  let failure = {time,failmessage}
+		  endpoint_return.get_subscriptions.push(failure)
 		  reject(error);
 		});
 	});
@@ -45,10 +59,12 @@ const sendPush = (pushSubscribers, info) =>{
 	let title = `Price update!`;
 	let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
 	pushSubscribers.forEach(pushSubscription => {
-	webPush.sendNotification(pushSubscription, payload).then(response => {
-	//  console.log(response)
+	webPush.sendNotification(pushSubscription, payload).then( response => {
+    console.log('push sent')
 	}).catch(error => { 
-	//	console.log(error) 
+	  console.log(error)
+
+	  
 	});
 	});
 }
@@ -115,10 +131,9 @@ const sendNotificationToUser = (username, info) =>{
 			if(subscribers.length){
 				sendPush(subscribers, info)
 			} 
-			resolve('done')
+			resolve('Push Sent')
 		}).catch(error => {
-			console.log('Push Completely failed', error)
-			reject(error)
+			resolve({'pushfailed':error})
 		})
 	})
 
@@ -140,7 +155,9 @@ const iterateAwaitNotifications = (data) => {
    });
    // now send the emails. 
    Promise.all(request).then((result) => {
-
+      let message = result;
+		  message = {time, message}
+		  endpoint_return.push_notifications.push(message) 
    	  let requestsToEmailer = []
 			for(var i in usersList){
 				let mailingList = [...usersList[i].emails];
@@ -170,6 +187,7 @@ const emptyNotificationList = (list) =>{
 
 
 exports.notificationWorker = (req, res) =>{
+	endpoint_return.start = new Date();
   usersList = new Object();
   getSubData().then(result =>{
   	let list = [];
@@ -178,9 +196,9 @@ exports.notificationWorker = (req, res) =>{
   	}
   	iterateAwaitNotifications(result).then((result) =>{
   		//TO DO: DELETE NOTIFICATION LIST.
-  		console.log(list)
-      emptyNotificationList(list)
-       res.sendStatus(200); 
+  //    emptyNotificationList(list)
+       endpoint_return.end = new Date();
+       res.send(JSON.stringify(endpoint_return));
   	}).catch(err=>{
   		res.sendStatus(500).send(err); 
   	})
