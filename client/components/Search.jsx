@@ -123,6 +123,7 @@ class Search extends React.Component {
   }
 
   addToShoppingList(item, index) {
+    console.log(item)
     var user = firebase.auth().currentUser;
     if (user) {
       firebase.auth().currentUser.getIdToken(true).then((idToken) => {

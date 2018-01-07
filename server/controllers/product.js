@@ -33,7 +33,7 @@ exports.getLowestPrices = (req, res) => {
 };
 
 exports.addNewProduct = (req, res) => {
-  const {name, id, merchant, targetPrice, currentPrice} = req.body;
+  const {name, id, merchant, targetPrice, currentPrice} = req.body.product;
 
   db.collection('productList').doc(merchant).collection('products').doc(id).set({
     name: name,
@@ -49,7 +49,7 @@ exports.addNewProduct = (req, res) => {
 };
 
 exports.updateProductPrice = (req, res) => {
-  const {id, targetPrice, merchant} = req.body;
+  const {id, targetPrice, merchant} = req.body.product;
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
   productRef.get().then((product) => {
     if (product.exists) {
@@ -113,8 +113,6 @@ exports.getProductData = (req, res) => {
   });
 };
 
-
-
  exports.searchProductsByName = (req, res) => {
   let allProducts = [];
 
@@ -158,8 +156,8 @@ exports.getProducts = (req, res) => {
   }
 }
 
-exports.updateUsersFollowing = (req, res) => {
-  const {id, targetPrice, merchant} = req.body;
+updateUserData = (req, res, next) => {
+  const {id, targetPrice, merchant} = req.body.product;
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
   productRef.get().then((product) => {
     if (product.exists) {
