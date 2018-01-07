@@ -323,14 +323,19 @@ app.get('/searchAmazon', (req, res) => {
 });
 
 app.get('/lookupAmazon', (req, res) => {
-  var itemIds = req.query.itemIds;
-  amazon.lookupProductsById(itemIds)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(400).send(data);
-  })
+  const { itemIds } = req.query;
+  if (!itemIds) {
+    res.send('request must include at least one item id')
+  } else {
+    amazon.lookupProductsById(itemIds)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((data) => {
+      res.status(400).send(data);
+    })
+  }
+
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *

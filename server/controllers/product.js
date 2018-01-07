@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
-const { getAveragePrice, sortByPopularity, parseData , productNamesMatch, updateUser } = require('../helpers/productHelpers.js');
+const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
 let amazonProducts;
 let ebayProducts;
 
@@ -39,7 +39,8 @@ exports.addNewProduct = (req, res) => {
     name: name,
     merchant: merchant,
     currentPrice: currentPrice,
-    users: {[req.username]: targetPrice}
+    prices: {[req.username]: Number(targetPrice)},
+    usersFollowing: 1
   }).then(() => {
     console.log('succesfully added new product price data')
     res.send('succesfully added new product price data');
@@ -52,12 +53,9 @@ exports.updateProductPrice = (req, res) => {
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
   productRef.get().then((product) => {
     if (product.exists) {
-      let users = product.data().users;
-      users[req.username] = targetPrice;
-
-
-
-      productRef.update({users: users})
+      let prices = product.data().prices;
+      prices[req.username] = targetPrice;
+      productRef.update({prices: prices})
       .then(() => {
         console.log('Product price data succesfully updated')
         res.send('Product price data succesfully updated')
@@ -160,7 +158,25 @@ exports.getProducts = (req, res) => {
   }
 }
 
-exports.updateUsersFollowing = (req, res, next) => {
-  console.log(req.body, req.username);
-  next(req, res);
+exports.updateUsersFollowing = (req, res) => {
+  const {id, targetPrice, merchant} = req.body;
+  const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
+  productRef.get().then((product) => {
+    if (product.exists) {
+      let prices = product.data().prices;
+      prices[req.username] = targetPrice;
+      productRef.update({prices: prices})
+      .then(() => {
+        console.log('Product price data succesfully updated')
+        res.send('Product price data succesfully updated')
+      })
+      .catch((err) => res.status(400).send(err));
+    } else {
+      exports.addNewProduct(req, res);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(400).send(err);
+  });
 }
