@@ -15,7 +15,7 @@ const EmailPreferences = (props) => {
             (e.keyCode === 13)? props.addEmail():props.trackNewEmail(e)
           }}
           type="email"/>
-        <button className="button" onClick={() =>{props.addEmail()}}>Add</button>
+        <button className="button button-settings" onClick={() =>{props.addEmail()}}>Add</button>
       </div>
       </div>
       <p>You can have up to 5 email accounts that Basket Bear will notifiy to:</p>
