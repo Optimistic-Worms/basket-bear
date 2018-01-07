@@ -1,6 +1,15 @@
 .about .intro-card {
   background-image: url('./about.jpg');
   color: #fff;
+  height: 100vh;
+}
+
+.about-profile-section {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: 0 auto;
 }
 
 .about .intro-card h1 {

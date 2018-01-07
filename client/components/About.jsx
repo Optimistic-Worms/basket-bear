@@ -11,6 +11,7 @@ const About = (props) => (
     </div>
 
     <div id="about" className="about-profile-section">
+      <div className="about-worms"></div>
       <div className="about-profile">
         <img></img>
         <h3>name</h3>
