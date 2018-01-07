@@ -33,7 +33,7 @@ class ManualUser extends React.Component {
         this.setState({ messages: `A verification email has been sent to: ${event.target.value.email}` });
       })
       .catch((error) => {
-        this.setState({ messages: `Opps! We are sorry to say: ${error.message}` });
+        this.setState({ messages: `ERROR: ${error.message}` });
       });
   }
   render() {

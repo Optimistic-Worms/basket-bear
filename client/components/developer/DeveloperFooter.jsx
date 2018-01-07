@@ -1,8 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const DeveloperFooter = (props) => (
   <footer >
-    <a className="footer-link" href="/">Back to Basket Bear</a>
+    <Link to="/" className="footer-link">
+    Back to Basket Bear
+    </Link>>
   </footer>
 )
 
