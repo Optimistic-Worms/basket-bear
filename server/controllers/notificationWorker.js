@@ -79,65 +79,83 @@ const emailer = (emails, info) => {
 
 let usersList = {};
 
+const updateUsersListWithEmails = (username, subs) => {
+	for (var i in subs){ 
+		if(Array.isArray(subs[i]) && subs[i].length){
+			let emailArr = subs[i]; 
+			emailArr.forEach(item => {
+				if (item.status){
+				usersList[username].emails.add(item.email)
+				}
+			});
+		}
+	}  
+}
+
+
 const sendNotificationToUser = (username, info) =>{
   
+	return new Promise((resolve,reject)=>{
+		getSubscriptionsFromDB(username).then(subs => {
 
-  getSubscriptionsFromDB(username).then(subs => {
-    let pushSubscribers = [];
-    for (var i in subs){ 
-      if(Array.isArray(subs[i]) && subs[i].length){
-      	let emailArr = subs[i]; 
-      	emailArr.forEach(item => {
-      		if (item.status){
-      			usersList[username].emails.add(item.email)
-      		}
-      	});
-      }
-    	if(subs[i].keys && subs[i].keys.auth ){
-	    pushSubscribers.push(subs[i])
-	    }
-  	}    
-	  if(pushSubscribers.length){
-	    sendPush(pushSubscribers, info)
-	  } 
-  }).catch(error => {
-  	console.log('Push Completely failed', error)
-  })
+			updateUsersListWithEmails(username, subs);
+
+			const createSubscribersList = (subs) => {
+        let subscribers = [];
+			  for (var i in subs){ 
+				  if(subs[i].keys && subs[i].keys.auth ){
+					subscribers.push(subs[i])
+				}
+			  } 
+        return subscribers
+			}
+      const subscribers = createSubscribersList(subs)
+			if(subscribers.length){
+				sendPush(subscribers, info)
+			} 
+			resolve('done')
+		}).catch(error => {
+			console.log('Push Completely failed', error)
+			reject(error)
+		})
+	})
+
   
 }
 
 const iterateAwaitNotifications = (data) => {
+
+	  // send push notifications to user and get their emails
+   let request = []
    data.forEach(prod =>{
    	if(prod.data) {
-   		let user = prod.data.user;
+   	let user = prod.data.user;
    	usersList[user]? usersList[user].data.push(prod.data): usersList[user] = {"data":[prod.data]}
    	if(usersList[user]) usersList[user]["emails"] = new Set();
-   	sendNotificationToUser(prod.data.user, prod.data)
+   	request.push(sendNotificationToUser(prod.data.user, prod.data).then(res => res))
     }
    });
-   
+   // now send the emails. 
+   Promise.all(request).then((result) => {
+   	  console.log(usersList)
+			for(var i in usersList){
+				let mailingList = [...usersList[i].emails];
+				let data = usersList[i].data
+				if(mailingList.length){
+				emailer(mailingList, data);
+				//TO DO: DELETE NOTIFICATION LIST. 
+			}  				          
+		}
+    });
+
+
    }
-
-let obj = {};
-
 
 exports.notificationWorker = (req, res) =>{
   usersList = new Object();
   getSubData().then(result =>{
   	iterateAwaitNotifications(result)
-  		setTimeout(()=>{
-  			  console.log(usersList)
-  			for(var i in usersList){
-  				let mailingList = [...usersList[i].emails];
-  				let data = usersList[i].data
-          if(mailingList.length){
-          	emailer(mailingList, data);
-          }  				          
-  			}
-  		},3000)
-  		
-  		res.sendStatus(200);
-  	
+  		res.sendStatus(200);  	
   }).catch(err =>{
   	console.log(err)
   	res.send(err);
