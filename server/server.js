@@ -232,11 +232,12 @@ app.get('/shoppingList', isAuthenticated, (req, res) => {
   })
 });
 
-app.put('/shoppingList', isAuthenticated, addNewUserData, (req, res) => {
+app.put('/shoppingList', isAuthenticated, (req, res) => {
   var username = req.username;
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
   .then((data) => {
+    addNewUserData(product, username);
     res.status(200).send(data);
   });
 });
