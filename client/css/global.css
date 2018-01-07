@@ -35,6 +35,11 @@ body {
   cursor: pointer;
   height: 100%;
   margin: .1em;
+  -webkit-transition: all 0.35s ease-out;
+  -moz-transition: all 0.35s ease-out;
+  -ms-transition: all 0.35s ease-out;
+  -o-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
 }
 
 .button:hover {

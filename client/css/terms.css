@@ -10,3 +10,9 @@
 .terms h3, h4 {
   margin: 0;
 }
+
+@media (max-width:600px) {
+  .terms {
+    width: 95%;
+  }
+}
