@@ -8,7 +8,6 @@ exports.updateListPrices = function (idToken, user) {
   axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
-    //console.log('Current Shopping List:', list);
     for (var item in list) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);
@@ -20,7 +19,6 @@ exports.updateListPrices = function (idToken, user) {
       axios.get('/lookupEbay', { params: { itemIds : ebayIds } })
       .then((response) => {
         list = parseEbayIds(response, list);
-        console.log('Updated Shopping List:', list);
         axios.put(`/updateShoppingList?access_token=${idToken}`, {
           list : list
         })
@@ -34,11 +32,16 @@ exports.updateListPrices = function (idToken, user) {
 
 let parseAmazonIds = function(response, list) {
   response.data.ItemLookupResponse.Items[0].Item.forEach((item) => {
-    let offer = item.Offers[0].Offer[0].OfferListing[0];
-    if (offer.SalePrice) {
-      list[item.ASIN].currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
-    } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
-      list[item.ASIN].currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+    let offer;
+    if (item.Offers[0].Offer) {
+      offer = item.Offers[0].Offer[0].OfferListing[0];
+      if (offer.SalePrice) {
+        list[item.ASIN].currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+      } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
+        list[item.ASIN].currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+      }
+    } else {
+      list[item.ASIN].currentPrice = 'Item No Longer Available';
     }
   })
   return list;

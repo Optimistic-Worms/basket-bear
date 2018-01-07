@@ -62,7 +62,6 @@ exports.removeFromWatchList = (req, res) => {
 
 let checkIfPriceChanged = (id, merchant, currentPrice) => {
   const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
-
   productRef.get().then((doc) => {
     if (currentPrice !== doc.data().currentPrice) {
       updateWatchListItemPrice(id, merchant, currentPrice);
@@ -93,11 +92,14 @@ let compareWatchPrices = (id, merchant) => {
     let currentPrice = doc.data().currentPrice;
     let pricesObject = doc.data().prices;
     let productName = doc.data().name;
+    let requestedPrice;
     for (let user in pricesObject) {
-      if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
-        let requestedPrice = pricesObject[user]
-        addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
+      if (currentPrice === 'Item No Longer Available') {
+        requestedPrice = 'Item No Longer Available';
+      } else if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
+        requestedPrice = pricesObject[user];
       }
+      addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
     }
   })
 }
@@ -124,17 +126,19 @@ let sendToAmazon = (itemIds) => {
   amazon.lookupProductsById(itemIds).then((response) => {
     response.ItemLookupResponse.Items[0].Item.forEach((item) => {
       let offer;
+      let currentPrice;
+      let id = item.ASIN[0];
       if (item.Offers[0].Offer) {
         offer = item.Offers[0].Offer[0].OfferListing[0];
-      let id = item.ASIN[0];
-      let currentPrice;
-      if (offer.SalePrice) {
-        currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
-      } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
-        currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+        if (offer.SalePrice) {
+          currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+        } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
+          currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+        }
+      } else {
+        currentPrice = 'Item No Longer Available';
       }
       checkIfPriceChanged(id, 'amazon', currentPrice);
-      }
     })
   })
 }
