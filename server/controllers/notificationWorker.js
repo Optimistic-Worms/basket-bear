@@ -67,15 +67,15 @@ const sendAnEmail = (emails, info) => {
      'payload' : data,
      'auth': emailAuth
    };
-   let secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
+/*   let secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
     resolve(response);
    }).catch(error =>{
     reject(error);
    }).catch(error =>{
     reject(error);
-   });
-
+   });*/
+   resolve('done')
 	})
 
 }
@@ -155,16 +155,31 @@ const iterateAwaitNotifications = (data) => {
 		
     });
     })
-
-
-
    }
+
+
+const emptyNotificationList = (list) =>{
+	list.forEach(item => {
+		db.collection('awaitNotification').doc(item).delete().then(result=>{
+		console.log(result)
+		}).catch(err=>{
+		console.log(err)
+		})
+	})
+}
+
 
 exports.notificationWorker = (req, res) =>{
   usersList = new Object();
   getSubData().then(result =>{
+  	let list = [];
+  	for(var i in result){
+      list.push(result[i].docId)
+  	}
   	iterateAwaitNotifications(result).then((result) =>{
   		//TO DO: DELETE NOTIFICATION LIST.
+  		console.log(list)
+      emptyNotificationList(list)
        res.sendStatus(200); 
   	}).catch(err=>{
   		res.sendStatus(500).send(err); 
