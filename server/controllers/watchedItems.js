@@ -95,9 +95,9 @@ let compareWatchPrices = (id, merchant) => {
     let requestedPrice;
     for (let user in pricesObject) {
       if (currentPrice === 'Item No Longer Available') {
-
+        requestedPrice = 'Item No Longer Available';
       } else if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
-        requestedPrice = pricesObject[user]
+        requestedPrice = pricesObject[user];
       }
       addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
     }

@@ -77,7 +77,6 @@ exports.searchProducts = (query) => {
       signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 
       let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-      console.log('SEND TO URL:', amazonUrl);
       return amazonUrl;
     }
 
@@ -95,7 +94,6 @@ exports.searchProducts = (query) => {
 };
 
 exports.lookupProductsById = (itemIds) => {
-  console.log('LOOKING UP ITEMS ON AMAZON');
   return new Promise ((resolve, reject) => {
 
     let date = moment().tz('Europe/London').format("YYYY-MM-DDTHH:mm:ss.000") + 'Z'
@@ -123,7 +121,6 @@ exports.lookupProductsById = (itemIds) => {
       signature = encodeURIComponent(CryptoJS.enc.Base64.stringify(signature));
 
       let amazonUrl = "http://" + url + "/onca/xml?" + paramString + "&Signature=" + signature;
-      //console.log('SEND TO URL for Lookup:', amazonUrl);
       return amazonUrl;
     }
 

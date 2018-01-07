@@ -8,7 +8,6 @@ exports.updateListPrices = function (idToken, user) {
   axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
-    //console.log('Current Shopping List:', list);
     for (var item in list) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);
@@ -50,7 +49,6 @@ let parseAmazonIds = function(response, list) {
 
 let parseEbayIds = function(response, list) {
   response.data.Item.forEach((item) => {
-    console.log('ebay items', item);
     list[item.ItemID].currentPrice = item.ConvertedCurrentPrice.Value;
   })
   return list
