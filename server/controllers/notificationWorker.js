@@ -195,3 +195,4 @@ exports.notificationWorker = (req, res) =>{
     'merchant': merchant,
     'requestedPrice': requestedPrice,
     'priceDroppedTo': currentPrice
+*/

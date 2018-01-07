@@ -174,24 +174,16 @@ exports.addNewUserData = (productObj, username) => {
       prices[username] = targetPrice;
       productRef.update({prices: prices})
       .then(() => {
-        console.log('Product price data succesfully updated')
         res.send('Product price data succesfully updated')
       })
       .catch((err) => res.status(400).send(err));
     } else {
-      console.log('product does not exist yet', productObj)
+      //set target price to current price since the user is adding the product for the first time
       product.targetPrice = productObj.currentPrice || productObj.price;
-      exports.addNewProduct(productObj, username)
-      .then(data => {
-        console.log(data)
-      })
-      .catch((err) => {
-        console.log(err)
-      });
+      exports.addNewProduct(productObj, username);
     }
   })
   .catch((err) => {
-    console.log(err);
     res.status(400).send(err);
   });
 }
