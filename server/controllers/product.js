@@ -41,7 +41,8 @@ exports.addNewProduct = (req, res) => {
     name: name,
     merchant: merchant,
     currentPrice: currentPrice,
-    prices: {[req.username]: Number(targetPrice)}
+    prices: {[req.username]: Number(targetPrice)},
+    usersFollowing: 1
   }).then(() => {
     console.log('succesfully added new product price data')
     res.send('succesfully added new product price data');
