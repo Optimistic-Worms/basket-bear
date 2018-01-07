@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import '../css/about.css'
 
 const About = (props) => (
   <div className="about">
-    <div className="about-intro">
-      Optimistic Worms
+    <div className="about intro-card">
+      <h1>Optimistic Worms</h1>
     </div>
 
     <div className="about-profile-section">
@@ -16,7 +17,7 @@ const About = (props) => (
           <h3>title</h3>
         <p></p>
       </div>
-      
+
       </div>
     </div>
 
