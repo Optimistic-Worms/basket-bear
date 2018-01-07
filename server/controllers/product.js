@@ -39,8 +39,7 @@ exports.addNewProduct = (req, res) => {
     name: name,
     merchant: merchant,
     currentPrice: currentPrice,
-    prices: {[req.username]: Number(targetPrice)},
-    usersFollowing: 1
+    prices: {[req.username]: Number(targetPrice)}
   }).then(() => {
     console.log('succesfully added new product price data')
     res.send('succesfully added new product price data');
@@ -156,9 +155,11 @@ exports.getProducts = (req, res) => {
   }
 }
 
-updateUserData = (req, res, next) => {
-  const {id, targetPrice, merchant} = req.body.product;
+exports.addNewUserData = (req, res, next) => {
+  console.log(req.username)
+  const { id, currentPrice, merchant } = req.body.product;
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
+
   productRef.get().then((product) => {
     if (product.exists) {
       let prices = product.data().prices;
@@ -170,6 +171,7 @@ updateUserData = (req, res, next) => {
       })
       .catch((err) => res.status(400).send(err));
     } else {
+      req.body.product.targetPrice = req.body.product.currentPrice;
       exports.addNewProduct(req, res);
     }
   })

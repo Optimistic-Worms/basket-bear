@@ -32,7 +32,7 @@ const ebay = require('./helpers/ebay');
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const { getLowestPrices, updateProductPrice, getPriceData, getProducts } = require('./controllers/product');
+const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUserData } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -232,7 +232,7 @@ app.get('/shoppingList', isAuthenticated, (req, res) => {
   })
 });
 
-app.put('/shoppingList', isAuthenticated, (req, res) => {
+app.put('/shoppingList', isAuthenticated, addNewUserData, (req, res) => {
   var username = req.username;
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
