@@ -12,7 +12,7 @@ const TermsAndConditions = (props) => {
 
     <p>These terms and conditions govern your use of this website; by using this website, you accept these terms and conditions in full.   If you disagree with these terms and conditions or any part of these terms and conditions, you must not use this website.
 
-    You must be at least 13 years of age to use this website.  By using this website and by agreeing to these terms and conditions you warrant and represent that you are at least 13 years of age.
+    You must be at least 18 years of age to use this website.  By using this website and by agreeing to these terms and conditions you warrant and represent that you are at least 18 years of age.
 
     This website uses cookies.  By using this website and agreeing to these terms and conditions, you consent to Basket Bear's use of cookies in accordance with the terms of Basket Bear's privacy policy.
     </p>
@@ -39,20 +39,20 @@ const TermsAndConditions = (props) => {
 
     You must not use this website to copy, store, host, transmit, send, use, publish or distribute any material which consists of (or is linked to) any spyware, computer virus, Trojan horse, worm, keystroke logger, rootkit or other malicious computer software.
 
-    You must not conduct any systematic or automated data collection activities (including without limitation scraping, data mining, data extraction and data harvesting) on or in relation to this website without Basket Bear’s express written consent.
+    You must not conduct any systematic or automated data collection activities (including without limitation scraping, data mining, data extraction and data harvesting) on or in relation to this website without Basket Bear's express written consent.
 
     You must not use this website to transmit or send unsolicited commercial communications.
 
-    You must not use this website for any purposes related to marketing without Basket Bear’S express written consent.
+    You must not use this website for any purposes related to marketing without Basket Bear's express written consent.
     </p>
 
     <h3>Restricted access</h3>
 
-    <p>Access to certain areas of this website is restricted.  Basket Bear reserves the right to restrict access to other areas of this website, or indeed this entire website, at Basket Bear’s discretion.
+    <p>Access to certain areas of this website is restricted.  Basket Bear reserves the right to restrict access to other areas of this website, or indeed this entire website, at Basket Bear's discretion.
 
     If Basket Bear provides you with a user ID and password to enable you to access restricted areas of this website or other content or services, you must ensure that the user ID and password are kept confidential.
 
-    Basket Bear may disable your user ID and password in Basket Bear’S sole discretion without notice or explanation.
+    Basket Bear may disable your user ID and password in Basket Bear's sole discretion without notice or explanation.
     </p>
     <h3>User content</h3>
     <p>
@@ -64,9 +64,9 @@ const TermsAndConditions = (props) => {
 
     You must not submit any user content to the website that is or has ever been the subject of any threatened or actual legal proceedings or other similar complaint.
 
-    Basket Bear reserves the right to edit or remove any material submitted to this website, or stored on Basket Bear’S servers, or hosted or published upon this website.
+    Basket Bear reserves the right to edit or remove any material submitted to this website, or stored on Basket Bear's servers, or hosted or published upon this website.
 
-    Notwithstanding Basket Bear’S rights under these terms and conditions in relation to user content, Basket Bear does not undertake to monitor the submission of such content to, or the publication of such content on, this website.
+    Notwithstanding Basket Bear's rights under these terms and conditions in relation to user content, Basket Bear does not undertake to monitor the submission of such content to, or the publication of such content on, this website.
     </p>
     <h3>No warranties</h3>
     <p>
@@ -92,9 +92,9 @@ const TermsAndConditions = (props) => {
     </p>
     <h3>Exceptions</h3>
     <p>
-    Nothing in this website disclaimer will exclude or limit any warranty implied by law that it would be unlawful to exclude or limit; and nothing in this website disclaimer will exclude or limit Basket Bear’S liability in respect of any:
+    Nothing in this website disclaimer will exclude or limit any warranty implied by law that it would be unlawful to exclude or limit; and nothing in this website disclaimer will exclude or limit Basket Bear's liability in respect of any:
 <ul>
-    <li>death or personal injury caused by Basket Bear’S negligence;</li>
+    <li>death or personal injury caused by Basket Bear's negligence;</li>
     <li>fraud or fraudulent misrepresentation on the part of Basket Bear; or</li>
     <li>matter which it would be illegal or unlawful for Basket Bear to exclude or limit, or to attempt or purport to exclude or limit, its liability.</li>
   </ul>
@@ -108,9 +108,9 @@ const TermsAndConditions = (props) => {
 
     <h3>Other parties</h3>
     <p>
-    You accept that, as a limited liability entity, Basket Bear has an interest in limiting the personal liability of its officers and employees.  You agree that you will not bring any claim personally against Basket Bear’S officers or employees in respect of any losses you suffer in connection with the website.
+    You accept that, as a limited liability entity, Basket Bear has an interest in limiting the personal liability of its officers and employees.  You agree that you will not bring any claim personally against Basket Bear's officers or employees in respect of any losses you suffer in connection with the website.
 
-    Without prejudice to the foregoing paragraph, you agree that the limitations of warranties and liability set out in this website disclaimer will protect Basket Bear’S officers, employees, agents, subsidiaries, successors, assigns and sub-contractors as well as Basket Bear.
+    Without prejudice to the foregoing paragraph, you agree that the limitations of warranties and liability set out in this website disclaimer will protect Basket Bear's officers, employees, agents, subsidiaries, successors, assigns and sub-contractors as well as Basket Bear.
     </p>
     <h3>Unenforceable provisions</h3>
     <p>
@@ -118,11 +118,11 @@ const TermsAndConditions = (props) => {
     </p>
     <h3>Indemnity</h3>
     <p>
-    You hereby indemnify Basket Bear and undertake to keep Basket Bear indemnified against any losses, damages, costs, liabilities and expenses (including without limitation legal expenses and any amounts paid by Basket Bear to a third party in settlement of a claim or dispute on the advice of Basket Bear’S legal advisers) incurred or suffered by Basket Bear arising out of any breach by you of any provision of these terms and conditions, or arising out of any claim that you have breached any provision of these terms and conditions.
+    You hereby indemnify Basket Bear and undertake to keep Basket Bear indemnified against any losses, damages, costs, liabilities and expenses (including without limitation legal expenses and any amounts paid by Basket Bear to a third party in settlement of a claim or dispute on the advice of Basket Bear's legal advisers) incurred or suffered by Basket Bear arising out of any breach by you of any provision of these terms and conditions, or arising out of any claim that you have breached any provision of these terms and conditions.
     </p>
     <h3>Breaches of these terms and conditions</h3>
     <p>
-    Without prejudice to Basket Bear’S other rights under these terms and conditions, if you breach these terms and conditions in any way, Basket Bear may take such action as Basket Bear deems appropriate to deal with the breach, including suspending your access to the website, prohibiting you from accessing the website, blocking computers using your IP address from accessing the website, contacting your internet service provider to request that they block your access to the website and/or bringing court proceedings against you.
+    Without prejudice to Basket Bear's other rights under these terms and conditions, if you breach these terms and conditions in any way, Basket Bear may take such action as Basket Bear deems appropriate to deal with the breach, including suspending your access to the website, prohibiting you from accessing the website, blocking computers using your IP address from accessing the website, contacting your internet service provider to request that they block your access to the website and/or bringing court proceedings against you.
     </p>
     <h3>Variation</h3>
     <p>
@@ -130,7 +130,7 @@ const TermsAndConditions = (props) => {
     </p>
     <h3>Assignment</h3>
     <p>
-    Basket Bear may transfer, sub-contract or otherwise deal with Basket Bear’S rights and/or obligations under these terms and conditions without notifying you or obtaining your consent.
+    Basket Bear may transfer, sub-contract or otherwise deal with Basket Bear's rights and/or obligations under these terms and conditions without notifying you or obtaining your consent.
 
     You may not transfer, sub-contract or otherwise deal with your rights and/or obligations under these terms and conditions.
     </p>
@@ -143,7 +143,7 @@ const TermsAndConditions = (props) => {
     <p>
     These terms and conditions constitute the entire agreement between you and Basket Bear in relation to your use of this website, and supersede all previous agreements in respect of your use of this website.
     </p>
-    <h3>Basket Bear’s details</h3>
+    <h3>Basket Bear's details</h3>
     <p>
     You can contact Basket Bear by email to info@basketbear.com
     </p>

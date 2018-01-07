@@ -16,6 +16,14 @@ footer {
   padding: .5em 2em;
 }
 
+footer i, a {
+  -webkit-transition: all 0.35s ease-out;
+  -moz-transition: all 0.35s ease-out;
+  -ms-transition: all 0.35s ease-out;
+  -o-transition: all 0.35s ease-out;
+  transition: all 0.35s ease-out;
+}
+
 .footer-about {
   flex-direction: row;
   display: flex;

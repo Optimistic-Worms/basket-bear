@@ -111,6 +111,11 @@ input.settings-form:focus {
   margin-bottom: 2em;
 }
 
+.button-settings {
+  width: 7em;
+  margin: 0 .2em;
+}
+
 /** Media Queries **/
 
 
@@ -151,8 +156,8 @@ input.settings-form:focus {
     width: 100% !important;
   }
   .button-settings {
-    width: 100% !important;
-    margin-top: .7em;
+    width: 95% !important;
+    margin: .7em auto;
   }
   .settings-card {
     font-size: 85%;
