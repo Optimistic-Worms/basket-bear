@@ -40,7 +40,7 @@ exports.parseResultsSync = (results) =>  {
       product.currentPrice = price;
       items.push(product);
     } else {
-      //no offer on this product
+      price = 'No longer available';//no offer on this product
     }
   }
   return items;
