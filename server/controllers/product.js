@@ -7,13 +7,11 @@ let amazonProducts;
 let ebayProducts;
 
 if (process.env.NODE_ENV !== 'test') {
-  console.log('setting db')
   amazonProducts = db.collection('productList').doc('amazon').collection('products');
   ebayProducts = db.collection('productList').doc('eBay').collection('products');
 }
 
 exports.getLowestPrices = (req, res) => {
-  console.log(req.user)
   const product = req.query.keyword;
   let results = [];
 
@@ -50,7 +48,7 @@ exports.addNewProduct = (req, res) => {
   .catch(err =>res.status(400).send(err));
 };
 
-exports.updateProduct = (req, res) => {
+exports.updateProductPrice = (req, res) => {
   const {id, targetPrice, merchant} = req.body;
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
   productRef.get().then((product) => {
@@ -115,6 +113,8 @@ exports.getProductData = (req, res) => {
   });
 };
 
+
+
  exports.searchProductsByName = (req, res) => {
   let allProducts = [];
 
@@ -156,4 +156,27 @@ exports.getProducts = (req, res) => {
       }).catch(err => res.status(400).send(err));
     }).catch(err => res.status(400).send(err));
   }
+}
+
+exports.updateUsersFollowing = (req, res) => {
+  const {id, targetPrice, merchant} = req.body;
+  const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
+  productRef.get().then((product) => {
+    if (product.exists) {
+      let prices = product.data().prices;
+      prices[req.username] = targetPrice;
+      productRef.update({prices: prices})
+      .then(() => {
+        console.log('Product price data succesfully updated')
+        res.send('Product price data succesfully updated')
+      })
+      .catch((err) => res.status(400).send(err));
+    } else {
+      exports.addNewProduct(req, res);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+    res.status(400).send(err);
+  });
 }
