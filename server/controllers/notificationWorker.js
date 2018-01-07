@@ -53,28 +53,31 @@ const sendPush = (pushSubscribers, info) =>{
 	});
 }
 
-const emailer = (emails, info) => {
-   var data = {
+const sendAnEmail = (emails, info) => {
+	return new Promise ((resolve,reject) => {
+	 let data = {
     'name': '',
     'email': emails.join(';'),
     'message':JSON.stringify(info),
     'subject': `Price update!`,
    };
-   var options = {
+   let options = {
      'method' : 'post',
      'contentType': 'application/json',
      'payload' : data,
      'auth': emailAuth
    };
-   var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
+/*   let secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
-     console.log(response)
-     
+    resolve(response);
    }).catch(error =>{
-     console.log(error)
+    reject(error);
    }).catch(error =>{
-    console.log(error)
-   });
+    reject(error);
+   });*/
+   resolve('done')
+	})
+
 }
 
 let usersList = {};
@@ -92,23 +95,22 @@ const updateUsersListWithEmails = (username, subs) => {
 	}  
 }
 
+const createSubscribersList = (subs) => {
+	let subscribers = [];
+	for (var i in subs){ 
+		if(subs[i].keys && subs[i].keys.auth ){
+			subscribers.push(subs[i])
+		}
+	} 
+	return subscribers
+}
+
 
 const sendNotificationToUser = (username, info) =>{
   
 	return new Promise((resolve,reject)=>{
 		getSubscriptionsFromDB(username).then(subs => {
-
 			updateUsersListWithEmails(username, subs);
-
-			const createSubscribersList = (subs) => {
-        let subscribers = [];
-			  for (var i in subs){ 
-				  if(subs[i].keys && subs[i].keys.auth ){
-					subscribers.push(subs[i])
-				}
-			  } 
-        return subscribers
-			}
       const subscribers = createSubscribersList(subs)
 			if(subscribers.length){
 				sendPush(subscribers, info)
@@ -125,7 +127,8 @@ const sendNotificationToUser = (username, info) =>{
 
 const iterateAwaitNotifications = (data) => {
 
-	  // send push notifications to user and get their emails
+    return new Promise((resolve,reject) => {
+    		  // send push notifications to user and get their emails
    let request = []
    data.forEach(prod =>{
    	if(prod.data) {
@@ -137,25 +140,51 @@ const iterateAwaitNotifications = (data) => {
    });
    // now send the emails. 
    Promise.all(request).then((result) => {
-   	  console.log(usersList)
+
+   	  let requestsToEmailer = []
 			for(var i in usersList){
 				let mailingList = [...usersList[i].emails];
 				let data = usersList[i].data
-				if(mailingList.length){
-				emailer(mailingList, data);
-				//TO DO: DELETE NOTIFICATION LIST. 
+				if(mailingList.length){				
+        requestsToEmailer.push(sendAnEmail(mailingList, data).then(res => res))				
 			}  				          
 		}
+		Promise.all(requestsToEmailer).then(result => {
+			resolve(result); 
+		})
+		
     });
-
-
+    })
    }
+
+
+const emptyNotificationList = (list) =>{
+	list.forEach(item => {
+		db.collection('awaitNotification').doc(item).delete().then(result=>{
+		console.log(result)
+		}).catch(err=>{
+		console.log(err)
+		})
+	})
+}
+
 
 exports.notificationWorker = (req, res) =>{
   usersList = new Object();
   getSubData().then(result =>{
-  	iterateAwaitNotifications(result)
-  		res.sendStatus(200);  	
+  	let list = [];
+  	for(var i in result){
+      list.push(result[i].docId)
+  	}
+  	iterateAwaitNotifications(result).then((result) =>{
+  		//TO DO: DELETE NOTIFICATION LIST.
+  		console.log(list)
+      emptyNotificationList(list)
+       res.sendStatus(200); 
+  	}).catch(err=>{
+  		res.sendStatus(500).send(err); 
+  	})
+  		 	
   }).catch(err =>{
   	console.log(err)
   	res.send(err);
