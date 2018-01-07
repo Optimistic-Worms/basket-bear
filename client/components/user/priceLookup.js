@@ -8,25 +8,32 @@ exports.updateListPrices = function (idToken, user) {
   axios.get(`/shoppingList?access_token=${idToken}`)
   .then((response) => {
     list = response.data;
-    for (var item in list) {
+
+      for (var item in list) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);
-    }
-    axios.get('/lookupAmazon', { params: { itemIds : amazonIds } })
+    axios.get('/lookupAmazon', { params: { itemIds : amazonIds }})
     .then((response) => {
-      list = parseAmazonIds(response, list);
+      if (response.data.ItemLookupResponse) {
+        list = parseAmazonIds(response, list);
+      }
 
       axios.get('/lookupEbay', { params: { itemIds : ebayIds } })
       .then((response) => {
-        list = parseEbayIds(response, list);
-        axios.put(`/updateShoppingList?access_token=${idToken}`, {
-          list : list
-        })
+        if (response.data.Item) {
+          list = parseEbayIds(response, list);
+          axios.put(`/updateShoppingList?access_token=${idToken}`, {
+            list : list
+          })
+        }
+
       })
       .catch((error) => {
         console.log('ebay lookup error', error);
       })
     })
+    }
+
   })
 }
 

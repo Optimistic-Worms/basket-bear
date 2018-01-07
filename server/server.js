@@ -32,7 +32,7 @@ const ebay = require('./helpers/ebay');
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
-const { getLowestPrices, updateProduct, getPriceData, getProducts } = require('./controllers/product');
+const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUserData } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
@@ -237,6 +237,7 @@ app.put('/shoppingList', isAuthenticated, (req, res) => {
   var product = req.body.product;
   shoppingList.addItemToShoppingList(username, product)
   .then((data) => {
+    addNewUserData(product, username);
     res.status(200).send(data);
   });
 });
@@ -323,21 +324,26 @@ app.get('/searchAmazon', (req, res) => {
 });
 
 app.get('/lookupAmazon', (req, res) => {
-  var itemIds = req.query.itemIds;
-  amazon.lookupProductsById(itemIds)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(400).send(data);
-  })
+  const { itemIds } = req.query;
+  if (!itemIds) {
+    res.send('request must include at least one item id')
+  } else {
+    amazon.lookupProductsById(itemIds)
+    .then((data) => {
+      res.status(200).send(data);
+    })
+    .catch((data) => {
+      res.status(400).send(data);
+    })
+  }
+
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', isAuthenticated, updateProduct);
+apiRoutes.post('/products', isAuthenticated, updateProductPrice);
 
 apiRoutes.get('/products', apiAuth.authenticateToken, getProducts);
 

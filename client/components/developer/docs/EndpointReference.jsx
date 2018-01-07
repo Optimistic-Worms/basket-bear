@@ -63,7 +63,7 @@ const EndpointReference = () => (
 
 
       <h3>/products</h3>
-      <div>A GET request to the /products endpoint returns a json object containing price data for the given product ID from our products database</div>
+      <div>A GET request to the /products endpoint returns a json array containing data for the 100 most popular items in our product database. The popularity is measured by how many users have added the product to their shopping list</div>
       <p>A GET request is sent to the /api/products endpoint:</p>
       <div className="snippet">GET http://budgetbasket.com/api/products</div>
       <div>The request must contain a query paramater with the product ID</div>
