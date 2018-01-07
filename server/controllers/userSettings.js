@@ -4,7 +4,7 @@ const db = require('../../db/db-config');
 // Shopping List Handlers
 
 exports.createSettings = (username, data = []) => {
-  
+  data.username = username;
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).update({
       emailNotificationSettings: data,
@@ -30,6 +30,7 @@ exports.createSettings = (username, data = []) => {
 }
 
 exports.addSubscriptionToDb = (username, data) => {
+  data.username = username;
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).update(data)
     .then((result) => {
@@ -56,13 +57,9 @@ exports.removeSubscriptionFromDb = (username, data) => {
 }
 
 exports.getSubscriptionsFromDB = (username) => {
-
-   console.log('getting subs')
-   console.log(username)
   return new Promise((resolve, reject) => {
     db.collection('userSettings').doc(username).get()
     .then((doc) => {
-      delete doc.data().emailNotificationSettings
       resolve(doc.data());
     })
     .catch((error) => {
