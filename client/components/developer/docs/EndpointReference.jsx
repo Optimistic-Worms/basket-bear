@@ -66,24 +66,9 @@ const EndpointReference = () => (
       <div>A GET request to the /products endpoint returns a json array containing data for the 100 most popular items in our product database. The popularity is measured by how many users have added the product to their shopping list</div>
       <p>A GET request is sent to the /api/products endpoint:</p>
       <div className="snippet">GET http://budgetbasket.com/api/products</div>
-      <div>The request must contain a query paramater with the product ID</div>
-        <table className="param">
-          <tbody>
-            <tr>
-              <th>REQUEST PARAMETER</th>
-              <th>VALUE</th>
-            </tr>
-            <tr>
-              <td>id</td>
-              <td><i>Required</i>. A text string set to the product ID you want results to match </td>
-            </tr>
-          </tbody>
-        </table>
+
           <div>For Example:</div>
-          <div className="snippet">{`axios.get('http://budgetbasket.com/api/search', {
-          params: {
-            id: 'B073WV3KCD'
-          },
+          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
           headers: {
             Authorization: 'Bearer NgCXRKc...MzYjw'
           }
@@ -100,9 +85,32 @@ const EndpointReference = () => (
 }`}
           </div>
           <div>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</div>
+          <div>The request optional query paramaters for product ID and product Name</div>
+        <table className="param">
+          <tbody>
+            <tr>
+              <th>REQUEST PARAMETER</th>
+              <th>VALUE</th>
+            </tr>
+            <tr>
+              <td>id</td>
+              <td><i>optional</i>. A text string set to the product ID you want results to match </td>
+            </tr>
+          </tbody>
+        </table>
           </div>
 
 );
 
 export default EndpointReference;
-
+ // <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+ //          params: {
+ //            id: 'B073WV3KCD'
+ //          },
+ //          headers: {
+ //            Authorization: 'Bearer NgCXRKc...MzYjw'
+ //          }
+ //           })
+ //          .then(res => console.log(res.data))
+ //          .catch(err => console.log(err));`}
+ //          </div>
