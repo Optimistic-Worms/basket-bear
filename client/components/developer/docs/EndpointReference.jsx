@@ -77,14 +77,36 @@ const EndpointReference = () => (
           .catch(err => console.log(err));`}
           </div>
           <div>Returns the following JSON response:</div>
-          <div className="snippet">{`{
-    "name": "USB Type C Cable,Covery USB C Cable 4 Pack (1x1ft,2x4ft, 1x6ft) Nylon Braided USB C to USB A Charger Cord (USB 2.0) for Samsung Note 8,Galaxy S8,Apple New Macbook, Nexus 6P 5X,Google Pixel,LG G5 G6",
-    "merchant": "amazon",
-    "recorded_price_count": 1,
-    "average_requested_price": 8.99
-}`}
+          <div className="snippet">{`[
+    {
+        "currentPrice": "7.99",
+        "merchant": "amazon",
+        "prices": {
+            "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99,
+            "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
+            "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
+            "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99
+        },
+        "name": "AmazonBasics USB Type-C to USB Type-C 2.0 Cable - 6 Feet  (1.8 Meters) - Black",
+        "id": "B01GGKZ1VA"
+    },
+    {
+        "merchant": "eBay",
+        "prices": {
+            "BgSV18a0YeXTowYMdDUUJOVVh702": 0.75,
+            "P5QyWtJxJaZXrXUZ0fWqi4VPaef1": 0.5,
+            "fdhFyeTB7PZi3obrigqUsKhjnX93": "0.99"
+        },
+        "name": "Practical Banana Cutter Fruit Slicer Chopper Chic kitchen Gadgets Tools Yellow ",
+        "currentPrice": "0.99",
+        "id": "202066435906"
+    },
+    etc....`}
           </div>
-          <div>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</div>
+          <div>The response contains information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</div>
+            <div>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user id's</div>
+
+          <p>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</p>
           <div>The request optional query paramaters for product ID and product Name</div>
         <table className="param">
           <tbody>
