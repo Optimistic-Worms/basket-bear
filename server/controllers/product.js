@@ -3,14 +3,15 @@ const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
 const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
+let amazonProducts;
+let ebayProducts;
 
 if (process.env.NODE_ENV !== 'test') {
-  const amazonProducts = db.collection('productList').doc('amazon').collection('products');
-  const ebayProducts = db.collection('productList').doc('eBay').collection('products');
+  amazonProducts = db.collection('productList').doc('amazon').collection('products');
+  ebayProducts = db.collection('productList').doc('eBay').collection('products');
 }
 
 exports.getLowestPrices = (req, res) => {
-  console.log(req.user)
   const product = req.query.keyword;
   let results = [];
 
@@ -31,36 +32,45 @@ exports.getLowestPrices = (req, res) => {
   .catch(err => res.status(400).send(err));
 };
 
-exports.addNewProduct = (req, res) => {
-  const {name, id, merchant, targetPrice, currentPrice} = req.body;
-
-  db.collection('productList').doc(merchant).collection('products').doc(id).set({
-    name: name,
-    merchant: merchant,
-    currentPrice: currentPrice,
-    prices: {[req.username]: Number(targetPrice)}
-  }).then(() => {
-    console.log('succesfully added new product price data')
-    res.send('succesfully added new product price data');
-  })
-  .catch(err =>res.status(400).send(err));
+exports.addNewProduct = (product, username) => {
+  return new Promise((resolve, reject) => {
+    const {name, id, merchant, targetPrice, currentPrice} = product;
+    db.collection('productList').doc(merchant).collection('products').doc(id).set({
+      name: name,
+      merchant: merchant,
+      currentPrice: currentPrice,
+      prices: {[username]: Number(targetPrice)}
+    }).then(() => {
+      resolve('succesfully added new product price data');
+    })
+    .catch(err => reject(err));
+    });
 };
 
-exports.updateProduct = (req, res) => {
-  const {id, targetPrice, merchant} = req.body;
+exports.updateProductPrice = (req, res) => {
+  const { id, targetPrice, merchant } = req.body.product;
+
   const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
   productRef.get().then((product) => {
     if (product.exists) {
       let prices = product.data().prices;
-      prices[req.username] = targetPrice;
+      prices[req.username] = Number(targetPrice);
       productRef.update({prices: prices})
       .then(() => {
-        console.log('Product price data succesfully updated')
+        console.log('Product price data succesfully updated');
         res.send('Product price data succesfully updated')
       })
       .catch((err) => res.status(400).send(err));
     } else {
-      exports.addNewProduct(req, res);
+      exports.addNewProduct(req.body.product, req.username)
+      .then(data => {
+        console.log(data);
+        res.send(data)
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).send(err);
+      });
     }
   })
   .catch((err) => {
@@ -96,11 +106,13 @@ exports.getProductData = (req, res) => {
   const { id } = req.query;
   exports.getProductById(id)
   .then(product => {
-    const { name, merchant, prices } = product.data();
+    const { name, merchant, prices, currentPrice} = product.data();
     const { avg, count } = getAveragePrice(prices);
     res.send({
       name: name,
       merchant: merchant,
+      currentPrice,
+      prices: prices,
       recorded_price_count: count,
       average_requested_price: avg
     });
@@ -152,4 +164,28 @@ exports.getProducts = (req, res) => {
       }).catch(err => res.status(400).send(err));
     }).catch(err => res.status(400).send(err));
   }
+}
+
+exports.addNewUserData = (productObj, username) => {
+  const { id, currentPrice, merchant } = productObj;
+  const productRef = db.collection('productList').doc(merchant).collection('products').doc(id);
+
+   //set target price to current price since the user is adding the product for the first time
+  productRef.get().then((product) => {
+    if (product.exists) {
+      let prices = product.data().prices;
+      prices[username] = Number(currentPrice);
+      productRef.update({prices: prices})
+      .then(() => {
+        console.log('Product price data succesfully updated')
+      })
+      .catch((err) => res.status(400).send(err));
+    } else {
+      productObj.targetPrice = Number(productObj.currentPrice || productObj.price);
+      exports.addNewProduct(productObj, username);
+    }
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 }

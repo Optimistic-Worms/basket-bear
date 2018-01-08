@@ -80,7 +80,6 @@ class Search extends React.Component {
     })
     .then((response) => {
       let searchResults = response.data.ItemSearchResponse.Items[0].Item;
-      console.log('amazon search results',searchResults);
       let items = this.parseAmazonResults(searchResults);
       this.setState({amazonSearchItems: items});
       let combinedItems = items.concat(this.state.searchItems);
@@ -131,7 +130,6 @@ class Search extends React.Component {
           product: item
         })
         .then((response) => {
-          console.log(response.data);
           var updateItems = this.state.searchItems;
           updateItems[index].added = true;
           this.setState({searchItems: updateItems});
