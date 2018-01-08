@@ -103,11 +103,9 @@ const EndpointReference = () => (
     },
     etc...]`}
           </div>
-          <p>The response contains information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</p>
-            <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
-
-
-          <div><b>The request can contain optional query parameters for product ID and product Name</b></div>
+          <p>The response is an array of prpoducts containing information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</p>
+          <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
+          <p><b>The request can contain optional query parameters for product ID and product Name</b></p>
         <table className="param">
           <tbody>
             <tr>
@@ -150,6 +148,59 @@ const EndpointReference = () => (
     "average_requested_price": 6.1175
 }`}
           </div>
+          <table className="param">
+            <tbody>
+              <tr>
+                <th>REQUEST PARAMETER</th>
+                <th>VALUE</th>
+              </tr>
+              <tr>
+                <td>name</td>
+                <td><i>optional</i>. A text string set to the product name you want results to match</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>A GET request is sent to the /api/products endpoint with a name parameter:</p>
+          <div className="snippet">{`GET http://budgetbasket.com/api/products/?name=<SEARCH_TERM>`}</div>
+
+          <div>For Example:</div>
+          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+             params: {
+               name: 'usb'
+             },
+             headers: {
+               Authorization: 'Bearer NgCXRKc...MzYjw'
+             }
+           })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));`}
+          </div>
+          <div>Returns the following JSON response:</div>
+          <div className="snippet">{`[
+    {
+        "merchant": "amazon",
+        "prices": {
+            "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99,
+            "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
+            "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
+            "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99
+        },
+        "name": "AmazonBasics USB Type-C to USB Type-C 2.0 Cable - 6 Feet  (1.8 Meters) - Black",
+        "currentPrice": "7.99",
+        "id": "B01GGKZ1VA"
+    },
+    {
+        "currentPrice": "6.99",
+        "merchant": "amazon",
+        "prices": {
+            "WilRFtTKHtgnlI4XcPmkMOpgFU63": "7.00"
+        },
+        "name": "[2 in 1 Pack] Anker Micro USB to USB C Adapter, Converts Micro USB Female to USB C Male, Uses 56K Resistor, Works with Galaxy S8, S8+, MacBook, Nintendo Switch, Sony XZ, LG V20 G5 G6 and More",
+        "id": "B01AHKYIRS"
+    }, etc...]`}
+        </div>
+
+        <p>The response is an array containing only products with names that contain the search term. The results are ordered by descending popularity</p>
         <p>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</p>
           </div>
 
