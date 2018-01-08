@@ -1,6 +1,6 @@
 const axios = require('axios');
 
-exports.updateListPrices = function (idToken, user) {
+exports.updateListPrices = function (idToken) {
   let list;
   let amazonIds = [];
   let ebayIds = [];
