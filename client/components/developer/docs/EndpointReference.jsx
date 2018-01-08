@@ -101,13 +101,13 @@ const EndpointReference = () => (
         "currentPrice": "0.99",
         "id": "202066435906"
     },
-    etc....`}
+    etc...]`}
           </div>
-          <div>The response contains information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</div>
-            <div>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user id's</div>
+          <p>The response contains information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</p>
+            <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
 
-          <p>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</p>
-          <div>The request optional query paramaters for product ID and product Name</div>
+
+          <div><b>The request can contain optional query parameters for product ID and product Name</b></div>
         <table className="param">
           <tbody>
             <tr>
@@ -116,10 +116,41 @@ const EndpointReference = () => (
             </tr>
             <tr>
               <td>id</td>
-              <td><i>optional</i>. A text string set to the product ID you want results to match </td>
+              <td><i>optional</i>. A text string set to the Amazon or Ebay product ID you want results to match </td>
             </tr>
           </tbody>
         </table>
+         <p>A GET request is sent to the /api/products endpoint with an id parameter:</p>
+         <div className="snippet">{`GET http://budgetbasket.com/api/products/?id=<PRODUCT_ID>`}</div>
+
+          <div>For Example:</div>
+          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+             params: {
+               id: 'B01GGKZ1VA'
+             },
+             headers: {
+               Authorization: 'Bearer NgCXRKc...MzYjw'
+             }
+           })
+          .then(res => console.log(res.data))
+          .catch(err => console.log(err));`}
+          </div>
+          <div>Returns the following JSON response:</div>
+          <div className="snippet">{`{
+    "name": "AmazonBasics USB Type-C to USB Type-C 2.0 Cable - 6 Feet  (1.8 Meters) - Black",
+    "merchant": "amazon",
+    "currentPrice": "7.99",
+    "prices": {
+        "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
+        "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
+        "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99,
+        "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99
+    },
+    "recorded_price_count": 4,
+    "average_requested_price": 6.1175
+}`}
+          </div>
+        <p>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</p>
           </div>
 
 );
