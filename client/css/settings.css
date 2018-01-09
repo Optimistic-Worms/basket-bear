@@ -6,7 +6,7 @@
   border: 1px solid #dadada;
   border-radius: 0.25em;
   justify-content: left;
-  width: 80%;
+  width: 65%;
   margin: 5em auto;
   background-color: #fff;
   font-weight: 300 !important;
@@ -53,7 +53,7 @@ input.settings-form:focus {
 .settings-email-update {
   display: flex;
   flex-direction: row;
-  width: 60%;
+  width: 100%;
   margin: .5em 0;
   justify-content: space-between;
   align-items: center;
@@ -64,7 +64,7 @@ input.settings-form:focus {
 .settings-push-update {
   display: flex;
   flex-direction: row;
-  width: 70%;
+  width: 100%;
   margin: .5em 0;
   justify-content: space-between;
   align-items: center;
@@ -106,13 +106,17 @@ input.settings-form:focus {
   font-weight: 500;
 }
 
+.settings-email-update .button--remove {
+  width: 13em;
+}
+
 .client-secret {
   word-wrap: break-word;
   margin-bottom: 2em;
 }
 
 .button-settings {
-  width: 7em;
+  width: 13rem;
   margin: 0 .2em;
 }
 
@@ -121,13 +125,6 @@ input.settings-form:focus {
 
 @media (max-width:420px) {
   .settings-email-update {
-    width: 100%;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .settings-push-update {
     width: 100%;
     flex-flow: column;
     justify-content: center;
@@ -172,7 +169,7 @@ input.settings-form:focus {
 
 
 
-@media (max-width:768px) {
+@media (max-width:900px) {
   .settings-email-update {
     width: 100%;
   }
@@ -187,5 +184,23 @@ input.settings-form:focus {
     text-align: center;
   }
 
+  ..settings-email-update .button--remove {
+    width: 7rem;
+  }
+  .settings-push-update {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
 
+
+
+}
+
+
+@media (min-width:1560px) {
+  .settings-card {
+    width: 50%;
+  }
 }
