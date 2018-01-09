@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
-
 /** General CSS **/
 
 html {
@@ -112,6 +111,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  justify-content: space-between;
   width: 90%;
 }
 
@@ -165,13 +165,12 @@ body {
   text-decoration: none !important;
 }
 
-
 .card h4:hover {
   color: #3F51B5;
 }
 
-
 /** TBD **/
+
 .snippet {
   color: #505050;
   font-size: 14px;
@@ -210,10 +209,7 @@ body {
   margin-left: 4em !important;
 }
 
-
 /** Media Queries **/
-
-
 
 @media (max-width:600px) {
   .button--remove {
@@ -223,17 +219,12 @@ body {
     background-color: #d9534f;
     border-color: #d43f3a;
   }
-
-
 }
 
 @media (max-width:768px) {
-
-
   h3 {
     font-size: 1em;
   }
-
   .card {
     position: relative;
     display: flex;
@@ -260,14 +251,10 @@ body {
   .desktop-show {
     display: none;
   }
-
 }
-
-
 
 @media (min-width:769px) {
   .mobile-show {
     display: none;
   }
-
 }

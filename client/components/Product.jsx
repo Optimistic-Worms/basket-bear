@@ -5,7 +5,7 @@ const Product = (props) => {
 
   return (
     <div className="card">
-      <a target="_blank" href={props.item.link}><img className="product-image" src={props.item && props.item.imageUrl} /></a>
+      <img className="product-image" src={props.item && props.item.imageUrl} />
       <a target="_blank" href={props.item.link}><h4>{ props.item && props.item.name }</h4></a>
       <div className="product-footer">
         <div className="item-info">
