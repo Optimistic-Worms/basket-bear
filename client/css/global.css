@@ -112,6 +112,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  width: 90%;
 }
 
 .button--product {
@@ -242,6 +243,7 @@ body {
     border-radius: .25rem;
     margin: .7em auto;
     width: 95%;
+    justify-content: center;
   }
   .col {
     display: flex;
