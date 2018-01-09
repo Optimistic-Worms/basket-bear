@@ -158,7 +158,7 @@ class Search extends React.Component {
           <div className="search">
 
             <input className="search-form" onKeyDown={(e)=> {if (e.keyCode === 13) {this.search()}}} placeholder="search for an item" onChange= {(input) => this.query(input)} type="search"/>
-            <button className="search-button" onClick={()=>{this.search()}}><i className="fa fa-search" aria-hidden="true"></i></button>
+            <button className="search-button" onClick={()=>{this.search()}}><a href="#results"><i className="fa fa-search" aria-hidden="true"></i></a></button>
 
 
 
@@ -171,7 +171,7 @@ class Search extends React.Component {
             </select>
           </div>
         </div>
-      <div className="results">
+      <div id="results" className="results">
         <h4>{this.state.searchMessage}</h4>
         <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
       </div>
