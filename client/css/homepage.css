@@ -194,6 +194,11 @@ button.search-button:focus {
   line-height: 1.3em;
 }
 
+.results h4 {
+  margin: .5em auto;
+  font-size: .8em;
+}
+
 
 /** Media Queries **/
 
