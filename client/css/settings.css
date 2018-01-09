@@ -167,6 +167,15 @@ input.settings-form:focus {
 
 }
 
+@media (max-width:768px) {
+  .settings-push-update {
+    width: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
 
 
 @media (max-width:900px) {
@@ -184,17 +193,13 @@ input.settings-form:focus {
     text-align: center;
   }
 
-  ..settings-email-update .button--remove {
+  .settings-email-update .button--remove {
     width: 7rem;
   }
-  .settings-push-update {
-    width: 100%;
-    flex-flow: column;
-    justify-content: center;
-    align-items: center;
+
+  .button-settings {
+    width: 8rem;
   }
-
-
 
 }
 
