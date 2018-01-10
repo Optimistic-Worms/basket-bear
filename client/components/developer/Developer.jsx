@@ -29,8 +29,6 @@ class Developer extends React.Component {
   }
 
   toggleLoggedIn(user = '', token = '') {
-    console.log('logging in/out')
-
     this.setState({
       loggedIn: !this.state.loggedIn,
       user: user,
@@ -51,6 +49,7 @@ class Developer extends React.Component {
   }
 
   setSecret(secret) {
+    console
     this.setState({secret: secret});
   }
 
