@@ -103,7 +103,7 @@ const EndpointReference = () => (
     },
     etc...]`}
           </div>
-          <p>The response is an array of prpoducts containing information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</p>
+          <p>The response is an array of products, each of which include an Amazon or Ebay product ID as well as price information. The product ID can be used to target a single product on the same endpoint as shown below</p>
           <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
           <p><b>The request can contain optional query parameters for product ID and product Name</b></p>
         <table className="param">
@@ -118,7 +118,7 @@ const EndpointReference = () => (
             </tr>
           </tbody>
         </table>
-         <p>A GET request is sent to the /api/products endpoint with an id parameter:</p>
+         <p>A GET request is sent to the /api/products endpoint with an <i>id</i> parameter:</p>
          <div className="snippet">{`GET http://budgetbasket.com/api/products/?id=<PRODUCT_ID>`}</div>
 
           <div>For Example:</div>
@@ -160,7 +160,7 @@ const EndpointReference = () => (
               </tr>
             </tbody>
           </table>
-          <p>A GET request is sent to the /api/products endpoint with a name parameter:</p>
+          <p>A GET request is sent to the /api/products endpoint with a <i>name</i> parameter:</p>
           <div className="snippet">{`GET http://budgetbasket.com/api/products/?name=<SEARCH_TERM>`}</div>
 
           <div>For Example:</div>
