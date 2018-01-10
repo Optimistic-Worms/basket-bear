@@ -51,7 +51,7 @@ class Developer extends React.Component {
   }
 
   setSecret(secret) {
-    this.setState(secret: secret);
+    this.setState({secret: secret});
   }
 
   render() {

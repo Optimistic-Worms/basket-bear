@@ -35,7 +35,7 @@ class ApiUserSignup extends React.Component {
              this.setState({errorMsg: res.data.error})
            } else {
               this.props.setSecret(res.data.secret)
-              this.props.toggleView('Thank you for signing up! Please log in to access your Developer Account');
+              this.props.toggleView(null, 'Thank you for signing up! Please log in to access your Developer Account');
            }
         })
          .catch(err => {
