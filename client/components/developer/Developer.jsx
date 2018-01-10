@@ -17,10 +17,12 @@ class Developer extends React.Component {
     this.state = {
       loggedIn: false,
       user: '',
-       token: ''
+      token: '',
+      secret: '*******'
     };
     this.toggleLoggedIn = this.toggleLoggedIn.bind(this);
     this.getUserData = this.getUserData.bind(this);
+    this.setSecret = this.setSecret.bind(this);
   }
 
   componentDidMount() {
@@ -48,12 +50,17 @@ class Developer extends React.Component {
     });
   }
 
+  setSecret(secret) {
+    this.setState(secret: secret);
+  }
+
   render() {
     const LoginView = (props) => {
       return (
         <ApiUserAuthCard
           toggleLogin={this.toggleLoggedIn}
           history={props.history}
+          setSecret={this.setSecret}
         />
       )
     }
@@ -65,6 +72,7 @@ class Developer extends React.Component {
           history={props.history}
           token={this.state.token}
           getUserData={this.getUserData}
+          setSecret={this.setSecret}
         />
       )
     }
