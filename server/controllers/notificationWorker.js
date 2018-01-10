@@ -51,7 +51,7 @@ const getSubData = () =>{
 const sendPush = (pushSubscribers, info) =>{
 
 	let message = `${info.product} \nDropped to $${info.priceDroppedTo} You were asking $${info.requestedPrice}` || `Budget-basket updated`;
-	let clickTarget =  `http://localhost:3000/watchList`;
+	let clickTarget =  `https://basketbear.com/watchList`;
 	let title = `Price update!`;
 	let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
 	pushSubscribers.forEach(pushSubscription => {
@@ -65,10 +65,15 @@ const sendPush = (pushSubscribers, info) =>{
 
 const sendAnEmail = (emails, info) => {
   return new Promise ((resolve,reject) => {
+  let message = `Hi! Basket Bear here, \n\nJust a quick note to say the following item(s) dropped in price:\n`
+  info.forEach(item =>{
+  message += `\n${item.product} dropped below the  $${item.requestedPrice} you asked for. \nThe current price is $${item.priceDroppedTo}.`
+  })
+  message += `\nhttps://basketbear.com/watchList`
    let data = {
     'name': '',
     'email': emails.join(';'),
-    'message':JSON.stringify(info),
+    'message':message,
     'subject': `Price update!`,
    };
    let options = {
@@ -77,15 +82,17 @@ const sendAnEmail = (emails, info) => {
      'payload' : data,
      'auth': emailAuth
    };
-/*   let secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
+   let secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
    axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
     resolve(response);
+    endpoint_return.emails.push(`sent emails to: ${data.email}`);
+   }).catch(error =>{
+    endpoint_return.emails.push(`email failed: ${error}`);
+    resolve(error);
+
    }).catch(error =>{
     reject(error);
-   }).catch(error =>{
-    reject(error);
-   });*/
-   resolve('done')
+   });
   })
 
 }
@@ -177,17 +184,29 @@ const emptyNotificationList = (list) =>{
   })
 }
 
+const cleanEndPointInfo = () => {
+
+  endpoint_return.start = new Date();
+  endpoint_return.end = '';
+  endpoint_return.emails = [];
+  endpoint_return.push_notifications = [];
+  endpoint_return.get_subscriptions = [];
+  endpoint_return.deleted_subscriptions = [];
+  return
+}
+
+
 
 exports.notificationWorker = (req, res) =>{
 	endpoint_return.start = new Date();
   usersList = new Object();
+  cleanEndPointInfo();
   getSubData().then(result =>{
     let list = [];
     for(var i in result){
       list.push(result[i].docId)
   	}
   	iterateAwaitNotifications(result).then((result) =>{
-  		//TO DO: DELETE NOTIFICATION LIST.
        emptyNotificationList(list)
        endpoint_return.end = new Date();
        res.send(JSON.stringify(endpoint_return));

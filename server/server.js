@@ -36,6 +36,7 @@ const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUs
 const watch = require('./controllers/watchedItems');
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
+
 const apiAuth = require('./controllers/developer/auth/apiAuth');
 const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
@@ -49,6 +50,8 @@ const push = require('./controllers/pushNotifications');
 // console.log(newVapidKeys)
 /* Notification */
 const notificationWorker =  require('./controllers/notificationWorker')
+
+const sendMail = require('./controllers/emailer').sendMail;
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -86,6 +89,11 @@ app.use('/api', apiRoutes);
 
 app.get('/thing', isAuthenticated, (req,res) =>{
   console.log('hit the 200')
+  res.sendStatus(200);
+});
+
+app.get('/sendMail', (req,res) =>{
+  sendMail()
   res.sendStatus(200);
 });
 
