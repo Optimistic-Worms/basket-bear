@@ -7,7 +7,7 @@ exports.addUser = (req, res) => {
   exports.findByEmail(req.body.email, (err, userRef, userData) => {
     if (userRef) {
       console.log('found user')
-      res.status(400).send(`An account with email: ${req.body.email} already exists`);
+      res.send({error: `An account with email: ${req.body.email} already exists`});
     } else {
       console.log('adding user')
       encrypt.createHash(req.body.password)
