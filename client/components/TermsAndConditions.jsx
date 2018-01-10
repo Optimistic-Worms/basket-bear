@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import '../css/terms.css'
 
 
@@ -151,6 +152,11 @@ const TermsAndConditions = (props) => {
     <p>
     This document was created using a Contractology template available at http://www.contractology.com.
     </p>
+    <Link to="/">
+    <button className="button button--hometout">Close Terms & Conditions</button>
+  </Link>
+
+
     </div>
   );
 
