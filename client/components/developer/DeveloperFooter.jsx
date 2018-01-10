@@ -17,7 +17,6 @@ const DeveloperFooter = (props) => (
     </Link>
     </div>
     <div className="footer-developer">
-      <p><i className="fa fa-shopping-basket" aria-hidden="true"></i> Basket Bear Developers</p>
       <Link to="/" className="footer-link">
       Back to Basket Bear
       </Link>
