@@ -32,9 +32,13 @@ class ApiUserSignup extends React.Component {
         })
         .then((res) => {
            console.log(res.data)
+           this.props.setSecret(res.data.secret)
            this.props.toggleView('Thank you for signing up! Please log in to access your Developer Account');
         })
-         .catch(err => this.setState({errorMsg: err.response.data}));
+         .catch(err => {
+          console.log(err)
+           //this.setState({errorMsg: err})
+         });
       }
     }
   }

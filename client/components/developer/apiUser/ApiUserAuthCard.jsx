@@ -4,8 +4,8 @@ import ApiUserSignup from './ApiUserSignup.jsx'
 import '../../../css/signup-login.css'
 
 class ApiUserAuthCard extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       loginView: true,
@@ -34,6 +34,8 @@ class ApiUserAuthCard extends React.Component {
           />
           : <ApiUserSignup
               toggleView={this.toggleLoginView}
+              setSecret = {this.props.setSecret}
+
             />}
       </div>
     );
