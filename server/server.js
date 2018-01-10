@@ -362,6 +362,8 @@ apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
 apiRoutes.post('/signup', apiUser.addUser);
 
+apiRoutes.post('/renew')
+
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
 apiRoutes.get('/search', apiAuth.authenticateToken, getLowestPrices);
