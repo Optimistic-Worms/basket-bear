@@ -148,6 +148,8 @@ const EndpointReference = () => (
     "average_requested_price": 6.1175
 }`}
           </div>
+          <p>Using the id parameter performs a constant time hash key lookup for the product and is much more efficient than looking up a product by name. Use the id parameter if the product ID is known and fast or frequent lookups are needed. The ID for a product can be retrieved by using the search endpoint or the name parameter described below</p>
+
           <table className="param">
             <tbody>
               <tr>
@@ -201,6 +203,7 @@ const EndpointReference = () => (
         </div>
 
         <p>The response is an array containing only products with names that contain the search term. The results are ordered by descending popularity</p>
+        <p>Using the name pamameter performs a search on all of the products in the database and is far less efficient than looking up a product by ID. Therefore, it should only be used if the product ID is not known</p>
         <p>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</p>
           </div>
 
