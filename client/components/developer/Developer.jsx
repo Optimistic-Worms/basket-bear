@@ -18,7 +18,7 @@ class Developer extends React.Component {
       loggedIn: false,
       user: '',
       token: '',
-      secret: '*******'
+      secret: ''
     };
     this.toggleLoggedIn = this.toggleLoggedIn.bind(this);
     this.getUserData = this.getUserData.bind(this);
@@ -72,6 +72,7 @@ class Developer extends React.Component {
           history={props.history}
           token={this.state.token}
           getUserData={this.getUserData}
+          secret={this.state.secret}
           setSecret={this.setSecret}
         />
       )

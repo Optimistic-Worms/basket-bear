@@ -37,7 +37,7 @@ class ApiAccount extends React.Component {
           <h3>Client ID</h3>
           <div>{this.state.userObj.clientId}</div>
           <h3>Client Secret</h3>
-          <div className="client-secret">{this.state.userObj.clientSecret}</div>
+          <div className="client-secret">{this.props.secret}</div>
         </div>
         </div>
         <div></div>
