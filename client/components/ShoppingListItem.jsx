@@ -14,9 +14,16 @@ const ShoppingListItem = (props) => {
             <p className="price">Price when added ${ props.item && props.item.price }</p>
           </div>
           <div className="item-info-merchant">
-          <p className="current-price">Current Price <span className="current-price-dollar">${ props.item && props.item.currentPrice }</span></p>
-          <p className="current-price">Watch Price <span className="current-price-dollar">${ props.item && props.item.watchPrice }</span></p>
+          { props.item.available &&
+            <p className="current-price">Current Price <span className="current-price-dollar">${ props.item && props.item.currentPrice }</span></p> }
+          { !props.item.available &&
+            <p className="current-price">This item is no longer available</p> }
+
+            <p className="current-price">Watch Price <span className="current-price-dollar">${ props.item && props.item.watchPrice }</span></p>
+
+
         </div>
+        { props.item.alert && <p className="current-price-dollar">This item's current price has dropped below your watch price. Buy Now!</p>}
 
         </div>
       <div className="button-wrapper button-wrapper--watch">
