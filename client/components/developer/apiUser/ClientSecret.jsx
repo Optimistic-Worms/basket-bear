@@ -3,13 +3,17 @@ import axios from 'axios'
 import Promise from 'bluebird';
 import ApiUserLogin from './ApiUserLogin.jsx';
 
-
 const ClientSecret = (props) => {
   const getNewSecret = () => {
-    axios.post('/api/renew', )
+  axios.get('/api/renew', {
+        headers: {'Authorization': `Bearer ${props.token}`}
+      })
+      .then(data => {
+        props.setSecret(data.data)
+      })
+      .catch(err => console.log(err));
   }
 
-  console.log('SECRET: ', props.secret)
   return (
   <div>{
   props.secret ?
@@ -24,11 +28,8 @@ const ClientSecret = (props) => {
     </div>
   }
    <div className="button button--remove"
-     onClick={() => {
-       props.setSecret()
-       return <div>Reset</div>
-     }}
-   ></div>
+     onClick={getNewSecret}
+   >Reset Secret</div>
   </div>
   )
 };

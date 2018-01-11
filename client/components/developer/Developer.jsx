@@ -79,7 +79,6 @@ class Developer extends React.Component {
 
     const { path, url } = this.props.match;
 
-    //console.log(this.state)
     return (
       <div>
           <div className="developer">

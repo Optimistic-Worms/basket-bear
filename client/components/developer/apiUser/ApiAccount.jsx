@@ -42,7 +42,12 @@ class ApiAccount extends React.Component {
           <h3>Client ID</h3>
           <div>{this.state.userObj.clientId}</div>
           <h3>Client Secret</h3>
-         <ClientSecret secret={this.props.secret} setSecret={this.props.setSecret}/>
+         <ClientSecret
+            secret={this.props.secret}
+            setSecret={this.props.setSecret}
+            user={this.state.userObj}
+            token={this.props.token}
+          />
         </div>
         </div>
         <div></div>
