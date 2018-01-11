@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios'
 import Promise from 'bluebird';
+import ApiUserLogin from './ApiUserLogin.jsx';
+
 
 const ClientSecret = (props) => {
   const getNewSecret = () => {
@@ -23,6 +25,7 @@ const ClientSecret = (props) => {
    <div className="button button--remove"
      onClick={() => {
        props.setSecret()
+       return <div>Reset</div>
      }}
    ></div>
   </div>
