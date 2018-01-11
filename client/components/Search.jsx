@@ -24,6 +24,12 @@ class Search extends React.Component {
     this.parseAmazonResults = this.parseAmazonResults.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
+
+
   search() {
     if (this.state.queryString !== '') {
       this.setState({searchMessage: ''});
