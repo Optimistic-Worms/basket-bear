@@ -167,7 +167,6 @@
 /** Media Queries **/
 
 @media (max-width:768px) {
-
   .api-doc {
     display: flex !important;
     flex-direction: column !important;
@@ -183,7 +182,6 @@
     font-size: 1em;
     width: 95% !important;
   }
-
   .api-user-account {
     display: grid;
     grid-template-columns: auto;
@@ -201,13 +199,11 @@
   .homejoin-developer-wrapper-api {
     margin: -.5em auto 1em;
   }
-
 }
 
 .developer-hometout p {
   font-weight: 100;
 }
-
 
 .join-developer {
   display: grid;
@@ -222,9 +218,9 @@
 .join-developer a:hover {
   text-decoration: underline;
 }
+
 .join-developer-column {
   display: flex;
-  border: 1px solid #dadada;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -234,12 +230,12 @@
 }
 
 .join-developer-column:first-child {
-  border-left: none;
+  border-right: 1px solid #dadada;
+  border-bottom: 1px solid #dadada;
 }
 
 .join-developer-column:last-child {
-  border-left: none;
-  border-right: none;
+  border-bottom: 1px solid #dadada;
 }
 
 .narrow h4 {
@@ -255,8 +251,9 @@
   text-align: center
 }
 
-.join-developer-column ul {
+.join-developer-column h1, ul {
   width: 90%;
+  margin: inherit auto;
 }
 
 .join-developer i {
@@ -276,7 +273,6 @@
   margin-top: -.2em;
 }
 
-
 .join-developer-support {
   display: flex;
   width: 55%;
@@ -286,23 +282,36 @@
   padding: 2em 0;
 }
 
-
-
 @media only screen and (max-width: 768px) {
+  .developer-hometout {
+    font-size: .8em;
+  }
+  .join-developer {
+    display: grid;
+    grid-template-columns: auto;
+  }
+  .join-developer-column p {
+    width: 95%;
+    margin: 0 auto;
+  }
 
-  .join-developer, .narrow {
-  display: grid;
-  grid-template-columns: auto;
-  font-size: .8em;
-}
-
-.join-developer-column ul  {
-  width: 100%;
-}
-
+  .join-developer-column ul {
+    width: 99%;
+    margin: 0 auto;
+  }
   .join-developer-support {
-  width: 90%;
-  margin-bottom: 3em;
-}
-
+    width: 95%;
+    margin-bottom: 4em;
+  }
+  .join-developer-column:first-child {
+    border-right: none;
+  }
+  .join-developer-column:last-child {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  .developer-hometout .button {
+    height: 3em;
+  }
 }

@@ -39,7 +39,7 @@ class JoinApiTout extends React.Component {
 
       <div className="join-developer-support">
         <h1>Discover what you can do with Basket Bear's API</h1>
-        <p>Create end-to-end applications to help sellers with their selling activity on eBay and Amazon. Discover the ideal price range for products. Our API helps you create applications that enable sellers to grow their business.</p>
+        <p>Create end-to-end applications to help sellers with their selling activity on eBay and Amazon. Discover the ideal price range for products and create applications that enable sellers to grow their business.</p>
         <Link to="/dev/docs">
         <button className="button button--hometout">Get Started Now</button>
       </Link>
