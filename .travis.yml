@@ -14,6 +14,8 @@ deploy:
     app: basket
     env: basket-stage
     bucket_name: elasticbeanstalk-us-east-1-767596259046
+    on:
+      branch: master
   - provider: elasticbeanstalk
     access_key_id: ${AWS_ACCESS_KEY_ID}
     secret_access_key:
