@@ -15,7 +15,7 @@ const AuthorizationGuide = () => (
         <h2>Supported Authorization Flows</h2>
       </div>
       <h3>Client Credentials Flow</h3>
-      <div>Allows your application to obtain an access token by supplying your client credentials (client ID and client secret). This flow is used in server-to-server authentication and should NOT be used for single page apps in which the credentials are stored on the client. This flow is desribed in the oauth2 specification RFC-6749.</div>
+      <p>Allows your application to obtain an access token by supplying your client credentials (client ID and client secret). This flow is used in server-to-server authentication and should NOT be used for single page apps in which the credentials are stored on the client. This flow is desribed in the oauth2 specification RFC-6749.</p>
       <img src="/assets/bb_client_flow.png" className="auth-flow"/>
       <h3>Step 1: Your Application requests a token</h3>
       <div>The request is sent to the /api/token endpoint:</div>
@@ -78,4 +78,3 @@ const AuthorizationGuide = () => (
 );
 
 export default AuthorizationGuide;
-

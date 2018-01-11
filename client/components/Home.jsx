@@ -26,6 +26,10 @@ class Home extends React.Component {
     this.checkLoginStatus = this.checkLoginStatus.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   componentWillMount() {
     this.checkLoginStatus();
   }

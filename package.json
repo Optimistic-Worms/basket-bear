@@ -47,6 +47,7 @@
     "moment": "^2.19.1",
     "moment-timezone-all": "^0.5.5",
     "morgan": "~1.7.0",
+    "nodemailer": "^4.4.1",
     "nodemon": "^1.12.1",
     "npm": "^5.5.1",
     "oauth2orize": "^1.11.0",

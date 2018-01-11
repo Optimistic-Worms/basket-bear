@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import '../../css/developer-hometout.css';
 
 class ApiIntro extends React.Component {
   render(){

@@ -28,7 +28,9 @@ class ShoppingList extends React.Component {
 
   componentDidMount() {
     this.loadShoppingList();
+    window.scrollTo(0,0);
   }
+
 
   sortItems(array){
     array.sort(function(a,b) {
