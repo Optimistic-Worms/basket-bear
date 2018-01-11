@@ -14,6 +14,9 @@ class Settings extends React.Component {
       emailList: [],
       newEmail: 'email',
       messages: '',
+      verifiedUser: false,
+      userEmail: ''
+
     };
     this.updateUserProfile = this.updateUserProfile.bind(this)
     this.setName = this.setName.bind(this)
@@ -24,11 +27,16 @@ class Settings extends React.Component {
     this.addEmail = this.addEmail.bind(this)
     this.trackNewEmail = this.trackNewEmail.bind(this)
     this.setMessages = this.setMessages.bind(this)
+    this.sendVerificationEmail = this.sendVerificationEmail.bind(this)
   }
 
   componentWillMount(){
 		firebase.auth().onAuthStateChanged((user) => {
 	    if (user) {
+        let verifiedUser = user.emailVerified;
+        let userEmail = user.email;
+        this.setState({verifiedUser})
+        this.setState({userEmail})
         this.getEmailNotificationPreferences()
 	      let name = user.displayName;
 	    	(name)? this.setState({name:name}): this.setState({name:''})
@@ -37,7 +45,7 @@ class Settings extends React.Component {
 	}
 
   componentDidMount() {
-    window.scrollTo(0,0);
+    window.scrollTo(0,0);    
   }
 
   setName(e){
@@ -137,9 +145,55 @@ class Settings extends React.Component {
     this.setState({newEmail:email})
   }
 
+  sendVerificationEmail(){
+    console.log('working')
+    var user = firebase.auth().currentUser;
+    let that = this
+    let actionCodeSettings = {
+      url: "https:\//basketbear.com/settings"
+    }
+
+    user.sendEmailVerification(actionCodeSettings).then(function() {
+  // Email sent.
+
+     console.log('sent')
+     let messages = 'Please check your inbox including spam.'
+     that.setState({messages})
+     }).catch(function(error) {
+  // An error happened.
+     console.log(error)
+     });
+  }
+
   render(){
+    // Check to see if the users is verified. 
+    // if they are verified display setting else display verification option.
+    if(!this.state.verifiedUser){
+      return(
+      <div className="settings-card">
+       <h2 className="login-header">Account Settings</h2>
+        <div className="settings-layout">
+          <div className="not-verified">
+            <h3>
+            Please verify your account   
+            </h3>
+            <div className="settings-form-wrapper">
+            Send verification email to {this.state.userEmail}
+            <button onClick={() => this.sendVerificationEmail()} className="button button-settings">Send</button>
+
+            <div>
+            {this.state.messages}
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      )
+    } else {
   return (
     <div className="settings-card">
+      
+
       <h2 className="login-header">Account Settings</h2>
 
       <div className="settings-layout">
@@ -162,6 +216,7 @@ class Settings extends React.Component {
       <PushNotification2/>
     </div>
   )
+  }
   }
 }
 

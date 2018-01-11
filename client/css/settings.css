@@ -1,5 +1,12 @@
 /** Settings **/
 
+.not-verified {
+  z-index: 10;
+  position: relative;
+  padding:10px;
+}
+
+
 .settings-card {
   display: flex;
   flex-direction: column;
@@ -209,3 +216,4 @@ input.settings-form:focus {
     width: 50%;
   }
 }
+
