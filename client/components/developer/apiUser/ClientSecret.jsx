@@ -6,8 +6,9 @@ import ApiUserLogin from './ApiUserLogin.jsx';
 
 const ClientSecret = (props) => {
   const getNewSecret = () => {
-
+    axios.post('/api/renew', )
   }
+
   console.log('SECRET: ', props.secret)
   return (
   <div>{
