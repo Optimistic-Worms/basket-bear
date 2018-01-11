@@ -14,6 +14,8 @@ class ApiAccount extends React.Component {
     .then(data => {
       this.setState({userObj: data})
     })
+      window.scrollTo(0,0);
+
   }
 
   handleLogout() {

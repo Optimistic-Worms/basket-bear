@@ -15,6 +15,10 @@ class ApiUserAuthCard extends React.Component {
     this.toggleLoginView = this.toggleLoginView.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   toggleLoginView(event, msg = '') {
     this.setState({loginView: !this.state.loginView, msg: msg})
   }
