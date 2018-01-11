@@ -51,7 +51,6 @@ const push = require('./controllers/pushNotifications');
 /* Notification */
 const notificationWorker =  require('./controllers/notificationWorker')
 
-const sendMail = require('./controllers/emailer').sendMail;
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -91,12 +90,6 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   console.log('hit the 200')
   res.sendStatus(200);
 });
-
-app.get('/sendMail', (req,res) =>{
-  sendMail()
-  res.sendStatus(200);
-});
-
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
