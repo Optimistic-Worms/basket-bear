@@ -99,8 +99,8 @@ let compareWatchPrices = (id, merchant) => {
         requestedPrice = 'Item No Longer Available';
       } else if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
         requestedPrice = pricesObject[user];
+        addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
       }
-      addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
     }
   })
 }
@@ -115,10 +115,12 @@ let addToNotificationQueue = (user, productName, merchant, productId, currentPri
     'priceDroppedTo': currentPrice
   }
   db.collection('awaitNotification').doc().set({
-      items: notification
-  }).then(result =>{
+    items: notification
+  })
+  .then((result) => {
     console.log(result)
-  }).catch(err =>{
+  })
+  .catch((err) => {
     console.log(err)
   })
 }
@@ -171,14 +173,8 @@ let getProductsFromCollection = (merchant) => {
   }) //end promise
 }
 
-exports.watchListWorker = (req, res) => {
-  let workerData = [];
-  if (req.query.authsecret !== process.env.AUTH_SECRET) {
-    console.error("Missing or incorrect auth-secret header. Rejecting request.");
-    res.status(401).send('Not Authorized')
-  } else {
-    workerData.push('Watched Items Worker Started');
-
+let updateAmazonWatchItems = () => {
+  return new Promise((resolve, reject) => {
     getProductsFromCollection('amazon')
     .then((amazonProducts) => {
       // send in batched of 10 max due to amazon api lookup limit
@@ -189,11 +185,17 @@ exports.watchListWorker = (req, res) => {
       if (amazonProducts.length > 0) {
         sendToAmazon(amazonProducts);
       }
+      resolve('Sent products to amazon for look up');
     })
     .catch(()=> {
-      workerData.push('Error accessing Amazon Collection');
+      reject('Error accessing Amazon Collection');
+      //workerData.push('Error accessing Amazon Collection');
     })
+  }) // end promise
+}
 
+let updateEbayWatchItems = () => {
+  return new Promise((resolve, reject) => {
     getProductsFromCollection('eBay')
     .then((ebayProducts) => {
       // send in batched of 10 max due to ebay api lookup limit
@@ -204,11 +206,28 @@ exports.watchListWorker = (req, res) => {
       if (ebayProducts.length > 0) {
         sendToEbay(ebayProducts);
       }
+      resolve('sent products to ebay for look up');
     })
     .catch(() => {
-      workerData.push('Error accessing ebay collection');
+      reject('Error accessing ebay collection');
+      //workerData.push('Error accessing ebay collection');
     })
+  }) // end promise
+}
 
-    res.send(JSON.stringify(workerData));
+exports.watchListWorker = (req, res) => {
+  let workerData = [];
+  if (req.query.authsecret !== process.env.AUTH_SECRET) {
+    console.error("Missing or incorrect auth-secret header. Rejecting request.");
+    res.status(401).send('Not Authorized')
+  } else {
+    workerData.push('Watched Items Worker Started');
+
+    let workers = [updateAmazonWatchItems(), updateEbayWatchItems()];
+
+    Promise.all(workers).then((messages) => {
+      workerData.push(messages)
+      res.send(JSON.stringify(workerData));
+    })
   }
 }
