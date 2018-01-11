@@ -66,6 +66,7 @@ let checkIfPriceChanged = (id, merchant, currentPrice) => {
     if (currentPrice !== doc.data().currentPrice) {
       updateWatchListItemPrice(id, merchant, currentPrice);
     }
+    console.log('item', id, 'no price change');
   })
 
 }
@@ -153,20 +154,32 @@ let sendToEbay = (itemIds) => {
   })
 }
 
+let getProductsFromCollection = (merchant) => {
+  return new Promise((resolve, reject) => {
+    const productRef = db.collection('watchedItems').doc(merchant).collection('products')
+    productRef.get()
+    .then((query) => {
+      let products = [];
+      query.forEach((doc) => {
+        products.push(doc.id);
+      })
+      resolve(products);
+    })
+    .catch((error) => {
+      reject(error);
+    })
+  }) //end promise
+}
+
 exports.watchListWorker = (req, res) => {
+  let workerData = [];
   if (req.query.authsecret !== process.env.AUTH_SECRET) {
     console.error("Missing or incorrect auth-secret header. Rejecting request.");
     res.status(401).send('Not Authorized')
   } else {
-    //update amazon products
-    const productRef = db.collection('watchedItems').doc('amazon').collection('products')
-    productRef.get().then((query)=> {
-      let amazonProducts = [];
-      query.forEach((doc) => {
-        amazonProducts.push(doc.id);
-      })
-      return amazonProducts;
-    })
+    workerData.push('Watched Items Worker Started');
+
+    getProductsFromCollection('amazon')
     .then((amazonProducts) => {
       // send in batched of 10 max due to amazon api lookup limit
       while (amazonProducts.length >= 10) {
@@ -177,15 +190,11 @@ exports.watchListWorker = (req, res) => {
         sendToAmazon(amazonProducts);
       }
     })
-    // update ebay products
-    const productRefEbay = db.collection('watchedItems').doc('eBay').collection('products')
-    productRefEbay.get().then((query)=> {
-      let ebayProducts = [];
-      query.forEach((doc) => {
-        ebayProducts.push(doc.id);
-      })
-      return ebayProducts;
+    .catch(()=> {
+      workerData.push('Error accessing Amazon Collection');
     })
+
+    getProductsFromCollection('eBay')
     .then((ebayProducts) => {
       // send in batched of 10 max due to ebay api lookup limit
       while (ebayProducts.length >= 10) {
@@ -196,6 +205,10 @@ exports.watchListWorker = (req, res) => {
         sendToEbay(ebayProducts);
       }
     })
-    res.send('starting watch worker');
+    .catch(() => {
+      workerData.push('Error accessing ebay collection');
+    })
+
+    res.send(JSON.stringify(workerData));
   }
 }
