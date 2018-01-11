@@ -3,6 +3,7 @@ import axios from 'axios';
 import firebase from './firebase-auth'
 import ManualUser from './ManualUser.jsx';
 import ManualUserSignUp from './ManualUserSignUp.jsx';
+
 import GoogleUser from './GoogleUser.jsx';
 import '../../css/signup-login.css'
 import { getToken} from './authHelpers.js';
@@ -56,10 +57,15 @@ class LoginCard extends React.Component {
         <ManualUserSignUp errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest}
           toggleView={this.toggleSignUpView}
           history={this.props.history}/>
-      </div>
+        </div>
         :
         <div>
-          <ManualUser errorMessage={this.state.errorMsg} userLoginRequest={userLoginRequest} toggleView={this.toggleSignUpView} history={this.props.history}/>
+          <ManualUser 
+          errorMessage={this.state.errorMsg} 
+          userLoginRequest={userLoginRequest}  
+          toggleView={this.toggleSignUpView} 
+          history={this.props.history}
+          />
         <GoogleUser userLoginRequest={userLoginRequest} history={this.props.history} /></div>}
       </div>
     );
