@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 import '../css/terms.css'
 
 
-const TermsAndConditions = (props) => {
+class TermsAndConditions extends React.Component {
+  constructor() {
+    super();
+  }
 
-  return (
-    <div className="terms">
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
+  render() {
+    return (<div className="terms">
     <h2>BASKET BEAR - TERMS AND CONDITIONS</h2>
 
     <h3>Introduction</h3>
@@ -157,10 +164,9 @@ const TermsAndConditions = (props) => {
   </Link>
 
 
-    </div>
-  );
+</div>)
 
-};
-
+  }
+}
 
 export default TermsAndConditions;

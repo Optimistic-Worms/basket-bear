@@ -24,6 +24,10 @@ class LoginCard extends React.Component {
     this.setState({signUpView: !this.state.signUpView, msg: msg})
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
 
     componentWillMount() {
     let that = this

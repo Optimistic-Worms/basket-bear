@@ -4,11 +4,19 @@
   width: 70%;
   margin: 5em auto 1em;
   color: #424242;
-  font-size: .7em;
+  font-size: .8em;
 }
 
 .terms h3, h4 {
   margin: 0;
+}
+
+.terms p {
+  font-weight: 100;
+}
+
+.terms .button {
+  height: 2.8em;
 }
 
 @media (max-width:600px) {

@@ -36,6 +36,10 @@ class Settings extends React.Component {
 	  });
 	}
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
   setName(e){
     let newName = e.target.value;
     this.setState({newName})
