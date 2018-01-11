@@ -63,8 +63,10 @@
 
 .api-doc h3 {
   font-weight: 500;
-  font-size: 1em;
   color: #C62828;
+}
+.api-doc-intro h3 {
+  margin-bottom: 0.3em;
 }
 
 .api-doc-nav a {
@@ -87,6 +89,10 @@
   margin: 0 auto;
   flex-direction: column;
   color: #424242;
+}
+
+.api-doc-intro p {
+  font-weight: 100;
 }
 
 .api-doc-intro--header {
@@ -155,8 +161,7 @@
 }
 
 .api-doc ol p {
-  font-weight: 500;
-  font-size: .9em;
+  font-weight: 100;
 }
 
 .auth-flow {
