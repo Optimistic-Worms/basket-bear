@@ -363,16 +363,7 @@ apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
 
 apiRoutes.post('/signup', apiUser.addUser);
 
-apiRoutes.get('/renew', apiAuth.authenticateToken, (req, res) => {
-  //apiUser.findByClientId(req.user.id, () => {
-    //apiUser.generateNewClientSecret(req.user.id)
-    console.log(req.user.id)
-    //res.send('SUCCESS')
-    apiUser.generateNewClientSecret(req.user.id)
-    .then((secret) => res.send(secret))
-    .catch(err => console.log(err));
-  //})
-});
+apiRoutes.get('/renew', apiAuth.authenticateToken, apiUser.generateNewClientSecret);
 
 apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
 
