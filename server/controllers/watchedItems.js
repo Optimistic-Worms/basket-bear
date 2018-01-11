@@ -60,98 +60,159 @@ exports.removeFromWatchList = (req, res) => {
   .catch((err) => res.status(400).send(err));
 }
 
-let checkIfPriceChanged = (id, merchant, currentPrice) => {
-  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
-  productRef.get().then((doc) => {
-    if (currentPrice !== doc.data().currentPrice) {
-      updateWatchListItemPrice(id, merchant, currentPrice);
-    }
-    console.log('item', id, 'no price change');
-  })
-
-}
-
 let updateWatchListItemPrice = (id, merchant, currentPrice) => {
-  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+  return new Promise((resolve, reject) => {
+    const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
 
-  productRef.update({
-    currentPrice: currentPrice
-  })
-  .then(()=> {
-    console.log('updated current price of item, ',id, merchant, currentPrice);
-    compareWatchPrices(id, merchant);
-  })
-  .catch(()=> {
-    console.error('error updating current price of item');
-  })
-}
-
-let compareWatchPrices = (id, merchant) => {
-  const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
-
-  productRef.get().then((doc) => {
-    let currentPrice = doc.data().currentPrice;
-    let pricesObject = doc.data().prices;
-    let productName = doc.data().name;
-    let requestedPrice;
-    for (let user in pricesObject) {
-      if (currentPrice === 'Item No Longer Available') {
-        requestedPrice = 'Item No Longer Available';
-      } else if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
-        requestedPrice = pricesObject[user];
-        addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice);
-      }
-    }
+    productRef.update({
+      currentPrice: currentPrice
+    })
+    .then(()=> {
+      compareWatchPrices(id, merchant).then((messages) => {
+        let message = 'Comparing watch prices: ' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+    })
+    .catch((error) => {
+      reject('Error updating current price of item');
+    })
   })
 }
 
 let addToNotificationQueue = (user, productName, merchant, productId, currentPrice, requestedPrice) => {
+  return new Promise((resolve, reject) => {
     let notification = {
-    'user': user,
-    'product': productName,
-    'productId': productId,
-    'merchant': merchant,
-    'requestedPrice': requestedPrice,
-    'priceDroppedTo': currentPrice
-  }
-  db.collection('awaitNotification').doc().set({
-    items: notification
+      'user': user,
+      'product': productName,
+      'productId': productId,
+      'merchant': merchant,
+      'requestedPrice': requestedPrice,
+      'priceDroppedTo': currentPrice
+    }
+    db.collection('awaitNotification').doc().set({
+      items: notification
+    })
+    .then((result) => {
+      resolve(result);
+    })
+    .catch((err) => {
+      reject(err);
+    })
   })
-  .then((result) => {
-    console.log(result)
+}
+
+let compareWatchPrices = (id, merchant) => {
+  return new Promise((resolve, reject) => {
+    const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+
+    productRef.get().then((doc) => {
+      let currentPrice = doc.data().currentPrice;
+      let pricesObject = doc.data().prices;
+      let productName = doc.data().name;
+      let requestedPrice;
+      let notifications = [];
+
+      for (let user in pricesObject) {
+        if (currentPrice === 'Item No Longer Available') {
+          requestedPrice = 'Item No Longer Available';
+        } else if (Number.parseInt(currentPrice) <= Number.parseInt(pricesObject[user])) {
+          requestedPrice = pricesObject[user];
+          notifications.push(addToNotificationQueue(user, productName , merchant, id, currentPrice, requestedPrice));
+        }
+      }
+      Promise.all(notifications).then((messages) => {
+        let message = 'Notification Queue Messages:' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((errors) => {
+        reject('Notification Queue Errors');
+      })
+    })
+
   })
-  .catch((err) => {
-    console.log(err)
+}
+
+let checkIfPriceChanged = (id, merchant, currentPrice) => {
+  return new Promise((resolve, reject) => {
+    let returnMessage = "";
+    const productRef = db.collection('watchedItems').doc(merchant).collection('products').doc(id);
+    productRef.get().then((doc) => {
+      if (currentPrice !== doc.data().currentPrice) {
+        updateWatchListItemPrice(id, merchant, currentPrice)
+        .then((messages) => {
+          returnMessage = 'Updating watch list item price for ' + id + JSON.stringify(messages);
+          resolve(returnMessage);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+      } else {
+        returnMessage = 'item' + id + 'no price change';
+        resolve(returnMessage);
+      }
+    })
+    .catch((error) => {
+      reject('error getting product');
+    })
   })
 }
 
 let sendToAmazon = (itemIds) => {
-  amazon.lookupProductsById(itemIds).then((response) => {
-    response.ItemLookupResponse.Items[0].Item.forEach((item) => {
-      let offer;
-      let currentPrice;
-      let id = item.ASIN[0];
-      if (item.Offers[0].Offer) {
-        offer = item.Offers[0].Offer[0].OfferListing[0];
-        if (offer.SalePrice) {
-          currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
-        } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
-          currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+  return new Promise((resolve, reject) => {
+    amazon.lookupProductsById(itemIds).then((response) => {
+      let returnedItemsToCheck = [];
+      response.ItemLookupResponse.Items[0].Item.forEach((item) => {
+        let offer;
+        let currentPrice;
+        let id = item.ASIN[0];
+        if (item.Offers[0].Offer) {
+          offer = item.Offers[0].Offer[0].OfferListing[0];
+          if (offer.SalePrice) {
+            currentPrice = offer.SalePrice[0].FormattedPrice[0].substring(1);
+          } else if (offer.Price) { //ONLY SET THIS IF THERE IS NO SALE PRICE
+            currentPrice = offer.Price[0].FormattedPrice[0].substring(1);
+          }
+        } else {
+          currentPrice = 'Item No Longer Available';
         }
-      } else {
-        currentPrice = 'Item No Longer Available';
-      }
-      checkIfPriceChanged(id, 'amazon', currentPrice);
+        returnedItemsToCheck.push(checkIfPriceChanged(id, 'amazon', currentPrice));
+      })
+      Promise.all(returnedItemsToCheck).then((messages) => {
+        let message = 'Checking Amazon returned items' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((errors) => {
+        reject(errors);
+      })
+    })
+    .catch((error) => {
+      reject('Error looking up amazon products');
     })
   })
 }
 
 let sendToEbay = (itemIds) => {
-  ebay.lookupProductsById(itemIds).then((response) => {
-    response.Item.forEach((item) => {
-      let id = item.ItemID;
-      let currentPrice = item.ConvertedCurrentPrice.Value;
-      checkIfPriceChanged(id, 'eBay', currentPrice);
+  return new Promise((resolve, reject) => {
+    ebay.lookupProductsById(itemIds).then((response) => {
+      let returnedEbayItemsToCheck = [];
+      response.Item.forEach((item) => {
+        let id = item.ItemID;
+        let currentPrice = item.ConvertedCurrentPrice.Value;
+        returnedEbayItemsToCheck.push(checkIfPriceChanged(id, 'eBay', currentPrice));
+      })
+      Promise.all(returnedEbayItemsToCheck).then((messages) => {
+        let message = 'Checking returned Ebay Items:' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((error) => {
+        reject('Error on checkIfPriceChanged');
+      })
+    })
+    .catch((error) => {
+      reject('Error looking up Ebay Products');
     })
   })
 }
@@ -177,19 +238,25 @@ let updateAmazonWatchItems = () => {
   return new Promise((resolve, reject) => {
     getProductsFromCollection('amazon')
     .then((amazonProducts) => {
+      let sentToAmazon = [];
       // send in batched of 10 max due to amazon api lookup limit
       while (amazonProducts.length >= 10) {
-        sendToAmazon(amazonProducts.slice(0, 9));
+        sentToAmazon.push(sendToAmazon(amazonProducts.slice(0, 9)));
         amazonProducts.splice(0, 9);
       }
       if (amazonProducts.length > 0) {
-        sendToAmazon(amazonProducts);
+        sentToAmazon.push(sendToAmazon(amazonProducts));
       }
-      resolve('Sent products to amazon for look up');
+      Promise.all(sentToAmazon).then((messages) => {
+        let message = 'Sent products to amazon for look up:' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((error) => {
+        reject('Error sending to amazon');
+      })
     })
     .catch(()=> {
       reject('Error accessing Amazon Collection');
-      //workerData.push('Error accessing Amazon Collection');
     })
   }) // end promise
 }
@@ -198,19 +265,25 @@ let updateEbayWatchItems = () => {
   return new Promise((resolve, reject) => {
     getProductsFromCollection('eBay')
     .then((ebayProducts) => {
+      let sentToEbay = [];
       // send in batched of 10 max due to ebay api lookup limit
       while (ebayProducts.length >= 10) {
-        sendToEbay(ebayProducts.slice(0, 9));
+        sentToEbay.push(sendToEbay(ebayProducts.slice(0, 9)));
         ebayProducts.splice(0, 9);
       }
       if (ebayProducts.length > 0) {
-        sendToEbay(ebayProducts);
+        sentToEbay.push(sendToEbay(ebayProducts));
       }
-      resolve('sent products to ebay for look up');
+      Promise.all(sentToEbay).then((messages) => {
+        let message = 'Sent products to ebay for look up:' + JSON.stringify(messages);
+        resolve(message);
+      })
+      .catch((error) => {
+        reject('Error sending to ebay');
+      })
     })
     .catch(() => {
       reject('Error accessing ebay collection');
-      //workerData.push('Error accessing ebay collection');
     })
   }) // end promise
 }
@@ -228,6 +301,9 @@ exports.watchListWorker = (req, res) => {
     Promise.all(workers).then((messages) => {
       workerData.push(messages)
       res.send(JSON.stringify(workerData));
+    })
+    .catch((error) => {
+      res.send(JSON.stringify(error));
     })
   }
 }
