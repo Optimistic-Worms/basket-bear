@@ -32,6 +32,29 @@ class ShoppingList extends React.Component {
 
   sortItems(array){
     array.sort(function(a,b) {
+      if (a.currentPrice === 'Item No Longer Available') {
+        return 1;
+      }
+      if (Number(a.currentPrice) < Number(a.watchPrice)) {
+      // both are below watch price
+        if (Number(b.currentPrice) < Number(b.watchPrice)) {
+          if (Number(a.currentPrice) < Number(b.currentPrice)) {
+            return -1;
+          }
+          if (Number(a.currentPrice) > Number(b.currentPrice)) {
+            return 1;
+          }
+          return 0;
+        }
+        //only a is below watch price
+        return -1;
+      }
+
+      //only b is below watch price
+      if (Number(b.currentPrice) < Number(b.watchPrice)) {
+        return 1;
+      }
+
       if (Number(a.currentPrice) < Number(b.currentPrice)) {
         return -1;
       }
@@ -39,6 +62,7 @@ class ShoppingList extends React.Component {
         return 1;
       }
       return 0;
+
     })
   }
 
@@ -51,6 +75,17 @@ class ShoppingList extends React.Component {
           var itemsObj = response.data;
           var itemsArr = [];
           for (var i in itemsObj) {
+            if (itemsObj[i].currentPrice === 'Item No Longer Available') {
+              itemsObj[i].available = false;
+            } else {
+              itemsObj[i].available = true;
+            }
+
+            if (itemsObj[i].currentPrice < itemsObj[i].watchPrice) {
+              itemsObj[i].alert = true;
+            } else {
+              itemsObj[i].alert = false;
+            }
             itemsArr.push(itemsObj[i]);
           }
           if (itemsArr.length < 1) {

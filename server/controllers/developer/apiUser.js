@@ -3,10 +3,13 @@ const encrypt = require('../../helpers/encryption.js');
 const Promise = require('bluebird');
 
 exports.addUser = (req, res) => {
+  //console.log('adding user')
   exports.findByEmail(req.body.email, (err, userRef, userData) => {
     if (userRef) {
-      res.status(400).send(`An account with email: ${req.body.email} already exists`);
+      console.log('found user')
+      res.send({error: `An account with email: ${req.body.email} already exists`});
     } else {
+      console.log('adding user')
       encrypt.createHash(req.body.password)
       .then((hashed) => {
         db.collection('apiUsers').add({
@@ -17,7 +20,7 @@ exports.addUser = (req, res) => {
         .then(ref => {
           exports.generateNewClientSecret(ref.id)
           .then((secret) => {
-            res.send(`added user with id: ${ref.id} and secret: ${secret}`);
+            res.send({id: ref.id, secret: secret});
           });
         })
         .catch(err => console.log(err));

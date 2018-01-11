@@ -186,7 +186,7 @@ class PushNotification2 extends React.Component {
         <h2>Device notification settings</h2>
         <span className="settings-push-message">{this.state.messages}</span>
         <div className="settings-push-update" >
-          Update push notification settings
+          <p>Update push notification settings</p>
                   <button className={ (this.state.isSubscribed)? "button button--remove button--remove-settings" :"button button-settings"   }
           onClick={(e)=>this.pushButtonListener()}
           disabled={this.state.pushButtonDisabled}

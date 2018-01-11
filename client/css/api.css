@@ -98,6 +98,7 @@
   justify-content: center;
   width: 75%;
   font-weight: 300;
+  margin: 1em auto .5em;
 }
 
 .intro-card--api {
@@ -176,8 +177,8 @@
     font-size: 85%;
   }
   .intro-card--api h1 {
-    font-size: 1.3em;
     width: 100% !important;
+    margin: 1em auto;
   }
   .intro-card--api h4 {
     font-size: 1em;
@@ -197,6 +198,9 @@
     width: 95%;
     margin: 1em auto .1em;
     padding-top: 0 !important;
+  }
+  .hometout-wrapper-api {
+    margin: -.5em auto 1em;
   }
 
 }

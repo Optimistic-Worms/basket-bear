@@ -8,7 +8,7 @@
   color: #fff;
   align-items: center;
   justify-content: center;
-  background-image: url('./bear-min.jpg');
+  background-image: url('./bear_min.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   height: 28em;
@@ -63,7 +63,6 @@
   margin: 0.8em auto 0;
   height: 2.75em;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px, rgba(0, 0, 0, 0.1) 0px 1px 4px;
-  animation: bounceIn 2s;
 
 }
 
@@ -78,7 +77,7 @@ input.search-form:focus {
 
 .search-form {
   width: 100%;
-  border: 1px solid #dadada;
+  border: none;
   height: inherit;
   border-top-left-radius: .25rem;
   border-bottom-left-radius: .25rem;
@@ -98,11 +97,11 @@ select.search-selection:focus {
 }
 
 .search-button {
-  width: 5%;
+  width: 8%;
   height: inherit;
-  border: 1px solid #dadada;
+  border: none;
   padding: 0;
-  background: #E0E0E0;
+  background: #fff;
   margin-right: .2em;
   font-size: .8em;
   border-top-right-radius: .25rem;
@@ -110,6 +109,10 @@ select.search-selection:focus {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   -webkit-appearance: none;
+}
+
+.search-button a {
+  color: #424242;
 }
 
 .search-button:hover {
@@ -195,13 +198,18 @@ button.search-button:focus {
   line-height: 1.3em;
 }
 
+.results h4 {
+  margin: .5em auto;
+  font-size: .8em;
+}
+
 
 /** Media Queries **/
 
 @media (max-width:520px) {
 
     .intro-card {
-      background-image: url('./bear-min-M.jpg');
+      background-image: url('./bear_min_M.jpg');
       justify-content: flex-end;
       height: 22em;
     }
@@ -214,7 +222,18 @@ button.search-button:focus {
   }
 
   .search-button {
-    width: 10%;
+    width: 15%;
+    height: inherit;
+    border: 1px solid #dadada;
+    padding: 0;
+    background: #E0E0E0;
+    margin-right: .2em;
+    font-size: .8em;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    -webkit-appearance: none;
   }
 
   .search-form {
@@ -226,6 +245,17 @@ button.search-button:focus {
         width: 100%;
         justify-content: center;
   }
+
+    .search-form {
+      width: 100%;
+      border: 1px solid #dadada;
+      height: inherit;
+      border-top-left-radius: .25rem;
+      border-bottom-left-radius: .25rem;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      -webkit-appearance: none;
+    }
 
 }
 

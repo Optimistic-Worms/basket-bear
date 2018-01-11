@@ -15,7 +15,7 @@ import PriceLookup from './user/priceLookup.js';
 import Developer from './developer/Developer.jsx';
 
 class Home extends React.Component {
-    constructor() {
+  constructor() {
     super();
     this.state = {
       logged: 'LOGIN',
@@ -36,14 +36,11 @@ class Home extends React.Component {
         this.setState({isLoggedIn : true});
         this.setState({logged:'LOGOUT'});
         firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-          console.log('Just got auth token. Loading shopping list prices');
-          //console.log(idToken)
           PriceLookup.updateListPrices(idToken);
-          PriceLookup.updateListPrices(idToken, user);
         })
         .catch((error) => {
           this.setState({logged:'LOGIN'});
-          console.log(error);
+          console.error(error);
         });
       } else {
         this.setState({isLoggedIn : false});
@@ -61,30 +58,28 @@ class Home extends React.Component {
 
   render() {
     return (
-          <div>
-              <Route path='/' render={(props) => {
-                 return (
-                <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>)
-              }
-
-              }/>
-
-              <Route exact path="/" component={Search}/>
-              <Route path="/login" component={LoginCard}/>
-              <Route path="/settings" component={Settings}/>
-              <Route path="/about" component={About}/>
-              <Route path="/watchList" component={ShoppingList}/>
-              <Route path="/terms" component={TermsAndConditions}/>
-
-              {
-                !this.state.isLoggedIn &&
-                <Route exact path="/" component={JoinHomeTout}/>
-              }
-              <Route exact path='/' render={(props) => (
-                <Footer history={props.history}/>
-              )}/>
-        </div>
-  )
+      <div>
+        <Route path= '/' render={(props) => {
+          return (
+            <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
+            )
+          }
+        }/>
+        <Route exact path="/" component={Search}/>
+        <Route path="/login" component={LoginCard}/>
+        <Route path="/settings" component={Settings}/>
+        <Route path="/about" component={About}/>
+        <Route path="/watchList" component={ShoppingList}/>
+        <Route path="/terms" component={TermsAndConditions}/>
+        {
+          !this.state.isLoggedIn &&
+          <Route exact path="/" component={JoinHomeTout}/>
+        }
+        <Route exact path='/' render={(props) => (
+          <Footer history={props.history}/>
+        )}/>
+      </div>
+    )
   }
 }
 
