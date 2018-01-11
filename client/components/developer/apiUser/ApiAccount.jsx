@@ -1,4 +1,5 @@
 import React from 'react';
+import ClientSecret from './ClientSecret.jsx';
 
 class ApiAccount extends React.Component {
   constructor(props) {
@@ -24,21 +25,6 @@ class ApiAccount extends React.Component {
 
   render() {
 
-    const secret = (
-      <div>
-        <div>{this.props.secret}</div>
-        <div>NOTE: You will have access to the client secret after you log out</div>
-      </div>
-      );
-
-    const hiddenSecret = (
-      <div>
-        <div>*******</div>
-        <div>Reset Secret</div>
-        <div>NOTE: Your client secret is hidden and will need to be reset</div>
-      </div>
-      );
-
     return (
       this.state.userObj &&
       <div className="settings-card">
@@ -54,10 +40,7 @@ class ApiAccount extends React.Component {
           <h3>Client ID</h3>
           <div>{this.state.userObj.clientId}</div>
           <h3>Client Secret</h3>
-          <div className="client-secret">{
-            this.props.secret ? this.props.secret :
-            '*******'
-          }</div>
+         <ClientSecret secret={this.props.secret} setSecret={this.props.setSecret}/>
         </div>
         </div>
         <div></div>

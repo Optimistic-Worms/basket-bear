@@ -49,7 +49,6 @@ class Developer extends React.Component {
   }
 
   setSecret(secret) {
-    console
     this.setState({secret: secret});
   }
 
