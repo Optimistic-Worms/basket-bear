@@ -12,7 +12,7 @@ deploy:
       secure: ${AWS_SECRET_ACCESS_KEY}
     region: us-east-1
     app: basket
-    env: basket-stage
+    env: basket-stage.us-east-1.elasticbeanstalk.com
     bucket_name: elasticbeanstalk-us-east-1-767596259046
     on:
       condition: "$TRAVIS_PULL_REQUEST == 'false'"
@@ -26,5 +26,3 @@ deploy:
     bucket_name: elasticbeanstalk-us-east-1-767596259046
     on:
       condition: "$TRAVIS_EVENT_TYPE == 'cron'"
-notifications:
-  slack: rpt-students:VNPivwk0lXHNWgImdYw6EzWW
