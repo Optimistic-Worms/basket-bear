@@ -19,12 +19,12 @@ const ClientSecret = (props) => {
   props.secret ?
     <div>
       <div>{props.secret}</div>
-      <div>Store your Client Secret in a safe place. You will not be able to retrieve your client secret after you log out. If you lose your Client Secret you can reset it</div>
+      <p>Store your Client Secret in a safe place. You will not be able to retrieve your client secret after you log out. If you lose your Client Secret you can reset it</p>
     </div>
     :
     <div>
       <div>*********</div>
-      <div>If you lost your Client Secret you must reset it</div>
+      <p>If you have lost your Client Secret you can reset it</p>
     </div>
   }
    <div className="button button--remove"
