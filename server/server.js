@@ -49,8 +49,9 @@ const push = require('./controllers/pushNotifications');
 // const newVapidKeys = webPush.generateVAPIDKeys();
 // console.log(newVapidKeys)
 /* Notification */
-const notificationWorker =  require('./controllers/notificationWorker')
-
+const notificationWorker =  require('./controllers/notificationWorker');
+/* Check disposable email*/
+const checkEmail = require('./controllers/disposableEmailList');
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -90,6 +91,13 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   console.log('hit the 200')
   res.sendStatus(200);
 });
+
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Check for disposable email
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+  app.get('/checkemail', checkEmail.check)
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
