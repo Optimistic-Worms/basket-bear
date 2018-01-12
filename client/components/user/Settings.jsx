@@ -92,8 +92,13 @@ class Settings extends React.Component {
 		     	axios.get(`/userSettings?access_token=${idToken}`)
 			     	.then((result)=>{
 			     		let emailList = result.data;
+              let firstEmail = emailList[0].email;
+              let defaultEmail = user.email;
+              if(firstEmail !== defaultEmail){
+                emailList.unshift({ email:defaultEmail, status:false })
+              }
+              console.log(emailList)
 		     	    this.setState({emailList:emailList})
-
 		     	})
 	      })
       }
