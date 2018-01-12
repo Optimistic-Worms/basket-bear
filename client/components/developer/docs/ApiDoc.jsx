@@ -15,6 +15,7 @@ class ApiDoc extends React.Component {
     return (
       <BrowserRouter>
         <div className="api-doc">
+        <div className="sticky">
           <div className="api-doc-nav">
                 <h3>Contents</h3>
             <NavLink to="/dev/docs/start" activeClassName="selected">
@@ -26,6 +27,7 @@ class ApiDoc extends React.Component {
             <NavLink to="/dev/docs/endpoints" activeClassName="selected">
             <h5>API Endpoint Reference</h5>
             </NavLink>
+          </div>
           </div>
           <Route exact path="/dev/docs/start" component={GettingStarted}/>
           <Route path="/dev/docs/authorization" component={AuthorizationGuide}/>
