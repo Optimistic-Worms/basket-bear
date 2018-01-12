@@ -31,7 +31,11 @@ const EmailPreferences = (props) => {
               onChange={(e) =>{props.OnOffForEmail(e,item.email)}}/>
             </label>
             <div>
-              <button className="button button--remove button--remove-settings" onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>
+            {(index !== 0)?
+                <button className="button button--remove button--remove-settings" onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>
+                :
+                <span>Default</span>
+            }
                 </div>
             </div>
           </div>
