@@ -16,7 +16,7 @@ class About extends React.Component {
       <div className="about intro-card">
         <h1>OPTIMISTIC WORMS</h1>
         <button className="button button-about">
-          <a href="#about">About us</a>
+          <a href="#developers">About us</a>
         </button>
       </div>
 
@@ -31,7 +31,9 @@ class About extends React.Component {
 
           </div>
         </div> */}
-        <div id="about" className="about-profile">
+        <div id="developers">
+          <h1>DEVELOPERS</h1>
+        <div className="about-profile">
           <img src="http://i.imgur.com/Q4vpATV.png" className="profile-image"></img>
 
           <div className="about-paragraph">
@@ -70,6 +72,7 @@ class About extends React.Component {
           </div>
 
         </div>
+      </div>
 
       </div>)
 
