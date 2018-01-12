@@ -176,6 +176,15 @@
 .loading-spacer {
   padding: 4em 0 4em 0;
 }
+
+.selected h5 {
+ font-weight: 900;
+
+}
+
+.api-doc-nav * {
+  font-weight: 300;
+}
 /** Media Queries **/
 
 @media (max-width:768px) {
