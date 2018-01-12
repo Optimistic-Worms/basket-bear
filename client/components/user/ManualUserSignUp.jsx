@@ -1,7 +1,8 @@
 import React from 'react';
 import firebase from 'firebase';
+import axios from 'axios';
 
-class ManualUser extends React.Component {
+class ManualUserSignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -13,7 +14,6 @@ class ManualUser extends React.Component {
     this.handleUsername = this.handleUsername.bind(this);
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
-
   }
 
   handleUsername(event) {
@@ -23,19 +23,30 @@ class ManualUser extends React.Component {
   handlePassword(event) {
     this.setState({password: event.target.value});
   }
-
+  
 
   handleSignup(event) {
-    event.preventDefault();
-    firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password)
+    event.preventDefault(); 
+    axios.get('/checkemail?email='+this.state.username+'&auth=noBadMail').then( result =>{
+      if(!result.data){
+          firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
-        console.log(value);
         this.setState({ messages: `A verification email has been sent to: ${event.target.value.email}` });
       })
       .catch((error) => {
         this.setState({ messages: `ERROR: ${error.message}` });
       });
+      } else {
+        this.setState({ messages: `ERROR:  Cannot use this type of web mail` });
+      }
+    }).catch(error =>{
+      this.setState({ messages: `ERROR: ${error.message}` });
+    })
+
+
+
   }
+
   render() {
     return (
       <div>
@@ -75,4 +86,4 @@ class ManualUser extends React.Component {
     );
   }
 }
-export default ManualUser;
+export default ManualUserSignUp;
