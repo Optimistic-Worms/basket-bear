@@ -6,9 +6,6 @@ import EndpointReference from './EndpointReference.jsx';
 
 class ApiDoc extends React.Component {
 
-  componentDidMount() {
-  }
-
   render() {
     return (
       <BrowserRouter>
