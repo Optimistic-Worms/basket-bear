@@ -111,7 +111,7 @@ body {
   display: flex;
   flex-flow: row wrap;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 90%;
 }
 
@@ -222,6 +222,10 @@ body {
 }
 
 @media (max-width:768px) {
+
+  p {
+    font-weight: 300 !important;
+  }
   h3 {
     font-size: 1em;
   }

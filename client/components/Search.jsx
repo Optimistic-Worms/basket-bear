@@ -24,6 +24,12 @@ class Search extends React.Component {
     this.parseAmazonResults = this.parseAmazonResults.bind(this);
   }
 
+  componentDidMount() {
+    window.scrollTo(0,0);
+  }
+
+
+
   search() {
     if (this.state.queryString !== '') {
       this.setState({searchMessage: ''});
@@ -47,6 +53,7 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
+      window.scrollTo(0,500);
       var items = response.data;
       this.setState({ebaySearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);
@@ -79,6 +86,7 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
+      window.scrollTo(0,400);
       let searchResults = response.data.ItemSearchResponse.Items[0].Item;
       let items = this.parseAmazonResults(searchResults);
       this.setState({amazonSearchItems: items});

@@ -23,7 +23,8 @@ const ShoppingListItem = (props) => {
 
 
         </div>
-        { props.item.alert && <p className="current-price-dollar">This item's current price has dropped below your watch price. Buy Now!</p>}
+
+        { props.item.alert && <p className="price-alert">This item's current price has dropped below your watch price. Buy Now!</p>}
 
         </div>
       <div className="button-wrapper button-wrapper--watch">

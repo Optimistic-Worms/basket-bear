@@ -59,6 +59,25 @@
   margin: 0 auto 1.5em;
 }
 
+.about-profile {
+  display: flex;
+  width: 70%;
+  flex-direction: row;
+  margin: 2em auto;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #dadada;
+}
+
+.profile-image {
+  width: 8em;
+  height: 8em;
+  border-radius: 50%;
+  border: 1px solid #dadada;
+  margin: 0 2em;
+}
+
 .button-about {
   height: 3em;
   background: transparent;
@@ -80,6 +99,31 @@
   text-transform: uppercase;
 }
 
+#developers {
+  display: flex;
+  width: 100%;
+  margin: 0 auto;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+#developers h1 {
+    margin-top: 2em;
+    border-bottom: 1px dashed #dadada;
+    font-weight: 100;
+}
+
 @media (max-width:600px) {
+  .about-profile {
+    display: flex;
+    width: 95%;
+    flex-direction: column;
+    margin: 1em auto;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #dadada;
+    text-align: center;
+  }
 
 }
