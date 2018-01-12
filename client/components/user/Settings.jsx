@@ -12,9 +12,11 @@ class Settings extends React.Component {
       name: '',
       newName: '',
       emailList: [],
+      defaultEmail: {email:'j_allshorn@hotmail.com',status:true},
       newEmail: 'email',
+      loading: true,
       messages: '',
-      verifiedUser: false,
+      verifiedUser: true,
       userEmail: ''
 
     };
@@ -37,6 +39,7 @@ class Settings extends React.Component {
         let userEmail = user.email;
         this.setState({verifiedUser})
         this.setState({userEmail})
+        this.setState({loading: false})
         this.getEmailNotificationPreferences()
 	      let name = user.displayName;
 	    	(name)? this.setState({name:name}): this.setState({name:''})
@@ -90,6 +93,7 @@ class Settings extends React.Component {
 			     	.then((result)=>{
 			     		let emailList = result.data;
 		     	    this.setState({emailList:emailList})
+
 		     	})
 	      })
       }
@@ -168,6 +172,11 @@ class Settings extends React.Component {
   render(){
     // Check to see if the users is verified. 
     // if they are verified display setting else display verification option.
+    if(this.state.loading){
+    return (
+      <div></div>
+    )
+    }
     if(!this.state.verifiedUser){
       return(
       <div className="settings-card">
@@ -191,11 +200,8 @@ class Settings extends React.Component {
       )
     } else {
   return (
-    <div className="settings-card">
-      
-
+    <div className="settings-card">    
       <h2 className="login-header">Account Settings</h2>
-
       <div className="settings-layout">
 	      <div>
 		      <h3>Username:</h3>
