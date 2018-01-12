@@ -14,6 +14,7 @@ class ManualUser extends React.Component {
     this.handlePassword = this.handlePassword.bind(this);
     this.handleSignup = this.handleSignup.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+    this.handleForgottenPassword = this.handleForgottenPassword.bind(this);
   }
 
   handleUsername(event) {
@@ -24,12 +25,30 @@ class ManualUser extends React.Component {
     this.setState({password: event.target.value});
   }
 
+  handleForgottenPassword(event){
+    let that = this
+    var auth = firebase.auth();
+    console.log(auth)
+    var emailAddress = this.state.username;
+    var actionCodeSettings = {
+    url: "https:\//basketbear.com/login"
+    };
+    auth.sendPasswordResetEmail(emailAddress, actionCodeSettings).then(function() {
+  // Email sent.
+    that.setState({ messages: `Email Sent` })
+    }).catch(function(error) {
+  // An error happened.
+    console.log(error)
+    that.setState({ messages: error.message })
+    })
+  }
+
   handleLogin(event) {
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
-        console.log(value.uid);
-        console.log(this.props.history)
+      //  console.log(value.uid);
+      //  console.log(this.props.history)
         this.props.history.push('/');
       })
       .catch(error => this.setState({ messages: `ERROR: ${error.message}` }));
@@ -81,7 +100,10 @@ class ManualUser extends React.Component {
           <div className="toggle-login" onClick={this.props.toggleView}>
             <a>New to Basket Bear? Sign up for an account</a>
           </div>
-          </form>
+          <div className="toggle-login" onClick={ this.handleForgottenPassword}>
+            <a>Forgot password?</a>
+          </div>
+          </form>          
           </div>
     );
   }
