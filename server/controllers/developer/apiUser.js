@@ -5,7 +5,7 @@ const Promise = require('bluebird');
 exports.addUser = (req, res) => {
   exports.findByEmail(req.body.email, (err, userRef, userData) => {
     if (userRef) {
-      res.status(400).send(`An account with email: ${req.body.email} already exists`);
+      res.send({error: `An account with email: ${req.body.email} already exists`});
     } else {
       encrypt.createHash(req.body.password)
       .then((hashed) => {
@@ -17,7 +17,7 @@ exports.addUser = (req, res) => {
         .then(ref => {
           exports.generateNewClientSecret(ref.id)
           .then((secret) => {
-            res.send(`added user with id: ${ref.id} and secret: ${secret}`);
+            res.send({id: ref.id, secret: secret});
           });
         })
         .catch(err => console.log(err));
@@ -52,21 +52,18 @@ exports.findByClientId = (clientId, callback) => {
   });
 };
 
-exports.generateNewClientSecret = (clientId) => {
+exports.generateNewClientSecret = (req, res) => {
   const secret = encrypt.generateSecret(24);
-  return new Promise((resolve, reject) => {
     encrypt.createHash(secret)
     .then(hashed => {
-      db.collection('apiUsers').doc(clientId).update({
+      db.collection('apiUsers').doc(req.user.id).update({
         clientSecret: hashed
       })
       .then(() => {
-        console.log('updated secret to: ', secret);
-        resolve(secret);
+       res.send(secret);
       })
-      .catch(err => reject(err));
+      .catch(err => res.status(400).send(err));
     });
-  });
 };
 
 exports.getNewClientSecret = (req, res) => {

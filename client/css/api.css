@@ -109,7 +109,7 @@
 
 .intro-card--api {
   background-image: none;
-  background: #E0E0E0;
+  background: #c9ddfc;
   color: #000;
   height: 18em;
 }
@@ -169,6 +169,13 @@
   margin: 2em auto 2em auto;
 }
 
+.reset {
+  margin-bottom: 1em;
+}
+
+.loading-spacer {
+  padding: 4em 0 4em 0;
+}
 /** Media Queries **/
 
 @media (max-width:768px) {
