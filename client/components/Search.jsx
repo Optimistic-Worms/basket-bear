@@ -53,6 +53,7 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
+      window.scrollTo(0,500);
       var items = response.data;
       this.setState({ebaySearchItems: items});
       var combinedItems = items.concat(this.state.searchItems);
@@ -85,6 +86,7 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
+      window.scrollTo(0,500);
       let searchResults = response.data.ItemSearchResponse.Items[0].Item;
       let items = this.parseAmazonResults(searchResults);
       this.setState({amazonSearchItems: items});
