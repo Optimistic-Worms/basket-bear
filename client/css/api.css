@@ -181,6 +181,10 @@
   padding: 4em 0 4em 0;
 }
 
+.endpoint {
+  color: #C62828;
+}
+
 /** Media Queries **/
 
 @media (max-width:768px) {
