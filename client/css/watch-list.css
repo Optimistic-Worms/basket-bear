@@ -110,13 +110,11 @@ input.watch-form:focus {
   color: #2c662d;
   border: 1px solid #2c662d;
   position: relative;
-  min-height: 1em;
-  margin: 1em 0;
-  padding: 1em 1.5em;
-  line-height: 1.5;
+  padding: .6em 0;
   -webkit-transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
-  border-radius: .25;
+  border-radius: .25em;
+  width: 90%;
 }
 
 /** Media Queries **/
