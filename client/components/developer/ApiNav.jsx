@@ -18,7 +18,7 @@ const ApiNav = (props) => (
 	        </Link>
 	    </li>
       <li>
-          <Link to="/dev/docs">
+          <Link to="/dev/docs/start">
             <span className="desktop-show">Docs</span>
             <span className="mobile-show col">
 				    	<i className="fa fa-book" aria-hidden="true"></i>Docs

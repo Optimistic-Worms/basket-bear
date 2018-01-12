@@ -71,7 +71,6 @@
 .api-doc-nav a {
   text-decoration: none !important;
   color: #414141 !important;
-  font-weight: 200;
 }
 
 .api-doc-nav h5:hover {
@@ -81,7 +80,7 @@
 
 .api-doc-nav h5 {
   margin-top: -.5em;
-  font-weight: 200;
+  font-weight: 300;
 }
 
 .selected h5 {
