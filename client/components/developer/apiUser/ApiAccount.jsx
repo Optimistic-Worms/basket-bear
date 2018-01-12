@@ -46,7 +46,10 @@ class ApiAccount extends React.Component {
               <h3>Client ID</h3>
               <div>{this.state.userObj.clientId}</div>
               <h3>Client Secret</h3>
-              {this.state.resetting ? <div>Resetting Secret...</div> :
+              {this.state.resetting ?
+                <div className="loading-spacer">
+                <h4>Resetting Secret...</h4>
+                </div> :
                 <ClientSecret
                 secret={this.props.secret}
                 setSecret={this.props.setSecret}
