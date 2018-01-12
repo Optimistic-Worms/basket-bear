@@ -103,7 +103,7 @@ const EndpointReference = () => (
     },
     etc...]`}
           </div>
-          <p>The response is an array of prpoducts containing information about each product that includes the Amazon or Ebay product ID which can be used to target a single product on the same endpoint as shown below</p>
+          <p>The response is an array of products, each of which include an Amazon or Ebay product ID as well as price information. The product ID can be used to target a single product on the same endpoint as shown below</p>
           <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
           <p><b>The request can contain optional query parameters for product ID and product Name</b></p>
         <table className="param">
@@ -118,7 +118,7 @@ const EndpointReference = () => (
             </tr>
           </tbody>
         </table>
-         <p>A GET request is sent to the /api/products endpoint with an id parameter:</p>
+         <p>A GET request is sent to the /api/products endpoint with an ID parameter:</p>
          <div className="snippet">{`GET http://budgetbasket.com/api/products/?id=<PRODUCT_ID>`}</div>
 
           <div>For Example:</div>
@@ -148,7 +148,7 @@ const EndpointReference = () => (
     "average_requested_price": 6.1175
 }`}
           </div>
-          <p>Using the id parameter performs a constant time hash key lookup for the product and is much more efficient than looking up a product by name. Use the id parameter if the product ID is known and fast or frequent lookups are needed. The ID for a product can be retrieved by using the search endpoint or the name parameter described below</p>
+          <p>Using the ID parameter performs a constant time hash key lookup for the product and is much more efficient than looking up a product by name. Use the ID parameter if the product ID is known and fast or frequent lookups are needed. The ID for a product can be retrieved by using the search endpoint or the name parameter described below</p>
 
           <table className="param">
             <tbody>

@@ -36,8 +36,6 @@ passport.use('clientBasic', new BasicStrategy((clientId, clientSecret, cb) => {
 
 //for token verification after successful client credentials grant
 passport.use('accessToken', new BearerStrategy((accessToken, cb) => {
-  console.log('Token Strategy')
-  console.log(accessToken)
   authToken.findByValue(accessToken, (err, tokenRef, tokenData) => {
     if (err) {
       console.log('token error')
@@ -83,6 +81,7 @@ exports.authenticateClient = (req, res, next) => {
 
 exports.authenticateToken = (req, res, next) => {
   passport.authenticate('accessToken', {session: false}, (err, user, info) => {
+    //console.log('authenticating')
     if (err) {
       console.log('error: ', err)
       res.send(err);
