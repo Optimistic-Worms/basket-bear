@@ -68,7 +68,6 @@
 }
 
 .api-doc h3 {
-  font-weight: 500;
   color: #C62828;
 }
 .api-doc-intro h3 {
@@ -87,6 +86,11 @@
 
 .api-doc-nav h5 {
   margin-top: -.5em;
+  font-weight: 300;
+}
+
+.selected h5 {
+  font-weight: 900;
 }
 
 .api-doc-intro {
@@ -184,6 +188,11 @@
 .loading-spacer {
   padding: 4em 0 4em 0;
 }
+
+.endpoint {
+  color: #C62828;
+}
+
 /** Media Queries **/
 
 @media (max-width:768px) {

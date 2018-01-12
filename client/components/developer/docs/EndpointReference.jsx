@@ -9,8 +9,8 @@ const EndpointReference = () => (
       <h2>Endpoints</h2>
       <div >
       </div>
-      <h3>/search</h3>
-      <div>A GET request to the /search endpoint returns a json array populated with 20 products from Amazon and Ebay that match a search term provided in a request paramater</div>
+      <h2 className="endpoint">/search</h2>
+      <p>A GET request to the /search endpoint returns a json array populated with 20 products from Amazon and Ebay that match a search term provided in a request paramater</p>
       <p>A GET request is sent to the /api/search endpoint:</p>
       <div className="snippet">GET http://budgetbasket.com/api/search</div>
       <div>The request must contain a query paramater with the search term</div>
@@ -59,11 +59,12 @@ const EndpointReference = () => (
         "currentPrice": "7.99"
     },
     etc...
-]`}</div>
+]`}
+    </div>
+      <p>The results are ordered by price with the lowest first. The Amazon or Ebay product ID can be obtained from the results and used for requests to the /products endpoint as described below</p>
 
-
-      <h3>/products</h3>
-      <div>A GET request to the /products endpoint returns a json array containing data for the 100 most popular items in our product database. The popularity is measured by how many users have added the product to their shopping list</div>
+      <h2 className="endpoint">/products</h2>
+      <p>A GET request to the /products endpoint returns a json array containing data for the 100 most popular items in our product database. The popularity is measured by how many users have added the product to their shopping list</p>
       <p>A GET request is sent to the /api/products endpoint:</p>
       <div className="snippet">GET http://budgetbasket.com/api/products</div>
 
