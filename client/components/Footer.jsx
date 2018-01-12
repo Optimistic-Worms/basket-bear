@@ -16,9 +16,7 @@ const Footer = (props) => (
     Terms of Use
     </Link>
     </div>
-    <div className="footer-developer">
       <p className="footer-link" onClick={() => props.history.push('/dev')}><i className="fa fa-shopping-basket" aria-hidden="true"></i> Basket Bear Developers</p>
-    </div>
   </footer>
 )
 
