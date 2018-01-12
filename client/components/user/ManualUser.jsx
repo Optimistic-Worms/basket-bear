@@ -34,11 +34,8 @@ class ManualUser extends React.Component {
     url: "https:\//basketbear.com/login"
     };
     auth.sendPasswordResetEmail(emailAddress, actionCodeSettings).then(function() {
-  // Email sent.
     that.setState({ messages: `Email Sent` })
     }).catch(function(error) {
-  // An error happened.
-    console.log(error)
     that.setState({ messages: error.message })
     })
   }
@@ -47,8 +44,6 @@ class ManualUser extends React.Component {
     event.preventDefault();
     firebase.auth().signInWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
-      //  console.log(value.uid);
-      //  console.log(this.props.history)
         this.props.history.push('/');
       })
       .catch(error => this.setState({ messages: `ERROR: ${error.message}` }));
@@ -56,6 +51,7 @@ class ManualUser extends React.Component {
 
   handleSignup(event) {
     event.preventDefault();
+    console.log('Here it is')
     firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
         console.log(value);
