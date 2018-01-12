@@ -222,6 +222,10 @@ body {
 }
 
 @media (max-width:768px) {
+
+  p {
+    font-weight: 300 !important;
+  }
   h3 {
     font-size: 1em;
   }
