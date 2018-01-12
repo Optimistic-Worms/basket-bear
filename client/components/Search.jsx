@@ -86,7 +86,7 @@ class Search extends React.Component {
       }
     })
     .then((response) => {
-      window.scrollTo(0,500);
+      window.scrollTo(0,400);
       let searchResults = response.data.ItemSearchResponse.Items[0].Item;
       let items = this.parseAmazonResults(searchResults);
       this.setState({amazonSearchItems: items});
