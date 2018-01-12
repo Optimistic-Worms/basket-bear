@@ -9,7 +9,8 @@ const ClientSecret = (props) => {
         headers: {'Authorization': `Bearer ${props.token}`}
       })
       .then(data => {
-        props.setSecret(data.data)
+        props.setSecret(data.data);
+        props.toggleView();
       })
       .catch(err => console.log(err));
   }
@@ -27,8 +28,11 @@ const ClientSecret = (props) => {
       <p>If you have lost your Client Secret you can reset it</p>
     </div>
   }
-   <div className="button button--remove"
-     onClick={getNewSecret}
+   <div className="button button--remove reset"
+     onClick={() => {
+        props.toggleView();
+        getNewSecret();
+     }}
    >Reset Secret</div>
   </div>
   )
