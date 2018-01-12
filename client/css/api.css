@@ -13,6 +13,7 @@
 .api-nav * {
   text-decoration: none;
   color: white;
+  background: #212121;
 }
 
 .developer button {
@@ -104,18 +105,20 @@
   justify-content: center;
   width: 75%;
   font-weight: 500;
+  font-size: 3em;
   margin: 1em auto .5em;
 }
 
 .intro-card--api {
   background-image: none;
-  background: #c9ddfc;
-  color: #000;
-  height: 18em;
+  background: #212121;
+  color: #fff;
+  height: 100vh;
 }
 
 .intro-card--api h4 {
   line-height: 1.2em;
+  font-size: 1.2em;
 }
 
 .api-doc-intro h1, .api-doc-intro h2 {

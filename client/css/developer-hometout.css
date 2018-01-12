@@ -1,5 +1,6 @@
 .developer-hometout p {
   font-weight: 100;
+  margin: 0 .5em;
 }
 
 .join-developer {
@@ -24,6 +25,10 @@
   padding: 3em 0;
   flex-direction: column;
   margin: 0 auto;
+}
+
+.join-developer-column button {
+  margin-bottom: 1em;
 }
 
 .join-developer-column:first-child {
@@ -60,7 +65,7 @@
 
 .join-developer li {
   font-weight: 100;
-  margin-bottom: .4em;
+  margin-bottom: .8em;
 }
 
 .join-developer-column h2 {
@@ -84,14 +89,10 @@
     display: grid;
     grid-template-columns: auto;
   }
-  .join-developer-column p {
-    width: 95%;
-    margin: 0 auto;
-  }
 
   .join-developer-column ul {
-    width: 99%;
-    margin: 0 auto;
+    width: 95%;
+    margin: 1em 0 0 -2em;
   }
   .join-developer-support {
     width: 90%;
@@ -99,7 +100,9 @@
   }
   .join-developer-column:first-child {
     border-right: none;
+    text-align: center;
   }
+
   .join-developer-column:last-child {
     border-left: none;
     border-right: none;
@@ -107,5 +110,6 @@
   }
   .developer-hometout .button {
     height: 2.8em;
+    margin-top: 1em;
   }
 }

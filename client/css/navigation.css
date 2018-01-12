@@ -53,7 +53,7 @@ nav .brand a:hover {
 .menu li {
   display: inline-block;
   cursor: pointer;
-  line-height: 3.3em;
+  line-height: 0;
   font-size: 1.1em;
   position: Relative;
   -webkit-transition: all 0.5s ease-out;
@@ -116,6 +116,18 @@ nav .brand a:hover {
 
   .menu li:hover {
     height: 4.2em;
+  }
+  .menu li {
+    display: inline-block;
+    cursor: pointer;
+    line-height: 3.3em;
+    font-size: 1.1em;
+    position: Relative;
+    -webkit-transition: all 0.5s ease-out;
+    -moz-transition: all 0.5s ease-out;
+    -ms-transition: all 0.5s ease-out;
+    -o-transition: all 0.5s ease-out;
+    transition: all 0.5s ease-out;
   }
 
 }
