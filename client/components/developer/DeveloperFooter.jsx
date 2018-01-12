@@ -16,11 +16,9 @@ const DeveloperFooter = (props) => (
     Terms of Use
     </Link>
     </div>
-    <div className="footer-developer">
       <Link to="/" className="footer-link">
       Back to Basket Bear
       </Link>
-    </div>
   </footer>
 )
 

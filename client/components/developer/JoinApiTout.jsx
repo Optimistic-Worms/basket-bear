@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 class JoinApiTout extends React.Component {
 
   render() {
-    return (<div className="developer-hometout">
+    return (<div id="developer-hometout" className="developer-hometout">
 
       <div className="join-developer">
         <div className="join-developer-column">
