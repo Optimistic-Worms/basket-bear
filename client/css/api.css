@@ -47,14 +47,16 @@
 .api-doc {
   display: flex;
   width: 100%;
-  flex-direction: ;
   padding: 3em 0;
   color: #000;
 }
 
+.api-doc-body * {
+  overflow: scroll;
+}
+
 .api-doc-nav {
-  position: relative;
-  width: 90%;
+  width: 30%;
   background: #fff;
   padding-left: 1.2em;
   border-left: 3px solid #C62828;
