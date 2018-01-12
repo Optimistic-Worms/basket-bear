@@ -69,7 +69,7 @@ nav .brand a:hover {
 }
 
 .menu li:hover {
-  background: #616161;
+  text-decoration: underline;
 }
 
 
