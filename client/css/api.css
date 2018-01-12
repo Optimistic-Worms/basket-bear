@@ -15,10 +15,16 @@
   color: white;
 }
 
+.developer nav {
+  background: #212121;
+}
+
 .developer button {
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 15px;
+  margin: 1em auto;
+}
+
+.intro-card--api .button-about {
+  margin-top: 2em;
 }
 
 .toggle-login {
@@ -104,18 +110,20 @@
   justify-content: center;
   width: 75%;
   font-weight: 500;
+  font-size: 4em;
   margin: 1em auto .5em;
 }
 
 .intro-card--api {
   background-image: none;
-  background: #c9ddfc;
-  color: #000;
-  height: 18em;
+  background: #212121;
+  color: #fff;
+  height: 100vh;
 }
 
 .intro-card--api h4 {
   line-height: 1.2em;
+  font-size: 1.2em;
 }
 
 .api-doc-intro h1, .api-doc-intro h2 {
@@ -186,8 +194,17 @@
   .api-doc-intro {
     font-size: 85%;
   }
+
+  .intro-card--api {
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
   .intro-card--api h1 {
     width: 100% !important;
+    font-size: 2em;
     margin: 1em auto;
   }
   .intro-card--api h4 {
