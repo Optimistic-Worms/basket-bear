@@ -10,7 +10,7 @@ class ApiAccount extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getUserData()
     .then(data => {
       this.setState({userObj: data})
@@ -28,29 +28,30 @@ class ApiAccount extends React.Component {
   render() {
 
     return (
-      this.state.userObj &&
+
       <div className="settings-card">
-        <div></div>
-        <div>
           <div className="settings-header">
             <div>{this.state.userObj.email}</div>
             <div className="button button--remove" onClick={this.handleLogout}>Logout</div>
           </div>
-          <div className="settings-layout">
-          <h3>Application Name</h3>
-          <div>{this.state.userObj.appName}</div>
-          <h3>Client ID</h3>
-          <div>{this.state.userObj.clientId}</div>
-          <h3>Client Secret</h3>
-         <ClientSecret
-            secret={this.props.secret}
-            setSecret={this.props.setSecret}
-            user={this.state.userObj}
-            token={this.props.token}
-          />
-        </div>
-        </div>
-        <div></div>
+          {this.state.userObj ?
+            <div className="settings-layout">
+              <h3>Application Name</h3>
+              <div>{this.state.userObj.appName}</div>
+              <h3>Client ID</h3>
+              <div>{this.state.userObj.clientId}</div>
+              <h3>Client Secret</h3>
+              <ClientSecret
+                secret={this.props.secret}
+                setSecret={this.props.setSecret}
+                user={this.state.userObj}
+                token={this.props.token}
+              />
+            </div> :
+            <div lassName="settings-layout">
+              <h3>Retrieving Developer Account...</h3>
+            </div>
+          }
       </div>
     )
   }
