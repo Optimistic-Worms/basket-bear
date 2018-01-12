@@ -16,6 +16,8 @@ firebase.initializeApp(config);
 module.exports = {
     isAuthenticated: (req, res, next) => {
       let idToken = req.query.access_token;
+      console.log(idToken)
+      if(idToken){
       admin.auth().verifyIdToken(idToken).then((decodedToken) => {
         req.username = decodedToken.uid;
         next();
@@ -24,6 +26,9 @@ module.exports = {
         req.username = null;
         res.sendStatus(401)
       });
+      } else {
+        res.send('not authorized')
+      }
     }
 }
 

@@ -97,7 +97,6 @@ class Settings extends React.Component {
               if(firstEmail !== defaultEmail){
                 emailList.unshift({ email:defaultEmail, status:false })
               }
-              console.log(emailList)
 		     	    this.setState({emailList:emailList})
 		     	})
 	      })
