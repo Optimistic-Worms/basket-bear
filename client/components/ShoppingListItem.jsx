@@ -13,6 +13,14 @@ class ShoppingListItem extends React.Component {
     this.setState({selecting: !this.state.selecting})
   }
 
+  formatPrice(string) {
+    if (string) {
+      return Number(string).toFixed(2);;
+    } else {
+      return '';
+    }
+  }
+
   render() {
     return (
     <div className="watch-card">
@@ -30,7 +38,8 @@ class ShoppingListItem extends React.Component {
           { !this.props.item.available &&
             <p className="current-price">This item is no longer available</p> }
 
-            <p className="current-price">Watch Price <span className="current-price-dollar">${ this.props.item && Number(this.props.item.watchPrice).toFixed(2) }</span></p>
+            <p className="current-price">Watch Price <span className="current-price-dollar">$
+            {this.props.item && this.formatPrice(this.props.item.watchPrice)}</span></p>
 
 
         </div>
