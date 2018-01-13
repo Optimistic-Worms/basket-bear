@@ -25,7 +25,7 @@ class About extends React.Component {
           <h1>Who We Are</h1>
           <div className="about-developers">
         <div className="about-profile">
-          <img src="http://i.imgur.com/Q4vpATV.png" className="profile-image"></img>
+          <img src={require ('../assets/cLai.jpg')} className="profile-image"></img>
 
           <div className="about-paragraph">
             <a target="_blank" href="https://www.linkedin.com/in/candice-t-lai/"><h3>Candice Lai</h3></a>

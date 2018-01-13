@@ -109,7 +109,7 @@ input.watch-form:focus {
   color: #2c662d;
   border: 1px solid #a3c293;
   position: relative;
-  padding: .6em 0;
+  padding: .6em .2em;
   -webkit-transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   border-radius: .25em;
