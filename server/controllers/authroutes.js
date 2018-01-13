@@ -19,10 +19,6 @@ if(process.env.NODE_ENV !== 'test'){
     cronAuth = process.env.CRON_AUTH
 }
 
-
-
-
-
 module.exports = {
     isAuthenticated: (req, res, next) => {
       let idToken = req.query.access_token;

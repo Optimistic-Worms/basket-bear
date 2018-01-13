@@ -101,99 +101,22 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   Check for disposable email
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  app.get('/checkemail', checkEmail.check)
+app.get('/checkemail', checkEmail.check)
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-  app.post('/subscribe', isAuthenticated, push.subscribe);
-  app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
+app.post('/subscribe', isAuthenticated, push.subscribe);
+app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Send Push Notification
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-
-// WARNING ROUTE ONLY SEMI PROTECTED USE FOR EXAMPLES ONLY
-
-app.get('/notify', function (req, res) {
-// get subscription from firebase.
-  let username = req.get('user');
-
-  getSubscriptionsFromDB(username).then(subs => {
-    let subscribers = []
-    for (var i in subs){
-    subscribers.push(subs[i])
-  }
-  subscribers.shift();
-  if(subscribers.length === 0 ){
-    res.status(200).send('user has no subscriptions')
-  }
-  if(req.get('auth-secret') !== process.env.AUTH_SECRET) {
-    console.log("Missing or incorrect auth-secret header. Rejecting request.");
-    res.status(401).send('Not Authorized')
-  }
-
-  let message = req.query.message || `Willy Wonka's chocolate is the best!`;
-  let clickTarget = req.query.clickTarget || `http://www.favoritemedium.com`;
-  let title = req.query.title || `Push notification received!`;
-  subscribers.forEach(pushSubscription => {
-
-  //Can be anything you want. No specific structure necessary.
-    let payload = JSON.stringify({message : message, clickTarget: clickTarget, title: title});
-   webPush.sendNotification(pushSubscription, payload).then(response => {
-      res.send(response)
-    }).catch(error => {
-    console.log(error)
-      res.status(500).send(error)
-
-    });
-  });
-
-  }).catch(error => {
-      console.log('Push Completely failed', error)
-      res.sendStatus(500)
-  })
-});
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Send Email
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-//CODE TO SEND THE INFO
-app.post('/email', (req, res) => {
-   var data = {
-    'name': req.query.name,
-    'email': req.query.email,
-    'message':req.query.message,
-    'subject': req.query.subject,
-   };
-   var options = {
-     'method' : 'post',
-     'contentType': 'application/json',
-     'payload' : data,
-     'auth': emailAuth
-   };
-   var secondScriptID = 'AKfycbxjbt4Lk4MO3rVu9vG2k3kMT4ih0RwvMr6-In25nHmN32GtGuU'
-   axios.post("https://script.google.com/macros/s/" + secondScriptID + "/exec", options).then((response)=>{
-     console.log(response.data)
-     res.sendStatus(response.status)
-   }).catch(error =>{
-     res.send(error)
-   }).catch(error =>{
-    res.send(error)
-   });
-});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Notification Worker
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/runnotifications', isCronAuthenticated, notificationWorker.notificationWorker)
-
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   User settings Routes
