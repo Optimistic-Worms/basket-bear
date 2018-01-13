@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto:100,300,500');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
 /** General CSS **/
 
 html {
@@ -76,11 +76,6 @@ body {
   padding: 1em;
   width: 90%
 }
-
-/*.card h4, h3 {
-  font-weight: 100;
-  font-size: .8em;
-}*/
 
 .product-image {
   max-width: 100%;

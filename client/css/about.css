@@ -112,7 +112,7 @@
 #developers h1 {
     margin-top: 2em;
     border-bottom: 1px dashed #dadada;
-    font-weight: 100;
+    font-weight: 300;
 }
 
 @media (max-width:600px) {

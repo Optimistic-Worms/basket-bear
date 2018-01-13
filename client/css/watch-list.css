@@ -114,7 +114,7 @@ input.watch-form:focus {
   transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   border-radius: .25em;
   width: 90%;
-  font-weight: 100;
+  font-weight: 300;
 }
 
 /** Media Queries **/

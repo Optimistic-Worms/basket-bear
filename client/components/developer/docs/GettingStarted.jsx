@@ -7,7 +7,7 @@ const GettingStarted = () => (
     </div>
     <p>Based on simple REST principles, our API endpoints return metadata in JSON format about “requested price” information directly from the our product database. The API also provides access to user-related data such as wishlist items. </p>
     <div className="api-doc-intro api-doc-intro--header">
-      <h2>Introduction</h2>
+      <h2>Overview</h2>
     </div>
     <p>This document is intended for developers who want to write applications that interact with Basket Bear. It explains basic concepts of Basket Bear and of the API itself. It also provides an overview of the different functions that the API supports.</p>
     <h3>Before you start</h3>
@@ -21,4 +21,3 @@ const GettingStarted = () => (
 );
 
 export default GettingStarted;
-
