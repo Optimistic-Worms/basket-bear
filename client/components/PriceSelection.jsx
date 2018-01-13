@@ -62,8 +62,8 @@ class PriceSelection extends React.Component {
           onClick={() => this.setPercent(25)}
           className="button button-settings">-25%</div>
         <div
-          onClick={() => this.setPercent(25)}
-          className="button button-settings">-25%</div>
+          onClick={() => this.setPercent(50)}
+          className="button button-settings">-50%</div>
       </div>
 
       {this.state.msg && <div className="price-msg">{this.state.msg}</div>}
