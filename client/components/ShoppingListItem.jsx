@@ -34,9 +34,8 @@ const ShoppingListItem = (props) => {
 
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} ><span className="desktop-show">Buy Product</span><span className="mobile-show"><i className="fa fa-shopping-cart" aria-hidden="true"></i></span></button>
       </div>
-       <button className="button" onClick= {()=>{props.openProductSettings(props.item)}}> Set Watch Price</button>
      </div>
-     <PriceSelection />
+     <PriceSelection setWatchPrice={props.setWatchPrice} item={props.item} />
    </div>
  </div>
   );
