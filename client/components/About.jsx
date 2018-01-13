@@ -16,9 +16,9 @@ class About extends React.Component {
       <div className="about intro-card">
         <h1>OPTIMISTIC WORMS</h1>
         <h3>full-stack software engineers</h3>
-        <button className="button button-about">
-          <a href="#developers">About us</a>
-        </button>
+        <a href="#developers"><button className="button button-about">
+          About us
+        </button></a>
       </div>
 
         <div id="developers">
