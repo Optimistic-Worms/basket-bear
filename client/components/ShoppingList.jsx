@@ -82,7 +82,7 @@ class ShoppingList extends React.Component {
             } else {
               itemsObj[i].available = true;
             }
-            if (itemsObj[i].currentPrice < itemsObj[i].watchPrice) {
+            if (Number(itemsObj[i].currentPrice) < Number(itemsObj[i].watchPrice)) {
               itemsObj[i].alert = true;
             } else {
               itemsObj[i].alert = false;
@@ -154,7 +154,7 @@ class ShoppingList extends React.Component {
           } else {
             itemsObj[i].available = true;
           }
-          if (itemsObj[i].currentPrice < itemsObj[i].watchPrice) {
+          if (Number(itemsObj[i].currentPrice) < Number(itemsObj[i].watchPrice)) {
             itemsObj[i].alert = true;
           } else {
             itemsObj[i].alert = false;
