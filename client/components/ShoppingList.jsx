@@ -144,12 +144,17 @@ class ShoppingList extends React.Component {
     firebase.auth().currentUser.getIdToken(true).then((idToken) => {
       axios.put(`/updateWatchPrice?access_token=${idToken}`, {
         productId: product.id,
-        watchPrice: watchPrice
+        watchPrice: watchPrice,
       })
       .then((response) => {
         var itemsObj = response.data;
         var itemsArr = [];
         for (var i in itemsObj) {
+          if (itemsObj[i].currentPrice === 'Item No Longer Available') {
+            itemsObj[i].available = false;
+          } else {
+            itemsObj[i].available = true;
+          }
           itemsArr.push(itemsObj[i]);
         }
         this.sortItems(itemsArr);
@@ -178,6 +183,7 @@ class ShoppingList extends React.Component {
       merchant: merchant,
       targetPrice: watchPrice,
       currentPrice: currentPrice,
+      available: true
     })
   }
 
