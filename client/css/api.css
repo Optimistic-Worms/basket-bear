@@ -19,7 +19,6 @@
   background: #212121;
 }
 
-
 .developer button {
   margin: 1em auto;
 }
@@ -60,17 +59,19 @@
 
 .api-doc-nav {
   display: flex;
-  width: 90%;
   background: #fff;
   flex-direction: column;
   padding-left: 1.2em;
   border-left: 3px solid #C62828;
-  margin: 2em 1em 0;
+  margin: 4em 0 0 80%;
+  float: right;
+  position: fixed;
 }
 
 .api-doc h3 {
   color: #C62828;
 }
+
 .api-doc-intro h3 {
   margin-bottom: 0.3em;
 }
@@ -104,10 +105,6 @@
 
 .api-doc-intro p {
   font-weight: 300;
-}
-
-.api-doc-body {
-  margin-left: .5em;
 }
 
 .api-doc-intro--header {
@@ -184,7 +181,10 @@
 
 .auth-flow {
   max-width: 80%;
-  margin: 2em auto 2em auto;
+  margin: 2em auto;
+  align-self: center;
+  justify-self: center;
+  display: flex;
 }
 
 .reset {
@@ -209,14 +209,15 @@
   .api-doc-intro {
     font-size: 85%;
   }
-
+  .api-doc-body {
+    order: 2;
+  }
   .intro-card--api {
     height: 100vh;
     justify-content: center;
     align-items: center;
     margin: 0 auto;
-}
-
+  }
   .intro-card--api h1 {
     width: 100% !important;
     font-size: 2em;
@@ -237,8 +238,10 @@
   }
   .api-doc-nav {
     width: 95%;
-    margin: 1em auto .1em;
+    margin: 2em auto 0;
     padding-top: 0 !important;
+    order: 1;
+    position: static;
   }
   .homejoin-developer-wrapper-api {
     margin: -.5em auto 1em;

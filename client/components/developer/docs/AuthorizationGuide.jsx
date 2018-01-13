@@ -14,7 +14,7 @@ const AuthorizationGuide = () => (
       <div >
         <h2 className="api-doc-intro api-doc-intro--header">Supported Authorization Flows</h2>
       </div>
-      <div className="api-doc-body">
+      <div className="api-doc-credential-flow">
       <h3>Client Credentials Flow</h3>
       <p>Allows your application to obtain an access token by supplying your client credentials (client ID and client secret). This flow is used in server-to-server authentication and should NOT be used for single page apps in which the credentials are stored on the client. This flow is desribed in the oauth2 specification RFC-6749.</p>
       <img src="/assets/bb_client_flow.png" className="auth-flow"/>
