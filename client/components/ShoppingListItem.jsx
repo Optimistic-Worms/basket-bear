@@ -1,4 +1,5 @@
 import React from 'react';
+import PriceSelection from './PriceSelection.jsx';
 
 
 const ShoppingListItem = (props) => {
@@ -35,6 +36,7 @@ const ShoppingListItem = (props) => {
       </div>
        <button className="button" onClick= {()=>{props.openProductSettings(props.item)}}> Set Watch Price</button>
      </div>
+     <PriceSelection />
    </div>
  </div>
   );

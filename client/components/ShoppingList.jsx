@@ -3,7 +3,6 @@ import axios from 'axios';
 import ShoppingListItem from './ShoppingListItem.jsx';
 import ProductSettings from './ProductSettings.jsx';
 import firebase from './user/firebase-auth';
-import PriceSelection from './PriceSelection.jsx';
 
 class ShoppingList extends React.Component {
   constructor() {
