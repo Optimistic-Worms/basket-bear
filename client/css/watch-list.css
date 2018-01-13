@@ -105,16 +105,16 @@ input.watch-form:focus {
 }
 
 .price-alert {
-  box-shadow: 0 0 0 1px #a3c293 inset, 0 0 0 0 transparent;
   background-color: #fcfff5;
   color: #2c662d;
-  border: 1px solid #2c662d;
+  border: 1px solid #a3c293;
   position: relative;
   padding: .6em 0;
   -webkit-transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
   border-radius: .25em;
   width: 90%;
+  font-weight: 100;
 }
 
 /** Media Queries **/

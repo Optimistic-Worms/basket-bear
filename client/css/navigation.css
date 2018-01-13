@@ -114,7 +114,7 @@ nav .brand a:hover {
   }
 
   .menu li:hover {
-    height: 4.2em;
+    text-decoration: none;
   }
   .menu li {
     display: inline-block;
