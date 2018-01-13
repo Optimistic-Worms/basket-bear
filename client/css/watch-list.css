@@ -166,3 +166,15 @@ input.watch-form:focus {
     width: 85%;
   }
 }
+
+.price-selection {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+  grid-template-rows: 50% 50%;
+  grid-row-gap: 0.5em;
+  margin: 1em;
+}
+
+.price-selection > .button {
+  width: 6em;
+}
