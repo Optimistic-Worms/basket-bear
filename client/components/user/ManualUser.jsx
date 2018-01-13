@@ -28,6 +28,7 @@ class ManualUser extends React.Component {
   handleForgottenPassword(event){
     let that = this
     var auth = firebase.auth();
+    console.log(auth)
     var emailAddress = this.state.username;
     var actionCodeSettings = {
     url: "https:\//basketbear.com/login"
@@ -50,8 +51,10 @@ class ManualUser extends React.Component {
 
   handleSignup(event) {
     event.preventDefault();
+    console.log('Here it is')
     firebase.auth().createUserWithEmailAndPassword(this.state.username, this.state.password)
       .then((value) => {
+        console.log(value);
         this.setState({ messages: `A verification email has been sent to: ${event.target.value.email}` });
       })
       .catch((error) => {

@@ -1,6 +1,6 @@
 const firebase = require('firebase');
 const admin = require("firebase-admin");
-const CryptoJS = require("crypto-js");
+
 
 // Initialize Firebase
 var config = {
@@ -12,16 +12,6 @@ var config = {
     messagingSenderId: "872393919907"
   };
 firebase.initializeApp(config);
-
-let cronAuth;
-
-if(process.env.NODE_ENV !== 'test'){
-    cronAuth = process.env.CRON_AUTH
-}
-
-
-
-
 
 module.exports = {
     isAuthenticated: (req, res, next) => {
@@ -39,25 +29,9 @@ module.exports = {
       } else {
         res.send('not authorized')
       }
-    },
-
-    isCronAuthenticated: (req, res, next) => {
-      let token = req.query.authsecret;
-      if(token){
-        // Encrypt 
-        // create new token
-        //var ciphertext = CryptoJS.AES.encrypt('password', 'salt');
-        //console.log(ciphertext.toString())         
-        // Decrypt 
-        let bytes  = CryptoJS.AES.decrypt(token, cronAuth);
-        let plaintext = bytes.toString(CryptoJS.enc.Utf8);
-        if(plaintext){
-          next();
-        } else {
-          res.send('not authorized')
-        }
-      } else {
-        res.send('not authorized')
-      }
-    } 
+    }
 }
+
+
+
+
