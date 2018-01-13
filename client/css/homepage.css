@@ -204,8 +204,8 @@ button.search-button:focus {
 @media (max-width:520px) {
   .intro-card {
     background-image: url('./bear_min_M.jpg');
-    justify-content: flex-end;
-        background-position: center;
+    justify-content: center;
+    background-position: center;
   }
 }
 
