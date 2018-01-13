@@ -9,7 +9,7 @@ const SearchList = (props) => {
     <div className="list">
       { props.items.map((item, key, array)=> {
           return (
-            <Product key={key} index={key} item={item} addItem={props.addItem} />
+            <Product key={key} index={key} item={item} addItem={props.addItem} formatPrice={props.formatPrice} />
           );
         })
       }
