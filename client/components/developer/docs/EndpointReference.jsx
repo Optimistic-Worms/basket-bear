@@ -6,7 +6,7 @@ const EndpointReference = () => (
       <h1>Basket Bear API Endpoint Reference</h1>
     </div>
     <p>This guide shows you how to access the public endpoints for the Basket Bear API. All requests to the Basket Bear API require authorization. See our Authorization Guide to learn how to obtain a token.</p>
-      <h2>Endpoints</h2>
+      <h2 className="api-doc-intro api-doc-intro--header">Endpoints</h2>
       <div >
       </div>
       <h2 className="endpoint">/search</h2>
