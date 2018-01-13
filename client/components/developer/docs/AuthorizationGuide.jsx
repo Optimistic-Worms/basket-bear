@@ -75,6 +75,7 @@ const AuthorizationGuide = () => (
         .catch(err => console.log(err));`}</div>
       </div>
         <div>*Note: we use <a href="https://github.com/axios/axios">Axios</a> in our examples but any AJAX client/library can be used</div>
+
   </div>
 
 );
