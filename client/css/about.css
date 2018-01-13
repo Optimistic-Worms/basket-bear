@@ -62,13 +62,17 @@
 
 .about-profile {
   display: flex;
-  width: 70%;
+  width: 100%;
   flex-direction: row;
-  margin: 2em auto;
+  margin: 1em auto;
   justify-content: flex-start;
   align-items: center;
-  padding-bottom: 1em;
-  border-bottom: 1px solid #dadada;
+  border: 1px dotted #dadada;
+  padding: .3em;
+}
+
+.about-profile p {
+  font-weight: 300;
 }
 
 .profile-image {
@@ -101,6 +105,13 @@
   text-transform: uppercase;
 }
 
+.about-developers {
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-gap: .5em;
+  margin: 0 .5em;
+}
+
 #developers {
   display: flex;
   width: 100%;
@@ -115,17 +126,37 @@
   border-bottom: 1px dashed #dadada;
   font-weight: 300;
 }
+.about a {
+  text-decoration: none;
+  color: inherit;
+}
 
+.about a:hover {
+  color: #1A237E;
+  text-decoration: underline;
+}
 .about .intro-card h3 {
   font-size: 2em;
   font-weight: 300;
   margin-top: .5em;
   margin-bottom: 2em;
   text-transform: capitalize;
+  text-align: center;
 }
 
 
 @media (max-width:600px) {
+
+  .about i {
+    margin: 0 .2em;
+  }
+
+  .about-developers {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 .5em;
+  }
   .about-profile {
     display: flex;
     width: 95%;
