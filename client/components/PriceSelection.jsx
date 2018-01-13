@@ -29,32 +29,39 @@ class PriceSelection extends React.Component {
 
   render () {
     return (
+
     <div>
-      <div
-        onClick={() => this.setPercent(5)}
-        className="button button-settings">5%</div>
-      <div
-        onClick={() => this.setPercent(10)}
-        className="button button-settings">10%</div>
-      <div
-        onClick={() => this.setPercent(15)}
-        className="button button-settings">15%</div>
-     <div
-        onClick={() => this.setPercent(20)}
-        className="button button-settings">20%</div>
-      <div
-        onClick={() => this.setPercent(25)}
-        className="button button-settings">25%</div>
-      <div>
+      <div className="price-selection">
+        <div
+          onClick={() => this.setPercent(5)}
+          className="button button-settings">-5%</div>
+        <div
+          onClick={() => this.setPercent(10)}
+          className="button button-settings">-10%</div>
+        <div
+          onClick={() => this.setPercent(15)}
+          className="button button-settings">-15%</div>
+        <div
+          onClick={() => this.setPercent(20)}
+          className="button button-settings">-20%</div>
+        <div
+          onClick={() => this.setPercent(25)}
+          className="button button-settings">-25%</div>
+        <div
+          onClick={() => this.setPercent(25)}
+          className="button button-settings">-25%</div>
+      </div>
+
       <input
         value={this.state.price}
         onChange={this.setPrice.bind(this)}
       />
-        <div
-          onClick={this.submitPrice.bind(this)}
-          className="button button-settings"
-        >Set Custom Price</div>
-      </div>
+
+      <div
+        onClick={this.submitPrice.bind(this)}
+        className="button button-settings"
+      >Set Custom Price</div>
+
     </div>
   )
   }
