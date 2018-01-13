@@ -21,17 +21,17 @@ class JoinApiTout extends React.Component {
           <h1>Reference Guide</h1>
           <ul>
             <li>
-              <Link to="/dev/docs">
+              <Link to="/dev/docs/start">
                 Tutorial:
               </Link>&nbsp;A step-by-step guide to getting started with accessing Basket Bear API</li>
+              <li>
+                <Link to="/dev/docs/authorization">
+                  Authorization Guide:
+                </Link>&nbsp;All you need to know to get authorization to access endpoints on the Basket Bear API</li>
             <li>
               <Link to="/dev/docs/endpoints">
                 Endpoint Reference:
-              </Link>&nbsp;Full documentation of all the endpoints and the data they return.</li>
-            <li>
-              <Link to="/dev/docs/authorization">
-                Authorization Guide:
-              </Link>&nbsp;All you need to know about using OAuth 2.0 with the Web API.</li>
+              </Link>&nbsp;Full documentation of all the endpoints and the data they return</li>
           </ul>
         </div>
 
@@ -40,7 +40,7 @@ class JoinApiTout extends React.Component {
       <div className="join-developer-support">
         <h1>Discover what you can do with Basket Bear's API</h1>
         <p>Create end-to-end applications to help sellers with their selling activity on eBay and Amazon. Discover the ideal price range for products and create applications that enable sellers to grow their business.</p>
-        <Link to="/dev/docs">
+        <Link to="/dev/docs/start">
         <button className="button button--hometout">Get Started Now</button>
       </Link>
       </div>
