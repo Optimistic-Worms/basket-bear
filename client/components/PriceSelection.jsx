@@ -9,7 +9,11 @@ const PriceSelection = (props) => {
     <div className="button button-settings">15%</div>
     <div className="button button-settings">20%</div>
     <div className="button button-settings">25%</div>
-    <div className="button button-settings">Set Price%</div>
+    <div>
+      <input/>
+      <div className="button button-settings">Set Price</div>
+    </div>
+
   </div>
   )
 }
