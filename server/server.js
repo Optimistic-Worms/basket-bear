@@ -30,6 +30,7 @@ const amazon = require('./helpers/amazon');
 const ebay = require('./helpers/ebay');
 /* controllers */
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
+const isCronAuthenticated = require('./controllers/authroutes.js').isCronAuthenticated;
 const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUserData } = require('./controllers/product');
@@ -79,6 +80,9 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 const apiRoutes = express.Router();
 app.use('/api', apiRoutes);
+
+
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
@@ -187,7 +191,7 @@ app.post('/email', (req, res) => {
   Notification Worker
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.get('/runnotifications', notificationWorker.notificationWorker)
+app.get('/runnotifications', isCronAuthenticated, notificationWorker.notificationWorker)
 
 
 
