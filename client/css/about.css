@@ -1,11 +1,10 @@
-
-
 .about .intro-card {
-  background-image: url('./about.jpg');
+  background-image: none;
   color: #fff;
   height: 100vh;
   justify-content: center;
   background-position: center;
+  background: #424242;
 }
 
 .about-profile-section {
@@ -52,7 +51,8 @@
 .about .intro-card h1 {
   justify-content: center;
   align-items: center;
-  margin-bottom: 1em;
+  margin-bottom: 0;
+  font-weight: 500;
 }
 
 .about hr {
@@ -88,6 +88,7 @@
   cursor: pointer;
   animation: bounceIn 2s;
 }
+
 .button-about:hover {
   height: 3em;
   background-color: #04C2C9;
@@ -110,10 +111,19 @@
 }
 
 #developers h1 {
-    margin-top: 2em;
-    border-bottom: 1px dashed #dadada;
-    font-weight: 300;
+  margin-top: 2em;
+  border-bottom: 1px dashed #dadada;
+  font-weight: 300;
 }
+
+.about .intro-card h3 {
+  font-size: 2em;
+  font-weight: 300;
+  margin-top: .5em;
+  margin-bottom: 2em;
+  text-transform: capitalize;
+}
+
 
 @media (max-width:600px) {
   .about-profile {
@@ -126,10 +136,8 @@
     border-bottom: 1px solid #dadada;
     text-align: center;
   }
-
   .profile-image {
     width: 50%;
     margin: 0;
   }
-
 }

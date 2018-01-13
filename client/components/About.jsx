@@ -15,6 +15,7 @@ class About extends React.Component {
     return (<div className="about">
       <div className="about intro-card">
         <h1>OPTIMISTIC WORMS</h1>
+        <h3>full-stack software engineers</h3>
         <button className="button button-about">
           <a href="#developers">About us</a>
         </button>
@@ -58,7 +59,7 @@ class About extends React.Component {
 
           <div className="about-paragraph">
             <h3>Diana Sentoso</h3>
-            <p>Diana is a Web and User Interface Developer based in Columbus, Ohio.</p>
+            <p>Diana is a full-stack engineer specializing in web and user interface developement.</p>
           </div>
 
         </div>
