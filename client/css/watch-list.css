@@ -35,7 +35,6 @@
 .item-info-watch .current-price {
   color: #616161;
   font-weight: 500;
-  margin-top: -.5em;
 }
 
 .item-info-watch .current-price-dollar {
@@ -48,6 +47,7 @@
   align-items: center;
   justify-content: space-between;
   width: 85%;
+  margin-top: -1em;
 }
 
 .watch-card {
