@@ -12,7 +12,6 @@ class PriceSelection extends React.Component {
 
   setPercent(n) {
     const watchPrice = this.props.item.currentPrice - (this.props.item.currentPrice * n / 100)
-    console.log(n, this.props.item.currentPrice, watchPrice)
     this.props.setWatchPrice(this.props.item, watchPrice)
     this.props.toggle();
   }
@@ -23,7 +22,6 @@ class PriceSelection extends React.Component {
 
   submitPrice(event) {
     const validated = this.validatePriceInput(this.state.price);
-    console.log(validated)
 
     if (!validated) {
       this.setState({msg: 'Please enter a valid number'})
