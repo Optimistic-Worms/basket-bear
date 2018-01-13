@@ -5,7 +5,8 @@ class PriceSelection extends React.Component {
    constructor(props) {
     super(props);
     this.state = {
-      price: ''
+      price: '',
+      inputting: false
     }
    }
 
@@ -17,7 +18,8 @@ class PriceSelection extends React.Component {
 
   setPrice(event){
     console.log(event.target.value)
-    this.setState({price: event.target.value})
+
+    this.setState({price: event.target.value, inputting: true})
   }
 
   submitPrice(event) {
@@ -44,10 +46,13 @@ class PriceSelection extends React.Component {
         className="button button-settings">25%</div>
       <div>
         <input onChange={this.setPrice.bind(this)}/>
-        <div
-          onClick={this.submitPrice.bind(this)}
-          className="button button-settings"
-        >Set Watch Price</div>
+        {this.state.inputting &&
+          <div
+            onClick={this.submitPrice.bind(this)}
+            className="button button-settings"
+          >Set Watch Price</div>
+        }
+
       </div>
     </div>
   )
