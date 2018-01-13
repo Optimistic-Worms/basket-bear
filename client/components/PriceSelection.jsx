@@ -52,14 +52,14 @@ class PriceSelection extends React.Component {
           className="button button-settings">-25%</div>
       </div>
 
-      <input
+      $ <input
         value={this.state.price}
         onChange={this.setPrice.bind(this)}
       />
 
       <div
         onClick={this.submitPrice.bind(this)}
-        className="button button-settings"
+        className="button"
       >Set Custom Price</div>
 
     </div>

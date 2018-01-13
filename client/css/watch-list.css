@@ -171,4 +171,10 @@ input.watch-form:focus {
   display: grid;
   grid-template-columns: 33% 33% 33%;
   grid-template-rows: 50% 50%;
+  grid-row-gap: 0.5em;
+  margin: 0.5em;
 }
+
+/*.price-selection > .button {
+  margin: 1em;
+}*/
