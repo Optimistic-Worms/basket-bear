@@ -54,11 +54,11 @@ class PushNotification2 extends React.Component {
 
       that.setState({messages:'You are subscribed on this device' });
     } else {
-      console.log('User is NOT subscribed.');
+     // console.log('User is NOT subscribed.');
     }
     that.updateBtn();
     }).catch(error => {
-      console.log(error)
+     // console.log(error)
     });
    }
 
@@ -114,7 +114,8 @@ class PushNotification2 extends React.Component {
 			that.updateBtn();
 			})
 			.catch(function(err) {
-			console.log('Failed to subscribe the user: ', err);
+			//console.log('Failed to subscribe the user: ', err);
+      this.setState({messages: err.data});
 			that.updateBtn();
 			});
 		}
@@ -124,7 +125,6 @@ class PushNotification2 extends React.Component {
       swRegistration.pushManager.getSubscription()
       .then(subscription => {
         if (subscription) {
-      // TODO: Tell application server to delete subscription
       that.updateSubscriptionOnServer(subscription, 'delete')
       that.setState({isSubscribed:false});
       that.updateBtn();
@@ -134,7 +134,7 @@ class PushNotification2 extends React.Component {
       }
       })
       .catch(error => {
-      console.log('Error unsubscribing', error);
+      this.setState({messages: error.data});
       })
     }
 
@@ -165,10 +165,10 @@ class PushNotification2 extends React.Component {
           firebase.auth().currentUser.getIdToken(true).then((idToken) => {
           (task === 'add')? this.addSubscription(idToken, endpoint): this.deleteSubscription(idToken, endpoint)
         }).catch(error => {
-          console.log(error)
+         //  console.log(error)
         })
         } else {
-         console.log('NO USER FOR subscription')
+         //console.log('NO USER FOR subscription')
         }
       }) // End auth check
 

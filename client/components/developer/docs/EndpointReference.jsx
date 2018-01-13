@@ -6,13 +6,13 @@ const EndpointReference = () => (
       <h1>Basket Bear API Endpoint Reference</h1>
     </div>
     <p>This guide shows you how to access the public endpoints for the Basket Bear API. All requests to the Basket Bear API require authorization. See our Authorization Guide to learn how to obtain a token.</p>
-      <h2>Endpoints</h2>
+      <h2 className="api-doc-intro api-doc-intro--header">Endpoints</h2>
       <div >
       </div>
       <h2 className="endpoint">/search</h2>
       <p>A GET request to the /search endpoint returns a json array populated with 20 products from Amazon and Ebay that match a search term provided in a request paramater</p>
       <p>A GET request is sent to the /api/search endpoint:</p>
-      <div className="snippet">GET http://budgetbasket.com/api/search</div>
+      <div className="snippet">GET http://basketbear.com/api/search</div>
       <div>The request must contain a query paramater with the search term</div>
         <table className="param">
           <tbody>
@@ -27,7 +27,7 @@ const EndpointReference = () => (
           </tbody>
         </table>
           <div>For Example:</div>
-          <div className="snippet">{`axios.get('http://budgetbasket.com/api/search', {
+          <div className="snippet">{`axios.get('http://basketbear.com/api/search', {
           params: {
             keyword: 'usb c cable'
           },
@@ -66,10 +66,10 @@ const EndpointReference = () => (
       <h2 className="endpoint">/products</h2>
       <p>A GET request to the /products endpoint returns a json array containing data for the 100 most popular items in our product database. The popularity is measured by how many users have added the product to their shopping list</p>
       <p>A GET request is sent to the /api/products endpoint:</p>
-      <div className="snippet">GET http://budgetbasket.com/api/products</div>
+      <div className="snippet">GET http://basketbear.com/api/products</div>
 
           <div>For Example:</div>
-          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+          <div className="snippet">{`axios.get('http://basketbear.com/api/products', {
           headers: {
             Authorization: 'Bearer NgCXRKc...MzYjw'
           }
@@ -120,10 +120,10 @@ const EndpointReference = () => (
           </tbody>
         </table>
          <p>A GET request is sent to the /api/products endpoint with an ID parameter:</p>
-         <div className="snippet">{`GET http://budgetbasket.com/api/products/?id=<PRODUCT_ID>`}</div>
+         <div className="snippet">{`GET http://basketbear.com/api/products/?id=<PRODUCT_ID>`}</div>
 
           <div>For Example:</div>
-          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+          <div className="snippet">{`axios.get('http://basketbear.com/api/products', {
              params: {
                id: 'B01GGKZ1VA'
              },
@@ -164,10 +164,10 @@ const EndpointReference = () => (
             </tbody>
           </table>
           <p>A GET request is sent to the /api/products endpoint with a name parameter:</p>
-          <div className="snippet">{`GET http://budgetbasket.com/api/products/?name=<SEARCH_TERM>`}</div>
+          <div className="snippet">{`GET https://basketbear.com/api/products/?name=<SEARCH_TERM>`}</div>
 
           <div>For Example:</div>
-          <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+          <div className="snippet">{`axios.get('http://basketbear.com/api/products', {
              params: {
                name: 'usb'
              },
@@ -211,14 +211,3 @@ const EndpointReference = () => (
 );
 
 export default EndpointReference;
- // <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
- //          params: {
- //            id: 'B073WV3KCD'
- //          },
- //          headers: {
- //            Authorization: 'Bearer NgCXRKc...MzYjw'
- //          }
- //           })
- //          .then(res => console.log(res.data))
- //          .catch(err => console.log(err));`}
- //          </div>

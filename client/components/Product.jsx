@@ -10,7 +10,7 @@ const Product = (props) => {
       <div className="product-footer">
         <div className="item-info">
         <p>{ props.item && props.item.merchant }</p>
-        <p className="price">${ props.item && props.item.price }</p>
+        <p className="price">${ props.item && props.formatPrice(props.item.price) }</p>
       </div>
         <div className="button-wrapper">
         <button className="button button--product" onClick= { ()=> {window.open(props.item.link);}} >Buy Product</button>

@@ -154,7 +154,6 @@ class Settings extends React.Component {
   }
 
   sendVerificationEmail(){
-    console.log('working')
     var user = firebase.auth().currentUser;
     let that = this
     let actionCodeSettings = {
@@ -163,13 +162,10 @@ class Settings extends React.Component {
 
     user.sendEmailVerification(actionCodeSettings).then(function() {
   // Email sent.
-
-     console.log('sent')
      let messages = 'Please check your inbox including spam.'
      that.setState({messages})
      }).catch(function(error) {
   // An error happened.
-     console.log(error)
      });
   }
 

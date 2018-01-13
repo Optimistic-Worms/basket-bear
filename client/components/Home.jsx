@@ -44,11 +44,11 @@ class Home extends React.Component {
         })
         .catch((error) => {
           this.setState({logged:'LOGIN'});
-          console.error(error);
+          //console.error(error);
         });
       } else {
         this.setState({isLoggedIn : false});
-        console.log('Nobody is home: Need to login or sign up!');
+        //console.log('Nobody is home: Need to login or sign up!');
       }
     });
   }

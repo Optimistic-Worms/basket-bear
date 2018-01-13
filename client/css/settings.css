@@ -172,6 +172,7 @@ input.settings-form:focus {
   .button-settings {
     width: 95% !important;
     margin: .7em auto;
+    height: auto;
   }
   .settings-card {
     font-size: 85%;

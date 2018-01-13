@@ -22,6 +22,7 @@ class Search extends React.Component {
     this.sortItems = this.sortItems.bind(this);
     this.addToShoppingList = this.addToShoppingList.bind(this);
     this.parseAmazonResults = this.parseAmazonResults.bind(this);
+    this.formatPrice = this.formatPrice.bind(this);
   }
 
   componentDidMount() {
@@ -150,7 +151,13 @@ class Search extends React.Component {
   }
 
 
-
+  formatPrice(string) {
+    if (string) {
+      return Number(string).toFixed(2);;
+    } else {
+      return '';
+    }
+  }
 
   query(input) {
     this.setState({queryString : input.target.value});
@@ -181,7 +188,7 @@ class Search extends React.Component {
         </div>
       <div id="results" className="results">
         <h4>{this.state.searchMessage}</h4>
-        <SearchList items={this.state.searchItems} addItem={this.addToShoppingList}/>
+        <SearchList items={this.state.searchItems} addItem={this.addToShoppingList} formatPrice={this.formatPrice}/>
       </div>
       </div>
     )

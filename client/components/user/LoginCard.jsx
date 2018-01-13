@@ -33,12 +33,12 @@ class LoginCard extends React.Component {
     let that = this
     firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-    console.log('Checked if there is a google user')
+    //console.log('Checked if there is a google user')
     that.props.history.push('/');
     } else {
     that.props.history.push('/login');
     that.setState({loggedIn:false})
-    console.log('Nobody is home: Need to login or sign up!');
+    //console.log('Nobody is home: Need to login or sign up!');
     }
     });
   }
