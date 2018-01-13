@@ -6,24 +6,24 @@ exports.getToken = () => {
     if (user) {
       firebase.auth().currentUser.getIdToken(/* forceRefresh */ true).then((idToken) => {
         // Send token to your backend via HTTPS
-          console.log(idToken);
+    
         axios.get(`/thing?access_token= ${idToken}`).then((result) => {
-          console.log(result);
+         // console.log(result);
         }).catch((error) => {
-          console.log(error);
+        ///  console.log(error);
         });
       });
     } else {
-      console.log('Nobody is home: Need to login or sign up!');
+      // console.log('Nobody is home: Need to login or sign up!');
       }
   });
 }
 
 exports.logout = () => {
     firebase.auth().signOut().then(() => {
-      console.log('just logged out');
+      //console.log('just logged out');
     }, function(error) {
-      console.log('couldn\'log out:' + error);
+      //console.log('couldn\'log out:' + error);
     })
 }
 
@@ -37,11 +37,11 @@ exports.authenticate = (authProvider) => {
     firebase.auth().signInWithRedirect(provider).then((result) =>{
     // var token = result.credential.accessToken;
     var user = result.user.uid;
-    console.log(user);
+    //console.log(user);
     }).catch((error) =>{
     var errorMessage = error.message;
     // var credential = error.credential;
-    console.log(errorMessage);
+    //console.log(errorMessage);
     });
   }
 
