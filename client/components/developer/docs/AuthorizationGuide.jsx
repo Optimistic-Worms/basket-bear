@@ -20,7 +20,7 @@ const AuthorizationGuide = () => (
       <img src="/assets/bb_client_flow.png" className="auth-flow"/>
       <h3>Step 1: Your Application requests a token</h3>
       <div>The request is sent to the /api/token endpoint:</div>
-      <div className="snippet">POST http://budgetbasket.com/api/token</div>
+      <div className="snippet">POST http://basketbear.com/api/token</div>
       <div>The body of this POST request must contain the following parameters:</div>
         <table className="param">
           <tbody>
@@ -43,7 +43,7 @@ const AuthorizationGuide = () => (
           </tbody>
         </table>
           <div>For Example:</div>
-          <div className="snippet">{` axios.post('http://budgetbasket.com/api/token', {'grant_type': 'client_credentials'}, {
+          <div className="snippet">{` axios.post('https://basketbear.com/api/token', {'grant_type': 'client_credentials'}, {
                   withCredentials: true,
                   auth: {
                     username: example@example.com,
@@ -63,7 +63,7 @@ const AuthorizationGuide = () => (
           </div>
        <h3>Step 2: Use the access token to access the Basket Bear Web API</h3>
 
-        <div className="snippet">{`axios.get('http://budgetbasket.com/api/products', {
+        <div className="snippet">{`axios.get('https://basketbear.com/api/products', {
           params: {
             id: 'B073WV3KCD'
           },
