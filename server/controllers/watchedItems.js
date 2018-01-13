@@ -290,20 +290,15 @@ let updateEbayWatchItems = () => {
 
 exports.watchListWorker = (req, res) => {
   let workerData = [];
-  if (req.query.authsecret !== process.env.AUTH_SECRET) {
-    console.error("Missing or incorrect auth-secret header. Rejecting request.");
-    res.status(401).send('Not Authorized')
-  } else {
-    workerData.push('Watched Items Worker Started');
+  workerData.push('Watched Items Worker Started');
 
-    let workers = [updateAmazonWatchItems(), updateEbayWatchItems()];
+  let workers = [updateAmazonWatchItems(), updateEbayWatchItems()];
 
-    Promise.all(workers).then((messages) => {
-      workerData.push(messages)
-      res.send(JSON.stringify(workerData));
-    })
-    .catch((error) => {
-      res.send(JSON.stringify(error));
-    })
-  }
+  Promise.all(workers).then((messages) => {
+    workerData.push(messages)
+    res.send(JSON.stringify(workerData));
+  })
+  .catch((error) => {
+    res.send(JSON.stringify(error));
+  })
 }
