@@ -76,7 +76,7 @@
 }
 
 .profile-image {
-  width: 20%;
+  width: 8em;
   height: auto;
   border-radius: 50%;
   border: 1px solid #dadada;
@@ -145,7 +145,7 @@
 }
 
 
-@media (max-width:600px) {
+@media (max-width:768px) {
 
   .about i {
     margin: 0 .2em;
