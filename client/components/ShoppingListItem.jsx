@@ -30,7 +30,7 @@ class ShoppingListItem extends React.Component {
           { !this.props.item.available &&
             <p className="current-price">This item is no longer available</p> }
 
-            <p className="current-price">Watch Price <span className="current-price-dollar">${ this.props.item && this.props.item.watchPrice }</span></p>
+            <p className="current-price">Watch Price <span className="current-price-dollar">${ this.props.item && Number(this.props.item.watchPrice).toFixed(2) }</span></p>
 
 
         </div>
