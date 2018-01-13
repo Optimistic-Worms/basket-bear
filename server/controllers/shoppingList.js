@@ -96,6 +96,7 @@ exports.updateWatchPrice = (username, productId, watchPrice) => {
     .then((shoppingListItems) => {
       items = shoppingListItems;
       items[productId].watchPrice = watchPrice;
+      items[productId].available = true;
       db.collection('shoppingLists').doc(username).set({
         items: items
       })
