@@ -44,6 +44,7 @@ footer i, a {
   color: #dadada;
   cursor: pointer;
   text-decoration: none !important;
+  margin: 0;
 }
 
 .footer-link:hover {

@@ -23,6 +23,7 @@ const EmailPreferences = (props) => {
         return(
           <div className="settings-email-update" key={`emailCard${index}`}>
             <div className="email-wrapper">
+              <div className="email-checkbox">
             <div>{item.email}</div>
             <label>Use:
             <input
@@ -30,6 +31,7 @@ const EmailPreferences = (props) => {
               defaultChecked={item.status}
               onChange={(e) =>{props.OnOffForEmail(e,item.email)}}/>
             </label>
+          </div>
             <div>
             {(index !== 0)?
                 <button className="button button--remove button--remove-settings" onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>

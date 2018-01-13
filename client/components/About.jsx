@@ -44,17 +44,17 @@ class About extends React.Component {
         </div>
 
         <div className="about-profile">
-          <img src="http://2.bp.blogspot.com/-y4DzPzNhnj0/TrCf866cUtI/AAAAAAAAAe8/ciSB0PV5xU4/s1600/swing.jpg" className="profile-image"></img>
+          <img src={require ('../assets/nHavens.png')} className="profile-image"></img>
 
           <div className="about-paragraph">
             <h3>Nick Havens</h3>
-            <p>Nick is a full-stack developer based in Chicago.</p>
+            <p>Nick is a full-stack developer based in Chicago, specializing in node.js, react.js, and continuous integration.</p>
           </div>
 
         </div>
 
         <div className="about-profile">
-          <img src="http://i.imgur.com/187Y4u3.png" className="profile-image"></img>
+          <img src={require ('../assets/dSentoso.jpg')} className="profile-image"></img>
 
           <div className="about-paragraph">
             <h3>Diana Sentoso</h3>
@@ -64,11 +64,11 @@ class About extends React.Component {
         </div>
 
         <div className="about-profile">
-          <img src="https://pbs.twimg.com/profile_images/502241833938739200/KsUxYfAR_400x400.png" className="profile-image"></img>
+          <img src={require ('../assets/jAllshorn.png')} className="profile-image"></img>
 
           <div className="about-paragraph">
             <h3>Jason Allshorn</h3>
-            <p>Jason is a full-stack developer based in South Korea.</p>
+            <p>Jason is a Fullstack engineer, former teacher and global trotter.</p>
           </div>
 
         </div>
