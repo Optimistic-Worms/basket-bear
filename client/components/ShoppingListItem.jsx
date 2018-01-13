@@ -13,6 +13,14 @@ class ShoppingListItem extends React.Component {
     this.setState({selecting: !this.state.selecting})
   }
 
+  formatPrice(string) {
+    if (string) {
+      return Number(string).toFixed(2);;
+    } else {
+      return '';
+    }
+  }
+
   render() {
     return (
     <div className="watch-card">
@@ -22,15 +30,18 @@ class ShoppingListItem extends React.Component {
           <div className="item-info item-info-watch">
             <div className="item-info-merchant">
             <p>{ this.props.item && this.props.item.merchant }</p>
-            <p className="price">Price when added ${ this.props.item && this.props.item.price }</p>
+             <div className="current-price">Current Price <span className="current-price-dollar">${ this.props.item && this.props.item.currentPrice }</span></div>
+            {}
           </div>
           <div className="item-info-merchant">
           { this.props.item.available &&
-            <p className="current-price">Current Price <span className="current-price-dollar">${ this.props.item && this.props.item.currentPrice }</span></p> }
+            <p className="price">Price when added ${ this.props.item && this.props.item.price }</p>
+            }
           { !this.props.item.available &&
             <p className="current-price">This item is no longer available</p> }
 
-            <p className="current-price">Watch Price <span className="current-price-dollar">${ this.props.item && Number(this.props.item.watchPrice).toFixed(2) }</span></p>
+            <p className="current-price">Watch Price <span className="current-price-dollar">$
+            {this.props.item && this.formatPrice(this.props.item.watchPrice)}</span></p>
 
 
         </div>
