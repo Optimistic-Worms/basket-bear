@@ -5,7 +5,8 @@ class PriceSelection extends React.Component {
    constructor(props) {
     super(props);
     this.state = {
-      price: ''
+      price: '',
+      msg: ''
     }
    }
 
@@ -51,6 +52,8 @@ class PriceSelection extends React.Component {
           onClick={() => this.setPercent(25)}
           className="button button-settings">-25%</div>
       </div>
+
+      {this.state.msg && <div className="price-msg">{this.state.msg}</div>}
 
       $ <input
       className="watch-form"
