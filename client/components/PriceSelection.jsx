@@ -13,17 +13,18 @@ class PriceSelection extends React.Component {
     const watchPrice = this.props.item.currentPrice - (this.props.item.currentPrice * n / 100)
     console.log(n, this.props.item.currentPrice, watchPrice)
     this.props.setWatchPrice(this.props.item, watchPrice)
+    this.props.toggle();
   }
 
   setPrice(event){
     console.log(event.target.value)
-
     this.setState({price: event.target.value})
   }
 
   submitPrice(event) {
     this.props.setWatchPrice(this.props.item, this.state.price);
     this.setState({price: ''});
+    this.props.toggle();
   }
 
   render () {

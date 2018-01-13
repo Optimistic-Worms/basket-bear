@@ -9,6 +9,10 @@ class ShoppingListItem extends React.Component {
     }
   }
 
+  togglePriceSelection() {
+    this.setState({selecting: !this.state.selecting})
+  }
+
   render() {
     return (
     <div className="watch-card">
@@ -40,9 +44,19 @@ class ShoppingListItem extends React.Component {
 
         <button className="button button--product" onClick= { ()=> {window.open(this.props.item.link);}} ><span className="desktop-show">Buy Product</span><span className="mobile-show"><i className="fa fa-shopping-cart" aria-hidden="true"></i></span></button>
       </div>
-       <button className="button" > Set Watch Price</button>
+      {!this.state.selecting &&
+        <button
+          className="button"
+          onClick={this.togglePriceSelection.bind(this)}
+        > Set Watch Price</button>}
      </div>
-     <PriceSelection setWatchPrice={this.props.setWatchPrice} item={this.props.item} />
+     {this.state.selecting &&
+       <PriceSelection
+          setWatchPrice={this.props.setWatchPrice}
+          item={this.props.item}
+          toggle={this.togglePriceSelection.bind(this)}
+        />
+     }
    </div>
  </div>
   );
