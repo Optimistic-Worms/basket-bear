@@ -289,7 +289,7 @@ app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
 
 app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
 app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
-app.get('/watchedItemsWorker', watch.watchListWorker);
+app.get('/watchedItemsWorker', isCronAuthenticated, watch.watchListWorker);
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
