@@ -18,14 +18,27 @@ class PriceSelection extends React.Component {
   }
 
   setPrice(event){
-    console.log(event.target.value)
     this.setState({price: event.target.value})
   }
 
   submitPrice(event) {
-    this.props.setWatchPrice(this.props.item, this.state.price);
-    this.setState({price: ''});
-    this.props.toggle();
+    const validated = this.validatePriceInput(this.state.price);
+    console.log(validated)
+
+    if (!validated) {
+      this.setState({msg: 'Please enter a valid number'})
+    } else {
+      this.props.setWatchPrice(this.props.item, validated);
+      this.setState({price: ''});
+      this.props.toggle();
+    }
+  }
+
+  validatePriceInput(input) {
+    if (isNaN(+input)) {
+      return false;
+    }
+    return (+input).toFixed(2);
   }
 
   render () {
