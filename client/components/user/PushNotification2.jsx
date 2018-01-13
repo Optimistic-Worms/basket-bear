@@ -183,7 +183,7 @@ class PushNotification2 extends React.Component {
       text='Saving...'
       >
       <div className="settings-layout">
-        <h2>Device notification settings</h2>
+        <h3>Device notification settings</h3>
         <span className="settings-push-message">{this.state.messages}</span>
         <div className="settings-push-update" >
           <p>Update push notification settings</p>
