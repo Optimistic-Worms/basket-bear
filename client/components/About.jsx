@@ -28,8 +28,8 @@ class About extends React.Component {
           <img src="http://i.imgur.com/Q4vpATV.png" className="profile-image"></img>
 
           <div className="about-paragraph">
-            <a target="_blank" href="https://github.com/supertopoz"><h3>Candice Lai</h3></a>
-            <p>Candice is a full-stack developer based in Los Angeles. You can follow her work&nbsp;<a target="_blank" href="https://github.com/supertopoz">here</a>.</p>
+            <a target="_blank" href="https://www.linkedin.com/in/candice-t-lai/"><h3>Candice Lai</h3></a>
+            <p>Candice is a full-stack developer based in Los Angeles. You can follow her work&nbsp;<a target="_blank" href="https://github.com/ctnswb">here</a>.</p>
           </div>
 
         </div>
@@ -38,8 +38,8 @@ class About extends React.Component {
           <img src={require ('../assets/nHavens.png')} className="profile-image"></img>
 
           <div className="about-paragraph">
-            <a target="_blank" href="https://www.linkedin.com/in/jason-allshorn"><h3>Nick Havens</h3></a>
-            <p>Nick is a full-stack developer based in Chicago, specializing in node.js, react.js, and continuous integration. You can follow his work&nbsp;<a target="_blank" href="https://github.com/supertopoz">here</a>.</p>
+            <a target="_blank" href="https://www.linkedin.com/in/nick-havens/"><h3>Nick Havens</h3></a>
+            <p>Nick is a full-stack developer based in Chicago, specializing in node.js, react.js, and continuous integration. You can follow his work&nbsp;<a target="_blank" href="https://github.com/npHavens">here</a>.</p>
 
           </div>
 
@@ -49,7 +49,7 @@ class About extends React.Component {
           <img src={require ('../assets/jAllshorn.png')} className="profile-image"></img>
 
           <div className="about-paragraph">
-            <a target="_blank" href="https://www.linkedin.com/in/jason-allshorn"><h3>Jason Allshorn</h3></a>
+            <a target="_blank" href="https://www.linkedin.com/in/jason-allshorn/"><h3>Jason Allshorn</h3></a>
             <p>Jason is a Fullstack engineer, former teacher and globe trotter. You can follow his work&nbsp;<a target="_blank" href="https://github.com/supertopoz">here</a>.</p>
           </div>
         </div>
@@ -58,8 +58,8 @@ class About extends React.Component {
           <img src={require ('../assets/dSentoso.jpg')} className="profile-image"></img>
 
           <div className="about-paragraph">
-            <a target="_blank" href="https://www.linkedin.com/in/jason-allshorn"><h3>Diana Sentoso</h3></a>
-            <p>Diana is a full-stack engineer specializing in web and user interface developement. You can follow her work&nbsp;<a target="_blank" href="https://github.com/supertopoz">here</a>.</p>
+            <a target="_blank" href="https://www.linkedin.com/in/dianasentoso/"><h3>Diana Sentoso</h3></a>
+            <p>Diana is a full-stack engineer specializing in web and user interface developement. You can follow her work&nbsp;<a target="_blank" href="https://github.com/ArtemisD">here</a>.</p>
           </div>
 
         </div>
