@@ -147,8 +147,9 @@
 
 @media (max-width:768px) {
 
-  .about i {
-    margin: 0 .2em;
+  .about p {
+    text-align: left;
+    padding: 0 .2em;
   }
 
   .about-developers {
