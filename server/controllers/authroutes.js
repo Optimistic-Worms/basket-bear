@@ -26,7 +26,6 @@ if(process.env.NODE_ENV !== 'test'){
 module.exports = {
     isAuthenticated: (req, res, next) => {
       let idToken = req.query.access_token;
-      console.log(idToken)
       if(idToken){
       admin.auth().verifyIdToken(idToken).then((decodedToken) => {
         req.username = decodedToken.uid;
@@ -44,11 +43,11 @@ module.exports = {
     isCronAuthenticated: (req, res, next) => {
       let token = req.query.authsecret;
       if(token){
-        // Encrypt 
+        // Encrypt
         // create new token
         //var ciphertext = CryptoJS.AES.encrypt('password', 'salt');
-        //console.log(ciphertext.toString())         
-        // Decrypt 
+        //console.log(ciphertext.toString())
+        // Decrypt
         let bytes  = CryptoJS.AES.decrypt(token, cronAuth);
         let plaintext = bytes.toString(CryptoJS.enc.Utf8);
         if(plaintext){
@@ -59,5 +58,5 @@ module.exports = {
       } else {
         res.send('not authorized')
       }
-    } 
+    }
 }
