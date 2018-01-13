@@ -53,6 +53,7 @@ class PriceSelection extends React.Component {
       </div>
 
       $ <input
+      className="watch-form"
         value={this.state.price}
         onChange={this.setPrice.bind(this)}
       />
