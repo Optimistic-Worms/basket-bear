@@ -99,7 +99,7 @@ class ManualUser extends React.Component {
           <div className="toggle-login" onClick={ this.handleForgottenPassword}>
             <a>Forgot password?</a>
           </div>
-          </form>          
+          </form>
           </div>
     );
   }

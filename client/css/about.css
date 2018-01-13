@@ -5,6 +5,7 @@
   color: #fff;
   height: 100vh;
   justify-content: center;
+  background-position: center;
 }
 
 .about-profile-section {
@@ -71,8 +72,8 @@
 }
 
 .profile-image {
-  width: 8em;
-  height: 8em;
+  width: 20%;
+  height: auto;
   border-radius: 50%;
   border: 1px solid #dadada;
   margin: 0 2em;
@@ -124,6 +125,11 @@
     align-items: center;
     border-bottom: 1px solid #dadada;
     text-align: center;
+  }
+
+  .profile-image {
+    width: 50%;
+    margin: 0;
   }
 
 }

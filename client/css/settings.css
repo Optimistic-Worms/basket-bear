@@ -3,9 +3,8 @@
 .not-verified {
   z-index: 10;
   position: relative;
-  padding:10px;
+  padding: 10px;
 }
-
 
 .settings-card {
   display: flex;
@@ -18,7 +17,6 @@
   background-color: #fff;
   font-weight: 300 !important;
 }
-
 
 .settings-form-wrapper {
   display: flex;
@@ -36,13 +34,19 @@
   margin: 0 auto;
 }
 
-
 .settings-push-message {
-  background-color: #9E9E9E;
-  padding: .5em;
-  color: #fff;
+  position: relative;
+  min-height: 1em;
+  margin: 1em 0;
+  background: #f8f8f9;
+  color: #424242;
+  -webkit-transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
+  transition: opacity .1s ease, color .1s ease, background .1s ease, box-shadow .1s ease;
+  border-radius: .25em;
+  box-shadow: 0 0 0 1px rgba(34, 36, 38, .22) inset, 0 0 0 0 transparent;
+  text-align: center;
+  padding: .6em 0;
 }
-
 
 input.settings-form:focus {
   outline: none;
@@ -86,6 +90,16 @@ input.settings-form:focus {
   align-items: center;
 }
 
+.email-checkbox label {
+  margin-left: 1em;
+}
+
+.email-checkbox {
+  display: flex;
+  flex-direction: row;
+
+}
+
 .settings-header {
   padding: .75rem 1.25rem;
   margin-top: 0;
@@ -99,13 +113,13 @@ input.settings-form:focus {
 }
 
 .settings-notification-settings {
-    display: flex;
-    flex-direction: row;
-    width: 70%;
-    margin: .5em 0;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 1em;
+  display: flex;
+  flex-direction: row;
+  width: 70%;
+  margin: .5em 0;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 1em;
 }
 
 .settings-card h3 {
@@ -129,7 +143,6 @@ input.settings-form:focus {
 
 /** Media Queries **/
 
-
 @media (max-width:420px) {
   .settings-email-update {
     width: 100%;
@@ -137,15 +150,12 @@ input.settings-form:focus {
     justify-content: center;
     align-items: center;
   }
-
   .settings-notification-settings {
     width: 100%;
     flex-flow: column;
     justify-content: center;
     align-items: center;
   }
-
-
   .settings-form-wrapper {
     flex-direction: column;
     height: auto;
@@ -167,11 +177,9 @@ input.settings-form:focus {
     font-size: 85%;
     font-weight: 300 !important;
   }
-
   .settings-header {
     padding: 0 .5em;
   }
-
 }
 
 @media (max-width:768px) {
@@ -183,37 +191,28 @@ input.settings-form:focus {
   }
 }
 
-
-
 @media (max-width:900px) {
   .settings-email-update {
     width: 100%;
   }
-
   .settings-notification-settings {
     width: 100%;
   }
-
   .settings-card {
     justify-content: center;
     width: 95%;
     text-align: center;
   }
-
   .settings-email-update .button--remove {
     width: 7rem;
   }
-
   .button-settings {
     width: 8rem;
   }
-
 }
-
 
 @media (min-width:1560px) {
   .settings-card {
     width: 50%;
   }
 }
-
