@@ -107,16 +107,13 @@ exports.getProductData = (req, res) => {
   const { id } = req.query;
   exports.getProductById(id)
   .then(product => {
-    const { name, merchant, prices, currentPrice} = product.data();
+    const { prices } = product.data();
     const { avg, count } = getAveragePrice(prices);
-    res.send({
-      name: name,
-      merchant: merchant,
-      currentPrice,
-      prices: prices,
-      recorded_price_count: count,
-      average_requested_price: avg
-    });
+    const parsed = parseData(product);
+    parsed.average_requested_price = avg;
+    parsed.recorded_price_count = count;
+
+    res.send(parsed);
   })
   .catch(err => {
     console.log(err);
