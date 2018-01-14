@@ -40,8 +40,7 @@ exports.addNewProduct = (product, username) => {
       name: name,
       merchant: merchant,
       currentPrice: currentPrice,
-      prices: {[username]: Number(targetPrice)},
-      public_id: generateSecret(10)
+      prices: {[username]: Number(targetPrice)}
     }).then(() => {
       resolve('succesfully added new product price data');
     })

@@ -18,6 +18,13 @@ exports.sortByPopularity = (productsArr) => {
 exports.parseData = (productRef) => {
   productObj = productRef.data();
   productObj.id = productRef.id;
+  const { prices } = productObj;
+
+  for (var userId in prices) {
+    const shortened = userId.slice(0, 7);
+    prices[shortened] = prices[userId];
+    delete prices[userId];
+  }
   return productObj;
 };
 
