@@ -105,7 +105,7 @@ const EndpointReference = () => (
     etc...]`}
           </div>
           <p>The response is an array of products, each of which include an Amazon or Ebay product ID as well as price information. The product ID can be used to target a single product on the same endpoint as shown below</p>
-          <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding enrypted user IDs'</p>
+          <p>Each product contains a prices object that contains all the recorded target prices for the product and the corresponding user ID prefix</p>
           <p><b>The request can contain optional query parameters for product ID and product Name</b></p>
         <table className="param">
           <tbody>
