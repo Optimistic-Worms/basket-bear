@@ -2,6 +2,7 @@ const Promise = require('bluebird');
 const amazon = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 const db = require('../../db/db-config');
+const { generateSecret } = require('../helpers/encryption');
 const { getAveragePrice, sortByPopularity, parseData , productNamesMatch } = require('../helpers/productHelpers.js');
 let amazonProducts;
 let ebayProducts;
@@ -39,7 +40,8 @@ exports.addNewProduct = (product, username) => {
       name: name,
       merchant: merchant,
       currentPrice: currentPrice,
-      prices: {[username]: Number(targetPrice)}
+      prices: {[username]: Number(targetPrice)},
+      public_id: generateSecret(10)
     }).then(() => {
       resolve('succesfully added new product price data');
     })
