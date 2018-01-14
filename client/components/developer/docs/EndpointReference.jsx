@@ -83,10 +83,10 @@ const EndpointReference = () => (
         "currentPrice": "7.99",
         "merchant": "amazon",
         "prices": {
-            "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99,
-            "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
-            "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
-            "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99
+            "fdhFye": 7.99,
+            "NJST78": 3.99,
+            "nWyKso": 6.5,
+            "wvr7NX": 5.99
         },
         "name": "AmazonBasics USB Type-C to USB Type-C 2.0 Cable - 6 Feet  (1.8 Meters) - Black",
         "id": "B01GGKZ1VA"
@@ -140,10 +140,10 @@ const EndpointReference = () => (
     "merchant": "amazon",
     "currentPrice": "7.99",
     "prices": {
-        "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
-        "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
-        "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99,
-        "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99
+        "NJST78": 3.99,
+        "nWyKso": 6.5,
+        "wvr7NX": 5.99,
+        "fdhFye": 7.99
     },
     "recorded_price_count": 4,
     "average_requested_price": 6.1175
@@ -183,10 +183,10 @@ const EndpointReference = () => (
     {
         "merchant": "amazon",
         "prices": {
-            "fdhFyeTB7PZi3obrigqUsKhjnX93": 7.99,
-            "NJST78OEApa3uFX9mlR5EWa2ZAW2": 3.99,
-            "nWyKsoVbsFRCilI2hf5kYA6m3Jz2": 6.5,
-            "wvr7NXCF3NUIbwFPfnm1ieUGyg23": 5.99
+            "fdhFye": 7.99,
+            "NJST78": 3.99,
+            "nWyKso": 6.5,
+            "wvr7NX": 5.99
         },
         "name": "AmazonBasics USB Type-C to USB Type-C 2.0 Cable - 6 Feet  (1.8 Meters) - Black",
         "currentPrice": "7.99",
@@ -196,7 +196,7 @@ const EndpointReference = () => (
         "currentPrice": "6.99",
         "merchant": "amazon",
         "prices": {
-            "WilRFtTKHtgnlI4XcPmkMOpgFU63": "7.00"
+            "WilRFt": "7.00"
         },
         "name": "[2 in 1 Pack] Anker Micro USB to USB C Adapter, Converts Micro USB Female to USB C Male, Uses 56K Resistor, Works with Galaxy S8, S8+, MacBook, Nintendo Switch, Sony XZ, LG V20 G5 G6 and More",
         "id": "B01AHKYIRS"
