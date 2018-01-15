@@ -2,52 +2,28 @@ if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
  require('dotenv').config();
 }
 
-if(process.env.NODE_ENV !== 'test'){
+if (process.env.NODE_ENV !== 'test'){
   const webPush = require('web-push');
-  const emailAuth = process.env.EMAIL_AUTH
-    webPush.setVapidDetails(
-    process.env.VAPID_SUBJECT,
-    process.env.VAPID_PUBLIC_KEY,
-    process.env.VAPID_PRIVATE_KEY
-    );
+  const { VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY } = process.env;
+  const emailAuth = process.env.EMAIL_AUTH;
+  webPush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 }
-
-const express = require('express');
-const bodyParser = require('body-parser');
-
-const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
-const path = require('path');
-const passport = require('passport');
-
-/* Check disposable email*/
-const checkEmail = require('./controllers/disposableEmailList');
-/* Amazon mailer */
-const amazonMail = require('./controllers/emailNotifications');
-
-
-/* Routes */
-const { apiRouter } = require('./routes/apiRoutes.js')
-const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
-const { amazonRouter } = require('./routes/amazonRoutes.js');
-const { ebayRouter } = require('./routes/ebayRoutes.js');
-const { settingsRouter } = require('./routes/settingsRoutes.js');
-const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
-const { subscribeRouter } = require('./routes/subscribeRoutes.js');
-const { notificationsRouter } = require('./routes/notificationsRoutes.js');
-const { fallbackRouter } = require('./routes/fallbackRoutes.js');
-
 /* Initialize Express */
+const express = require('express');
 const port = process.env.PORT || 3000;
 const app = express();
 
-app.use(passport.initialize());
+const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
+
 app.use(express.static(__dirname));
 
 /* Initialize Webpack */
+const webpack = require('webpack');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
@@ -62,10 +38,30 @@ if (process.env.HOT) {
   app.use(webpackHotMiddleware(compiler));
 }
 
+/* Initialize Passport */
+const passport = require('passport');
+app.use(passport.initialize());
+
+/* Check disposable email*/
+const checkEmail = require('./controllers/disposableEmailList');
+/* Amazon mailer */
+const amazonMail = require('./controllers/emailNotifications');
+
+
+/* Routers */
+const { apiRouter } = require('./routes/apiRoutes.js')
+const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
+const { amazonRouter } = require('./routes/amazonRoutes.js');
+const { ebayRouter } = require('./routes/ebayRoutes.js');
+const { settingsRouter } = require('./routes/settingsRoutes.js');
+const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
+const { subscribeRouter } = require('./routes/subscribeRoutes.js');
+const { notificationsRouter } = require('./routes/notificationsRoutes.js');
+const { fallbackRouter } = require('./routes/fallbackRoutes.js');
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
@@ -88,12 +84,8 @@ app.get('/amazonmail', amazonMail.sendMail)
 
 app.get('/checkemail', checkEmail.check)
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Fallback Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 /* Compression to g-zip*/
-app.get('*.js', function (req, res, next) {
+app.get('*.js', (req, res, next) => {
   req.url = req.url + '.gz';
   res.set('Content-Encoding', 'gzip');
   next();
@@ -103,5 +95,4 @@ const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
 
 module.exports.server = server;
-module.exports.app = app;
 module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
