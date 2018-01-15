@@ -4,13 +4,13 @@ const {
   authenticateUser,
   authenticateClient,
   authenticateToken
-} = require('../controllers/developer/auth/apiAuth');
+} = require('../controllers/developer/auth/apiAuth.js');
 
 const {
   addUser,
   getClientData,
   generateNewClientSecret
-} = require('../controllers/developer/apiUser');
+} = require('../controllers/developer/apiUser.js');
 
 const {
   getLowestPrices,
@@ -23,38 +23,38 @@ const {
 const oauth = require('../controllers/developer/auth/oauth2');
 const { isAuthenticated } = require('../controllers/authroutes.js');
 
-const api = express.Router();
+const apiRoute = express.Router();
 
-api.get('/', authenticateToken, (req, res) => {
-  res.send('Welcome to the Basket Bear API! Proceed to "https://www.basketbear.com/dev/docs/start to get started"')
+apiRoute.get('/', authenticateToken, (req, res) => {
+  res.send('Welcome to the Basket Bear APIRoute! Proceed to "https://www.basketbear.com/dev/docs/start to get started"')
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-api.post('/products', isAuthenticated, updateProductPrice);
+apiRoute.post('/products', isAuthenticated, updateProductPrice);
 
-api.get('/products', authenticateToken, getProducts);
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  API User Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-api.post('/usertoken', authenticateUser, oauth.server.token());
-
-api.post('/token', authenticateClient, oauth.server.token());
-
-api.post('/signup', addUser);
-
-api.get('/renew', authenticateToken, generateNewClientSecret);
-
-api.get('/user', authenticateToken, getClientData);
+apiRoute.get('/products', authenticateToken, getProducts);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  API Search Routes
+  APIRoute User Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-api.get('/search', authenticateToken, getLowestPrices);
+apiRoute.post('/usertoken', authenticateUser, oauth.server.token());
 
-exports.apiRouter = api;
+apiRoute.post('/token', authenticateClient, oauth.server.token());
+
+apiRoute.post('/signup', addUser);
+
+apiRoute.get('/renew', authenticateToken, generateNewClientSecret);
+
+apiRoute.get('/user', authenticateToken, getClientData);
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  APIRoute Search Routes
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+apiRoute.get('/search', authenticateToken, getLowestPrices);
+
+exports.apiRouter = apiRoute;

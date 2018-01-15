@@ -1,9 +1,9 @@
 const express = require('express');
 const { searchProducts, lookupProductsById } = require('../helpers/ebay');
 
-const ebay = express.Router();
+const ebayRoute = express.Router();
 
-ebay.get('/search', (req, res)=> {
+ebayRoute.get('/search', (req, res)=> {
   var keyword = req.query.keyword;
   console.log('searching for ', keyword);
 
@@ -16,7 +16,7 @@ ebay.get('/search', (req, res)=> {
   })
 });
 
-ebay.get('/lookup', (req, res) => {
+ebayRoute.get('/lookup', (req, res) => {
   var itemIds = req.query.itemIds;
   lookupProductsById(itemIds)
   .then((data) => {
@@ -27,4 +27,4 @@ ebay.get('/lookup', (req, res) => {
   })
 })
 
-exports.ebayRouter = ebay;
+exports.ebayRouter = ebayRoute;

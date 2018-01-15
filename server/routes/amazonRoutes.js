@@ -2,9 +2,9 @@ const express = require('express');
 const { searchProducts, lookupProductsById } = require('../helpers/amazon');
 const ebay = require('../helpers/ebay');
 
-const amazon = express.Router();
+const amazonRoute = express.Router();
 
-amazon.get('/search', (req, res) => {
+amazonRoute.get('/search', (req, res) => {
   var searchQuery = req.query.keyword;
   searchProducts(searchQuery)
   .then((data) => {
@@ -15,7 +15,7 @@ amazon.get('/search', (req, res) => {
   })
 });
 
-amazon.get('/lookup', (req, res) => {
+amazonRoute.get('/lookup', (req, res) => {
   const { itemIds } = req.query;
   if (!itemIds) {
     res.send('request must include at least one item id')
@@ -31,4 +31,4 @@ amazon.get('/lookup', (req, res) => {
 
 });
 
-exports.amazonRouter = amazon;
+exports.amazonRouter = amazonRoute;

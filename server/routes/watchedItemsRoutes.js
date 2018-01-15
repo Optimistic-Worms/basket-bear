@@ -4,9 +4,9 @@ const ebay = require('../helpers/ebay');
 const { addToWatchList, removeFromWatchList } = require('../controllers/watchedItems');
 const { isAuthenticated } = require('../controllers/authroutes.js');
 
-const watchedItems = express.Router();
+const watchedItemsRoute = express.Router();
 
-watchedItems.post('/', isAuthenticated, addToWatchList);
-watchedItems.put('/', isAuthenticated, removeFromWatchList);
+watchedItemsRoute.post('/', isAuthenticated, addToWatchList);
+watchedItemsRoute.put('/', isAuthenticated, removeFromWatchList);
 
-exports.watchedItemsRouter = watchedItems;
+exports.watchedItemsRouter = watchedItemsRoute;
