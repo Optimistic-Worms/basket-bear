@@ -36,8 +36,9 @@ const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
 const { ebayRouter } = require('./routes/ebayRoutes.js');
-const { settingsRouter } = require('./routes/settings.js');
+const { settingsRouter } = require('./routes/settingsRoutes.js');
 const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
+const { subscribeRouter } = require('./routes/subscribeRoutes.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -86,14 +87,9 @@ app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);
 app.use('/watchedItems', watchedItemsRouter);
+app.use('/subscribe', subscribeRouter);
 
 app.use('/api', apiRouter);
-
-app.get('/thing', isAuthenticated, (req,res) =>{
-  console.log('hit the 200')
-  res.sendStatus(200);
-});
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon mailer
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
