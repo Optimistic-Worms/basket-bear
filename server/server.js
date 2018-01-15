@@ -53,6 +53,9 @@ const push = require('./controllers/pushNotifications');
 const notificationWorker =  require('./controllers/notificationWorker');
 /* Check disposable email*/
 const checkEmail = require('./controllers/disposableEmailList');
+/* Amazon mailer */
+const amazonMail = require('./controllers/emailNotifications');
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -96,6 +99,11 @@ app.get('/thing', isAuthenticated, (req,res) =>{
   res.sendStatus(200);
 });
 
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Amazon mailer
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/amazonmail', amazonMail.sendMail)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
