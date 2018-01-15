@@ -28,6 +28,7 @@ const port = process.env.PORT || 3000;
 /* helpers */
 const amazon = require('./helpers/amazon');
 const ebay = require('./helpers/ebay');
+
 /* controllers */
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const isCronAuthenticated = require('./controllers/authroutes.js').isCronAuthenticated;
@@ -35,17 +36,17 @@ const shoppingList = require('./controllers/shoppingList');
 const userSettings = require('./controllers/userSettings');
 const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUserData } = require('./controllers/product');
 const watch = require('./controllers/watchedItems');
+
 /* dev controllers */
 const apiUser = require('./controllers/developer/apiUser');
-
 const apiAuth = require('./controllers/developer/auth/apiAuth');
 const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
 
 /* Routes */
-const { apiRouter } = require('./routes/api.js')
-
+const { apiRouter } = require('./routes/apiRoutes.js')
+const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -83,17 +84,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
-
-
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-/*app.get('/', (req,res)=> {
-  res.send(200)
-});*/
-
 app.use('/api', apiRouter);
+app.use('/shoppingList', shoppingListRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
@@ -140,73 +135,6 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
     res.status(500).send(error)
   });
 });
-
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Shopping List Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.post('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
-  shoppingList.createShoppingList(username)
-  .then((data) => {
-    res.status(200).send(data);
-  });
-});
-
-app.get('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
-  shoppingList.getShoppingList(username)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(401).send(data);
-  })
-});
-
-app.put('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
-  var product = req.body.product;
-  shoppingList.addItemToShoppingList(username, product)
-  .then((data) => {
-    addNewUserData(product, username);
-    res.status(200).send(data);
-  });
-});
-
-app.delete('/shoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
-  var productId = req.query.productId;
-  shoppingList.removeItemFromShoppingList(username, productId)
-  .then((data) => {
-    res.status(200).send(data);
-  });
-})
-
-app.put('/updateShoppingList', isAuthenticated, (req, res) => {
-  var username = req.username;
-  var list = req.body.list;
-  shoppingList.updateShoppingList(username, list)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-});
-
-app.put('/updateWatchPrice', isAuthenticated, (req,res) => {
-  var username = req.username;
-  var productId = req.body.productId;
-  var watchPrice = req.body.watchPrice;
-  shoppingList.updateWatchPrice(username, productId, watchPrice)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-});
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Watched Items Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
 app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
@@ -272,10 +200,6 @@ app.get('/lookupAmazon', (req, res) => {
   }
 
 });
-
-
- app.use('/api', apiRouter);
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
