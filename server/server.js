@@ -18,7 +18,6 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
-
 const path = require('path');
 const passport = require('passport');
 
@@ -27,7 +26,8 @@ const checkEmail = require('./controllers/disposableEmailList');
 /* Amazon mailer */
 const amazonMail = require('./controllers/emailNotifications');
 
-/* Routers */
+
+/* Routes */
 const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
@@ -36,6 +36,7 @@ const { settingsRouter } = require('./routes/settingsRoutes.js');
 const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
 const { subscribeRouter } = require('./routes/subscribeRoutes.js');
 const { notificationsRouter } = require('./routes/notificationsRoutes.js');
+const { fallbackRouter } = require('./routes/fallbackRoutes.js');
 
 /* Initialize Express */
 const port = process.env.PORT || 3000;
@@ -46,9 +47,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
+/* Initialize Webpack */
+let config;
+(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
+const compiler = webpack(config);
+
+const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
+  publicPath: config.output.publicPath
+});
+
+app.use(webpackDevMiddlewareInstance);
+
+if (process.env.HOT) {
+  app.use(webpackHotMiddleware(compiler));
+}
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
@@ -57,6 +74,7 @@ app.use('/watchedItems', watchedItemsRouter);
 app.use('/subscribe', subscribeRouter);
 app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
+app.use('/*', fallbackRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon mailer
@@ -80,25 +98,6 @@ app.get('*.js', function (req, res, next) {
   res.set('Content-Encoding', 'gzip');
   next();
 });
-
-app.get('*', (req,res) =>{
-  res.sendFile(path.resolve(__dirname, '../index.html'))
-});
-
-/* Webpack */
-let config = require(port === 3000 ? '../webpack.dev.js' : '../webpack.prod.js');
-
-const compiler = webpack(config);
-
-const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
-  publicPath: config.output.publicPath
-});
-
-app.use(webpackDevMiddlewareInstance);
-
-if (process.env.HOT) {
-  app.use(webpackHotMiddleware(compiler));
-}
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
