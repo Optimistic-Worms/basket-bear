@@ -12,7 +12,7 @@ exports.updateListPrices = function (idToken) {
       if (list[item].merchant === "amazon") amazonIds.push(item);
       if (list[item].merchant === "eBay") ebayIds.push(item);
     }
-    axios.get('/lookupAmazon', { params: { itemIds : amazonIds } })
+    axios.get('/amazon/lookup', { params: { itemIds : amazonIds } })
     .then((response) => {
       list = parseAmazonIds(response, list);
 

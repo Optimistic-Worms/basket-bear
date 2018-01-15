@@ -47,6 +47,7 @@ const expressValidator = require('express-validator');
 /* Routes */
 const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
+const { amazonRouter } = require('./routes/amazonRoutes.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -89,6 +90,7 @@ app.use(express.static(__dirname));
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 app.use('/api', apiRouter);
 app.use('/shoppingList', shoppingListRouter);
+app.use('/amazon', amazonRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
@@ -168,38 +170,6 @@ app.get('/lookupEbay', (req, res) => {
     res.status(200).send(data);
   })
 })
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Amazon API Calls
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.get('/searchAmazon', (req, res) => {
-  var searchQuery = req.query.keyword;
-  amazon.searchProducts(searchQuery)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(400).send(data);
-  })
-});
-
-app.get('/lookupAmazon', (req, res) => {
-  const { itemIds } = req.query;
-  if (!itemIds) {
-    res.send('request must include at least one item id')
-  } else {
-    amazon.lookupProductsById(itemIds)
-    .then((data) => {
-      res.status(200).send(data);
-    })
-    .catch((data) => {
-      res.status(400).send(data);
-    })
-  }
-
-});
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes

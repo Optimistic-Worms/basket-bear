@@ -81,7 +81,7 @@ class Search extends React.Component {
   }
 
   searchAmazon(keyword) {
-    axios.get('/searchAmazon', {
+    axios.get('/amazon/search', {
       params: {
         keyword: keyword
       }
