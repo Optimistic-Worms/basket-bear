@@ -49,6 +49,9 @@ const push = require('./controllers/pushNotifications');
 const notificationWorker =  require('./controllers/notificationWorker');
 /* Check disposable email*/
 const checkEmail = require('./controllers/disposableEmailList');
+/* Amazon mailer */
+const amazonMail = require('./controllers/emailNotifications');
+
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
@@ -77,6 +80,7 @@ app.use(express.static(__dirname));
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
@@ -84,6 +88,18 @@ app.use('/userSettings', settingsRouter);
 app.use('/watchedItems', watchedItemsRouter);
 
 app.use('/api', apiRouter);
+
+app.get('/thing', isAuthenticated, (req,res) =>{
+  console.log('hit the 200')
+  res.sendStatus(200);
+});
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * *
+  Amazon mailer
+* * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+app.get('/amazonmail', amazonMail.sendMail)
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
 * * * * * * * * * * * * * * * * * * * * * * * * * * */

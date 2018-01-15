@@ -72,7 +72,7 @@ const sendAnEmail = (emails, info) => {
   message += `\nhttps://basketbear.com/watchList`
    let data = {
     'name': '',
-    'email': emails.join(';'),
+    'email': emails.join(','),
     'message':message,
     'subject': `Price update!`,
    };
