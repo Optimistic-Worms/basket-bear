@@ -22,17 +22,12 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 const path = require('path');
 const passport = require('passport');
 
-/* Push */
-const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
-const notificationWorker =  require('./controllers/notificationWorker');
-
 /* Check disposable email*/
 const checkEmail = require('./controllers/disposableEmailList');
 /* Amazon mailer */
 const amazonMail = require('./controllers/emailNotifications');
 
-
-/* Routes */
+/* Routers */
 const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
@@ -42,28 +37,9 @@ const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
 const { subscribeRouter } = require('./routes/subscribeRoutes.js');
 const { notificationsRouter } = require('./routes/notificationsRoutes.js');
 
-
-const app = express();
-
-
-/* Webpack */
+/* Initialize Express */
 const port = process.env.PORT || 3000;
-
-let config;
-(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
-const compiler = webpack(config);
-
-const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
-  publicPath: config.output.publicPath
-});
-
-app.use(webpackDevMiddlewareInstance);
-
-if (process.env.HOT) {
-  app.use(webpackHotMiddleware(compiler));
-}
-
-
+const app = express();
 
 app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -73,7 +49,6 @@ app.use(express.static(__dirname));
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
@@ -110,6 +85,20 @@ app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, '../index.html'))
 });
 
+/* Webpack */
+let config = require(port === 3000 ? '../webpack.dev.js' : '../webpack.prod.js');
+
+const compiler = webpack(config);
+
+const webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
+  publicPath: config.output.publicPath
+});
+
+app.use(webpackDevMiddlewareInstance);
+
+if (process.env.HOT) {
+  app.use(webpackHotMiddleware(compiler));
+}
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
