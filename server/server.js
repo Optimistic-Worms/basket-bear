@@ -48,6 +48,7 @@ const expressValidator = require('express-validator');
 const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
+const { ebayRouter } = require('./routes/ebayRoutes.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -91,6 +92,7 @@ app.use(express.static(__dirname));
 app.use('/api', apiRouter);
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
+app.use('/ebay', ebayRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
@@ -141,35 +143,6 @@ app.post('/userSettings', isAuthenticated, (req, res) => {
 app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
 app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
 app.get('/watchedItemsWorker', isCronAuthenticated, watch.watchListWorker);
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Ebay API Calls
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.get('/searchEbay', (req, res)=> {
-  var keyword = req.query.keyword;
-  console.log('searching for ', keyword);
-
-  ebay.searchProducts(keyword)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(400).send(data);
-  })
-});
-
-app.get('/lookupEbay', (req, res) => {
-  var itemIds = req.query.itemIds;
-  ebay.lookupProductsById(itemIds)
-  .then((data) => {
-    res.status(200).send(data);
-  })
-  .catch((data) => {
-    res.status(200).send(data);
-  })
-})
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes

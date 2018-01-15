@@ -16,7 +16,7 @@ exports.updateListPrices = function (idToken) {
     .then((response) => {
       list = parseAmazonIds(response, list);
 
-      axios.get('/lookupEbay', { params: { itemIds : ebayIds } })
+      axios.get('/ebay/lookup', { params: { itemIds : ebayIds } })
       .then((response) => {
         list = parseEbayIds(response, list);
         axios.put(`/shoppingList/update/list?access_token=${idToken}`, {
