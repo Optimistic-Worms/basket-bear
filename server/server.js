@@ -1,12 +1,10 @@
-const webPush = require('web-push');
-let emailAuth;
-
 if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
  require('dotenv').config();
 }
 
 if(process.env.NODE_ENV !== 'test'){
-    emailAuth = process.env.EMAIL_AUTH
+  const webPush = require('web-push');
+  const emailAuth = process.env.EMAIL_AUTH
     webPush.setVapidDetails(
     process.env.VAPID_SUBJECT,
     process.env.VAPID_PUBLIC_KEY,
@@ -16,20 +14,23 @@ if(process.env.NODE_ENV !== 'test'){
 
 const express = require('express');
 const bodyParser = require('body-parser');
+
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
-const app = express();
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const path = require('path');
-const port = process.env.PORT || 3000;
-
-/* controllers */
-const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
-const isCronAuthenticated = require('./controllers/authroutes.js').isCronAuthenticated;
-
-/* dev controllers */
 const passport = require('passport');
+
+/* Push */
+const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
+const notificationWorker =  require('./controllers/notificationWorker');
+
+/* Check disposable email*/
+const checkEmail = require('./controllers/disposableEmailList');
+/* Amazon mailer */
+const amazonMail = require('./controllers/emailNotifications');
+
 
 /* Routes */
 const { apiRouter } = require('./routes/apiRoutes.js')
@@ -39,26 +40,18 @@ const { ebayRouter } = require('./routes/ebayRoutes.js');
 const { settingsRouter } = require('./routes/settingsRoutes.js');
 const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
 const { subscribeRouter } = require('./routes/subscribeRoutes.js');
+const { notificationsRouter } = require('./routes/notificationsRoutes.js');
 
-/* Push */
-const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
-const push = require('./controllers/pushNotifications');
-// VAPID keys should only be generated once.
-// const newVapidKeys = webPush.generateVAPIDKeys();
-// console.log(newVapidKeys)
-/* Notification */
-const notificationWorker =  require('./controllers/notificationWorker');
-/* Check disposable email*/
-const checkEmail = require('./controllers/disposableEmailList');
-/* Amazon mailer */
-const amazonMail = require('./controllers/emailNotifications');
 
+const app = express();
+
+
+/* Webpack */
+const port = process.env.PORT || 3000;
 
 let config;
 (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
-
-app.use(passport.initialize());
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
@@ -70,10 +63,9 @@ if (process.env.HOT) {
   app.use(webpackHotMiddleware(compiler));
 }
 
-const server = app.listen(port || 3000);
-console.log('server is listening on port ' + port);
 
 
+app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
@@ -88,8 +80,9 @@ app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);
 app.use('/watchedItems', watchedItemsRouter);
 app.use('/subscribe', subscribeRouter);
-
+app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
+
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon mailer
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -101,20 +94,6 @@ app.get('/amazonmail', amazonMail.sendMail)
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/checkemail', checkEmail.check)
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Push Subscription
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.post('/subscribe', isAuthenticated, push.subscribe);
-app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Notification Worker
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.get('/runnotifications', isCronAuthenticated, notificationWorker.notificationWorker)
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
@@ -131,6 +110,9 @@ app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, '../index.html'))
 });
 
+
+const server = app.listen(port || 3000);
+console.log('server is listening on port ' + port);
 
 module.exports.server = server;
 module.exports.app = app;
