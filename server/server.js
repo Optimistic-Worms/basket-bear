@@ -1,16 +1,17 @@
-if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test') {
+const { NODE_ENV, PORT } = process.env;
+
+if (NODE_ENV !== 'production' && NODE_ENV !== 'test') {
  require('dotenv').config();
 }
 
-if (process.env.NODE_ENV !== 'test'){
+if (NODE_ENV !== 'test'){
   const webPush = require('web-push');
-  const { VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY } = process.env;
+  const { VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY , } = process.env;
   const emailAuth = process.env.EMAIL_AUTH;
   webPush.setVapidDetails(VAPID_SUBJECT, VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY);
 }
 /* Initialize Express */
 const express = require('express');
-const port = process.env.PORT || 3000;
 const app = express();
 
 const bodyParser = require('body-parser');
@@ -21,21 +22,23 @@ app.use(express.static(__dirname));
 
 /* Initialize Webpack */
 const webpack = require('webpack');
-const webpackDevMiddleware = require('webpack-dev-middleware');
-const webpackHotMiddleware = require('webpack-hot-middleware');
+const config = require(NODE_ENV === 'production' ? '../webpack.prod.js' : '../webpack.dev.js');
 
-let config;
-(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
 const compiler = webpack(config);
 
-const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
-  publicPath: config.output.publicPath
-});
+if (NODE_ENV !== 'production') {
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
+    publicPath: config.output.publicPath
+  });
 
-app.use(webpackDevMiddlewareInstance);
+  app.use(webpackDevMiddlewareInstance);
+  exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
 
-if (process.env.HOT) {
-  app.use(webpackHotMiddleware(compiler));
+  if (process.env.HOT) {
+    app.use(webpackHotMiddleware(compiler));
+  }
 }
 
 /* Initialize Passport */
@@ -91,8 +94,8 @@ app.get('*.js', (req, res, next) => {
   next();
 });
 
+const port = PORT || 3000;
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
 
 module.exports.server = server;
-module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
