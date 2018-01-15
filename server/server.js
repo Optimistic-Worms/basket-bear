@@ -14,7 +14,7 @@ if(process.env.NODE_ENV !== 'test'){
     );
 }
 
-const express = require('express')
+const express = require('express');
 const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -42,6 +42,10 @@ const apiAuth = require('./controllers/developer/auth/apiAuth');
 const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
 const expressValidator = require('express-validator');
+
+/* Routes */
+const { apiRouter } = require('./routes/api.js')
+
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -78,8 +82,6 @@ console.log('server is listening on port ' + port);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
-const apiRoutes = express.Router();
-app.use('/api', apiRoutes);
 
 
 
@@ -91,11 +93,7 @@ app.use('/api', apiRoutes);
   res.send(200)
 });*/
 
-app.get('/thing', isAuthenticated, (req,res) =>{
-  console.log('hit the 200')
-  res.sendStatus(200);
-});
-
+app.use('/api', apiRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
@@ -275,34 +273,9 @@ app.get('/lookupAmazon', (req, res) => {
 
 });
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Product Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', isAuthenticated, updateProductPrice);
+ app.use('/api', apiRouter);
 
-apiRoutes.get('/products', apiAuth.authenticateToken, getProducts);
-
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  Business API Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-apiRoutes.get('/', apiAuth.authenticateToken, (req, res) => {
-  res.send('Welcome to the Basket Bear API!')
-});
-
-apiRoutes.post('/usertoken', apiAuth.authenticateUser, oauth.server.token());
-
-apiRoutes.post('/token', apiAuth.authenticateClient, oauth.server.token());
-
-apiRoutes.post('/signup', apiUser.addUser);
-
-apiRoutes.get('/renew', apiAuth.authenticateToken, apiUser.generateNewClientSecret);
-
-apiRoutes.get('/user', apiAuth.authenticateToken, apiUser.getClientData);
-
-apiRoutes.get('/search', apiAuth.authenticateToken, getLowestPrices);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes
