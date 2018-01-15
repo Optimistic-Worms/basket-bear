@@ -17,9 +17,9 @@ const { isAuthenticated } = require('../controllers/authroutes.js');
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-const shoppingListRoutes = express.Router();
+const shoppingList = express.Router();
 
-shoppingListRoutes.post('/', isAuthenticated, (req, res) => {
+shoppingList.post('/', isAuthenticated, (req, res) => {
   var username = req.username;
   createShoppingList(username)
   .then((data) => {
@@ -27,7 +27,7 @@ shoppingListRoutes.post('/', isAuthenticated, (req, res) => {
   });
 });
 
-shoppingListRoutes.get('/', isAuthenticated, (req, res) => {
+shoppingList.get('/', isAuthenticated, (req, res) => {
   var username = req.username;
   getShoppingList(username)
   .then((data) => {
@@ -38,7 +38,7 @@ shoppingListRoutes.get('/', isAuthenticated, (req, res) => {
   })
 });
 
-shoppingListRoutes.put('/', isAuthenticated, (req, res) => {
+shoppingList.put('/', isAuthenticated, (req, res) => {
   var username = req.username;
   var product = req.body.product;
   addItemToShoppingList(username, product)
@@ -48,7 +48,7 @@ shoppingListRoutes.put('/', isAuthenticated, (req, res) => {
   });
 });
 
-shoppingListRoutes.delete('/', isAuthenticated, (req, res) => {
+shoppingList.delete('/', isAuthenticated, (req, res) => {
   var username = req.username;
   var productId = req.query.productId;
   removeItemFromShoppingList(username, productId)
@@ -57,7 +57,7 @@ shoppingListRoutes.delete('/', isAuthenticated, (req, res) => {
   });
 })
 
-shoppingListRoutes.put('/update/list', isAuthenticated, (req, res) => {
+shoppingList.put('/update/list', isAuthenticated, (req, res) => {
   var username = req.username;
   var list = req.body.list;
   updateShoppingList(username, list)
@@ -66,7 +66,7 @@ shoppingListRoutes.put('/update/list', isAuthenticated, (req, res) => {
   })
 });
 
-shoppingListRoutes.put('/update/watch', isAuthenticated, (req,res) => {
+shoppingList.put('/update/watch', isAuthenticated, (req,res) => {
   var username = req.username;
   var productId = req.body.productId;
   var watchPrice = req.body.watchPrice;
@@ -76,4 +76,4 @@ shoppingListRoutes.put('/update/watch', isAuthenticated, (req,res) => {
   })
 });
 
-exports.shoppingListRouter = shoppingListRoutes;
+exports.shoppingListRouter = shoppingList;

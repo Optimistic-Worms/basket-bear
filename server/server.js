@@ -19,30 +19,17 @@ const bodyParser = require('body-parser');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const app = express();
-const axios = require('axios');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const path = require('path');
 const port = process.env.PORT || 3000;
 
-/* helpers */
-const amazon = require('./helpers/amazon');
-const ebay = require('./helpers/ebay');
-
 /* controllers */
 const isAuthenticated = require('./controllers/authroutes.js').isAuthenticated;
 const isCronAuthenticated = require('./controllers/authroutes.js').isCronAuthenticated;
-const shoppingList = require('./controllers/shoppingList');
-const userSettings = require('./controllers/userSettings');
-const { getLowestPrices, updateProductPrice, getPriceData, getProducts, addNewUserData } = require('./controllers/product');
-const watch = require('./controllers/watchedItems');
 
 /* dev controllers */
-const apiUser = require('./controllers/developer/apiUser');
-const apiAuth = require('./controllers/developer/auth/apiAuth');
-const oauth = require('./controllers/developer/auth/oauth2');
 const passport = require('passport');
-const expressValidator = require('express-validator');
 
 /* Routes */
 const { apiRouter } = require('./routes/apiRoutes.js')
@@ -50,6 +37,7 @@ const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
 const { ebayRouter } = require('./routes/ebayRoutes.js');
 const { settingsRouter } = require('./routes/settings.js');
+const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -67,7 +55,6 @@ let config;
 const compiler = webpack(config);
 
 app.use(passport.initialize());
-app.use(expressValidator())
 
 const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
   publicPath: config.output.publicPath
@@ -88,20 +75,20 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  API Routes
+Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
-app.use('/api', apiRouter);
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);
+app.use('/watchedItems', watchedItemsRouter);
 
+app.use('/api', apiRouter);
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/checkemail', checkEmail.check)
-
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Push Subscription
@@ -116,10 +103,6 @@ app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/runnotifications', isCronAuthenticated, notificationWorker.notificationWorker)
-
-app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
-app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
-app.get('/watchedItemsWorker', isCronAuthenticated, watch.watchListWorker);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Fallback Routes

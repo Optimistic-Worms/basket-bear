@@ -2,9 +2,9 @@ const express = require('express');
 const { getSettings, createSettings} = require('../controllers/userSettings');
 const { isAuthenticated } = require('../controllers/authroutes.js');
 
-const settingsRoutes = express.Router();
+const settings = express.Router();
 
-settingsRoutes.get('/', isAuthenticated, (req, res) => {
+settings.get('/', isAuthenticated, (req, res) => {
   var username = req.username;
   getSettings(username)
   .then((result) => {
@@ -14,7 +14,7 @@ settingsRoutes.get('/', isAuthenticated, (req, res) => {
   });
 });
 
-settingsRoutes.post('/', isAuthenticated, (req, res) => {
+settings.post('/', isAuthenticated, (req, res) => {
   var username = req.username;
   var data = req.body;
   createSettings(username, data)
@@ -25,4 +25,4 @@ settingsRoutes.post('/', isAuthenticated, (req, res) => {
   });
 });
 
-exports.settingsRouter = settingsRoutes;
+exports.settingsRouter = settings;

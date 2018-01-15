@@ -23,9 +23,9 @@ const {
 const oauth = require('../controllers/developer/auth/oauth2');
 const { isAuthenticated } = require('../controllers/authroutes.js');
 
-const apiRoutes = express.Router();
+const api = express.Router();
 
-apiRoutes.get('/', authenticateToken, (req, res) => {
+api.get('/', authenticateToken, (req, res) => {
   res.send('Welcome to the Basket Bear API! Proceed to "https://www.basketbear.com/dev/docs/start to get started"')
 });
 
@@ -33,28 +33,28 @@ apiRoutes.get('/', authenticateToken, (req, res) => {
   Product Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/products', isAuthenticated, updateProductPrice);
+api.post('/products', isAuthenticated, updateProductPrice);
 
-apiRoutes.get('/products', authenticateToken, getProducts);
+api.get('/products', authenticateToken, getProducts);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API User Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.post('/usertoken', authenticateUser, oauth.server.token());
+api.post('/usertoken', authenticateUser, oauth.server.token());
 
-apiRoutes.post('/token', authenticateClient, oauth.server.token());
+api.post('/token', authenticateClient, oauth.server.token());
 
-apiRoutes.post('/signup', addUser);
+api.post('/signup', addUser);
 
-apiRoutes.get('/renew', authenticateToken, generateNewClientSecret);
+api.get('/renew', authenticateToken, generateNewClientSecret);
 
-apiRoutes.get('/user', authenticateToken, getClientData);
+api.get('/user', authenticateToken, getClientData);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   API Search Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-apiRoutes.get('/search', authenticateToken, getLowestPrices);
+api.get('/search', authenticateToken, getLowestPrices);
 
-exports.apiRouter = apiRoutes;
+exports.apiRouter = api;
