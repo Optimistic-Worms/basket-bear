@@ -49,6 +49,7 @@ const { apiRouter } = require('./routes/apiRoutes.js')
 const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
 const { ebayRouter } = require('./routes/ebayRoutes.js');
+const { settingsRouter } = require('./routes/settings.js');
 
 /* Push */
 const getSubscriptionsFromDB = require('./controllers/userSettings.js').getSubscriptionsFromDB;
@@ -93,6 +94,7 @@ app.use('/api', apiRouter);
 app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
+app.use('/userSettings', settingsRouter);
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Check for disposable email
@@ -114,31 +116,6 @@ app.post('/unsubscribe', isAuthenticated, push.unsubscribe);
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 app.get('/runnotifications', isCronAuthenticated, notificationWorker.notificationWorker)
-
-/* * * * * * * * * * * * * * * * * * * * * * * * * * *
-  User settings Routes
-* * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-app.get('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.username;
-  userSettings.getSettings(username)
-  .then((result) => {
-    res.status(200).send(result);
-  }).catch(error => {
-    res.status(500).send(error)
-  });
-});
-
-app.post('/userSettings', isAuthenticated, (req, res) => {
-  var username = req.username;
-  var data = req.body;
-  userSettings.createSettings(username, data)
-  .then((result) => {
-    res.status(200).send(result);
-  }).catch(error => {
-    res.status(500).send(error)
-  });
-});
 
 app.post('/watchedItems', isAuthenticated, watch.addToWatchList);
 app.put('/watchedItems', isAuthenticated, watch.removeFromWatchList);
