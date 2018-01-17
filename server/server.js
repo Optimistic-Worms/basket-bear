@@ -69,7 +69,7 @@ app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);
-app.use('/watchedItems', watchedItemsRouter);re
+app.use('/watchedItems', watchedItemsRouter);
 app.use('/subscribe', subscribeRouter);
 app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
