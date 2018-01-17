@@ -73,8 +73,6 @@ app.use('/watchedItems', watchedItemsRouter);
 app.use('/subscribe', subscribeRouter);
 app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
-app.use('/*', fallbackRouter);
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon mailer
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
