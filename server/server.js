@@ -36,7 +36,6 @@ const { settingsRouter } = require('./routes/settingsRoutes.js');
 const { watchedItemsRouter } = require('./routes/watchedItemsRoutes.js');
 const { subscribeRouter } = require('./routes/subscribeRoutes.js');
 const { notificationsRouter } = require('./routes/notificationsRoutes.js');
-const { fallbackRouter } = require('./routes/fallbackRoutes.js');
 
 /* Initialize Express */
 const port = process.env.PORT || 3000;
@@ -70,7 +69,7 @@ app.use('/shoppingList', shoppingListRouter);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);
-app.use('/watchedItems', watchedItemsRouter);
+app.use('/watchedItems', watchedItemsRouter);re
 app.use('/subscribe', subscribeRouter);
 app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
