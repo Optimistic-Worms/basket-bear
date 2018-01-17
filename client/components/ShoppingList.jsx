@@ -141,7 +141,7 @@ class ShoppingList extends React.Component {
 
   setWatchPrice(product, watchPrice) {
     firebase.auth().currentUser.getIdToken(true).then((idToken) => {
-      axios.put(`/updateWatchPrice?access_token=${idToken}`, {
+      axios.put(`/shoppingList/update/watch?access_token=${idToken}`, {
         productId: product.id,
         watchPrice: watchPrice,
       })

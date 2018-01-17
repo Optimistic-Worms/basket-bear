@@ -151,7 +151,7 @@ class PushNotification2 extends React.Component {
     }
 
     deleteSubscription(idToken, endpoint){
-      axios.post(`/unsubscribe?access_token=${idToken}`,{subscription:endpoint}).then((result)=>{
+      axios.post(`/subscribe/remove?access_token=${idToken}`,{subscription:endpoint}).then((result)=>{
       this.setState({messages: result.data});
       }).catch(error =>{
         this.setState({messages: error});
