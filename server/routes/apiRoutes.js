@@ -26,7 +26,7 @@ const { isAuthenticated } = require('../controllers/authroutes.js');
 const apiRoute = express.Router();
 
 apiRoute.get('/', authenticateToken, (req, res) => {
-  res.send('Welcome to the Basket Bear APIRoute! Proceed to "https://www.basketbear.com/dev/docs/start to get started"')
+  res.send('Welcome to the Basket Bear API! Proceed to "https://www.basketbear.com/dev/docs/start to get started"')
 });
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
