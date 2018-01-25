@@ -73,7 +73,7 @@ app.use('/watchedItems', watchedItemsRouter);
 app.use('/subscribe', subscribeRouter);
 app.use('/runnotifications', notificationsRouter);
 app.use('/api', apiRouter);
-app.use('/*', fallbackRouter);
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
   Amazon mailer
@@ -93,7 +93,7 @@ app.get('*.js', (req, res, next) => {
   res.set('Content-Encoding', 'gzip');
   next();
 });
-
+app.use('/*', fallbackRouter);
 const port = PORT || 3000;
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);

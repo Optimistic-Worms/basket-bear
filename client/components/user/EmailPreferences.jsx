@@ -6,6 +6,7 @@ const EmailPreferences = (props) => {
   return (
     <div className="settings-layout">
       <h3>Email Notification Preferences</h3>
+      {/* 
       <div>
       <span style={{background:'grey', color:'white'}}>{props.messages}</span>
       <div className="settings-form-wrapper">
@@ -16,9 +17,11 @@ const EmailPreferences = (props) => {
           }}
           type="email"/>
         <button className="button button-settings" onClick={() =>{props.addEmail()}}>Add</button>
+      </div> 
       </div>
-      </div>
+
       <p>You can have up to 4 additional email accounts that Basket Bear will notifiy to:</p>
+      */}
       {props.emails.map((item,index)=>{
         return(
           <div className="settings-email-update" key={`emailCard${index}`}>
@@ -36,7 +39,7 @@ const EmailPreferences = (props) => {
             {(index !== 0)?
                 <button className="button button--remove button--remove-settings" onClick={(e) =>{props.deleteEmail(item.email)}}>Delete</button>
                 :
-                <span>Default</span>
+                <span>Registered email</span>
             }
                 </div>
             </div>
