@@ -97,8 +97,9 @@ app.get('*.js', function (req, res, next) {
   next();
 });
 
-
-app.use('/*', fallbackRouter);
+app.get('*', (req,res) =>{
+  res.sendFile(path.resolve(__dirname, '../index.html'))
+});
 
 const server = app.listen(port || 3000);
 console.log('server is listening on port ' + port);
