@@ -7,7 +7,7 @@
   - __Product Owner__: Jason
   - __Scrum Master__: Diana
   - __Git Workflow__: Nick
-  - __Software Engineer__: Candice
+  - __Software Engineering__: Candice, Jason, Diana, Nick
 
 ## Table of Contents
 
@@ -21,15 +21,18 @@
 
 ## Usage
 
-> Some usage instructions
+- [UI](https://basketbear.com/) is for getting notification when the price of a requested item drops 
+- [Buisness API](https://basketbear.com/dev) is used for scanning customers requests, and accessing Amazon and Ebay's advertising APIs. 
 
 ## Requirements
 
-- Node 0.10.x
-- Redis 2.6.x
-- Postgresql 9.1.x
-- etc
-- etc
+- Node.js
+- Express
+- React
+- Firestore
+- Amazon/Ebay APIs
+- Apps Script or Amazon SMPT API - For mail
+
 
 ## Development
 
@@ -38,14 +41,9 @@
 From within the root directory:
 
 ```sh
-sudo npm install -g bower
 npm install
-bower install
+npm run server
 ```
-
-### Roadmap
-
-View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
 
 ## Contributing
