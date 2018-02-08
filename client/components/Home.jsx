@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, browserHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Link, browserHistory, Redirect} from 'react-router-dom';
 import firebase from './user/firebase-auth';
 import Search from './Search.jsx';
 import LoginCard from './user/LoginCard.jsx';
