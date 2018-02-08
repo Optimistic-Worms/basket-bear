@@ -5,7 +5,7 @@ const ApiNav = (props) => (
   <nav>
     <div>
       <Link to="/dev">
-      <div className="api-nav-title">Home</div>
+      <div className="api-nav-title desktop-show">Home</div>
       </Link>
     </div>
     <div className="menu">

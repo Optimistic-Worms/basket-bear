@@ -189,8 +189,8 @@ class Search extends React.Component {
             <li>
               <Link to="/">
                 <span className="desktop-show brand">
-                  <i className="fa fa-shopping-basket"></i>
-                  &nbsp; Bear
+                  <i className="fa fa-shopping-basket">&nbsp;&nbsp;</i>
+                  Bear
                 </span>
               </Link>
             </li>

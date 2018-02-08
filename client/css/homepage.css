@@ -298,6 +298,7 @@ button.search-button:focus {
     padding-bottom: 1em;
     border-right: none;
     padding-right: 0;
+    margin-top: 2em;
   }
   .hometout-join h2 {
     font-size: 1em;
