@@ -65,11 +65,11 @@ class Home extends React.Component {
       <div>
         <Route path= '/' render={(props) => {
           return (
-            <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
+            <Search logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
             )
           }
         }/>
-        <Route exact path="/" component={Search}/>
+        {/* <Route exact path="/" component={Search}/> */}
         <Route path="/login" component={LoginCard}/>
         <Route path="/settings" component={Settings}/>
         <Route path="/about" component={About}/>

@@ -56,24 +56,21 @@
 
 .search {
   display: flex;
-  width: 65%;
+  width: 50%;
   flex-direction: row;
-  margin: 0.8em auto 0;
-  height: 2.75em;
+  margin: .2em;
+  align-items: center;
+  height: 2em;
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px, rgba(0, 0, 0, 0.1) 0px 1px 4px;
 }
 
-input.search-form:focus {
-  outline: none;
-  font-size: 1em;
-}
 
 .form {
   width: 100%;
 }
 
 .search-form {
-  width: 100%;
+  width: 50%;
   border: none;
   height: inherit;
   border-top-left-radius: .25rem;
@@ -88,13 +85,13 @@ select.search-selection:focus {
 }
 
 .search-selection {
-  width: 15%;
+  width: 6em;
   border: 1px solid #dadada;
   height: inherit;
 }
 
 .search-button {
-  width: 8%;
+  width: 3em;
   height: inherit;
   border: none;
   padding: 0;
@@ -128,7 +125,7 @@ button.search-button:focus {
   padding: 0;
   align-items: center;
   justify-content: center;
-  margin: 0 auto 5em;
+  margin: 3em auto 5em;
 }
 
 .list {
@@ -227,14 +224,12 @@ button.search-button:focus {
     border-bottom-left-radius: 0;
     -webkit-appearance: none;
   }
-  .search-form {
-    width: 70%;
-  }
   .intro-card h1 {
     font-size: 3em;
     width: 100%;
     justify-content: center;
   }
+
   .search-form {
     width: 100%;
     border: 1px solid #dadada;
@@ -247,7 +242,7 @@ button.search-button:focus {
   }
 }
 
-@media (max-width:768px) {
+@media (max-width:900px) {
   .list {
     grid-template-columns: auto;
     margin: 0 .5em;
@@ -257,6 +252,13 @@ button.search-button:focus {
     font-size: 1em;
   }
   .search {
+    display: flex;
+    width: 98%;
+    order: 2;
+    margin-top: -1em;
+  }
+
+  .search-form {
     width: 90%;
   }
   .card {
@@ -327,8 +329,5 @@ button.search-button:focus {
 @media (min-width:1600px) {
   .list {
     grid-template-columns: auto auto auto auto;
-  }
-  .search {
-    width: 50%;
   }
 }

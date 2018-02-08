@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 const ApiNav = (props) => (
   <div className="api-nav">
   <nav>
-    <div className="brand">
+    <div>
       <Link to="/dev">
       <div className="api-nav-title">Home</div>
       </Link>

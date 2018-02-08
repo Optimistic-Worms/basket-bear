@@ -11,24 +11,25 @@ nav {
   width: 100%;
   display: flex;
   align-items: center;
-  height: 3em;
+  height: auto;
   position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 1030;
-  opacity: 0.85;
   font-weight: 300;
   text-transform: uppercase;
+  justify-content: space-between;
+}
+
+.menu {
+  padding: .5em 0;
 }
 
 .brand {
-  font-size: 1.5em;
   justify-content: center;
-  margin-right: auto;
-  margin-left: 0.6em;
   text-decoration: none !important;
-
+  width: 100%;
 }
 
 .brand a {
@@ -43,12 +44,15 @@ nav {
 
 }
 
+
 nav .brand a:hover {
   color: #000;
 }
 
 
-.menu li {
+
+
+nav li {
   display: inline-block;
   cursor: pointer;
   line-height: 0;
@@ -61,14 +65,14 @@ nav .brand a:hover {
   transition: all 0.5s ease-out;
 }
 
-.menu li a {
+nav li a {
   display: block;
   padding: 0 1em;
   color: #fff;
   text-decoration: none !important;
 }
 
-.menu li:hover {
+nav li:hover {
   text-decoration: underline;
 }
 
@@ -76,7 +80,7 @@ nav .brand a:hover {
 /** Media Queries **/
 
 @media (max-width:360px) {
-  .menu li {
+  nav li {
     font-size: .9em;
   }
 }
@@ -91,16 +95,20 @@ nav .brand a:hover {
 }
 
 
-@media (max-width:768px) {
+@media (max-width:900px) {
 
   nav {
     justify-content: space-around;
+    flex-direction: column;
   }
   .menu {
     display: flex;
     justify-content: space-around;
     width: 100%;
-    padding: 0
+    padding: 0;
+    order: 1;
+    margin-top: -1em;
+
   }
 
   li .fa {
@@ -113,10 +121,10 @@ nav .brand a:hover {
     display: none;
   }
 
-  .menu li:hover {
+  nav li:hover {
     text-decoration: none;
   }
-  .menu li {
+  nav li {
     display: inline-block;
     cursor: pointer;
     line-height: 3.3em;
@@ -127,6 +135,10 @@ nav .brand a:hover {
     -ms-transition: all 0.5s ease-out;
     -o-transition: all 0.5s ease-out;
     transition: all 0.5s ease-out;
+  }
+
+  .search a {
+    padding: 0;
   }
 
 }
