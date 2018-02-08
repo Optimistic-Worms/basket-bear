@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import firebase from "./user/firebase-auth";
 import SearchList from "./SearchList.jsx";
-import { Link } from "react-router-dom";
+import { Link, Redirect} from "react-router-dom";
 import "../css/navigation.css";
 
 class Search extends React.Component {
@@ -14,7 +14,8 @@ class Search extends React.Component {
       amazonSearchItems: [],
       queryString: "",
       searchItems: [],
-      searchMessage: ""
+      searchMessage: "",
+      redirect: false
     };
 
     this.search = this.search.bind(this);
@@ -66,8 +67,8 @@ class Search extends React.Component {
         }
       })
       .then(response => {
-        window.scrollTo(0, 550);
         var items = response.data;
+        this.setState({ redirect: true });
         this.setState({ ebaySearchItems: items });
         var combinedItems = items.concat(this.state.searchItems);
         this.sortItems(combinedItems);
@@ -102,7 +103,7 @@ class Search extends React.Component {
         }
       })
       .then(response => {
-        window.scrollTo(0, 550);
+        this.setState({ redirect: true });
         let searchResults = response.data.ItemSearchResponse.Items[0].Item;
         let items = this.parseAmazonResults(searchResults);
         this.setState({ amazonSearchItems: items });
@@ -182,6 +183,12 @@ class Search extends React.Component {
   }
 
   render() {
+    const { redirect } = this.state;
+
+     if (redirect) {
+       return <Redirect to='/somewhere'/>;
+     }
+
     return (
       <div>
         <nav>
