@@ -124,7 +124,7 @@ button.search-button:focus {
   padding: 0;
   align-items: center;
   justify-content: center;
-  margin: 3em auto 5em;
+  margin-top: -4em;
 }
 
 .list {

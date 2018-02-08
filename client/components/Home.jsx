@@ -10,6 +10,7 @@ import About from './About.jsx'
 import ClientIntro from './ClientIntro.jsx'
 import SignUp from './SignUp.jsx'
 import Navbar from './Navbar.jsx';
+import Results from './Results.jsx';
 import JoinHomeTout from './JoinHomeTout.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
@@ -84,6 +85,7 @@ class Home extends React.Component {
         <Route exact path='/' render={(props) => (
           <Footer history={props.history}/>
         )}/>
+        <Route path="/results" component={Results}/>
       </div>
     )
   }
