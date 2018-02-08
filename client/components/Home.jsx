@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Route, Link, browserHistory } from 'react-router-dom';
+import { BrowserRouter, Route, Link, browserHistory, Redirect} from 'react-router-dom';
 import firebase from './user/firebase-auth';
 import Search from './Search.jsx';
 import LoginCard from './user/LoginCard.jsx';
@@ -7,7 +7,10 @@ import Settings from './user/Settings.jsx';
 import ShoppingList from './ShoppingList.jsx';
 import TermsAndConditions from './TermsAndConditions.jsx';
 import About from './About.jsx'
+import ClientIntro from './ClientIntro.jsx'
+import SignUp from './SignUp.jsx'
 import Navbar from './Navbar.jsx';
+import Results from './Results.jsx';
 import JoinHomeTout from './JoinHomeTout.jsx';
 import Footer from './Footer.jsx';
 import { logout } from './user/authHelpers.js';
@@ -65,11 +68,11 @@ class Home extends React.Component {
       <div>
         <Route path= '/' render={(props) => {
           return (
-            <Navbar logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
+            <Search logged={this.state.logged} logging={this.logging} logout={this.state.logout}/>
             )
           }
         }/>
-        <Route exact path="/" component={Search}/>
+        <Route exact path="/" component={ClientIntro}/>
         <Route path="/login" component={LoginCard}/>
         <Route path="/settings" component={Settings}/>
         <Route path="/about" component={About}/>
@@ -77,11 +80,12 @@ class Home extends React.Component {
         <Route path="/terms" component={TermsAndConditions}/>
         {
           !this.state.isLoggedIn &&
-          <Route exact path="/" component={JoinHomeTout}/>
+          <Route exact path="/" component={SignUp}/>
         }
         <Route exact path='/' render={(props) => (
           <Footer history={props.history}/>
         )}/>
+        <Route path="/results" component={Results}/>
       </div>
     )
   }
