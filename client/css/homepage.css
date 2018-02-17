@@ -56,20 +56,24 @@
 
 .search {
   display: flex;
-  width: 50%;
+  width: 65%;
   flex-direction: row;
-  margin: .2em;
-  align-items: center;
-  height: 2em;
+  margin: 0.8em auto 0;
+  height: 2.75em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 6px, rgba(0, 0, 0, 0.1) 0px 1px 4px;
 }
 
+input.search-form:focus {
+  outline: none;
+  font-size: 1em;
+}
 
 .form {
   width: 100%;
 }
 
 .search-form {
-  width: 50%;
+  width: 100%;
   border: none;
   height: inherit;
   border-top-left-radius: .25rem;
@@ -84,13 +88,13 @@ select.search-selection:focus {
 }
 
 .search-selection {
-  width: 6em;
+  width: 15%;
   border: 1px solid #dadada;
   height: inherit;
 }
 
 .search-button {
-  width: 3em;
+  width: 8%;
   height: inherit;
   border: none;
   padding: 0;
@@ -124,7 +128,7 @@ button.search-button:focus {
   padding: 0;
   align-items: center;
   justify-content: center;
-  margin-top: -4em;
+  margin: 0 auto 5em;
 }
 
 .list {
@@ -223,12 +227,14 @@ button.search-button:focus {
     border-bottom-left-radius: 0;
     -webkit-appearance: none;
   }
+  .search-form {
+    width: 70%;
+  }
   .intro-card h1 {
     font-size: 3em;
     width: 100%;
     justify-content: center;
   }
-
   .search-form {
     width: 100%;
     border: 1px solid #dadada;
@@ -241,7 +247,7 @@ button.search-button:focus {
   }
 }
 
-@media (max-width:900px) {
+@media (max-width:768px) {
   .list {
     grid-template-columns: auto;
     margin: 0 .5em;
@@ -251,13 +257,6 @@ button.search-button:focus {
     font-size: 1em;
   }
   .search {
-    display: flex;
-    width: 98%;
-    order: 2;
-    margin-top: -1em;
-  }
-
-  .search-form {
     width: 90%;
   }
   .card {
@@ -297,7 +296,6 @@ button.search-button:focus {
     padding-bottom: 1em;
     border-right: none;
     padding-right: 0;
-    margin-top: 2em;
   }
   .hometout-join h2 {
     font-size: 1em;
@@ -329,5 +327,8 @@ button.search-button:focus {
 @media (min-width:1600px) {
   .list {
     grid-template-columns: auto auto auto auto;
+  }
+  .search {
+    width: 50%;
   }
 }

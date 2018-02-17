@@ -248,16 +248,13 @@ body {
   .brand {
     display: none;
   }
-}
-
-@media (min-width:900px) {
-  .mobile-show {
+  .desktop-show {
     display: none;
   }
 }
 
-@media (max-width:900px) {
-  .desktop-show {
+@media (min-width:769px) {
+  .mobile-show {
     display: none;
   }
 }
