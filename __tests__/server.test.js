@@ -1,51 +1,44 @@
 const request = require('supertest');
-const appServer = require('../server/server');
-
-// beforeEach(function() {
-//   originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-//   jasmine.DEFAULT_TIMEOUT_INTERVAL = 50000;
-// });
-
-// afterEach(function() {
-//   jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
-// });
-
-// afterAll(() => {
-//   console.log('close server');
-//   appServer.server.close();
-//   console.log('close webpack instance');
-//   appServer.webpackDevMiddlewareInstance.close();
-// });
-
-
+const { app } = require('../server/app.js');
 
 describe('Test Generic Routes', () => {
-  test('should get index page', () => {
-    //return request(appServer.app).get('/').expect(200);
+  test('should get index page', (done) => {
+    request(app).get('/').then((res) => {
+      expect(res.statusCode).toBe(200);
+      done();
+    });
+  });
+
+  test('should get index page when requesting non-existent route', (done) => {
+    request(app).get('/random').then((res) => {
+      expect(res.statusCode).toBe(200);
+      done();
+    });
   });
 });
 
 
-describe('Test Shopping List Routes', () => {
-  test('should accept GET requests to /shoppingList', () => {
+
+//describe('Test Shopping List Routes', () => {
+ // test('should accept GET requests to /shoppingList', () => {
     // var data = { username: 'Candice'};
 
     // return request(appServer.app)
     // .get('/shoppingList', data)
     // .send(data)
     // .expect(200);
-  });
+  //});
 
-  test('should accept POST requests to /shoppingList', () => {
+  //test('should accept POST requests to /shoppingList', () => {
     // var data = { username : 'Candice'};
 
     // return request(appServer.app)
     // .post('/shoppingList')
     // .send(data)
     // .expect(200);
-  });
+  //});
 
-  test('should accept PUT requests to /shoppingList', () => {
+  //test('should accept PUT requests to /shoppingList', () => {
     // var data = {
     //   username: 'Candice',
     //   product: {
@@ -64,9 +57,9 @@ describe('Test Shopping List Routes', () => {
     // .put('/shoppingList')
     // .send(data)
     // .expect(200);
-  });
+  //});
 
-  test('should accept DELETE requests to /shoppingList', () => {
+  //test('should accept DELETE requests to /shoppingList', () => {
     // var data = {
     //   username: 'Candice',
     //   productId: 1
@@ -76,7 +69,7 @@ describe('Test Shopping List Routes', () => {
     // .delete('/shoppingList')
     // .send(data)
     // .expect(200);
-  });
+  //});
 
-});
+//});
 
