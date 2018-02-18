@@ -29,7 +29,7 @@ const amazonMail = require('./controllers/emailNotifications');
 
 /* Routes */
 const { apiRouter } = require('./routes/apiRoutes.js')
-const { shoppingListRouter } = require('./routes/shoppingListRoutes.js');
+const shoppingListRouter = require('./routes/shoppingListRoutes.js');
 const { amazonRouter } = require('./routes/amazonRoutes.js');
 const { ebayRouter } = require('./routes/ebayRoutes.js');
 const { settingsRouter } = require('./routes/settingsRoutes.js');

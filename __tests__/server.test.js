@@ -1,18 +1,19 @@
-const request = require('supertest');
+const supertest = require('supertest');
 const { app } = require('../server/app.js');
 const proxyquire = require('proxyquire');
-const path = require('path');
 
 describe('Test Generic Routes', () => {
+  const request = supertest(app);
+
   test('should get index page', (done) => {
-    request(app).get('/').then((res) => {
+    request.get('/').then((res) => {
       expect(res.statusCode).toBe(200);
       done();
     });
   });
 
   test('should get index page when requesting non-existent route', (done) => {
-    request(app).get('/random').then((res) => {
+    request.get('/random').then((res) => {
       expect(res.statusCode).toBe(200);
       done();
     });
@@ -23,21 +24,37 @@ describe('Test ShoppingList Route', () => {
   test('should authenticate all GET requests to the shopping list route', (done) => {
     //using inversion of control to pass mocks as dependencies
 
-    createShoppingListStub = jest.fn();
+    const shoppingListControllers = [
+      'createShoppingList',
+      'getShoppingList',
+      'addItemToShoppingList',
+      'removeItemFromShoppingList',
+      'updateShoppingList',
+      'updateWatchPrice',
+      'isAuthenticated',
+      'addNewUserData'
+    ];
 
+   const controllerStubMap = shoppingListControllers.reduce((stubObj, ctrlName) => {
+    stubObj[ctrlName] = jest.fn();
+     return stubObj;
+   }, {})
+
+    const authStub = jest.fn();
     //replace dependencies with mocks that use stubs for controllers
-    console.log(__dirname)
-    const shoppingListRouter = proxyquire('../server/routes/shoppingListRoutes', {
-
-        createShoppingList: createShoppingListStub
-
+    const shoppingListRouter = proxyquire('../server/routes/shoppingListRoutes.js', {
+        isAuthenticated: authStub
     });
-    //shoppingListRouter(app);
 
-    //request(app).get('/shoppingList').then((res) => {
-      //console.log(res.data);
+    shoppingListRouter(app);
+    const request = supertest(app);
+
+    request.get('/shoppingList').send({username: 'nick', password: 'password'}).then((res) => {
+      //const authMock = controllerStubMap['isAuthenticated'];
+      //console.log(controllerStubMap['isAuthenticated'])
+      //expect(authStub).toBeCalled();
       done();
-    //});
+    });
   });
 });
 

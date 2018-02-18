@@ -18,7 +18,7 @@ const { isAuthenticated } = require('../controllers/authroutes.js');
   Shopping List Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-module.exports.shoppingListRouter = (app) => {
+module.exports = (app) => {
   const shoppingListRoute = express.Router();
 
   app.use('/shoppingList', shoppingListRoute);
@@ -32,6 +32,7 @@ module.exports.shoppingListRouter = (app) => {
 });
 
   shoppingListRoute.get('/', isAuthenticated, (req, res) => {
+    console.log('Getting ShoppingList')
     var username = req.username;
     getShoppingList(username)
     .then((data) => {
