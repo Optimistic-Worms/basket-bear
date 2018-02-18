@@ -1,5 +1,6 @@
 const request = require('supertest');
 const { app } = require('../server/app.js');
+const proxyquire = require('proxyquire');
 
 describe('Test Generic Routes', () => {
   test('should get index page', (done) => {
@@ -17,8 +18,18 @@ describe('Test Generic Routes', () => {
   });
 });
 
-describe('Test Autheticated Routes', () => {
+describe('Test ShoppingList Route', () => {
   test('should authenticate all GET requests to the shopping list route', (done) => {
+
+    createShoppingListStub = jest.fn();
+    const { shoppingListRouter } = proxyquire('../server/routes/shoppingListRoutes.js', {
+      '../controllers/shoppingList': {
+        createShoppingList: createShoppingListStub
+      }
+    });
+    //using inversion of control to pass mocks as dependencies
+    shoppingListRouter(app);
+
     request(app).get('/shoppingList').then((res) => {
       console.log(res.data);
       done();
