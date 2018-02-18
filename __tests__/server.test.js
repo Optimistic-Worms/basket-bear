@@ -22,12 +22,24 @@ describe('Test ShoppingList Route', () => {
   test('should authenticate all GET requests to the shopping list route', (done) => {
     //using inversion of control to pass mocks as dependencies
 
-    createShoppingListStub = jest.fn();
+    const shoppingListControllers = [
+      'createShoppingList',
+      'getShoppingList',
+      'addItemToShoppingList',
+      'removeItemFromShoppingList',
+      'updateShoppingList',
+      'updateWatchPrice',
+    ];
 
     //replace dependencies with mocks that use stubs for controllers
     const { shoppingListRouter } = proxyquire('../server/routes/shoppingListRoutes.js', {
       '../controllers/shoppingList': {
-        createShoppingList: createShoppingListStub
+        createShoppingList,
+        getShoppingList,
+        addItemToShoppingList,
+        removeItemFromShoppingList,
+        updateShoppingList,
+        updateWatchPrice,
       }
     });
     shoppingListRouter(app);
