@@ -8,6 +8,7 @@
     "server": "nodemon ./server/server.js",
     "hot": "HOT=true nodemon ./server/server.js",
     "test": "jest",
+    "server-test": "jest __tests__/server.test.js",
     "local-test": "NODE_ENV=test jest --watch",
     "windows-test": ".NODE_ENV=test& jest --watch --no-cache",
     "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
@@ -15,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Optimistic-Worms/thesis-project.git"
+    "url": "git+https://github.com/Optimistic-Worms/basket-bear"
   },
   "keywords": [],
   "author": "",
@@ -23,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/Optimistic-Worms/thesis-project/issues"
   },
-  "homepage": "https://github.com/Optimistic-Worms/thesis-project#readme",
+  "homepage": "https://github.com/Optimistic-Worms/basket-bear#readme",
   "dependencies": {
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",
