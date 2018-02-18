@@ -7,7 +7,7 @@
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
     "hot": "HOT=true nodemon ./server/server.js",
-    "test": "NODE_ENV=test jest",
+    "test": "jest",
     "local-test": "NODE_ENV=test jest --watch",
     "windows-test": ".NODE_ENV=test& jest --watch --no-cache",
     "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
