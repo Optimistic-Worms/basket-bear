@@ -18,6 +18,9 @@ The application also provides a public REST API for using the search engine and 
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
+    1. [NPM Scripts](#npm-scripts)
+    1. [Docker](#docker)
+    1. [Environment](#environment)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
