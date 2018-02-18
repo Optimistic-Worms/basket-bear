@@ -47,20 +47,23 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
 /* Initialize Webpack */
-let config;
-(port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
-const compiler = webpack(config);
+if (process.env.NODE_ENV !== 'test') {
+  let config;
+  (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
+  const compiler = webpack(config);
 
-const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
-  publicPath: config.output.publicPath
-});
+  const webpackDevMiddlewareInstance = webpackDevMiddleware( compiler, {
+    publicPath: config.output.publicPath
+  });
 
-app.use(webpackDevMiddlewareInstance);
+  app.use(webpackDevMiddlewareInstance);
 
-if (process.env.HOT) {
-  app.use(webpackHotMiddleware(compiler));
+  if (process.env.HOT) {
+    app.use(webpackHotMiddleware(compiler));
+  }
+
+  module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
 }
-
 /* * * * * * * * * * * * * * * * * * * * * * * * * * *
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
@@ -101,9 +104,5 @@ app.get('*', (req,res) =>{
   res.sendFile(path.resolve(__dirname, '../index.html'))
 });
 
-//const server = app.listen(port || 3000);
-//console.log('server is listening on port ' + port);
-
 module.exports.app = app;
 module.exports.port = port;
-module.exports.webpackDevMiddlewareInstance = webpackDevMiddlewareInstance;
