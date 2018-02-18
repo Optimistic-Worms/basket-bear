@@ -68,7 +68,8 @@ if (process.env.NODE_ENV !== 'test') {
 Routes
 * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-app.use('/shoppingList', shoppingListRouter);
+//app.use('/shoppingList', shoppingListRouter);
+shoppingListRouter(app);
 app.use('/amazon', amazonRouter);
 app.use('/ebay', ebayRouter);
 app.use('/userSettings', settingsRouter);

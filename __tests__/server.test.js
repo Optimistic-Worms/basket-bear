@@ -17,6 +17,15 @@ describe('Test Generic Routes', () => {
   });
 });
 
+describe('Test Autheticated Routes', () => {
+  test('should authenticate all GET requests to the shopping list route', (done) => {
+    request(app).get('/shoppingList').then((res) => {
+      console.log(res.data);
+      done();
+    });
+  });
+});
+
 
 
 //describe('Test Shopping List Routes', () => {
