@@ -12,6 +12,7 @@
     "local-test": "NODE_ENV=test jest --watch",
     "windows-test": ".NODE_ENV=test& jest --watch --no-cache",
     "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
+    "container": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm run hot",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
   "repository": {

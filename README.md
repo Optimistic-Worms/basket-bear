@@ -37,24 +37,6 @@ The application also provides a public REST API for using the search engine and 
 
 
 ## Development
-npm scripts are provided for running tests and launching dev middleware locally
-
-runs test all suites using Jest
-```sh
-npm run test
-```
-
-start the server with nodemon and webpack-dev-middleware:
-```sh
-npm run server
-```
-
-start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
-```sh
-npm run hot
-```
-
-
 
 ### Installing Dependencies
 
@@ -62,6 +44,66 @@ From within the root directory:
 
 ```sh
 npm install
+```
+
+### NPM Scripts
+npm scripts are provided for running tests and launching dev middleware locally
+
+From within the root directory:
+
+Run test all suites using Jest:
+```sh
+npm run test
+```
+
+Run server test suites using Jest:
+```sh
+npm run server-test
+```
+
+Start the server with nodemon and webpack-dev-middleware:
+```sh
+npm run server
+```
+
+Start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+```sh
+npm run hot
+```
+
+### Docker
+Docker 17.x must be installed to use the following npm scripts:
+Container is mapped to local port 8000
+
+Launch a local docker container and run all test suites inside:
+```sh
+npm run prod-test
+```
+
+Launch a local docker container and start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+```sh
+npm run container
+```
+
+### Environment
+create a hidden file called .env in your root directory that contains values for the environment variables below:
+
+- EBAY_KEY
+- AMAZON_PUBLIC_KEY
+- AMAZON_PRIVATE_KEY
+- AMAZON_ASSOCIATE_TAG
+- VAPID_SUBJECT
+- VAPID_PUBLIC_KEY
+- VAPID_PRIVATE_KEY
+- AUTH_SECRET
+- CRON_AUTH
+- CRON_TOKEN
+- SMPT_USERNAME
+- SMPT_PW
+
+All environment variables are not necessary to run tests
+
+
 ```
 
 ## Contributing
