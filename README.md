@@ -1,6 +1,9 @@
 # Basket Bear
 
-> A documented API that provides data endpoints of “requested price” information to retailers and businesses. The data will be collected from a UI that allows online shoppers to receive notifications when their requested product falls below their desired price across three major online retailers.
+> An open source web application that provides the lowest prices for products from Amazon and Ebay. Users can can easily search for products and add them to a watch list to receive notifications for price drops and set a target price to wait for. A service worker checks prices regularly and updates the user’s watch list.
+
+The application also provides a public REST API for using the search engine and for retrieving requested price information for products and other marketing data like most popular products. Merchants, businesses, and developers can sign up for free access to our API through the Developers page and learn how to use it by reading our documentation.
+
 
 ## Team
 
@@ -15,14 +18,13 @@
 1. [Requirements](#requirements)
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
 1. [Team](#team)
 1. [Contributing](#contributing)
 
 ## Usage
 
-- [UI](https://basketbear.com/) is for getting notification when the price of a requested item drops 
-- [Buisness API](https://basketbear.com/dev) is used for scanning customers requests, and accessing Amazon and Ebay's advertising APIs. 
+- [UI](https://basketbear.com/) is for getting notification when the price of a requested item drops
+- [Buisness API](https://basketbear.com/dev) is used for scanning customers requests, and accessing Amazon and Ebay's advertising APIs.
 
 ## Requirements
 
@@ -35,6 +37,24 @@
 
 
 ## Development
+npm scripts are provided for running tests and launching dev middleware locally
+
+runs test all suites using Jest
+```sh
+npm run test
+```
+
+start the server with nodemon and webpack-dev-middleware:
+```sh
+npm run server
+```
+
+start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+```sh
+npm run hot
+```
+
+
 
 ### Installing Dependencies
 
@@ -42,9 +62,7 @@ From within the root directory:
 
 ```sh
 npm install
-npm run server
 ```
-
 
 ## Contributing
 
