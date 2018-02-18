@@ -86,7 +86,7 @@ npm run container
 ```
 
 ### Environment
-create a hidden file called .env in your root directory that contains values for the environment variables below:
+create a hidden file called .env in the root of the project that contains values for the environment variables below:
 
 - EBAY_KEY
 - AMAZON_PUBLIC_KEY
@@ -101,8 +101,8 @@ create a hidden file called .env in your root directory that contains values for
 - SMPT_USERNAME
 - SMPT_PW
 
-All environment variables are not necessary to run tests
-
+environment variables are not necessary to run tests
+The .env file is ignored by git
 
 ```
 
