@@ -42,9 +42,7 @@ describe('Test ShoppingList Route', () => {
 
     const authStub = jest.fn();
     //replace dependencies with mocks that use stubs for controllers
-    const shoppingListRouter = proxyquire('../server/routes/shoppingListRoutes.js', {
-        isAuthenticated: authStub
-    });
+    const shoppingListRouter = require('../server/routes/shoppingListRoutes.js');
 
     shoppingListRouter(app);
     const request = supertest(app);
