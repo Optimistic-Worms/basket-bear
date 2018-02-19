@@ -56,7 +56,7 @@ From within the root directory:
 
 Run test all suites using Jest:
 ```sh
-npm run test
+npm test
 ```
 
 Run server test suites using Jest:
