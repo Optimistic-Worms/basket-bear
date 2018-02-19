@@ -4,16 +4,9 @@ An open source web application that provides the lowest prices for products from
 
 The application also provides a public REST API for using the search engine and for retrieving requested price information for products and other marketing data like most popular products. Merchants, businesses, and developers can sign up for free access to our API through the Developers page and learn how to use it by reading our documentation.
 
-
-## Team
-
-  - __Product Owner__: Jason
-  - __Scrum Master__: Diana
-  - __Git Workflow__: Nick
-  - __Software Engineering__: Candice, Jason, Diana, Nick
-
 ## Table of Contents
 
+1. [Team](#Team)
 1. [Usage](#Usage)
 1. [Requirements](#requirements)
 1. [Development](#development)
@@ -24,6 +17,12 @@ The application also provides a public REST API for using the search engine and 
 1. [Contributing](#contributing)
 1. [Public API](#public-api)
 
+## Team
+
+  - __Product Owner__: Jason
+  - __Scrum Master__: Diana
+  - __Git Workflow__: Nick
+  - __Software Engineering__: Candice, Jason, Diana, Nick
 
 ## Usage
 
@@ -70,7 +69,7 @@ Start the server with nodemon and webpack-dev-middleware:
 npm run server
 ```
 
-Start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+Start the server with nodemon, webpack-dev middleware, and webpack-hot-middleware:
 ```sh
 npm run hot
 ```
@@ -84,7 +83,7 @@ Launch a local docker container and run all test suites inside:
 npm run prod-test
 ```
 
-Launch a local docker container and start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+Launch a local docker container and start the server with nodemon, webpack-dev middleware, and webpack-hot-middleware:
 ```sh
 npm run container
 ```
