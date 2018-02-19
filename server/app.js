@@ -47,7 +47,7 @@ app.use(bodyParser.json({ type: 'application/json' }));
 app.use(express.static(__dirname));
 
 /* Initialize Webpack */
-if (process.env.NODE_ENV !== 'test') {
+if (process.env.NODE_ENV !== 'server_test') {
   let config;
   (port === 3000)? config = require('../webpack.dev.js') : config = require('../webpack.prod.js');
   const compiler = webpack(config);
