@@ -69,7 +69,7 @@ Start the server with nodemon and webpack-dev-middleware:
 npm run server
 ```
 
-Start the server with nodemon, webpack-dev middleware, and webpack-hot-middleware:
+Start the server with nodemon, webpack-dev-middleware, and webpack-hot-middleware:
 ```sh
 npm run hot
 ```
