@@ -21,7 +21,6 @@ The application also provides a public REST API for using the search engine and 
     1. [NPM Scripts](#npm-scripts)
     1. [Docker](#docker)
     1. [Environment](#environment)
-1. [Team](#team)
 1. [Contributing](#contributing)
 1. [Public API](#public-api)
 
