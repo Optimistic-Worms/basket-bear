@@ -23,6 +23,8 @@ The application also provides a public REST API for using the search engine and 
     1. [Environment](#environment)
 1. [Team](#team)
 1. [Contributing](#contributing)
+1. [Public API](#public-api)
+
 
 ## Usage
 
@@ -54,9 +56,14 @@ npm scripts are provided for running tests and launching dev middleware locally
 
 From within the root directory:
 
-Run all test suites using Jest:
+Run test all suites using Jest:
 ```sh
-npm test
+npm run test
+```
+
+Run server test suites using Jest:
+```sh
+npm run server-test
 ```
 
 Start the server with nodemon and webpack-dev-middleware:
@@ -78,6 +85,11 @@ Launch a local docker container and run all test suites inside:
 npm run prod-test
 ```
 
+Launch a local docker container and start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
+```sh
+npm run container
+```
+
 ### Environment
 create a hidden file called .env in the root of the project that contains values for the environment variables below:
 
@@ -97,8 +109,10 @@ create a hidden file called .env in the root of the project that contains values
 environment variables are not necessary to run tests
 The .env file is ignored by git
 
-```
-
 ## Contributing
 
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
+
+## Public API
+see our [Developers Page](https://www.basketbear.com/dev) for instructions opn how to sign up and access the Basket Bear Web API
+
