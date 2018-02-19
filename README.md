@@ -1,6 +1,6 @@
 # Basket Bear
 
-> An open source web application that provides the lowest prices for products from Amazon and Ebay. Users can can easily search for products and add them to a watch list to receive notifications for price drops and set a target price to wait for. A service worker checks prices regularly and updates the user’s watch list.
+An open source web application that provides the lowest prices for products from Amazon and Ebay. Users can can easily search for products and add them to a watch list to receive notifications for price drops and set a target price to wait for. A service worker checks prices regularly and updates the user’s watch list.
 
 The application also provides a public REST API for using the search engine and for retrieving requested price information for products and other marketing data like most popular products. Merchants, businesses, and developers can sign up for free access to our API through the Developers page and learn how to use it by reading our documentation.
 
