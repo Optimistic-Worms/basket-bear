@@ -7,23 +7,25 @@
     "start": "node ./server/server.js",
     "server": "nodemon ./server/server.js",
     "hot": "HOT=true nodemon ./server/server.js",
-    "test": "NODE_ENV=test jest",
+    "test": "jest",
+    "server-test": "NODE_ENV=server_test jest spec/server_test.js",
     "local-test": "NODE_ENV=test jest --watch",
     "windows-test": ".NODE_ENV=test& jest --watch --no-cache",
     "prod-test": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm test",
+    "container": "docker build -t basket-dev . && docker run -it -p 8000:8000 basket-dev npm run hot",
     "postinstall": "webpack -p --config webpack.prod.js --progress"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Optimistic-Worms/thesis-project.git"
+    "url": "git+https://github.com/Optimistic-Worms/basket-bear"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Optimistic-Worms/thesis-project/issues"
+    "url": "https://github.com/Optimistic-Worms/basket-bear/issues"
   },
-  "homepage": "https://github.com/Optimistic-Worms/thesis-project#readme",
+  "homepage": "https://github.com/Optimistic-Worms/basket-bear#readme",
   "dependencies": {
     "axios": "^0.17.1",
     "bcrypt": "^1.0.3",
