@@ -32,7 +32,6 @@ module.exports = (app) => {
 });
 
   shoppingListRoute.get('/', isAuthenticated, (req, res) => {
-    console.log('Getting ShoppingList')
     var username = req.username;
     getShoppingList(username)
     .then((data) => {
