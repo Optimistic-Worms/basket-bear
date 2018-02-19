@@ -54,14 +54,9 @@ npm scripts are provided for running tests and launching dev middleware locally
 
 From within the root directory:
 
-Run test all suites using Jest:
+Run all test suites using Jest:
 ```sh
 npm test
-```
-
-Run server test suites using Jest:
-```sh
-npm run server-test
 ```
 
 Start the server with nodemon and webpack-dev-middleware:
@@ -81,11 +76,6 @@ Container is mapped to local port 8000
 Launch a local docker container and run all test suites inside:
 ```sh
 npm run prod-test
-```
-
-Launch a local docker container and start the server with nodemon, webpack-dev middleware,-and webpack-hot-middleware:
-```sh
-npm run container
 ```
 
 ### Environment
