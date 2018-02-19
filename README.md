@@ -112,5 +112,5 @@ The .env file is ignored by git
 See [CONTRIBUTING.md](_CONTRIBUTING.md) for contribution guidelines.
 
 ## Public API
-see our [Developers Page](https://www.basketbear.com/dev) for instructions opn how to sign up and access the Basket Bear Web API
+See our [Developers Page](https://www.basketbear.com/dev) for instructions opn how to sign up and access the Basket Bear Web API
 
